@@ -3,1309 +3,2233 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vanyax — Intelligence for the Living World</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Mono:wght@300;400;500&family=Sora:wght@300;400;600&display=swap" rel="stylesheet">
+<title>Vanyax — Environmental Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --black: #080c08;
-    --forest: #0d1f0d;
-    --deep: #111d10;
-    --green-dim: #1a3a1a;
-    --green-mid: #2d5a2d;
-    --green-glow: #4a9e4a;
-    --green-bright: #6fcf6f;
-    --green-neon: #a8ff78;
-    --earth: #8b6914;
-    --soil: #5c4a1e;
-    --cream: #f0ead6;
-    --mist: #c8d9c0;
-    --white: #f5f5f0;
-    --mono: 'DM Mono', monospace;
-    --serif: 'Playfair Display', serif;
-    --sans: 'Sora', sans-serif;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--black);
-    color: var(--white);
-    font-family: var(--sans);
-    overflow-x: hidden;
-  }
-
-  /* Noise texture overlay */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 1000;
-    opacity: 0.4;
-  }
-
-  /* ── NAV ── */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    padding: 1.5rem 4rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: linear-gradient(to bottom, rgba(8,12,8,0.95), transparent);
-    backdrop-filter: blur(8px);
-  }
-
-  .nav-logo {
-    font-family: var(--serif);
-    font-size: 1.6rem;
-    font-weight: 900;
-    color: var(--green-neon);
-    letter-spacing: -0.02em;
-  }
-
-  .nav-logo span {
-    color: var(--cream);
-    font-style: italic;
-  }
-
-  .nav-links {
-    display: flex;
-    gap: 2.5rem;
-    list-style: none;
-  }
-
-  .nav-links a {
-    color: var(--mist);
-    text-decoration: none;
-    font-size: 0.8rem;
-    font-weight: 300;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    transition: color 0.3s;
-  }
-
-  .nav-links a:hover { color: var(--green-neon); }
-
-  .nav-cta {
-    background: transparent;
-    border: 1px solid var(--green-glow);
-    color: var(--green-bright) !important;
-    padding: 0.5rem 1.2rem;
-    border-radius: 2px;
-    transition: all 0.3s !important;
-  }
-
-  .nav-cta:hover {
-    background: var(--green-glow) !important;
-    color: var(--black) !important;
-  }
-
-  /* ── HERO ── */
-  #hero {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 8rem 4rem 4rem;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero-bg {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 60% 60% at 70% 40%, rgba(74,158,74,0.08) 0%, transparent 70%),
-      radial-gradient(ellipse 40% 40% at 20% 80%, rgba(139,105,20,0.06) 0%, transparent 60%),
-      radial-gradient(ellipse 80% 50% at 50% 10%, rgba(13,31,13,0.8) 0%, transparent 80%);
-  }
-
-  .hero-grid {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(74,158,74,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(74,158,74,0.04) 1px, transparent 1px);
-    background-size: 60px 60px;
-    mask-image: radial-gradient(ellipse at center, black 20%, transparent 80%);
-  }
-
-  .hero-tag {
-    font-family: var(--mono);
-    font-size: 0.7rem;
-    color: var(--green-glow);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    margin-bottom: 1.5rem;
-    opacity: 0;
-    animation: fadeUp 0.8s ease 0.2s forwards;
-  }
-
-  .hero-tag::before {
-    content: '// ';
-    color: var(--green-dim);
-  }
-
-  .hero-title {
-    font-family: var(--serif);
-    font-size: clamp(3.5rem, 8vw, 7rem);
-    font-weight: 900;
-    line-height: 0.95;
-    letter-spacing: -0.03em;
-    margin-bottom: 2rem;
-    opacity: 0;
-    animation: fadeUp 0.8s ease 0.4s forwards;
-  }
-
-  .hero-title .line2 {
-    color: var(--green-neon);
-    font-style: italic;
-  }
-
-  .hero-title .line3 {
-    color: var(--mist);
-    font-size: 0.55em;
-    font-weight: 400;
-    font-style: normal;
-    display: block;
-    margin-top: 0.3em;
-  }
-
-  .hero-desc {
-    max-width: 520px;
-    font-size: 1rem;
-    line-height: 1.7;
-    color: var(--mist);
-    font-weight: 300;
-    margin-bottom: 3rem;
-    opacity: 0;
-    animation: fadeUp 0.8s ease 0.6s forwards;
-  }
-
-  .hero-actions {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-    opacity: 0;
-    animation: fadeUp 0.8s ease 0.8s forwards;
-  }
-
-  .btn-primary {
-    background: var(--green-neon);
-    color: var(--black);
-    padding: 0.9rem 2rem;
-    border: none;
-    font-family: var(--sans);
-    font-size: 0.85rem;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    cursor: pointer;
-    transition: all 0.3s;
-    text-decoration: none;
-    display: inline-block;
-  }
-
-  .btn-primary:hover {
-    background: var(--white);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(168,255,120,0.3);
-  }
-
-  .btn-secondary {
-    color: var(--mist);
-    font-size: 0.85rem;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    transition: color 0.3s;
-    font-weight: 300;
-  }
-
-  .btn-secondary:hover { color: var(--green-neon); }
-
-  .hero-stats {
-    position: absolute;
-    right: 4rem;
-    bottom: 4rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    opacity: 0;
-    animation: fadeIn 1s ease 1.2s forwards;
-  }
-
-  .stat {
-    text-align: right;
-  }
-
-  .stat-num {
-    font-family: var(--mono);
-    font-size: 2rem;
-    color: var(--green-bright);
-    display: block;
-    line-height: 1;
-  }
-
-  .stat-label {
-    font-size: 0.7rem;
-    color: var(--green-dim);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    font-weight: 300;
-  }
-
-  .scroll-indicator {
-    position: absolute;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    opacity: 0;
-    animation: fadeIn 1s ease 1.5s forwards;
-  }
-
-  .scroll-line {
-    width: 1px;
-    height: 50px;
-    background: linear-gradient(to bottom, var(--green-glow), transparent);
-    animation: scrollPulse 2s ease infinite;
-  }
-
-  .scroll-text {
-    font-family: var(--mono);
-    font-size: 0.6rem;
-    color: var(--green-dim);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    writing-mode: vertical-rl;
-  }
-
-  /* ── MARQUEE ── */
-  .marquee-wrap {
-    border-top: 1px solid var(--green-dim);
-    border-bottom: 1px solid var(--green-dim);
-    padding: 1rem 0;
-    overflow: hidden;
-    background: var(--forest);
-  }
-
-  .marquee {
-    display: flex;
-    gap: 3rem;
-    animation: marquee 25s linear infinite;
-    white-space: nowrap;
-  }
-
-  .marquee-item {
-    font-family: var(--mono);
-    font-size: 0.75rem;
-    color: var(--green-glow);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .marquee-item::after {
-    content: '◆';
-    color: var(--earth);
-    font-size: 0.5rem;
-  }
-
-  /* ── ABOUT ── */
-  #about {
-    padding: 8rem 4rem;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6rem;
-    align-items: center;
-    max-width: 1400px;
-    margin: 0 auto;
-  }
-
-  .section-tag {
-    font-family: var(--mono);
-    font-size: 0.65rem;
-    color: var(--green-glow);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-  }
-
-  .section-tag::before {
-    content: '';
-    width: 30px;
-    height: 1px;
-    background: var(--green-glow);
-    display: inline-block;
-  }
-
-  .section-title {
-    font-family: var(--serif);
-    font-size: clamp(2rem, 4vw, 3.5rem);
-    font-weight: 700;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-    margin-bottom: 1.5rem;
-  }
-
-  .section-title em {
-    color: var(--green-neon);
-    font-style: italic;
-  }
-
-  .about-text {
-    color: var(--mist);
-    line-height: 1.8;
-    font-weight: 300;
-    font-size: 0.95rem;
-    margin-bottom: 1rem;
-  }
-
-  .about-right {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1px;
-    background: var(--green-dim);
-    border: 1px solid var(--green-dim);
-  }
-
-  .about-card {
-    background: var(--forest);
-    padding: 2rem;
-    transition: background 0.3s;
-  }
-
-  .about-card:hover { background: var(--deep); }
-
-  .about-card-icon {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-  }
-
-  .about-card h3 {
-    font-family: var(--serif);
-    font-size: 1rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-    color: var(--cream);
-  }
-
-  .about-card p {
-    font-size: 0.8rem;
-    color: var(--mist);
-    line-height: 1.6;
-    font-weight: 300;
-  }
-
-  /* ── SERVICES ── */
-  #services {
-    padding: 8rem 4rem;
-    background: var(--forest);
-    position: relative;
-    overflow: hidden;
-  }
-
-  #services::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--green-dim), transparent);
-  }
-
-  .services-header {
-    max-width: 1400px;
-    margin: 0 auto 4rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-  }
-
-  .services-grid {
-    max-width: 1400px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: var(--green-dim);
-    border: 1px solid var(--green-dim);
-  }
-
-  .service-card {
-    background: var(--black);
-    padding: 3rem 2.5rem;
-    position: relative;
-    overflow: hidden;
-    transition: background 0.4s;
-    cursor: default;
-  }
-
-  .service-card::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0;
-    width: 0;
-    height: 2px;
-    background: var(--green-neon);
-    transition: width 0.4s ease;
-  }
-
-  .service-card:hover { background: var(--deep); }
-  .service-card:hover::after { width: 100%; }
-
-  .service-num {
-    font-family: var(--mono);
-    font-size: 0.65rem;
-    color: var(--green-dim);
-    letter-spacing: 0.15em;
-    margin-bottom: 2rem;
-    display: block;
-  }
-
-  .service-icon {
-    width: 48px;
-    height: 48px;
-    border: 1px solid var(--green-dim);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-    margin-bottom: 1.5rem;
-    transition: border-color 0.3s;
-  }
-
-  .service-card:hover .service-icon { border-color: var(--green-glow); }
-
-  .service-card h3 {
-    font-family: var(--serif);
-    font-size: 1.3rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    color: var(--cream);
-    line-height: 1.2;
-  }
-
-  .service-card p {
-    font-size: 0.85rem;
-    color: var(--mist);
-    line-height: 1.7;
-    font-weight: 300;
-  }
-
-  .service-tags {
-    margin-top: 1.5rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-
-  .tag {
-    font-family: var(--mono);
-    font-size: 0.65rem;
-    color: var(--green-glow);
-    border: 1px solid var(--green-dim);
-    padding: 0.2rem 0.6rem;
-    letter-spacing: 0.05em;
-  }
-
-  /* ── PROJECTS ── */
-  #projects {
-    padding: 8rem 4rem;
-    max-width: 1400px;
-    margin: 0 auto;
-  }
-
-  .projects-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-bottom: 4rem;
-  }
-
-  .projects-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1px;
-    background: var(--green-dim);
-    border: 1px solid var(--green-dim);
-  }
-
-  .project-item {
-    background: var(--black);
-    padding: 2.5rem 3rem;
-    display: grid;
-    grid-template-columns: 80px 1fr auto;
-    gap: 3rem;
-    align-items: start;
-    transition: background 0.3s;
-    cursor: pointer;
-    text-decoration: none;
-    color: inherit;
-  }
-
-  .project-item:hover { background: var(--deep); }
-
-  .project-year {
-    font-family: var(--mono);
-    font-size: 0.7rem;
-    color: var(--green-dim);
-    letter-spacing: 0.1em;
-    padding-top: 0.3rem;
-  }
-
-  .project-content h3 {
-    font-family: var(--serif);
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: var(--cream);
-    margin-bottom: 0.8rem;
-    line-height: 1.3;
-    transition: color 0.3s;
-  }
-
-  .project-item:hover .project-content h3 { color: var(--green-neon); }
-
-  .project-content p {
-    font-size: 0.85rem;
-    color: var(--mist);
-    line-height: 1.7;
-    font-weight: 300;
-    max-width: 680px;
-  }
-
-  .project-stack {
-    margin-top: 1.2rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-  }
-
-  .project-arrow {
-    font-size: 1.2rem;
-    color: var(--green-dim);
-    transition: all 0.3s;
-    padding-top: 0.3rem;
-  }
-
-  .project-item:hover .project-arrow {
-    color: var(--green-neon);
-    transform: translate(4px, -4px);
-  }
-
-  /* ── HOW IT WORKS ── */
-  #process {
-    padding: 8rem 4rem;
-    background: var(--forest);
-    position: relative;
-  }
-
-  .process-inner {
-    max-width: 1400px;
-    margin: 0 auto;
-  }
-
-  .process-steps {
-    margin-top: 4rem;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0;
-    position: relative;
-  }
-
-  .process-steps::before {
-    content: '';
-    position: absolute;
-    top: 2rem;
-    left: 2rem;
-    right: 2rem;
-    height: 1px;
-    background: linear-gradient(90deg, var(--green-dim), var(--green-glow), var(--green-dim));
-  }
-
-  .process-step {
-    padding: 0 2rem;
-    padding-top: 5rem;
-  }
-
-  .step-num {
-    position: absolute;
-    top: 1.25rem;
-    width: 1.5rem;
-    height: 1.5rem;
-    border: 1px solid var(--green-glow);
-    background: var(--forest);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--mono);
-    font-size: 0.6rem;
-    color: var(--green-glow);
-  }
-
-  .process-step { position: relative; }
-
-  .process-step h3 {
-    font-family: var(--serif);
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--cream);
-    margin-bottom: 0.8rem;
-  }
-
-  .process-step p {
-    font-size: 0.82rem;
-    color: var(--mist);
-    line-height: 1.7;
-    font-weight: 300;
-  }
-
-  /* ── CTA ── */
-  #cta {
-    padding: 10rem 4rem;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-
-  #cta::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 60% 60% at 50% 50%, rgba(74,158,74,0.1) 0%, transparent 70%);
-  }
-
-  .cta-eyebrow {
-    font-family: var(--mono);
-    font-size: 0.7rem;
-    color: var(--green-glow);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    margin-bottom: 2rem;
-  }
-
-  .cta-title {
-    font-family: var(--serif);
-    font-size: clamp(2.5rem, 6vw, 5rem);
-    font-weight: 900;
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    margin-bottom: 1.5rem;
-  }
-
-  .cta-title em {
-    color: var(--green-neon);
-    font-style: italic;
-  }
-
-  .cta-sub {
-    font-size: 1rem;
-    color: var(--mist);
-    font-weight: 300;
-    max-width: 480px;
-    margin: 0 auto 3rem;
-    line-height: 1.7;
-  }
-
-  .cta-actions {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    align-items: center;
-  }
-
-  /* ── FOOTER ── */
-  footer {
-    border-top: 1px solid var(--green-dim);
-    padding: 3rem 4rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: var(--forest);
-  }
-
-  .footer-logo {
-    font-family: var(--serif);
-    font-size: 1.3rem;
-    font-weight: 900;
-    color: var(--green-neon);
-  }
-
-  .footer-logo span {
-    color: var(--cream);
-    font-style: italic;
-  }
-
-  .footer-tagline {
-    font-family: var(--mono);
-    font-size: 0.7rem;
-    color: var(--green-dim);
-    letter-spacing: 0.1em;
-    margin-top: 0.3rem;
-  }
-
-  .footer-links {
-    display: flex;
-    gap: 2rem;
-    list-style: none;
-  }
-
-  .footer-links a {
-    color: var(--mist);
-    text-decoration: none;
-    font-size: 0.8rem;
-    font-weight: 300;
-    transition: color 0.3s;
-  }
-
-  .footer-links a:hover { color: var(--green-neon); }
-
-  .footer-copy {
-    font-family: var(--mono);
-    font-size: 0.65rem;
-    color: var(--green-dim);
-    letter-spacing: 0.05em;
-  }
-
-  /* ── HIGHLIGHT BOX ── */
-  .highlight-box {
-    border: 1px solid var(--green-dim);
-    padding: 1.5rem;
-    margin-top: 2rem;
-    background: rgba(13,31,13,0.5);
-    position: relative;
-  }
-
-  .highlight-box::before {
-    content: '';
-    position: absolute;
-    top: -1px; left: 2rem;
-    width: 40px;
-    height: 2px;
-    background: var(--green-neon);
-  }
-
-  .highlight-label {
-    font-family: var(--mono);
-    font-size: 0.6rem;
-    color: var(--green-glow);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    margin-bottom: 0.5rem;
-  }
-
-  .highlight-text {
-    font-size: 0.85rem;
-    color: var(--mist);
-    line-height: 1.6;
-    font-weight: 300;
-  }
-
-  /* ── ANIMATIONS ── */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
-  @keyframes marquee {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
-
-  @keyframes scrollPulse {
-    0%, 100% { opacity: 0.4; }
-    50% { opacity: 1; }
-  }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 900px) {
-    nav { padding: 1.5rem 2rem; }
-    .nav-links { display: none; }
-    #hero, #about, #services, #projects, #process, #cta { padding: 6rem 2rem; }
-    #about { grid-template-columns: 1fr; gap: 3rem; }
-    .services-grid { grid-template-columns: 1fr; }
-    .projects-header, .services-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
-    .process-steps { grid-template-columns: 1fr 1fr; gap: 3rem; }
-    .process-steps::before { display: none; }
-    .project-item { grid-template-columns: 1fr; gap: 1rem; }
-    .project-year, .project-arrow { display: none; }
-    .hero-stats { display: none; }
-    footer { flex-direction: column; gap: 2rem; text-align: center; }
-  }
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:16px}
+:root{
+  --bg:#050706;
+  --bg2:#0a0d09;
+  --bg3:#0f120d;
+  --lime:#c8f135;
+  --lime2:#d9ff4a;
+  --lime3:#e5ff7a;
+  --ldim:rgba(200,241,53,.06);
+  --lmid:rgba(200,241,53,.15);
+  --lglow:rgba(200,241,53,.25);
+  --cream:#f0ebe0;
+  --sand:#a8b89c;
+  --dim:rgba(255,255,255,.06);
+  --dim2:rgba(255,255,255,.1);
+  --glass:rgba(10,13,9,.7);
+  --glass2:rgba(15,18,13,.85);
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'DM Sans',sans-serif;
+  --mono:'DM Mono',monospace;
+  --ease:cubic-bezier(.16,1,.3,1);
+  --ease2:cubic-bezier(.19,1,.22,1);
+  --ease3:cubic-bezier(.34,1.56,.64,1);
+  --radius:16px;
+  --radius-sm:8px;
+  --radius-lg:24px;
+}
+body{background:var(--bg);color:var(--cream);font-family:var(--sans);overflow-x:hidden;line-height:1.6}
+
+/* Smooth grain overlay */
+body::after{
+  content:'';
+  position:fixed;
+  inset:0;
+  z-index:9000;
+  pointer-events:none;
+  opacity:.025;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ─── ANIMATED BACKGROUND ─── */
+.bg-glow{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  overflow:hidden;
+}
+.glow-orb{
+  position:absolute;
+  border-radius:50%;
+  filter:blur(100px);
+  opacity:.4;
+  animation:float 20s ease-in-out infinite;
+}
+.glow-orb-1{
+  width:600px;height:600px;
+  background:radial-gradient(circle,rgba(200,241,53,.15),transparent 70%);
+  top:-200px;right:-100px;
+  animation-delay:0s;
+}
+.glow-orb-2{
+  width:500px;height:500px;
+  background:radial-gradient(circle,rgba(200,241,53,.1),transparent 70%);
+  bottom:10%;left:-150px;
+  animation-delay:-7s;
+}
+.glow-orb-3{
+  width:400px;height:400px;
+  background:radial-gradient(circle,rgba(200,241,53,.08),transparent 70%);
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  animation-delay:-14s;
+}
+@keyframes float{
+  0%,100%{transform:translate(0,0) scale(1)}
+  25%{transform:translate(30px,-20px) scale(1.05)}
+  50%{transform:translate(-20px,30px) scale(.95)}
+  75%{transform:translate(-30px,-10px) scale(1.02)}
+}
+
+/* ─── CUSTOM CURSOR ─── */
+@media (pointer:fine){
+  body{cursor:none}
+  a,button{cursor:none}
+}
+#cursor{
+  position:fixed;
+  width:6px;height:6px;
+  background:var(--lime);
+  border-radius:50%;
+  pointer-events:none;
+  z-index:9999;
+  mix-blend-mode:difference;
+  transition:transform .1s var(--ease),width .2s var(--ease),height .2s var(--ease);
+}
+#cursor-ring{
+  position:fixed;
+  width:44px;height:44px;
+  border:1.5px solid rgba(200,241,53,.4);
+  border-radius:50%;
+  pointer-events:none;
+  z-index:9998;
+  transition:all .25s var(--ease);
+}
+#cursor-ring.hover{
+  width:64px;height:64px;
+  border-color:var(--lime);
+  background:rgba(200,241,53,.08);
+}
+
+/* ─── NAV ─── */
+nav{
+  position:fixed;
+  top:0;left:0;right:0;
+  z-index:500;
+  padding:1.25rem 5vw;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  transition:all .4s var(--ease);
+}
+nav.scrolled{
+  padding:.8rem 5vw;
+  background:var(--glass2);
+  backdrop-filter:blur(20px) saturate(1.2);
+  -webkit-backdrop-filter:blur(20px) saturate(1.2);
+  border-bottom:1px solid var(--dim);
+  box-shadow:0 4px 30px rgba(0,0,0,.3);
+}
+.nav-logo{
+  display:flex;
+  align-items:center;
+  gap:.6rem;
+  text-decoration:none;
+  font-family:var(--serif);
+  font-size:1.5rem;
+  font-weight:600;
+  color:var(--cream);
+  letter-spacing:.01em;
+}
+.nav-dot{
+  width:8px;height:8px;
+  background:var(--lime);
+  border-radius:50%;
+  animation:pulse 2.5s ease infinite;
+  box-shadow:0 0 12px var(--lglow);
+}
+@keyframes pulse{
+  0%,100%{box-shadow:0 0 0 0 var(--lglow)}
+  50%{box-shadow:0 0 0 10px transparent}
+}
+.nav-links{
+  display:flex;
+  align-items:center;
+  gap:3rem;
+  list-style:none;
+}
+.nav-links a{
+  color:var(--sand);
+  text-decoration:none;
+  font-size:.75rem;
+  font-weight:500;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  transition:all .25s var(--ease);
+  position:relative;
+}
+.nav-links a::after{
+  content:'';
+  position:absolute;
+  bottom:-4px;left:0;
+  width:0;height:1px;
+  background:var(--lime);
+  transition:width .3s var(--ease);
+}
+.nav-links a:hover{color:var(--cream)}
+.nav-links a:hover::after{width:100%}
+.nav-cta{
+  background:linear-gradient(135deg,var(--lime) 0%,var(--lime2) 100%);
+  color:var(--bg);
+  padding:.7rem 1.6rem;
+  font-size:.75rem;
+  font-weight:600;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  text-decoration:none;
+  border-radius:100px;
+  transition:all .3s var(--ease);
+  box-shadow:0 4px 20px rgba(200,241,53,.2);
+}
+.nav-cta:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 30px rgba(200,241,53,.4);
+}
+
+/* Mobile nav toggle */
+.nav-toggle{
+  display:none;
+  flex-direction:column;
+  gap:5px;
+  background:none;
+  border:none;
+  padding:8px;
+  cursor:pointer;
+}
+.nav-toggle span{
+  width:24px;height:2px;
+  background:var(--cream);
+  border-radius:2px;
+  transition:all .3s var(--ease);
+}
+.nav-toggle.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.nav-toggle.active span:nth-child(2){opacity:0}
+.nav-toggle.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+
+/* Mobile menu */
+.nav-mobile{
+  display:none;
+  position:fixed;
+  top:0;left:0;right:0;bottom:0;
+  background:var(--glass2);
+  backdrop-filter:blur(30px);
+  -webkit-backdrop-filter:blur(30px);
+  z-index:400;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:2rem;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .4s var(--ease);
+}
+.nav-mobile.open{
+  display:flex;
+  opacity:1;
+  pointer-events:all;
+}
+.nav-mobile a{
+  color:var(--cream);
+  font-family:var(--serif);
+  font-size:2rem;
+  text-decoration:none;
+  transition:color .2s;
+}
+.nav-mobile a:hover{color:var(--lime)}
+
+/* ─── HERO ─── */
+#hero{
+  position:relative;
+  min-height:100vh;
+  display:flex;
+  align-items:flex-end;
+  overflow:hidden;
+  z-index:1;
+}
+.hero-media{
+  position:absolute;
+  inset:0;
+}
+.hero-img{
+  position:absolute;
+  inset:0;
+  background:url('https://images.unsplash.com/photo-1448375240586-882707db888b?w=1800&q=80') center/cover no-repeat;
+  transform:scale(1.05);
+  animation:heroZoom 15s var(--ease) forwards;
+}
+@keyframes heroZoom{from{transform:scale(1.12)}to{transform:scale(1)}}
+.hero-overlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    to top,
+    rgba(5,7,6,1) 0%,
+    rgba(5,7,6,.85) 25%,
+    rgba(5,7,6,.5) 50%,
+    rgba(5,7,6,.4) 75%,
+    rgba(5,7,6,.6) 100%
+  );
+}
+.hero-content{
+  position:relative;
+  z-index:2;
+  padding:0 6vw 7rem;
+  width:100%;
+  max-width:1400px;
+  margin:0 auto;
+}
+.hero-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:.7rem;
+  background:var(--glass);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border:1px solid var(--lmid);
+  padding:.5rem 1.2rem;
+  border-radius:100px;
+  margin-bottom:2.5rem;
+  opacity:0;
+  animation:fadeUp .8s var(--ease) .3s forwards;
+}
+.hero-badge-dot{
+  width:6px;height:6px;
+  background:var(--lime);
+  border-radius:50%;
+  box-shadow:0 0 8px var(--lglow);
+}
+.hero-badge span{
+  font-family:var(--mono);
+  font-size:.65rem;
+  color:var(--lime);
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+.hero-title{
+  font-family:var(--serif);
+  font-size:clamp(3.2rem,9vw,9rem);
+  font-weight:300;
+  line-height:.92;
+  letter-spacing:-.03em;
+  max-width:1000px;
+  opacity:0;
+  animation:fadeUp 1s var(--ease) .5s forwards;
+}
+.hero-title em{
+  font-style:italic;
+  background:linear-gradient(135deg,var(--lime) 0%,var(--lime2) 50%,var(--lime3) 100%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.hero-bottom{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:4rem;
+  margin-top:4rem;
+  opacity:0;
+  animation:fadeUp .9s var(--ease) .8s forwards;
+}
+.hero-desc{
+  max-width:480px;
+  font-size:1rem;
+  line-height:1.85;
+  color:var(--sand);
+  font-weight:300;
+}
+.hero-actions{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  gap:1rem;
+}
+.btn-primary{
+  display:inline-flex;
+  align-items:center;
+  gap:.7rem;
+  background:linear-gradient(135deg,var(--lime) 0%,var(--lime2) 100%);
+  color:var(--bg);
+  padding:1rem 2.2rem;
+  font-size:.85rem;
+  font-weight:600;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+  text-decoration:none;
+  border-radius:100px;
+  transition:all .35s var(--ease);
+  box-shadow:0 6px 30px rgba(200,241,53,.25);
+  white-space:nowrap;
+}
+.btn-primary:hover{
+  transform:translateY(-3px);
+  box-shadow:0 12px 40px rgba(200,241,53,.5);
+}
+.btn-primary svg{
+  width:16px;height:16px;
+  transition:transform .3s var(--ease);
+}
+.btn-primary:hover svg{transform:translateX(3px)}
+.btn-ghost{
+  color:var(--sand);
+  font-size:.78rem;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  text-decoration:none;
+  display:flex;
+  align-items:center;
+  gap:.5rem;
+  transition:all .25s;
+}
+.btn-ghost:hover{color:var(--cream)}
+.btn-ghost svg{
+  width:14px;height:14px;
+  transition:transform .3s var(--ease);
+}
+.btn-ghost:hover svg{transform:translateY(3px)}
+
+/* Scroll indicator */
+.hero-scroll{
+  position:absolute;
+  left:6vw;
+  bottom:2rem;
+  display:flex;
+  align-items:center;
+  gap:1rem;
+  opacity:0;
+  animation:fadeUp .7s var(--ease) 1.2s forwards;
+}
+.scroll-line{
+  width:1px;height:48px;
+  background:linear-gradient(to bottom,transparent,var(--lime),transparent);
+  animation:scrollLine 2s ease infinite;
+}
+@keyframes scrollLine{
+  0%{transform:scaleY(0);transform-origin:top}
+  50%{transform:scaleY(1);transform-origin:top}
+  51%{transform:scaleY(1);transform-origin:bottom}
+  100%{transform:scaleY(0);transform-origin:bottom}
+}
+.scroll-text{
+  font-family:var(--mono);
+  font-size:.6rem;
+  color:var(--sand);
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  writing-mode:vertical-rl;
+}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(40px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* ─── STATS BAR ─── */
+.stats-bar{
+  position:relative;
+  z-index:2;
+  background:var(--bg2);
+  border-top:1px solid var(--dim);
+  border-bottom:1px solid var(--dim);
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+}
+.stat-item{
+  padding:2.5rem 2rem;
+  border-right:1px solid var(--dim);
+  position:relative;
+  transition:all .35s var(--ease);
+  overflow:hidden;
+}
+.stat-item:last-child{border-right:none}
+.stat-item::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg,var(--ldim),transparent);
+  opacity:0;
+  transition:opacity .35s;
+}
+.stat-item:hover::before{opacity:1}
+.stat-item::after{
+  content:'';
+  position:absolute;
+  bottom:0;left:0;right:0;
+  height:2px;
+  background:linear-gradient(90deg,var(--lime),var(--lime2));
+  transform:scaleX(0);
+  transform-origin:left;
+  transition:transform .5s var(--ease);
+}
+.stat-item:hover::after{transform:scaleX(1)}
+.stat-num{
+  font-family:var(--serif);
+  font-size:clamp(2.2rem,3.5vw,3.2rem);
+  font-weight:300;
+  color:var(--cream);
+  line-height:1;
+  letter-spacing:-.02em;
+  position:relative;
+  z-index:1;
+}
+.stat-num em{
+  background:linear-gradient(135deg,var(--lime),var(--lime2));
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+  font-style:normal;
+}
+.stat-label{
+  font-size:.82rem;
+  color:var(--sand);
+  font-weight:300;
+  line-height:1.55;
+  margin-top:.5rem;
+  position:relative;
+  z-index:1;
+}
+.stat-source{
+  font-family:var(--mono);
+  font-size:.55rem;
+  color:rgba(168,184,156,.4);
+  letter-spacing:.06em;
+  margin-top:.4rem;
+  position:relative;
+  z-index:1;
+}
+
+/* ─── MARQUEE ─── */
+.marquee{
+  border-bottom:1px solid var(--dim);
+  overflow:hidden;
+  padding:1rem 0;
+  background:rgba(200,241,53,.02);
+}
+.marquee-track{
+  display:flex;
+  width:max-content;
+  animation:marquee 35s linear infinite;
+}
+.marquee:hover .marquee-track{animation-play-state:paused}
+.marquee-item{
+  display:flex;
+  align-items:center;
+  gap:2.5rem;
+  padding:0 2.5rem;
+  font-family:var(--mono);
+  font-size:.7rem;
+  color:rgba(168,184,156,.6);
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+.marquee-item b{
+  color:var(--lime);
+  font-size:.5rem;
+  font-weight:400;
+}
+@keyframes marquee{
+  from{transform:translateX(0)}
+  to{transform:translateX(-50%)}
+}
+
+/* ─── SECTION COMMON ─── */
+.section-pad{padding:8rem 6vw}
+.section-pad-lg{padding:10rem 6vw}
+.eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:.8rem;
+  font-family:var(--mono);
+  font-size:.62rem;
+  color:var(--lime);
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  margin-bottom:1.5rem;
+}
+.eyebrow::before{
+  content:'';
+  width:28px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--lime));
+}
+.section-title{
+  font-family:var(--serif);
+  font-size:clamp(2.4rem,5vw,4.5rem);
+  font-weight:300;
+  line-height:1.05;
+  letter-spacing:-.025em;
+}
+.section-title em{
+  font-style:italic;
+  background:linear-gradient(135deg,var(--lime) 0%,var(--lime2) 100%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+/* Scroll animations */
+.reveal{
+  opacity:0;
+  transform:translateY(50px);
+  transition:all .9s var(--ease);
+}
+.reveal.visible{
+  opacity:1;
+  transform:translateY(0);
+}
+.reveal-left{
+  opacity:0;
+  transform:translateX(-50px);
+  transition:all .9s var(--ease);
+}
+.reveal-left.visible{
+  opacity:1;
+  transform:translateX(0);
+}
+.reveal-right{
+  opacity:0;
+  transform:translateX(50px);
+  transition:all .9s var(--ease);
+}
+.reveal-right.visible{
+  opacity:1;
+  transform:translateX(0);
+}
+.reveal-scale{
+  opacity:0;
+  transform:scale(.92);
+  transition:all .9s var(--ease);
+}
+.reveal-scale.visible{
+  opacity:1;
+  transform:scale(1);
+}
+
+/* ─── CRISIS ─── */
+#crisis{
+  position:relative;
+  overflow:hidden;
+  background:var(--bg);
+}
+.crisis-bg{
+  position:absolute;
+  right:-150px;top:50%;
+  transform:translateY(-50%);
+  width:700px;height:700px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(200,241,53,.04),transparent 65%);
+  pointer-events:none;
+  animation:float 25s ease-in-out infinite;
+}
+.crisis-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:6rem;
+  align-items:center;
+}
+.crisis-left p{
+  font-size:1rem;
+  color:var(--sand);
+  line-height:1.85;
+  font-weight:300;
+  margin-bottom:1.2rem;
+}
+.crisis-cards{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1px;
+  background:var(--dim);
+  border:1px solid var(--dim);
+  border-radius:var(--radius);
+  overflow:hidden;
+}
+.crisis-card{
+  background:var(--bg2);
+  padding:2.5rem 2rem;
+  position:relative;
+  transition:all .35s var(--ease);
+}
+.crisis-card::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg,var(--ldim),transparent);
+  opacity:0;
+  transition:opacity .35s;
+}
+.crisis-card:hover::before{opacity:1}
+.crisis-card .number{
+  font-family:var(--serif);
+  font-size:clamp(2.5rem,4vw,3.5rem);
+  font-weight:300;
+  background:linear-gradient(135deg,var(--lime),var(--lime2));
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+  line-height:1;
+  display:block;
+  margin-bottom:.6rem;
+  position:relative;z-index:1;
+}
+.crisis-card p{
+  font-size:.82rem;
+  color:var(--sand);
+  line-height:1.65;
+  font-weight:300;
+  position:relative;z-index:1;
+}
+.crisis-card small{
+  font-family:var(--mono);
+  font-size:.55rem;
+  color:rgba(168,184,156,.4);
+  letter-spacing:.06em;
+  display:block;
+  margin-top:.6rem;
+  position:relative;z-index:1;
+}
+
+/* ─── IMAGE DIVIDER ─── */
+.img-divider{
+  position:relative;
+  height:60vh;
+  overflow:hidden;
+}
+.img-divider img{
+  width:100%;height:100%;
+  object-fit:cover;
+  transform:scale(1.08);
+  transition:transform .15s linear;
+}
+.img-divider-overlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to right,rgba(5,7,6,.85) 0%,rgba(5,7,6,.3) 50%,rgba(5,7,6,.75) 100%);
+}
+.img-divider-content{
+  position:absolute;
+  left:6vw;top:50%;
+  transform:translateY(-50%);
+  z-index:2;
+}
+.img-divider blockquote{
+  font-family:var(--serif);
+  font-size:clamp(1.8rem,4vw,4rem);
+  font-weight:300;
+  font-style:italic;
+  line-height:1.2;
+  max-width:750px;
+  color:var(--cream);
+}
+.img-divider blockquote em{
+  font-style:normal;
+  background:linear-gradient(135deg,var(--lime),var(--lime2));
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.img-divider cite{
+  font-family:var(--mono);
+  font-size:.65rem;
+  color:var(--sand);
+  letter-spacing:.1em;
+  display:block;
+  margin-top:1.5rem;
+  font-style:normal;
+}
+
+/* ─── HOW WE WORK ─── */
+#how{
+  background:var(--bg2);
+  border-top:1px solid var(--dim);
+  position:relative;
+  overflow:hidden;
+}
+#how::before{
+  content:'';
+  position:absolute;
+  left:-200px;top:50%;
+  transform:translateY(-50%);
+  width:500px;height:500px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(200,241,53,.03),transparent 65%);
+  pointer-events:none;
+}
+.how-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:3rem;
+  margin-bottom:5rem;
+}
+.how-desc{
+  max-width:340px;
+  color:var(--sand);
+  font-size:.92rem;
+  line-height:1.75;
+  font-weight:300;
+}
+.how-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:0;
+  border:1px solid var(--dim);
+  border-radius:var(--radius);
+  overflow:hidden;
+  background:var(--dim);
+}
+.how-step{
+  padding:3rem 2.5rem;
+  background:var(--bg);
+  border-right:1px solid var(--dim);
+  position:relative;
+  overflow:hidden;
+  transition:all .4s var(--ease);
+}
+.how-step:last-child{border-right:none}
+.how-step::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,var(--ldim),transparent);
+  opacity:0;
+  transition:opacity .4s;
+}
+.how-step:hover::before{opacity:1}
+.how-step::after{
+  content:'';
+  position:absolute;
+  bottom:0;left:0;right:0;
+  height:3px;
+  background:linear-gradient(90deg,var(--lime),var(--lime2));
+  transform:scaleX(0);
+  transform-origin:left;
+  transition:transform .5s var(--ease);
+}
+.how-step:hover::after{transform:scaleX(1)}
+.step-num{
+  font-family:var(--mono);
+  font-size:.6rem;
+  color:var(--lime);
+  letter-spacing:.15em;
+  margin-bottom:2.5rem;
+  display:block;
+  position:relative;z-index:1;
+}
+.step-icon{
+  font-size:2.2rem;
+  margin-bottom:1.5rem;
+  display:block;
+  position:relative;z-index:1;
+  transition:transform .4s var(--ease3);
+}
+.how-step:hover .step-icon{transform:scale(1.15) rotate(-5deg)}
+.how-step h3{
+  font-family:var(--serif);
+  font-size:1.35rem;
+  font-weight:400;
+  color:var(--cream);
+  margin-bottom:.8rem;
+  line-height:1.2;
+  position:relative;z-index:1;
+}
+.how-step p{
+  font-size:.82rem;
+  color:var(--sand);
+  line-height:1.7;
+  font-weight:300;
+  position:relative;z-index:1;
+}
+
+/* ─── CAPABILITIES ─── */
+#capabilities{
+  background:var(--bg);
+  position:relative;
+}
+.cap-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:3rem;
+  margin-bottom:5rem;
+}
+.cap-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1.5rem;
+}
+.cap-card{
+  background:var(--bg2);
+  border:1px solid var(--dim);
+  border-radius:var(--radius);
+  padding:2.5rem;
+  position:relative;
+  overflow:hidden;
+  transition:all .45s var(--ease);
+  cursor:default;
+}
+.cap-card::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg,rgba(200,241,53,.06),transparent 60%);
+  opacity:0;
+  transition:opacity .45s;
+}
+.cap-card:hover{
+  border-color:var(--lmid);
+  transform:translateY(-8px);
+  box-shadow:0 30px 60px rgba(0,0,0,.4),0 0 0 1px var(--lmid);
+}
+.cap-card:hover::before{opacity:1}
+.cap-num{
+  font-family:var(--mono);
+  font-size:.6rem;
+  color:rgba(200,241,53,.4);
+  letter-spacing:.12em;
+  margin-bottom:1.5rem;
+  display:block;
+  position:relative;z-index:1;
+}
+.cap-img{
+  width:100%;
+  height:140px;
+  object-fit:cover;
+  border-radius:var(--radius-sm);
+  margin-bottom:1.8rem;
+  filter:saturate(.5) brightness(.65);
+  transition:all .45s var(--ease);
+  position:relative;z-index:1;
+}
+.cap-card:hover .cap-img{filter:saturate(.9) brightness(.8)}
+.cap-card h3{
+  font-family:var(--serif);
+  font-size:1.4rem;
+  font-weight:400;
+  color:var(--cream);
+  margin-bottom:.7rem;
+  line-height:1.2;
+  position:relative;z-index:1;
+}
+.cap-card>p{
+  font-size:.82rem;
+  color:var(--sand);
+  line-height:1.72;
+  font-weight:300;
+  position:relative;z-index:1;
+}
+.cap-tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.4rem;
+  margin-top:1.5rem;
+  position:relative;z-index:1;
+}
+.cap-tag{
+  font-family:var(--mono);
+  font-size:.58rem;
+  color:var(--sand);
+  border:1px solid var(--dim);
+  padding:.25rem .7rem;
+  border-radius:100px;
+  letter-spacing:.04em;
+  transition:all .3s var(--ease);
+}
+.cap-card:hover .cap-tag{
+  border-color:var(--lmid);
+  color:var(--lime);
+}
+.cap-arrow{
+  position:absolute;
+  top:2.5rem;right:2.5rem;
+  width:40px;height:40px;
+  border:1px solid var(--dim);
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--sand);
+  font-size:.9rem;
+  transition:all .35s var(--ease);
+  z-index:2;
+}
+.cap-card:hover .cap-arrow{
+  background:linear-gradient(135deg,var(--lime),var(--lime2));
+  color:var(--bg);
+  border-color:transparent;
+  transform:rotate(45deg);
+  box-shadow:0 4px 20px var(--lglow);
+}
+
+/* ─── PROJECTS ─── */
+#projects{
+  background:var(--bg2);
+  border-top:1px solid var(--dim);
+}
+.proj-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:3rem;
+  margin-bottom:5rem;
+}
+.proj-list{display:flex;flex-direction:column}
+.proj{
+  display:grid;
+  grid-template-columns:90px 1fr 300px;
+  gap:4rem;
+  align-items:start;
+  padding:3.5rem 0;
+  border-bottom:1px solid var(--dim);
+  text-decoration:none;
+  color:inherit;
+  transition:all .45s var(--ease);
+  position:relative;
+}
+.proj::before{
+  content:'';
+  position:absolute;
+  left:0;top:0;bottom:0;
+  width:3px;
+  background:linear-gradient(180deg,var(--lime),var(--lime2));
+  transform:scaleY(0);
+  transform-origin:bottom;
+  transition:transform .45s var(--ease);
+  border-radius:2px;
+}
+.proj:hover{padding-left:2.5rem}
+.proj:hover::before{transform:scaleY(1)}
+.proj-num{
+  font-family:var(--mono);
+  font-size:.6rem;
+  color:rgba(168,184,156,.5);
+  letter-spacing:.1em;
+  line-height:1.8;
+  padding-top:.5rem;
+}
+.proj-body h3{
+  font-family:var(--serif);
+  font-size:clamp(1.5rem,2.5vw,2.4rem);
+  font-weight:400;
+  color:var(--cream);
+  line-height:1.12;
+  letter-spacing:-.02em;
+  margin-bottom:1rem;
+  transition:all .35s var(--ease);
+}
+.proj:hover .proj-body h3{
+  background:linear-gradient(135deg,var(--lime),var(--lime2));
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.proj-body>p{
+  font-size:.85rem;
+  color:var(--sand);
+  line-height:1.78;
+  font-weight:300;
+}
+.proj-tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.4rem;
+  margin-top:1.2rem;
+}
+.proj-side{
+  display:flex;
+  flex-direction:column;
+  height:100%;
+  min-height:140px;
+}
+.proj-img{
+  width:100%;
+  height:160px;
+  object-fit:cover;
+  border-radius:var(--radius-sm);
+  border:1px solid var(--dim);
+  filter:saturate(.45) brightness(.55);
+  transition:all .45s var(--ease);
+}
+.proj:hover .proj-img{
+  filter:saturate(.85) brightness(.75);
+  border-color:var(--lmid);
+}
+.proj-meta{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:1rem;
+}
+.proj-date{
+  font-family:var(--mono);
+  font-size:.6rem;
+  color:rgba(168,184,156,.45);
+  letter-spacing:.08em;
+}
+.proj-link{
+  width:40px;height:40px;
+  border:1px solid var(--dim);
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--sand);
+  font-size:.9rem;
+  transition:all .35s var(--ease);
+  flex-shrink:0;
+}
+.proj:hover .proj-link{
+  background:linear-gradient(135deg,var(--lime),var(--lime2));
+  color:var(--bg);
+  border-color:transparent;
+  transform:rotate(45deg) scale(1.1);
+  box-shadow:0 0 25px var(--lglow);
+}
+
+/* ─── TRUST ─── */
+#trust{
+  background:var(--bg);
+  border-top:1px solid var(--dim);
+  position:relative;
+  overflow:hidden;
+}
+.trust-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:6rem;
+  align-items:center;
+}
+.trust-left{position:relative}
+.tech-img{
+  width:100%;
+  height:500px;
+  object-fit:cover;
+  border-radius:var(--radius);
+  filter:saturate(.4) brightness(.5);
+  border:1px solid var(--dim);
+}
+.tech-overlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg,rgba(5,7,6,.6),rgba(5,7,6,.2));
+  border-radius:var(--radius);
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  padding:2.5rem;
+}
+.tech-label{
+  font-family:var(--mono);
+  font-size:.6rem;
+  color:var(--lime);
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  margin-bottom:1rem;
+}
+.tech-pills{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.5rem;
+}
+.tech-pill{
+  font-family:var(--mono);
+  font-size:.62rem;
+  background:rgba(200,241,53,.1);
+  border:1px solid rgba(200,241,53,.2);
+  color:var(--lime);
+  padding:.35rem .9rem;
+  border-radius:100px;
+  letter-spacing:.05em;
+  transition:all .25s;
+}
+.tech-pill:hover{
+  background:var(--lime);
+  color:var(--bg);
+}
+.trust-right p{
+  color:var(--sand);
+  font-size:.98rem;
+  line-height:1.85;
+  font-weight:300;
+  margin-top:2rem;
+  margin-bottom:2.5rem;
+}
+.trust-cards{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1px;
+  background:var(--dim);
+  border:1px solid var(--dim);
+  border-radius:var(--radius);
+  overflow:hidden;
+}
+.trust-card{
+  background:var(--bg2);
+  padding:2rem;
+  transition:all .35s var(--ease);
+  position:relative;
+}
+.trust-card::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:var(--ldim);
+  opacity:0;
+  transition:opacity .35s;
+}
+.trust-card:hover::before{opacity:1}
+.trust-card-icon{
+  font-size:1.6rem;
+  margin-bottom:.8rem;
+  display:block;
+  position:relative;z-index:1;
+}
+.trust-card h4{
+  font-family:var(--serif);
+  font-size:1.05rem;
+  font-weight:400;
+  color:var(--cream);
+  margin-bottom:.4rem;
+  position:relative;z-index:1;
+}
+.trust-card p{
+  font-size:.78rem;
+  color:var(--sand);
+  line-height:1.65;
+  font-weight:300;
+  position:relative;z-index:1;
+}
+
+/* ─── BIG CTA ─── */
+#cta{
+  position:relative;
+  overflow:hidden;
+  min-height:65vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+.cta-bg{
+  position:absolute;
+  inset:0;
+  background:url('https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?w=1800&q=80') center/cover no-repeat;
+  transform:scale(1.06);
+}
+.cta-overlay{
+  position:absolute;
+  inset:0;
+  background:rgba(5,7,6,.9);
+}
+.cta-inner{
+  position:relative;
+  z-index:2;
+  padding:6rem 6vw;
+  max-width:850px;
+  margin:0 auto;
+}
+.cta-eyebrow{
+  font-family:var(--mono);
+  font-size:.65rem;
+  color:var(--lime);
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  margin-bottom:2rem;
+}
+.cta-title{
+  font-family:var(--serif);
+  font-size:clamp(2.8rem,6vw,5.5rem);
+  font-weight:300;
+  line-height:1;
+  letter-spacing:-.03em;
+  margin-bottom:1.5rem;
+}
+.cta-title em{
+  font-style:italic;
+  background:linear-gradient(135deg,var(--lime),var(--lime2));
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.cta-sub{
+  color:var(--sand);
+  font-size:1rem;
+  line-height:1.8;
+  font-weight:300;
+  margin-bottom:3rem;
+  max-width:550px;
+  margin-left:auto;
+  margin-right:auto;
+}
+.cta-btns{
+  display:flex;
+  gap:1rem;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+.btn-outline{
+  border:1px solid rgba(255,255,255,.2);
+  color:var(--cream);
+  padding:1rem 2rem;
+  font-size:.82rem;
+  font-weight:500;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  text-decoration:none;
+  border-radius:100px;
+  transition:all .3s var(--ease);
+}
+.btn-outline:hover{
+  border-color:var(--lime);
+  color:var(--lime);
+  box-shadow:0 0 30px rgba(200,241,53,.15);
+}
+
+/* ─── CONTACT ─── */
+#contact{
+  background:var(--bg2);
+  border-top:1px solid var(--dim);
+}
+.contact-grid{
+  display:grid;
+  grid-template-columns:1fr 1.2fr;
+  gap:6rem;
+  align-items:start;
+}
+.contact-left p{
+  color:var(--sand);
+  font-size:.98rem;
+  line-height:1.85;
+  font-weight:300;
+  margin-bottom:3rem;
+  max-width:400px;
+}
+.contact-links{
+  display:flex;
+  flex-direction:column;
+  gap:.8rem;
+}
+.contact-link{
+  display:flex;
+  align-items:center;
+  gap:1.5rem;
+  padding:1.3rem 1.8rem;
+  background:var(--bg);
+  border:1px solid var(--dim);
+  border-radius:var(--radius-sm);
+  text-decoration:none;
+  color:inherit;
+  transition:all .35s var(--ease);
+}
+.contact-link:hover{
+  border-color:var(--lmid);
+  background:var(--ldim);
+  transform:translateX(8px);
+}
+.contact-link-label{
+  font-family:var(--mono);
+  font-size:.58rem;
+  color:rgba(168,184,156,.5);
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+.contact-link-val{
+  font-size:.92rem;
+  color:var(--cream);
+  margin-top:.15rem;
+}
+.contact-link-arrow{
+  margin-left:auto;
+  color:rgba(168,184,156,.4);
+  transition:all .25s;
+}
+.contact-link:hover .contact-link-arrow{
+  color:var(--lime);
+  transform:translate(3px,-3px);
+}
+.form-box{
+  background:var(--bg);
+  border:1px solid var(--dim);
+  border-radius:var(--radius);
+  padding:3.5rem;
+}
+.form-title{
+  font-family:var(--serif);
+  font-size:2.2rem;
+  font-weight:300;
+  color:var(--cream);
+  margin-bottom:.5rem;
+}
+.form-subtitle{
+  font-family:var(--mono);
+  font-size:.6rem;
+  color:var(--lime);
+  letter-spacing:.1em;
+  margin-bottom:2.5rem;
+  padding-bottom:2rem;
+  border-bottom:1px solid var(--dim);
+}
+.form-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1.5rem;
+  margin-bottom:1.5rem;
+}
+.form-group{margin-bottom:1.5rem}
+.form-group label{
+  font-family:var(--mono);
+  font-size:.58rem;
+  color:rgba(168,184,156,.5);
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  display:block;
+  margin-bottom:.6rem;
+}
+.form-group input,
+.form-group select,
+.form-group textarea{
+  width:100%;
+  background:transparent;
+  border:none;
+  border-bottom:1px solid var(--dim);
+  color:var(--cream);
+  padding:.75rem 0;
+  font-family:var(--sans);
+  font-size:.9rem;
+  font-weight:300;
+  outline:none;
+  transition:border-color .3s;
+  appearance:none;
+  border-radius:0;
+}
+.form-group input::placeholder,
+.form-group textarea::placeholder{
+  color:rgba(168,184,156,.35);
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+  border-color:var(--lime);
+}
+.form-group textarea{resize:none;line-height:1.7}
+.form-group select option{background:var(--bg2)}
+.form-footer{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-top:2.5rem;
+  padding-top:2rem;
+  border-top:1px solid var(--dim);
+  gap:2rem;
+}
+.form-note{
+  font-family:var(--mono);
+  font-size:.58rem;
+  color:rgba(168,184,156,.4);
+  letter-spacing:.06em;
+  line-height:1.8;
+}
+.form-note b{color:var(--lime);font-weight:400}
+.submit-btn{
+  background:linear-gradient(135deg,var(--lime),var(--lime2));
+  color:var(--bg);
+  border:none;
+  padding:1rem 2.2rem;
+  font-family:var(--sans);
+  font-size:.82rem;
+  font-weight:600;
+  letter-spacing:.07em;
+  text-transform:uppercase;
+  cursor:pointer;
+  border-radius:100px;
+  transition:all .35s var(--ease);
+  display:flex;
+  align-items:center;
+  gap:.6rem;
+  white-space:nowrap;
+  box-shadow:0 6px 25px rgba(200,241,53,.25);
+}
+.submit-btn:hover{
+  transform:translateY(-3px);
+  box-shadow:0 12px 40px rgba(200,241,53,.45);
+}
+
+/* ─── FOOTER ─── */
+footer{
+  padding:3rem 6vw;
+  border-top:1px solid var(--dim);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:var(--bg);
+  flex-wrap:wrap;
+  gap:2rem;
+}
+.footer-brand{
+  display:flex;
+  flex-direction:column;
+  gap:.3rem;
+}
+.footer-logo{
+  font-family:var(--serif);
+  font-size:1.3rem;
+  font-weight:500;
+  color:var(--cream);
+  text-decoration:none;
+  display:flex;
+  align-items:center;
+  gap:.5rem;
+}
+.footer-tag{
+  font-family:var(--mono);
+  font-size:.58rem;
+  color:rgba(168,184,156,.4);
+  letter-spacing:.08em;
+}
+.footer-links{
+  display:flex;
+  gap:2.5rem;
+  list-style:none;
+}
+.footer-links a{
+  color:rgba(168,184,156,.5);
+  font-family:var(--mono);
+  font-size:.62rem;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  text-decoration:none;
+  transition:color .25s;
+}
+.footer-links a:hover{color:var(--lime)}
+.footer-copy{
+  font-family:var(--mono);
+  font-size:.58rem;
+  color:rgba(168,184,156,.3);
+  letter-spacing:.06em;
+  text-align:right;
+}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:1200px){
+  .cap-grid{grid-template-columns:repeat(2,1fr)}
+  .crisis-grid{gap:4rem}
+  .trust-grid{gap:4rem}
+}
+@media(max-width:1024px){
+  .crisis-grid{grid-template-columns:1fr}
+  .how-grid{grid-template-columns:1fr 1fr}
+  .trust-grid{grid-template-columns:1fr}
+  .contact-grid{grid-template-columns:1fr}
+  .stats-bar{grid-template-columns:1fr 1fr}
+  .stat-item:nth-child(2){border-right:none}
+  .stat-item:nth-child(2n+1):not(:first-child){border-top:1px solid var(--dim)}
+  .stat-item:nth-child(3),.stat-item:nth-child(4){border-top:1px solid var(--dim)}
+  .proj{grid-template-columns:1fr;gap:2rem}
+  .proj-num{display:none}
+  .proj-side{order:-1;min-height:auto}
+  .proj-img{height:200px}
+}
+@media(max-width:768px){
+  .section-pad{padding:5rem 5vw}
+  .section-pad-lg{padding:6rem 5vw}
+  nav{padding:1rem 5vw}
+  .nav-links{display:none}
+  .nav-cta{display:none}
+  .nav-toggle{display:flex}
+  .hero-content{padding:0 5vw 5rem}
+  .hero-bottom{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:2.5rem;
+  }
+  .hero-actions{align-items:flex-start}
+  .cap-grid{grid-template-columns:1fr}
+  .how-grid{grid-template-columns:1fr}
+  .how-step{border-right:none;border-bottom:1px solid var(--dim)}
+  .how-step:last-child{border-bottom:none}
+  .how-header,.proj-header,.cap-header{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:1.5rem;
+  }
+  .form-row{grid-template-columns:1fr}
+  .form-footer{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:1.5rem;
+  }
+  .submit-btn{width:100%;justify-content:center}
+  .crisis-cards{grid-template-columns:1fr}
+  .trust-cards{grid-template-columns:1fr}
+  footer{
+    flex-direction:column;
+    text-align:center;
+    gap:1.5rem;
+  }
+  .footer-copy{text-align:center}
+  .cta-btns{flex-direction:column;align-items:center}
+  .stats-bar{grid-template-columns:1fr}
+  .stat-item{border-right:none;border-bottom:1px solid var(--dim)}
+  .stat-item:last-child{border-bottom:none}
+  .tech-img{height:350px}
+  #cursor,#cursor-ring{display:none}
+}
+@media(max-width:480px){
+  .hero-title{font-size:clamp(2.5rem,12vw,4rem)}
+  .section-title{font-size:clamp(2rem,8vw,3rem)}
+}
 </style>
 </head>
 <body>
 
+<!-- Animated background -->
+<div class="bg-glow">
+  <div class="glow-orb glow-orb-1"></div>
+  <div class="glow-orb glow-orb-2"></div>
+  <div class="glow-orb glow-orb-3"></div>
+</div>
+
+<!-- Custom cursor -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- Mobile menu -->
+<div class="nav-mobile" id="navMobile">
+  <a href="#how" onclick="closeMobile()">Approach</a>
+  <a href="#capabilities" onclick="closeMobile()">Services</a>
+  <a href="#projects" onclick="closeMobile()">Work</a>
+  <a href="#trust" onclick="closeMobile()">About</a>
+  <a href="#contact" onclick="closeMobile()">Contact</a>
+</div>
+
 <!-- NAV -->
-<nav>
-  <div class="nav-logo">Van<span>yax</span></div>
+<nav id="nav">
+  <a href="#" class="nav-logo">
+    <div class="nav-dot"></div>
+    Vanyax
+  </a>
   <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#services">Services</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#process">Process</a></li>
+    <li><a href="#how">Approach</a></li>
+    <li><a href="#capabilities">Services</a></li>
+    <li><a href="#projects">Work</a></li>
+    <li><a href="#trust">About</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#cta" class="nav-cta">Work With Us</a></li>
   </ul>
+  <a href="#contact" class="nav-cta">Start a project</a>
+  <button class="nav-toggle" id="navToggle" onclick="toggleMobile()">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
 <!-- HERO -->
 <section id="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-grid"></div>
-
-  <div class="hero-tag">Data Intelligence for Conservation</div>
-
-  <h1 class="hero-title">
-    Guardian of<br>
-    <span class="line2">the living world</span>
-    <span class="line3">Where data science meets the wild</span>
-  </h1>
-
-  <p class="hero-desc">
-    Vanyax is a hybrid data science platform and agency built exclusively for wildlife, environmental, and conservation organisations. We translate ecological complexity into actionable intelligence.
-  </p>
-
-  <div class="hero-actions">
-    <a href="#projects" class="btn-primary">See Our Work</a>
-    <a href="#cta" class="btn-secondary">Partner with us →</a>
+  <div class="hero-media">
+    <div class="hero-img"></div>
+    <div class="hero-overlay"></div>
   </div>
-
-  <div class="hero-stats">
-    <div class="stat">
-      <span class="stat-num">222yrs</span>
-      <span class="stat-label">Climate data modelled</span>
-    </div>
-    <div class="stat">
-      <span class="stat-num">958K+</span>
-      <span class="stat-label">Records processed</span>
-    </div>
-    <div class="stat">
-      <span class="stat-num">~2°C</span>
-      <span class="stat-label">2030 warming projected</span>
+  <div class="hero-content">
+    <h1 class="hero-title">
+      The data team<br>
+      <em>the planet</em><br>
+      has been waiting for
+    </h1>
+    <div class="hero-bottom">
+      <p class="hero-desc">Vanyax is a specialist data science agency and ML platform built exclusively for wildlife conservation, environmental agencies, and ecological research. We turn your field data into intelligence that saves species, predicts climate shifts, and protects ecosystems.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-primary">
+          Start a project
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#capabilities" class="btn-ghost">
+          Explore services
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        </a>
+      </div>
     </div>
   </div>
-
-  <div class="scroll-indicator">
-    <span class="scroll-text">Scroll</span>
+  <div class="hero-scroll">
     <div class="scroll-line"></div>
+    <span class="scroll-text">Scroll</span>
   </div>
 </section>
 
-<!-- MARQUEE -->
-<div class="marquee-wrap">
-  <div class="marquee">
-    <span class="marquee-item">Machine Learning</span>
-    <span class="marquee-item">Satellite Imagery Analysis</span>
-    <span class="marquee-item">Wildlife Conservation</span>
-    <span class="marquee-item">Climate Forecasting</span>
-    <span class="marquee-item">Biodiversity Data</span>
-    <span class="marquee-item">Geospatial AI</span>
-    <span class="marquee-item">Web Development</span>
-    <span class="marquee-item">Remote Sensing</span>
-    <span class="marquee-item">Ecological Modelling</span>
-    <span class="marquee-item">Machine Learning</span>
-    <span class="marquee-item">Satellite Imagery Analysis</span>
-    <span class="marquee-item">Wildlife Conservation</span>
-    <span class="marquee-item">Climate Forecasting</span>
-    <span class="marquee-item">Biodiversity Data</span>
-    <span class="marquee-item">Geospatial AI</span>
-    <span class="marquee-item">Web Development</span>
-    <span class="marquee-item">Remote Sensing</span>
-    <span class="marquee-item">Ecological Modelling</span>
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat-item reveal">
+    <div class="stat-num">1<em>M+</em></div>
+    <div class="stat-label">Species at risk of extinction in the next decade</div>
+    <div class="stat-source">IPBES Global Assessment, 2024</div>
+  </div>
+  <div class="stat-item reveal">
+    <div class="stat-num">80<em>%</em></div>
+    <div class="stat-label">Of ecological field data is never formally analysed</div>
+    <div class="stat-source">IUCN Data Gap Report, 2023</div>
+  </div>
+  <div class="stat-item reveal">
+    <div class="stat-num">1.5<em>°C</em></div>
+    <div class="stat-label">IPCC critical threshold — we are on track to exceed it by 2030</div>
+    <div class="stat-source">IPCC Sixth Assessment, 2023</div>
+  </div>
+  <div class="stat-item reveal">
+    <div class="stat-num">3<em>×</em></div>
+    <div class="stat-label">Faster species loss without data-driven conservation decisions</div>
+    <div class="stat-source">Conservation Biology Journal, 2022</div>
   </div>
 </div>
 
-<!-- ABOUT -->
-<section id="about">
-  <div>
-    <div class="section-tag">Who We Are</div>
-    <h2 class="section-title">Built for<br><em>ecologists,</em><br>by data scientists</h2>
-    <p class="about-text">Conservation and wildlife agencies are drowning in data — camera traps, satellite feeds, sensor networks, field surveys — but lack the in-house capacity to turn it into intelligence.</p>
-    <p class="about-text">Generic data science agencies don't understand NDVI indices, species distribution models, or acoustic biodiversity signatures. We do. That gap is where most projects fail. We bridge it.</p>
-
-    <div class="highlight-box">
-      <div class="highlight-label">Our Mission</div>
-      <div class="highlight-text">To be the data science engine behind the organisations protecting the planet — translating ecological complexity into tools that field teams, researchers, and policymakers can actually use.</div>
-    </div>
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee-track">
+    <div class="marquee-item">Satellite Imagery ML <b>◆</b></div>
+    <div class="marquee-item">Wildlife Camera Traps <b>◆</b></div>
+    <div class="marquee-item">Climate Forecasting <b>◆</b></div>
+    <div class="marquee-item">Species Distribution Models <b>◆</b></div>
+    <div class="marquee-item">Geospatial Intelligence <b>◆</b></div>
+    <div class="marquee-item">Acoustic Biodiversity <b>◆</b></div>
+    <div class="marquee-item">Deforestation Detection <b>◆</b></div>
+    <div class="marquee-item">Habitat Mapping <b>◆</b></div>
+    <div class="marquee-item">LLMs for Conservation <b>◆</b></div>
+    <div class="marquee-item">RAG Pipelines <b>◆</b></div>
+    <div class="marquee-item">Satellite Imagery ML <b>◆</b></div>
+    <div class="marquee-item">Wildlife Camera Traps <b>◆</b></div>
+    <div class="marquee-item">Climate Forecasting <b>◆</b></div>
+    <div class="marquee-item">Species Distribution Models <b>◆</b></div>
+    <div class="marquee-item">Geospatial Intelligence <b>◆</b></div>
+    <div class="marquee-item">Acoustic Biodiversity <b>◆</b></div>
+    <div class="marquee-item">Deforestation Detection <b>◆</b></div>
+    <div class="marquee-item">Habitat Mapping <b>◆</b></div>
+    <div class="marquee-item">LLMs for Conservation <b>◆</b></div>
+    <div class="marquee-item">RAG Pipelines <b>◆</b></div>
   </div>
+</div>
 
-  <div class="about-right">
-    <div class="about-card">
-      <div class="about-card-icon">🛰️</div>
-      <h3>Remote Sensing</h3>
-      <p>Satellite imagery analysis for habitat monitoring, deforestation detection, and land cover change.</p>
+<!-- CRISIS -->
+<section id="crisis" class="section-pad-lg">
+  <div class="crisis-bg"></div>
+  <div class="crisis-grid">
+    <div class="crisis-left reveal-left">
+      <div class="eyebrow">The Problem</div>
+      <h2 class="section-title">Conservation is<br>drowning in data<br>and <em>starved of insight</em></h2>
+      <p style="margin-top:2rem">Wildlife agencies, NGOs, and research institutions collect extraordinary amounts of data — camera trap images, satellite feeds, sensor networks, acoustic recordings, field surveys. But almost none of it becomes actionable intelligence.</p>
+      <p>The problem isn't the data. It's the absence of data science capacity built specifically for ecological work. Generic firms don't understand the domain. In-house teams are too expensive. The gap is costing us species.</p>
+      <a href="#capabilities" class="btn-primary" style="margin-top:2.5rem">
+        See how we close it
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:16px;height:16px"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
     </div>
-    <div class="about-card">
-      <div class="about-card-icon">🧠</div>
-      <h3>Ecological ML</h3>
-      <p>Species classifiers, population models, and biodiversity indices built for conservation data.</p>
-    </div>
-    <div class="about-card">
-      <div class="about-card-icon">🌦️</div>
-      <h3>Climate Science</h3>
-      <p>Long-range forecasting pipelines and climate impact modelling for environmental planning.</p>
-    </div>
-    <div class="about-card">
-      <div class="about-card-icon">📊</div>
-      <h3>Field Dashboards</h3>
-      <p>Intuitive visualisation tools built for non-technical conservationists in the field.</p>
+    <div class="crisis-cards reveal-right">
+      <div class="crisis-card">
+        <span class="number">68%</span>
+        <p>Average decline in monitored wildlife populations since 1970</p>
+        <small>WWF Living Planet Report 2024</small>
+      </div>
+      <div class="crisis-card">
+        <span class="number">$0</span>
+        <p>In-house data science budget at the average conservation NGO globally</p>
+        <small>Conservation Finance Network 2023</small>
+      </div>
+      <div class="crisis-card">
+        <span class="number">4.7B</span>
+        <p>Camera trap images collected globally each year — less than 3% analysed with ML</p>
+        <small>Wildlife Insights Platform 2024</small>
+      </div>
+      <div class="crisis-card">
+        <span class="number">11%</span>
+        <p>Of conservation organizations report having dedicated data science capacity</p>
+        <small>IUCN Capacity Survey 2023</small>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- SERVICES -->
-<section id="services">
-  <div class="services-header">
-    <div>
-      <div class="section-tag">What We Do</div>
-      <h2 class="section-title">Services built for<br><em>the planet's defenders</em></h2>
-    </div>
-    <p style="max-width: 320px; color: var(--mist); font-size: 0.85rem; line-height: 1.7; font-weight: 300;">
-      From one-off analysis to fully managed data platforms — we work with NGOs, government agencies, and research institutions.
-    </p>
+<!-- IMAGE DIVIDER 1 -->
+<div class="img-divider reveal-scale">
+  <img src="https://images.unsplash.com/photo-504173010664-32509107919d?w=1800&q=80" alt="Aerial forest" loading="lazy">
+  <div class="img-divider-overlay"></div>
+  <div class="img-divider-content">
+    <blockquote>"Every day without ecological intelligence is a decision made <em>blind</em>."</blockquote>
+    <cite>— Vanyax Environmental Intelligence</cite>
   </div>
+</div>
 
-  <div class="services-grid">
-    <div class="service-card">
-      <span class="service-num">01</span>
-      <div class="service-icon">🔬</div>
-      <h3>Custom Data Science Projects</h3>
-      <p>End-to-end ML pipelines tailored to your ecological dataset. We scope, build, validate, and deploy — from raw sensor data to production models.</p>
-      <div class="service-tags">
-        <span class="tag">PyTorch</span>
-        <span class="tag">TensorFlow</span>
-        <span class="tag">XGBoost</span>
-        <span class="tag">Docker</span>
-      </div>
+<!-- HOW WE WORK -->
+<section id="how" class="section-pad-lg">
+  <div class="how-header">
+    <div class="reveal">
+      <div class="eyebrow">Our Approach</div>
+      <h2 class="section-title">How Vanyax works</h2>
     </div>
-
-    <div class="service-card">
-      <span class="service-num">02</span>
-      <div class="service-icon">🗺️</div>
-      <h3>Geospatial Intelligence</h3>
-      <p>Satellite imagery processing, habitat mapping, and land cover classification using state-of-the-art vision transformers and geospatial ML.</p>
-      <div class="service-tags">
-        <span class="tag">TorchGeo</span>
-        <span class="tag">GDAL</span>
-        <span class="tag">ViT</span>
-        <span class="tag">ONNX</span>
-      </div>
+    <p class="how-desc reveal">A hybrid agency and platform model — we start with your specific challenge and build toward reusable, scalable infrastructure.</p>
+  </div>
+  <div class="how-grid">
+    <div class="how-step reveal">
+      <span class="step-num">01 — UNDERSTAND</span>
+      <span class="step-icon">🌿</span>
+      <h3>Ecology first, data second</h3>
+      <p>We start with your field reality — what species, what terrain, what decisions need to be made. Data science without ecological context produces useless numbers.</p>
     </div>
+    <div class="how-step reveal">
+      <span class="step-num">02 — AUDIT</span>
+      <span class="step-icon">🔍</span>
+      <h3>Map every data asset</h3>
+      <p>Camera traps, satellite imagery, sensor networks, acoustic recordings, survey data. We identify what you have and exactly what intelligence can be extracted.</p>
+    </div>
+    <div class="how-step reveal">
+      <span class="step-num">03 — BUILD</span>
+      <span class="step-icon">⚡</span>
+      <h3>Production-grade pipelines</h3>
+      <p>Reproducible, containerised ML pipelines validated against ecological ground truth — not just statistical benchmarks. Everything is documented and deployable.</p>
+    </div>
+    <div class="how-step reveal">
+      <span class="step-num">04 — SCALE</span>
+      <span class="step-icon">📡</span>
+      <h3>Platform subscriptions</h3>
+      <p>Repeated solutions become platform modules — species APIs, habitat dashboards, deforestation alerts — so every new client benefits from the work done before.</p>
+    </div>
+  </div>
+</section>
 
-    <div class="service-card">
-      <span class="service-num">03</span>
-      <div class="service-icon">🌍</div>
+<!-- CAPABILITIES -->
+<section id="capabilities" class="section-pad-lg">
+  <div class="cap-header">
+    <div class="reveal">
+      <div class="eyebrow">Services</div>
+      <h2 class="section-title">What we build<br>for <em>defenders of the wild</em></h2>
+    </div>
+    <p class="how-desc reveal">From bespoke ML projects to fully managed subscription platforms — designed for NGO budgets and grant cycles.</p>
+  </div>
+  <div class="cap-grid">
+    <div class="cap-card reveal">
+      <span class="cap-num">01</span>
+      <div class="cap-arrow">↗</div>
+      <img class="cap-img" src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=600&q=70" alt="Satellite" loading="lazy">
+      <h3>Geospatial & Satellite Intelligence</h3>
+      <p>Habitat mapping, land cover change detection, and deforestation monitoring at scale using Vision Transformers and geospatial ML. From raw Sentinel-2 imagery to actionable alerts.</p>
+      <div class="cap-tags"><span class="cap-tag">TorchGeo</span><span class="cap-tag">ViT</span><span class="cap-tag">GDAL</span><span class="cap-tag">ONNX</span></div>
+    </div>
+    <div class="cap-card reveal">
+      <span class="cap-num">02</span>
+      <div class="cap-arrow">↗</div>
+      <img class="cap-img" src="https://images.unsplash.com/photo-1474511320723-9a56873867b5?w=600&q=70" alt="Wildlife" loading="lazy">
+      <h3>Wildlife AI & Camera Trap Analysis</h3>
+      <p>Species identification, population estimation, and poaching alert systems. Trained on real field imagery. Acoustic biodiversity indices from audio recordings. Built to run at the edge.</p>
+      <div class="cap-tags"><span class="cap-tag">YOLO</span><span class="cap-tag">CNN</span><span class="cap-tag">Audio ML</span><span class="cap-tag">Edge AI</span></div>
+    </div>
+    <div class="cap-card reveal">
+      <span class="cap-num">03</span>
+      <div class="cap-arrow">↗</div>
+      <img class="cap-img" src="https://images.unsplash.com/photo-1569428034239-f9565e32e224?w=600&q=70" alt="Climate" loading="lazy">
       <h3>Climate Forecasting Pipelines</h3>
-      <p>Long-range temperature, rainfall, and ecological impact modelling. Reproducible, containerised pipelines your team can run and trust.</p>
-      <div class="service-tags">
-        <span class="tag">Time Series</span>
-        <span class="tag">SVR</span>
-        <span class="tag">Quarto</span>
-        <span class="tag">Docker</span>
-      </div>
+      <p>Long-range temperature, precipitation, and ecological impact modelling. Reproducible, containerised pipelines your policy team can run, trust, and present to funders.</p>
+      <div class="cap-tags"><span class="cap-tag">SVR</span><span class="cap-tag">LSTM</span><span class="cap-tag">Docker</span><span class="cap-tag">Quarto</span></div>
     </div>
-
-    <div class="service-card">
-      <span class="service-num">04</span>
-      <div class="service-icon">📡</div>
-      <h3>Platform Subscriptions</h3>
-      <p>Reusable ecological ML tools — species identification APIs, biodiversity dashboards, deforestation alerts — on a subscription built around grant cycles.</p>
-      <div class="service-tags">
-        <span class="tag">API</span>
-        <span class="tag">SaaS</span>
-        <span class="tag">Dashboard</span>
-      </div>
+    <div class="cap-card reveal">
+      <span class="cap-num">04</span>
+      <div class="cap-arrow">↗</div>
+      <img class="cap-img" src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&q=70" alt="Data platform" loading="lazy">
+      <h3>Custom ML Projects & Pipelines</h3>
+      <p>End-to-end data science for your specific dataset. Scoped, built, validated, and deployed. We write the code, document the architecture, and hand you tools that work.</p>
+      <div class="cap-tags"><span class="cap-tag">PyTorch</span><span class="cap-tag">XGBoost</span><span class="cap-tag">AWS</span><span class="cap-tag">Airflow</span></div>
     </div>
-
-    <div class="service-card">
-      <span class="service-num">05</span>
-      <div class="service-icon">🦉</div>
-      <h3>Wildlife AI</h3>
-      <p>Camera trap image classification, acoustic species detection, and population estimation models trained on real field data.</p>
-      <div class="service-tags">
-        <span class="tag">CV</span>
-        <span class="tag">Audio ML</span>
-        <span class="tag">SMOTE</span>
-      </div>
+    <div class="cap-card reveal">
+      <span class="cap-num">05</span>
+      <div class="cap-arrow">↗</div>
+      <img class="cap-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=70" alt="Dashboard" loading="lazy">
+      <h3>Conservation Data Platforms</h3>
+      <p>Biodiversity dashboards, species range visualisers, and real-time deforestation alert systems on a SaaS model. Built specifically for the conservation sector's budget reality.</p>
+      <div class="cap-tags"><span class="cap-tag">React</span><span class="cap-tag">D3.js</span><span class="cap-tag">Leaflet</span><span class="cap-tag">API</span></div>
     </div>
-
-    <div class="service-card">
-      <span class="service-num">06</span>
-      <div class="service-icon">🌐</div>
-      <h3>Web & Visualization</h3>
-      <p>Interactive maps, data storytelling portals, and conservation dashboards that communicate science to funders, governments, and the public.</p>
-      <div class="service-tags">
-        <span class="tag">React</span>
-        <span class="tag">Leaflet</span>
-        <span class="tag">D3.js</span>
-      </div>
+    <div class="cap-card reveal">
+      <span class="cap-num">06</span>
+      <div class="cap-arrow">↗</div>
+      <img class="cap-img" src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=600&q=70" alt="LLM" loading="lazy">
+      <h3>LLMs & AI Assistants for Field Teams</h3>
+      <p>RAG pipelines over field manuals, species databases, and research literature. AI tools your field teams can actually use — in the forest, on the boat, in the lab.</p>
+      <div class="cap-tags"><span class="cap-tag">LangChain</span><span class="cap-tag">FAISS</span><span class="cap-tag">LLaMA</span><span class="cap-tag">RAG</span></div>
     </div>
   </div>
 </section>
+
+<!-- IMAGE DIVIDER 2 -->
+<div class="img-divider reveal-scale">
+  <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1800&q=80" alt="Mountains" loading="lazy">
+  <div class="img-divider-overlay" style="background:linear-gradient(to left,rgba(5,7,6,.85) 0%,rgba(5,7,6,.3) 50%,rgba(5,7,6,.75) 100%)"></div>
+  <div class="img-divider-content" style="left:auto;right:6vw;text-align:right">
+    <blockquote>"The data already exists.<br>The <em>intelligence</em> is what's missing."</blockquote>
+    <cite>— Vanyax Mission Statement</cite>
+  </div>
+</div>
 
 <!-- PROJECTS -->
-<section id="projects">
-  <div class="projects-header">
-    <div>
-      <div class="section-tag">Our Work</div>
+<section id="projects" class="section-pad-lg">
+  <div class="proj-header">
+    <div class="reveal-left">
+      <div class="eyebrow">Selected Work</div>
       <h2 class="section-title">Research &<br><em>live projects</em></h2>
     </div>
-    <p style="max-width: 320px; color: var(--mist); font-size: 0.85rem; line-height: 1.7; font-weight: 300;">
-      Every project is open-documented and reproducible. Science you can trust, tools you can use.
-    </p>
+    <p class="how-desc reveal-right">Open-documented, reproducible, and validated against real ecological data. Not proof-of-concept — production.</p>
   </div>
-
-  <div class="projects-list">
-
-    <a class="project-item" href="https://github.com/ojasvissar/yield-forecasting-transformer" target="_blank">
-      <div class="project-year">Jan<br>2026</div>
-      <div class="project-content">
+  <div class="proj-list">
+    <a class="proj reveal" href="https://github.com/ojasvissar/yield-forecasting-transformer" target="_blank">
+      <div class="proj-num">Project<br>001<br><br>Jan 2026</div>
+      <div class="proj-body">
         <h3>Geospatial Multimodal Yield Forecasting Transformer</h3>
-        <p>Extended MMST-ViT for agriculture crop yield prediction by fusing satellite imagery with time-series weather signals. Added Grad-CAM attention visualisation to surface which spatial regions and temporal windows drive predictions. Exported to ONNX for optimised inference and benchmarked against baseline geospatial models.</p>
-        <div class="project-stack">
-          <span class="tag">PyTorch</span>
-          <span class="tag">TorchGeo</span>
-          <span class="tag">ViT</span>
-          <span class="tag">ONNX</span>
-          <span class="tag">Grad-CAM</span>
+        <p>Extended the MMST-ViT architecture for agriculture crop yield prediction by fusing satellite imagery with time-series weather signals. Added Grad-CAM attention visualisation to reveal which spatial regions and temporal windows drive predictions. Exported to ONNX for optimised deployment and benchmarked against baseline geospatial models.</p>
+        <div class="proj-tags"><span class="cap-tag">PyTorch</span><span class="cap-tag">TorchGeo</span><span class="cap-tag">Vision Transformer</span><span class="cap-tag">ONNX</span><span class="cap-tag">Grad-CAM</span></div>
+      </div>
+      <div class="proj-side">
+        <img class="proj-img" src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400&q=70" alt="Satellite agriculture" loading="lazy">
+        <div class="proj-meta">
+          <span class="proj-date">Jan 2026</span>
+          <div class="proj-link">↗</div>
         </div>
       </div>
-      <div class="project-arrow">↗</div>
     </a>
-
-    <a class="project-item" href="https://github.com/kessler24/predicting_daily_land_average_earth_temperature" target="_blank">
-      <div class="project-year">Dec<br>2025</div>
-      <div class="project-content">
-        <h3>222-Year Climate Change Forecasting Pipeline</h3>
-        <p>Modelled 222 years of Berkeley Earth geospatial temperature data. Benchmarked three regression models across RMSE, MAE, and R². Containerised full pipeline with Docker and delivered via reproducible Quarto report — projecting 2030 temperatures approximately 2°C above the 1951–1980 baseline.</p>
-        <div class="project-stack">
-          <span class="tag">Python</span>
-          <span class="tag">SVR</span>
-          <span class="tag">Random Forest</span>
-          <span class="tag">Docker</span>
-          <span class="tag">Quarto</span>
+    <a class="proj reveal" href="https://github.com/kessler24/predicting_daily_land_average_earth_temperature" target="_blank">
+      <div class="proj-num">Project<br>002<br><br>Dec 2025</div>
+      <div class="proj-body">
+        <h3>222-Year Global Climate Change Forecasting Pipeline</h3>
+        <p>Modelled 222 years of Berkeley Earth geospatial temperature records. Benchmarked SVR, Random Forest, and Linear Regression across RMSE, MAE, and R². Containerised with Docker and delivered via reproducible Quarto report — projecting 2030 surface temperatures approximately 2°C above the 1951–1980 baseline.</p>
+        <div class="proj-tags"><span class="cap-tag">Python</span><span class="cap-tag">SVR</span><span class="cap-tag">Random Forest</span><span class="cap-tag">Docker</span><span class="cap-tag">Quarto</span></div>
+      </div>
+      <div class="proj-side">
+        <img class="proj-img" src="https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?w=400&q=70" alt="Climate" loading="lazy">
+        <div class="proj-meta">
+          <span class="proj-date">Dec 2025</span>
+          <div class="proj-link">↗</div>
         </div>
       </div>
-      <div class="project-arrow">↗</div>
     </a>
-
-    <a class="project-item" href="https://github.com/harshil2sharma/Applying-Machine-Learning-Principles-to-Categorize-Asteroids-as-Hazardous-or-Non-Hazardous" target="_blank">
-      <div class="project-year">Nov<br>2025</div>
-      <div class="project-content">
-        <h3>Asteroid Hazard Classification — 958K NASA/JPL Records</h3>
-        <p>Built a full ML pipeline on 958,524 NASA/JPL records. Applied SMOTENC for class imbalance, RFE and chi-squared feature selection, and benchmarked XGBoost vs Random Forest across F1, precision, and recall. Fully documented architecture for scientific reproducibility.</p>
-        <div class="project-stack">
-          <span class="tag">XGBoost</span>
-          <span class="tag">Random Forest</span>
-          <span class="tag">SMOTENC</span>
-          <span class="tag">Feature Engineering</span>
+    <a class="proj reveal" href="https://github.com/harshil2sharma/Applying-Machine-Learning-Principles-to-Categorize-Asteroids-as-Hazardous-or-Non-Hazardous" target="_blank">
+      <div class="proj-num">Project<br>003<br><br>Nov 2025</div>
+      <div class="proj-body">
+        <h3>Planetary Hazard Classification — 958K NASA/JPL Records</h3>
+        <p>Full ML pipeline on 958,524 NASA/JPL Near-Earth Object records. Applied SMOTENC for severe class imbalance, RFE and chi-squared feature selection for dimensionality reduction, and benchmarked XGBoost against Random Forest across F1, precision, and recall curves.</p>
+        <div class="proj-tags"><span class="cap-tag">XGBoost</span><span class="cap-tag">Random Forest</span><span class="cap-tag">SMOTENC</span><span class="cap-tag">Feature Engineering</span><span class="cap-tag">NASA/JPL</span></div>
+      </div>
+      <div class="proj-side">
+        <img class="proj-img" src="https://images.unsplash.com/photo-1446776858070-70c3d5ed6758?w=400&q=70" alt="Space data" loading="lazy">
+        <div class="proj-meta">
+          <span class="proj-date">Nov 2025</span>
+          <div class="proj-link">↗</div>
         </div>
       </div>
-      <div class="project-arrow">↗</div>
     </a>
-
   </div>
 </section>
 
-<!-- PROCESS -->
-<section id="process">
-  <div class="process-inner">
-    <div class="section-tag">How We Work</div>
-    <h2 class="section-title">The <em>Vanyax</em> process</h2>
-
-    <div class="process-steps">
-      <div class="process-step">
-        <div class="step-num">01</div>
-        <h3>Understand the ecology</h3>
-        <p>We start with your field reality — what species, what terrain, what questions matter. Data science without ecological context is just numbers.</p>
+<!-- TRUST -->
+<section id="trust" class="section-pad-lg">
+  <div class="trust-grid">
+    <div class="trust-left reveal-left">
+      <img class="tech-img" src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800&q=70" alt="Technology" loading="lazy">
+      <div class="tech-overlay">
+        <div class="tech-label">Core Technical Stack</div>
+        <div class="tech-pills">
+          <span class="tech-pill">PyTorch</span>
+          <span class="tech-pill">TorchGeo</span>
+          <span class="tech-pill">AWS</span>
+          <span class="tech-pill">Docker</span>
+          <span class="tech-pill">CUDA</span>
+          <span class="tech-pill">GDAL</span>
+          <span class="tech-pill">LangChain</span>
+          <span class="tech-pill">Snowflake</span>
+          <span class="tech-pill">ONNX</span>
+          <span class="tech-pill">XGBoost</span>
+          <span class="tech-pill">PySpark</span>
+          <span class="tech-pill">Airflow</span>
+        </div>
       </div>
-      <div class="process-step">
-        <div class="step-num">02</div>
-        <h3>Audit your data</h3>
-        <p>We map every data asset you have — camera traps, satellite feeds, sensor logs, surveys — and identify what can be activated with ML.</p>
-      </div>
-      <div class="process-step">
-        <div class="step-num">03</div>
-        <h3>Build & validate</h3>
-        <p>We build reproducible, containerised pipelines. Every model is validated against ecological ground truth, not just statistical benchmarks.</p>
-      </div>
-      <div class="process-step">
-        <div class="step-num">04</div>
-        <h3>Deploy & hand over</h3>
-        <p>We deploy tools your team can actually run. Every project ends with documentation, training, and an optional platform subscription.</p>
+    </div>
+    <div class="trust-right reveal-right">
+      <div class="eyebrow">Why Trust Vanyax</div>
+      <h2 class="section-title">We don't just<br>build models —<br>we <em>speak ecology</em></h2>
+      <p>Most data science consultants don't know the difference between NDVI and EVI, can't account for phenological bias in their training sets, and have never read a species distribution model. We have. That domain gap is where most conservation data projects fail — and where Vanyax wins.</p>
+      <div class="trust-cards">
+        <div class="trust-card">
+          <span class="trust-card-icon">🎓</span>
+          <h4>Graduate-level rigour</h4>
+          <p>MDS at UBC — every model is publication-ready and scientifically defensible.</p>
+        </div>
+        <div class="trust-card">
+          <span class="trust-card-icon">⚙️</span>
+          <h4>4+ years ML engineering</h4>
+          <p>30+ clients across CV, NLP, and geospatial analysis. Distributed AWS pipelines.</p>
+        </div>
+        <div class="trust-card">
+          <span class="trust-card-icon">🌍</span>
+          <h4>Global remote delivery</h4>
+          <p>Based in Vancouver, BC. We work with organisations across six continents.</p>
+        </div>
+        <div class="trust-card">
+          <span class="trust-card-icon">🔒</span>
+          <h4>You own everything</h4>
+          <p>All code, models, and pipelines belong to you. Full documentation included.</p>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CTA -->
+<!-- BIG CTA -->
 <section id="cta">
-  <div class="cta-eyebrow">// Ready to begin</div>
-  <h2 class="cta-title">Your data has been<br><em>waiting to speak</em></h2>
-  <p class="cta-sub">Tell us about your conservation challenge. We'll tell you what's possible with your data.</p>
-  <div class="cta-actions">
-    <a href="mailto:hello@vanyax.ai" class="btn-primary">Start a conversation</a>
-    <a href="#projects" class="btn-secondary">View our work →</a>
+  <div class="cta-bg"></div>
+  <div class="cta-overlay"></div>
+  <div class="cta-inner reveal">
+    <div class="cta-eyebrow">// The wild world needs data science</div>
+    <h2 class="cta-title">Every ecosystem<br>deserves <em>intelligence</em></h2>
+    <p class="cta-sub">You are already collecting the data that could change everything. Let Vanyax turn it into decisions that protect the planet.</p>
+    <div class="cta-btns">
+      <a href="#contact" class="btn-primary">
+        Start a project
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:16px;height:16px"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#capabilities" class="btn-outline">Explore services</a>
+    </div>
   </div>
 </section>
 
 <!-- CONTACT -->
-<section id="contact" style="padding: 8rem 4rem; background: var(--forest); position: relative; overflow: hidden;">
-
-  <!-- Background accent -->
-  <div style="position: absolute; right: -200px; top: 50%; transform: translateY(-50%); width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(74,158,74,0.05) 0%, transparent 70%); pointer-events: none;"></div>
-
-  <div style="max-width: 1400px; margin: 0 auto;">
-
-    <!-- Header -->
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; margin-bottom: 5rem; align-items: end;">
-      <div>
-        <div class="section-tag">Work With Us</div>
-        <h2 class="section-title">Your data is waiting<br>to <em>protect the wild</em></h2>
+<section id="contact" class="section-pad-lg">
+  <div class="contact-grid">
+    <div class="reveal-left">
+      <div class="eyebrow">Get in Touch</div>
+      <h2 class="section-title">Your data is<br>waiting to<br><em>protect the wild</em></h2>
+      <p>Tell us your conservation challenge. We will tell you exactly what is possible with your data and how long it will take.</p>
+      <div class="contact-links">
+        <a href="mailto:ojasvissar4@gmail.com" class="contact-link">
+          <div>
+            <div class="contact-link-label">Email</div>
+            <div class="contact-link-val">ojasvissar4@gmail.com</div>
+          </div>
+          <span class="contact-link-arrow">↗</span>
+        </a>
+        <a href="https://www.linkedin.com/in/ojasvissar/" target="_blank" class="contact-link">
+          <div>
+            <div class="contact-link-label">LinkedIn</div>
+            <div class="contact-link-val">linkedin.com/in/ojasvissar</div>
+          </div>
+          <span class="contact-link-arrow">↗</span>
+        </a>
+        <a href="https://github.com/ojasvissar" target="_blank" class="contact-link">
+          <div>
+            <div class="contact-link-label">GitHub</div>
+            <div class="contact-link-val">github.com/ojasvissar</div>
+          </div>
+          <span class="contact-link-arrow">↗</span>
+        </a>
       </div>
-      <p style="color: var(--mist); font-size: 0.95rem; line-height: 1.8; font-weight: 300;">
-        We work with wildlife agencies, conservation NGOs, government environmental bodies, and research institutions worldwide. Tell us your challenge — we'll tell you what's possible.
-      </p>
     </div>
-
-    <!-- Main grid -->
-    <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 1px; background: var(--green-dim); border: 1px solid var(--green-dim);">
-
-      <!-- Left: Who we work with -->
-      <div style="background: var(--black); padding: 3rem;">
-        <div style="font-family: var(--mono); font-size: 0.65rem; color: var(--green-glow); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 2rem;">Who We Work With</div>
-
-        <div style="display: flex; flex-direction: column; gap: 1px; background: var(--green-dim);">
-          <div style="background: var(--forest); padding: 1.5rem; display: flex; gap: 1.2rem; align-items: flex-start;">
-            <div style="font-size: 1.3rem; flex-shrink: 0; margin-top: 0.1rem;">🌿</div>
-            <div>
-              <div style="font-size: 0.9rem; font-weight: 600; color: var(--cream); margin-bottom: 0.3rem;">Conservation NGOs</div>
-              <div style="font-size: 0.8rem; color: var(--mist); font-weight: 300; line-height: 1.6;">WWF, WCS, local wildlife trusts — we understand grant cycles and build within your budget.</div>
-            </div>
-          </div>
-          <div style="background: var(--forest); padding: 1.5rem; display: flex; gap: 1.2rem; align-items: flex-start;">
-            <div style="font-size: 1.3rem; flex-shrink: 0; margin-top: 0.1rem;">🏛️</div>
-            <div>
-              <div style="font-size: 0.9rem; font-weight: 600; color: var(--cream); margin-bottom: 0.3rem;">Government Agencies</div>
-              <div style="font-size: 0.8rem; color: var(--mist); font-weight: 300; line-height: 1.6;">Forest departments, environment ministries, national parks — policy-grade reproducible pipelines.</div>
-            </div>
-          </div>
-          <div style="background: var(--forest); padding: 1.5rem; display: flex; gap: 1.2rem; align-items: flex-start;">
-            <div style="font-size: 1.3rem; flex-shrink: 0; margin-top: 0.1rem;">🔬</div>
-            <div>
-              <div style="font-size: 0.9rem; font-weight: 600; color: var(--cream); margin-bottom: 0.3rem;">Research Institutions</div>
-              <div style="font-size: 0.8rem; color: var(--mist); font-weight: 300; line-height: 1.6;">Universities and labs needing ML muscle on ecological datasets. Publication-ready outputs.</div>
-            </div>
-          </div>
-          <div style="background: var(--forest); padding: 1.5rem; display: flex; gap: 1.2rem; align-items: flex-start;">
-            <div style="font-size: 1.3rem; flex-shrink: 0; margin-top: 0.1rem;">🌱</div>
-            <div>
-              <div style="font-size: 0.9rem; font-weight: 600; color: var(--cream); margin-bottom: 0.3rem;">Climate & Sustainability Startups</div>
-              <div style="font-size: 0.8rem; color: var(--mist); font-weight: 300; line-height: 1.6;">Early-stage companies needing a data science team without the overhead of hiring one.</div>
-            </div>
-          </div>
+    <div class="form-box reveal-right">
+      <div class="form-title">Send us a brief</div>
+      <div class="form-subtitle">48-hour response guaranteed · We work with NGOs, governments & research institutions</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Organisation</label>
+          <input type="text" placeholder="WWF, your university, etc.">
         </div>
-
-        <!-- Response time badge -->
-        <div style="margin-top: 2rem; display: flex; align-items: center; gap: 1rem; padding: 1rem 1.2rem; border: 1px solid var(--green-dim); background: var(--forest);">
-          <div style="width: 8px; height: 8px; background: var(--green-neon); border-radius: 50%; animation: scrollPulse 2s ease infinite; flex-shrink: 0;"></div>
-          <div>
-            <div style="font-family: var(--mono); font-size: 0.6rem; color: var(--green-glow); letter-spacing: 0.1em;">RESPONSE TIME</div>
-            <div style="font-size: 0.8rem; color: var(--mist); font-weight: 300;">We reply to every inquiry within 48 hours.</div>
-          </div>
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" placeholder="Full name">
         </div>
       </div>
-
-      <!-- Right: Contact form -->
-      <div style="background: var(--black); padding: 3rem;">
-        <div style="font-family: var(--mono); font-size: 0.65rem; color: var(--green-glow); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 2rem;">Send Us a Brief</div>
-
-        <div style="display: flex; flex-direction: column; gap: 1.2rem;">
-
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-            <div>
-              <label style="font-family: var(--mono); font-size: 0.6rem; color: var(--green-glow); letter-spacing: 0.1em; text-transform: uppercase; display: block; margin-bottom: 0.5rem;">Organisation</label>
-              <input type="text" placeholder="Your org name" style="width: 100%; background: var(--forest); border: 1px solid var(--green-dim); color: var(--white); padding: 0.9rem 1rem; font-family: var(--sans); font-size: 0.85rem; font-weight: 300; outline: none; transition: border-color 0.3s;" onfocus="this.style.borderColor='var(--green-glow)'" onblur="this.style.borderColor='var(--green-dim)'">
-            </div>
-            <div>
-              <label style="font-family: var(--mono); font-size: 0.6rem; color: var(--green-glow); letter-spacing: 0.1em; text-transform: uppercase; display: block; margin-bottom: 0.5rem;">Your Name</label>
-              <input type="text" placeholder="Full name" style="width: 100%; background: var(--forest); border: 1px solid var(--green-dim); color: var(--white); padding: 0.9rem 1rem; font-family: var(--sans); font-size: 0.85rem; font-weight: 300; outline: none; transition: border-color 0.3s;" onfocus="this.style.borderColor='var(--green-glow)'" onblur="this.style.borderColor='var(--green-dim)'">
-            </div>
-          </div>
-
-          <div>
-            <label style="font-family: var(--mono); font-size: 0.6rem; color: var(--green-glow); letter-spacing: 0.1em; text-transform: uppercase; display: block; margin-bottom: 0.5rem;">Email</label>
-            <input type="email" placeholder="hello@yourorg.org" style="width: 100%; background: var(--forest); border: 1px solid var(--green-dim); color: var(--white); padding: 0.9rem 1rem; font-family: var(--sans); font-size: 0.85rem; font-weight: 300; outline: none; transition: border-color 0.3s;" onfocus="this.style.borderColor='var(--green-glow)'" onblur="this.style.borderColor='var(--green-dim)'">
-          </div>
-
-          <div>
-            <label style="font-family: var(--mono); font-size: 0.6rem; color: var(--green-glow); letter-spacing: 0.1em; text-transform: uppercase; display: block; margin-bottom: 0.5rem;">What kind of project?</label>
-            <select style="width: 100%; background: var(--forest); border: 1px solid var(--green-dim); color: var(--mist); padding: 0.9rem 1rem; font-family: var(--sans); font-size: 0.85rem; font-weight: 300; outline: none; transition: border-color 0.3s; appearance: none; cursor: pointer;" onfocus="this.style.borderColor='var(--green-glow)'" onblur="this.style.borderColor='var(--green-dim)'">
-              <option value="" disabled selected>Select a service area</option>
-              <option>Wildlife AI & Camera Trap Analysis</option>
-              <option>Geospatial & Satellite Imagery ML</option>
-              <option>Climate Forecasting Pipeline</option>
-              <option>Biodiversity Data Platform</option>
-              <option>Custom ML Project</option>
-              <option>Platform Subscription</option>
-              <option>Not sure — let's talk</option>
-            </select>
-          </div>
-
-          <div>
-            <label style="font-family: var(--mono); font-size: 0.6rem; color: var(--green-glow); letter-spacing: 0.1em; text-transform: uppercase; display: block; margin-bottom: 0.5rem;">Tell us about your data challenge</label>
-            <textarea rows="4" placeholder="What data do you have? What question are you trying to answer?" style="width: 100%; background: var(--forest); border: 1px solid var(--green-dim); color: var(--white); padding: 0.9rem 1rem; font-family: var(--sans); font-size: 0.85rem; font-weight: 300; outline: none; resize: vertical; transition: border-color 0.3s; line-height: 1.6;" onfocus="this.style.borderColor='var(--green-glow)'" onblur="this.style.borderColor='var(--green-dim)'"></textarea>
-          </div>
-
-          <button onclick="alert('Thanks for reaching out! We\'ll be in touch within 48 hours.')" style="background: var(--green-neon); color: var(--black); padding: 1rem 2rem; border: none; font-family: var(--sans); font-size: 0.85rem; font-weight: 600; letter-spacing: 0.05em; cursor: pointer; transition: all 0.3s; text-align: left; display: flex; justify-content: space-between; align-items: center;" onmouseover="this.style.background='var(--white)'; this.style.transform='translateY(-2px)'" onmouseout="this.style.background='var(--green-neon)'; this.style.transform='translateY(0)'">
-            Send Brief to Vanyax <span style="font-size: 1rem;">→</span>
-          </button>
-
-        </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" placeholder="you@organisation.org">
       </div>
-
+      <div class="form-group">
+        <label>Service Area</label>
+        <select>
+          <option value="" disabled selected>What do you need?</option>
+          <option>Wildlife AI & Camera Trap Analysis</option>
+          <option>Geospatial & Satellite Imagery ML</option>
+          <option>Climate Forecasting Pipeline</option>
+          <option>Biodiversity Data Platform</option>
+          <option>LLM / AI Assistant for Field Teams</option>
+          <option>Custom ML Project</option>
+          <option>Platform Subscription</option>
+          <option>Not sure — let's talk</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Your data challenge</label>
+        <textarea rows="4" placeholder="What data do you have? What decision are you trying to make? What's at stake?"></textarea>
+      </div>
+      <div class="form-footer">
+        <div class="form-note">All projects include full code ownership,<br>documentation & a <b>30-min free scoping call.</b></div>
+        <button class="submit-btn" id="submitBtn">
+          Send Brief
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:16px;height:16px"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
     </div>
-
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div>
-    <div class="footer-logo">Van<span>yax</span></div>
-    <div class="footer-tagline">// Intelligence for the living world</div>
+  <div class="footer-brand">
+    <a href="#" class="footer-logo">
+      <div class="nav-dot"></div>
+      Vanyax
+    </a>
+    <div class="footer-tag">// Environmental Intelligence Platform · Vancouver, BC</div>
   </div>
-
   <ul class="footer-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#services">Services</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="mailto:hello@vanyax.ai">Contact</a></li>
+    <li><a href="#how">Approach</a></li>
+    <li><a href="#capabilities">Services</a></li>
+    <li><a href="#projects">Work</a></li>
+    <li><a href="#trust">About</a></li>
+    <li><a href="#contact">Contact</a></li>
   </ul>
-
-  <div class="footer-copy">© 2026 Vanyax. All rights reserved.</div>
+  <div class="footer-copy">© 2026 Vanyax Inc.<br>Intelligence for the living world.</div>
 </footer>
 
+<script>
+// Custom cursor
+const cursor = document.getElementById('cursor');
+const cursorRing = document.getElementById('cursor-ring');
+let mouseX = 0, mouseY = 0;
+let ringX = 0, ringY = 0;
+
+if(window.matchMedia('(pointer:fine)').matches) {
+  document.addEventListener('mousemove', e => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    cursor.style.left = mouseX + 'px';
+    cursor.style.top = mouseY + 'px';
+  });
+
+  function animateRing() {
+    ringX += (mouseX - ringX) * 0.12;
+    ringY += (mouseY - ringY) * 0.12;
+    cursorRing.style.left = ringX + 'px';
+    cursorRing.style.top = ringY + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  // Cursor hover effects
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => cursorRing.classList.add('hover'));
+    el.addEventListener('mouseleave', () => cursorRing.classList.remove('hover'));
+  });
+}
+
+// Mobile menu
+function toggleMobile() {
+  const nav = document.getElementById('navMobile');
+  const toggle = document.getElementById('navToggle');
+  nav.classList.toggle('open');
+  toggle.classList.toggle('active');
+}
+function closeMobile() {
+  document.getElementById('navMobile').classList.remove('open');
+  document.getElementById('navToggle').classList.remove('active');
+}
+
+// Nav scroll state
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// Scroll reveal animations
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry, idx) => {
+    if(entry.isIntersecting) {
+      entry.target.style.transitionDelay = `${(idx % 6) * 80}ms`;
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+
+document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => {
+  revealObserver.observe(el);
+});
+
+// Parallax for hero
+const heroImg = document.querySelector('.hero-img');
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY;
+  if(scrollY < window.innerHeight) {
+    heroImg.style.transform = `translateY(${scrollY * 0.25}px) scale(1)`;
+  }
+});
+
+// Parallax for image dividers
+document.querySelectorAll('.img-divider img').forEach(img => {
+  window.addEventListener('scroll', () => {
+    const rect = img.closest('.img-divider').getBoundingClientRect();
+    if(rect.top < window.innerHeight && rect.bottom > 0) {
+      const pct = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
+      img.style.transform = `translateY(${(pct - 0.5) * 50}px) scale(1.1)`;
+    }
+  });
+});
+
+// Counter animation for stats
+const statsObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting) {
+      entry.target.querySelectorAll('.stat-num').forEach(el => {
+        const txt = el.innerHTML;
+        const em = el.querySelector('em');
+        const suffix = em ? em.outerHTML : '';
+        const numStr = txt.replace(/<.*?>/g, '').replace(/[^0-9.]/g, '');
+        const num = parseFloat(numStr);
+        if(!isNaN(num) && num > 0) {
+          let cur = 0;
+          const inc = num / 50;
+          const interval = setInterval(() => {
+            cur = Math.min(cur + inc, num);
+            el.innerHTML = (Number.isInteger(num) ? Math.floor(cur) : cur.toFixed(1)) + suffix;
+            if(cur >= num) clearInterval(interval);
+          }, 20);
+        }
+      });
+      statsObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.4 });
+
+const statsBar = document.querySelector('.stats-bar');
+if(statsBar) statsObserver.observe(statsBar);
+
+// Form submit
+document.getElementById('submitBtn').addEventListener('click', function() {
+  this.innerHTML = 'Sent ✓';
+  this.style.background = 'linear-gradient(135deg, #8abf18, #a5d830)';
+  this.style.pointerEvents = 'none';
+});
+
+// Smooth mouse-aware glow effect on background orbs
+const orbs = document.querySelectorAll('.glow-orb');
+document.addEventListener('mousemove', e => {
+  const x = e.clientX / window.innerWidth;
+  const y = e.clientY / window.innerHeight;
+  orbs.forEach((orb, i) => {
+    const speed = (i + 1) * 15;
+    orb.style.transform = `translate(${(x - 0.5) * speed}px, ${(y - 0.5) * speed}px)`;
+  });
+});
+</script>
 </body>
 </html>
