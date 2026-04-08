@@ -1,3 +1,12 @@
+/* ════════════════════════════════════════════════════════
+   Species explorer — the instrument.
+
+   Same cut-paper system as the home page: the question is asked on
+   a black sheet torn across the bottom, and the answers come back
+   as cards of paper with an ink edge. Denser than the home page,
+   because this one is a tool.
+   ════════════════════════════════════════════════════════ */
+
 /* ── the question ───────────────────────────────────────── */
 .ask {
   position: relative; overflow: hidden;
@@ -212,3 +221,9 @@
   border-width: 4.5px 0 4.5px 7px; border-color: transparent transparent transparent currentColor;
 }
 .lapse__btn.is-playing .lapse__icon { width: 8px; height: 8px; border: 0; background: currentColor; border-radius: 1px; }
+
+/* a scientific name is never set in capitals; and the field and its measuring
+   twin must agree on case, or the twin measures the wrong word and the field
+   clips the name it is showing */
+.ask__field, .ask__field #q, .ask__mirror { text-transform: none; }
+.rpt__name { text-transform: none; font-family: var(--sans); font-style: italic; font-weight: 600; letter-spacing: -0.01em; }
