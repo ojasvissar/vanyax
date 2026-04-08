@@ -62,3 +62,6 @@
   --series-4: #beaa30; --series-5: #3b3735; --series-6: #a8391b;
   --map-sea: #dfe3ee; --map-land: #fbf7ec;
 }
+
+/* ── base ────────────────────────────────────────────────── */
+* { margin: 0; padding: 0; box-sizing: border-box; }
