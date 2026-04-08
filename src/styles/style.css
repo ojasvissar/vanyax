@@ -66,3 +66,4 @@
 /* ── base ────────────────────────────────────────────────── */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { overflow-x: clip; }
+html.lenis, html.lenis body { height: auto; }
