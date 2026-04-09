@@ -87,3 +87,4 @@ h2 { font-size: clamp(1.9rem, 4vw, 3.4rem); }
 h3 { font-size: clamp(1.15rem, 1.6vw, 1.4rem); line-height: 1.05; }
 h4 { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; }
 .eyebrow { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--on-dark-2); }
+.eyebrow--dark { color: var(--ink-2); }
