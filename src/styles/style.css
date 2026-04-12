@@ -89,3 +89,4 @@ h4 { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transfor
 .eyebrow { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--on-dark-2); }
 .eyebrow--dark { color: var(--ink-2); }
 .lede { font-size: clamp(1.02rem, 1.3vw, 1.15rem); color: var(--on-dark-2); max-width: 54ch; }
+.line { display: block; overflow: hidden; }
