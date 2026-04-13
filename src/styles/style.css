@@ -118,3 +118,4 @@ h4 { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transfor
 
 /* ── header ──────────────────────────────────────────────── */
 .site-head { position: sticky; top: 0; z-index: 100; background: var(--mocha); border-bottom: 1px solid var(--line-dark); transition: transform 0.5s var(--ease); }
+.site-head.is-hidden { transform: translateY(-100%); }
