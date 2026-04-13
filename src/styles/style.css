@@ -110,3 +110,4 @@ h4 { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transfor
 }
 .btn:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--mocha-2); }
 .btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--mocha-2); }
+.btn--maple { background: var(--maple); color: var(--night); }
