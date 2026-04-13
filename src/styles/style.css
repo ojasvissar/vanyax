@@ -134,3 +134,4 @@ h4 { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transfor
 .tile--moss  { background: var(--moss);  color: var(--night); }
 .tile--maple { background: var(--maple); color: var(--night); }
 .tile--berry { background: var(--berry-deep); color: var(--cream); }
+.tile--cream { background: var(--cream); color: var(--night); }
