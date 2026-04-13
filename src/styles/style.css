@@ -124,3 +124,9 @@ h4 { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transfor
 .site-nav a { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding-block: 0.3rem; border-bottom: 3px solid transparent; transition: border-color 0.3s var(--ease); }
 .site-nav a:hover, .site-nav a[aria-current] { border-bottom-color: var(--maple); }
 .site-head__cta { padding: 0.62rem 1.1rem; }
+
+/* ── tiles: enamel badges on the board ───────────────────── */
+.tile {
+  position: relative; border-radius: var(--r); padding: clamp(1.3rem, 2.6vw, 2.2rem);
+  transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+}
