@@ -139,3 +139,4 @@ h4 { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transfor
 
 /* ── hero: a lead tile and two badges ────────────────────── */
 .hero { padding-top: clamp(1.4rem, 4vh, 2.6rem); }
+.hero__grid { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); grid-template-rows: 1fr 1fr; gap: var(--gap); }
