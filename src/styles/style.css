@@ -131,3 +131,4 @@ h4 { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transfor
   transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
 }
 .tile--pine  { background: var(--pine);  color: var(--cream); }
+.tile--moss  { background: var(--moss);  color: var(--night); }
