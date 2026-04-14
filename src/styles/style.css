@@ -145,3 +145,4 @@ h4 { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transfor
 .hero h1 { color: var(--cream); max-width: 11ch; }
 .hero__sub { color: var(--on-dark-2); max-width: 44ch; font-size: clamp(1rem, 1.3vw, 1.15rem); }
 .hero__actions { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-top: 0.4rem; }
+.hero__badge { display: grid; place-items: end center; padding: 1.4rem 1.4rem 0; overflow: hidden; min-height: clamp(180px, 22vw, 290px); }
