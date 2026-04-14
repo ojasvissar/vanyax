@@ -150,3 +150,4 @@ h4 { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transfor
 
 /* the arched banner, with a pine at either end */
 .banner { width: min(1000px, 100% - 2 * var(--pad)); margin: clamp(1.6rem, 4vh, 2.6rem) auto 0; }
+.banner__art { width: 100%; height: auto; overflow: visible; }
