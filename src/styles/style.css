@@ -165,3 +165,4 @@ h4 { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transfor
 .tiles { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: var(--gap); }
 .tiles > :nth-child(-n+3) { grid-column: span 2; }
 .tiles > :nth-child(n+4) { grid-column: span 3; }
+.service { display: grid; gap: 0.7rem; align-content: start; }
