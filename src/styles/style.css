@@ -154,3 +154,6 @@ h4 { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transfor
 .banner__band { fill: var(--berry); }
 .banner__text { font-family: var(--display); font-size: 58px; letter-spacing: 2px; fill: var(--cream); }
 .banner__tree { fill: var(--mocha-2); transform-box: fill-box; transform-origin: 50% 100%; }
+
+/* ── bands and section heads ─────────────────────────────── */
+.band { padding-block: clamp(4rem, 10vh, 7rem); }
