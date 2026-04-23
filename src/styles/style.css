@@ -170,3 +170,4 @@ h4 { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transfor
 .service__icon { width: 92px; height: auto; margin-bottom: 0.4rem; }
 .tile--pine .service__icon, .tile--berry .service__icon { filter: brightness(0) invert(0.93) sepia(0.2); }
 .service p { font-size: 0.95rem; line-height: 1.6; }
+.tile--pine p { color: var(--on-dark-2); }
