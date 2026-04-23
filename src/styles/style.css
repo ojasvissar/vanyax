@@ -168,3 +168,4 @@ h4 { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transfor
 .service { display: grid; gap: 0.7rem; align-content: start; }
 .service:hover { transform: translate(-4px, -4px); box-shadow: var(--lift); }
 .service__icon { width: 92px; height: auto; margin-bottom: 0.4rem; }
+.tile--pine .service__icon, .tile--berry .service__icon { filter: brightness(0) invert(0.93) sepia(0.2); }
