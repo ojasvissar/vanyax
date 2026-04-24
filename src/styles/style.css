@@ -174,3 +174,6 @@ h4 { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transfor
 .tile--berry p { color: var(--cream); }   /* blueberry needs full-strength cream */
 .tile--moss p, .tile--cream p { color: var(--ink-2); }
 .tile--maple p { color: var(--night); }
+
+/* ── what you keep: the swatch card ──────────────────────── */
+.keep { padding: clamp(1.6rem, 4vw, 3.2rem); }
