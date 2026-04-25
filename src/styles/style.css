@@ -177,3 +177,4 @@ h4 { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transfor
 
 /* ── what you keep: the swatch card ──────────────────────── */
 .keep { padding: clamp(1.6rem, 4vw, 3.2rem); }
+.swatches { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: var(--gap); }
