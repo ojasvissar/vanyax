@@ -183,3 +183,4 @@ h4 { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transfor
   min-height: 150px; border-radius: var(--r-sm); padding: 1rem 1.1rem;
   transition: transform 0.35s var(--pop);
 }
+.swatch:hover { transform: translateY(-6px) rotate(-1.5deg); }
