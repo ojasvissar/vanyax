@@ -185,3 +185,4 @@ h4 { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transfor
 }
 .swatch:hover { transform: translateY(-6px) rotate(-1.5deg); }
 .swatch__name { font-size: 0.95rem; font-weight: 600; line-height: 1.25; }
+.swatch__code { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
