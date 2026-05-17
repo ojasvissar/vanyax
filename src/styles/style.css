@@ -201,3 +201,4 @@ h4 { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transfor
 .faq__side { display: grid; gap: 0.8rem; justify-items: start; }
 .faq__side h2 { color: var(--cream); }
 .faq__badge { width: min(100%, 300px); aspect-ratio: 1; display: grid; place-items: end center; padding: 1.4rem 1.4rem 0; margin-top: 1rem; overflow: hidden; }
+.acc { display: grid; gap: var(--gap); }
