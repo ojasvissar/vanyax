@@ -198,3 +198,4 @@ h4 { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transfor
 
 /* ── questions ───────────────────────────────────────────── */
 .faq__grid { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: clamp(1.6rem, 5vw, 4rem); align-items: start; }
+.faq__side { display: grid; gap: 0.8rem; justify-items: start; }
