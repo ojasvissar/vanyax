@@ -205,3 +205,4 @@ h4 { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transfor
 .acc__item { background: var(--cream); color: var(--night); border-radius: var(--r); overflow: hidden; transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease); }
 .acc__item:hover { transform: translate(-3px, -3px); box-shadow: var(--lift); }
 .acc__item.is-open { background: var(--moss); }
+.acc__head { font: inherit; }
