@@ -190,3 +190,8 @@ h4 { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transfor
 .swatch--moss  { background: var(--moss); color: var(--night); }
 .swatch--maple { background: var(--maple); color: var(--night); }
 .swatch--berry { background: var(--berry-deep); color: var(--cream); }
+/* the mocha one has a bite out of its corner, as on the board */
+.swatch--mocha {
+  background: var(--mocha); color: var(--cream);
+  clip-path: polygon(0 0, 78% 0, 80% 7%, 84% 4%, 87% 11%, 91% 8%, 94% 16%, 100% 14%, 100% 100%, 0 100%);
+}
