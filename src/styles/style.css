@@ -189,3 +189,4 @@ h4 { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transfor
 .swatch--pine  { background: var(--pine); color: var(--cream); }
 .swatch--moss  { background: var(--moss); color: var(--night); }
 .swatch--maple { background: var(--maple); color: var(--night); }
+.swatch--berry { background: var(--berry-deep); color: var(--cream); }
