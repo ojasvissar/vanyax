@@ -206,3 +206,7 @@ h4 { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transfor
 .acc__item:hover { transform: translate(-3px, -3px); box-shadow: var(--lift); }
 .acc__item.is-open { background: var(--moss); }
 .acc__head { font: inherit; }
+.acc__btn {
+  width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1rem; text-align: left;
+  padding: 1.1rem 1.3rem; font-family: var(--display); font-size: clamp(1rem, 1.4vw, 1.2rem); text-transform: uppercase; letter-spacing: 0.02em;
+}
