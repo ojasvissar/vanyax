@@ -1,1493 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vanyax — Environmental Intelligence</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
-<style>
-/* ─── RESET & ROOT ─── */
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-html{font-size:16px;scroll-behavior:auto}
-:root{
-  --bg:      #050706;
-  --bg2:     #080c07;
-  --bg3:     #0c100b;
-  --bg4:     #101410;
-  --lime:    #c8f135;
-  --lime2:   #d6ff4a;
-  --lime3:   #e6ff80;
-  --ldim:    rgba(200,241,53,.05);
-  --lborder: rgba(200,241,53,.14);
-  --lglow:   rgba(200,241,53,.22);
-  --cream:   #f2ede2;
-  --sand:    #8fa887;
-  --muted:   rgba(143,168,135,.45);
-  --dim:     rgba(255,255,255,.06);
-  --dim2:    rgba(255,255,255,.1);
-  --serif:  'Cormorant Garamond',Georgia,serif;
-  --sans:   'DM Sans',system-ui,sans-serif;
-  --mono:   'DM Mono',monospace;
-  --ease:   cubic-bezier(.16,1,.3,1);
-  --ease2:  cubic-bezier(.19,1,.22,1);
-  --r:      12px;
-  --r2:     20px;
-}
-body{
-  background:var(--bg);
-  color:var(--cream);
-  font-family:var(--sans);
-  overflow-x:hidden;
-  line-height:1.6;
-}
-
-/* ─── GRAIN ─── */
-body::after{
-  content:'';
-  position:fixed;inset:0;
-  z-index:9000;pointer-events:none;
-  opacity:.018;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-/* ─── CURSOR ─── */
-@media(pointer:fine){body,a,button{cursor:none}}
-#cur{position:fixed;width:7px;height:7px;background:var(--lime);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .12s}
-#cur-ring{position:fixed;width:38px;height:38px;border:1.5px solid rgba(200,241,53,.35);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s var(--ease),height .25s var(--ease),border-color .25s,background .25s}
-#cur-ring.on{width:56px;height:56px;border-color:var(--lime);background:rgba(200,241,53,.06)}
-
-/* ─── SCROLL PROGRESS ─── */
-#prog{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--lime),var(--lime2));z-index:9990;width:0%;pointer-events:none;box-shadow:0 0 10px rgba(200,241,53,.5)}
-
-/* ─── NAV ─── */
-#nav{
-  position:fixed;top:0;left:0;right:0;z-index:500;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:1.4rem 5vw;
-  transition:padding .4s var(--ease),background .4s,border .4s,backdrop-filter .4s;
-}
-#nav.scrolled{
-  padding:.85rem 5vw;
-  background:rgba(5,7,6,.8);
-  backdrop-filter:blur(24px);
-  -webkit-backdrop-filter:blur(24px);
-  border-bottom:1px solid var(--dim);
-}
-.nav-logo{display:flex;align-items:center;gap:.75rem;text-decoration:none;color:var(--cream)}
-.nav-logo-mark{height:36px;width:36px;filter:drop-shadow(0 0 10px rgba(200,241,53,.2));transition:filter .3s}
-.nav-logo:hover .nav-logo-mark{filter:drop-shadow(0 0 18px rgba(200,241,53,.5))}
-.nav-logo-text{font-family:var(--mono);font-size:1.1rem;font-weight:500;letter-spacing:-.02em}
-.nav-logo-text span{color:var(--lime)}
-.nav-links{display:flex;align-items:center;gap:2.8rem;list-style:none}
-.nav-links a{color:var(--sand);text-decoration:none;font-size:.75rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;transition:color .2s;position:relative}
-.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--lime);transition:width .3s var(--ease)}
-.nav-links a:hover{color:var(--cream)}
-.nav-links a:hover::after{width:100%}
-.nav-cta{
-  background:var(--lime);color:var(--bg);
-  padding:.65rem 1.5rem;font-size:.72rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
-  text-decoration:none;border-radius:100px;transition:all .3s var(--ease);
-  box-shadow:0 4px 20px rgba(200,241,53,.2);
-}
-.nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(200,241,53,.4)}
-.nav-burger{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:6px;cursor:none}
-.nav-burger span{width:22px;height:1.5px;background:var(--cream);border-radius:2px;transition:all .3s var(--ease);display:block}
-.nav-burger.open span:nth-child(1){transform:rotate(45deg) translate(4.5px,4.5px)}
-.nav-burger.open span:nth-child(2){opacity:0}
-.nav-burger.open span:nth-child(3){transform:rotate(-45deg) translate(4.5px,-4.5px)}
-
-/* Mobile drawer */
-#mobile-menu{
-  display:none;position:fixed;inset:0;z-index:490;
-  background:rgba(5,7,6,.97);backdrop-filter:blur(30px);
-  flex-direction:column;align-items:center;justify-content:center;gap:2.5rem;
-  opacity:0;transition:opacity .35s;pointer-events:none;
-}
-#mobile-menu.open{display:flex;opacity:1;pointer-events:all}
-#mobile-menu a{font-family:var(--serif);font-size:2.8rem;font-weight:300;color:var(--cream);text-decoration:none;transition:color .2s}
-#mobile-menu a:hover{color:var(--lime)}
-
-/* ─── HERO ─── */
-#hero{
-  min-height:100vh;
-  display:grid;
-  grid-template-rows:1fr auto;
-  padding-top:80px;
-  position:relative;
-  overflow:hidden;
-}
-.hero-grid{
-  display:grid;
-  grid-template-columns:1fr 42vw;
-  align-items:center;
-  min-height:calc(100vh - 80px - 160px);
-  padding:0 5vw;
-  gap:4vw;
-}
-.hero-left{padding:4rem 0}
-.hero-eyebrow{
-  display:inline-flex;align-items:center;gap:.7rem;
-  font-family:var(--mono);font-size:.62rem;color:var(--lime);
-  letter-spacing:.18em;text-transform:uppercase;margin-bottom:2.2rem;
-}
-.hero-eyebrow::before{content:'';width:24px;height:1px;background:linear-gradient(90deg,transparent,var(--lime))}
-.hero-title{
-  font-family:var(--serif);
-  font-size:clamp(3.4rem,6.5vw,7.5rem);
-  font-weight:300;line-height:.95;letter-spacing:-.03em;
-  margin-bottom:2rem;
-}
-.hero-title em{
-  font-style:italic;
-  background:linear-gradient(135deg,var(--lime) 0%,var(--lime2) 60%,var(--lime3) 100%);
-  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
-}
-.hero-sub{
-  font-size:1rem;color:var(--sand);line-height:1.85;font-weight:300;
-  max-width:480px;margin-bottom:3rem;
-}
-.hero-btns{display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap}
-.btn-primary{
-  display:inline-flex;align-items:center;gap:.6rem;
-  background:var(--lime);color:var(--bg);
-  padding:1rem 2rem;font-size:.8rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
-  text-decoration:none;border-radius:100px;transition:all .35s var(--ease);
-  box-shadow:0 6px 28px rgba(200,241,53,.25);white-space:nowrap;
-}
-.btn-primary:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(200,241,53,.5)}
-.btn-primary svg,.btn-ghost svg{width:15px;height:15px;transition:transform .3s var(--ease)}
-.btn-primary:hover svg{transform:translateX(4px)}
-.btn-ghost{
-  display:inline-flex;align-items:center;gap:.5rem;color:var(--sand);
-  font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;
-  text-decoration:none;transition:color .25s;
-}
-.btn-ghost:hover{color:var(--cream)}
-.btn-ghost:hover svg{transform:translateX(3px)}
-
-/* Globe canvas */
-.hero-right{
-  position:relative;display:flex;align-items:center;justify-content:center;
-  height:100%;min-height:500px;
-}
-#globe-canvas{display:block;width:100%;height:100%;position:absolute;inset:0}
-.globe-label{
-  position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
-  font-family:var(--mono);font-size:.58rem;color:rgba(200,241,53,.4);
-  letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;
-}
-
-/* Hero stats band */
-.hero-stats{
-  display:grid;grid-template-columns:repeat(4,1fr);
-  border-top:1px solid var(--dim);
-}
-.h-stat{
-  padding:1.8rem 5vw;border-right:1px solid var(--dim);
-  position:relative;overflow:hidden;transition:background .3s;
-}
-.h-stat:last-child{border-right:none}
-.h-stat:hover{background:var(--ldim)}
-.h-stat-num{
-  font-family:var(--serif);font-size:clamp(1.8rem,2.5vw,2.8rem);
-  font-weight:300;line-height:1;letter-spacing:-.02em;color:var(--cream);
-}
-.h-stat-num em{
-  background:linear-gradient(135deg,var(--lime),var(--lime2));
-  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
-  font-style:normal;
-}
-.h-stat-label{font-size:.75rem;color:var(--sand);margin-top:.35rem;font-weight:300;line-height:1.45}
-.h-stat-src{font-family:var(--mono);font-size:.52rem;color:var(--muted);letter-spacing:.05em;margin-top:.3rem}
-
-/* ─── TICKER ─── */
-.ticker{
-  background:var(--bg2);border-top:1px solid var(--dim);border-bottom:1px solid var(--dim);
-  padding:.9rem 0;overflow:hidden;
-}
-.ticker-track{
-  display:flex;width:max-content;
-  animation:tick 40s linear infinite;
-}
-.ticker:hover .ticker-track{animation-play-state:paused}
-.ticker-item{
-  display:flex;align-items:center;gap:2rem;padding:0 2rem;
-  font-family:var(--mono);font-size:.65rem;color:var(--muted);
-  letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;
-}
-.ticker-dot{width:4px;height:4px;border-radius:50%;background:var(--lime);opacity:.5}
-@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-
-/* ─── SECTION COMMONS ─── */
-.s-pad{padding:9rem 5vw}
-.s-pad-sm{padding:6rem 5vw}
-.eyebrow{
-  display:inline-flex;align-items:center;gap:.7rem;
-  font-family:var(--mono);font-size:.6rem;color:var(--lime);
-  letter-spacing:.18em;text-transform:uppercase;margin-bottom:1.5rem;
-}
-.eyebrow::before{content:'';width:24px;height:1px;background:linear-gradient(90deg,transparent,var(--lime))}
-.section-title{
-  font-family:var(--serif);font-size:clamp(2.6rem,5vw,5rem);
-  font-weight:300;line-height:1.04;letter-spacing:-.025em;
-}
-.section-title em{
-  font-style:italic;
-  background:linear-gradient(135deg,var(--lime),var(--lime2));
-  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
-}
-
-/* ─── CRISIS ─── */
-#crisis{background:var(--bg2);border-top:1px solid var(--dim)}
-.crisis-wrap{
-  display:grid;grid-template-columns:1fr 1fr;gap:7rem;align-items:center;
-}
-.crisis-left .body-text{
-  color:var(--sand);font-size:.98rem;line-height:1.88;font-weight:300;
-  margin-top:1.8rem;max-width:500px;
-}
-.crisis-left .body-text + .body-text{margin-top:1rem}
-.crisis-right{
-  display:grid;grid-template-columns:1fr 1fr;gap:1px;
-  background:var(--dim);border:1px solid var(--dim);border-radius:var(--r2);overflow:hidden;
-}
-.crisis-card{
-  background:var(--bg);padding:2.5rem 2rem;
-  position:relative;overflow:hidden;transition:background .35s;
-}
-.crisis-card:hover{background:var(--bg3)}
-.crisis-num{
-  font-family:var(--serif);font-size:clamp(2.4rem,4vw,3.8rem);
-  font-weight:300;line-height:1;
-  background:linear-gradient(135deg,var(--lime),var(--lime2));
-  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
-  display:block;margin-bottom:.6rem;
-}
-.crisis-desc{font-size:.8rem;color:var(--sand);line-height:1.65;font-weight:300}
-.crisis-src{font-family:var(--mono);font-size:.52rem;color:var(--muted);display:block;margin-top:.5rem}
-
-/* ─── SERVICES HORIZONTAL SCROLL ─── */
-#services{
-  background:var(--bg);border-top:1px solid var(--dim);
-  overflow:hidden;
-}
-.services-header{
-  display:flex;justify-content:space-between;align-items:flex-end;
-  padding:7rem 5vw 4rem;gap:3rem;
-}
-.services-hint{
-  font-family:var(--mono);font-size:.6rem;color:var(--muted);
-  letter-spacing:.1em;display:flex;align-items:center;gap:.8rem;
-}
-.services-hint svg{width:16px;height:16px;color:var(--lime)}
-.svc-track-wrap{position:relative;overflow:hidden;padding:0 5vw 6rem}
-.svc-track{
-  display:flex;gap:1.5rem;
-  will-change:transform;
-}
-.svc-card{
-  flex:0 0 320px;min-height:480px;
-  background:var(--bg2);border:1px solid var(--dim);border-radius:var(--r2);
-  padding:2.5rem 2.2rem;position:relative;overflow:hidden;
-  display:flex;flex-direction:column;
-  transition:border-color .4s var(--ease),transform .4s var(--ease),box-shadow .4s var(--ease);
-}
-.svc-card:hover{
-  border-color:var(--lborder);
-  transform:translateY(-8px);
-  box-shadow:0 30px 70px rgba(0,0,0,.4),0 0 0 1px var(--lborder);
-}
-.svc-card::before{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(135deg,rgba(200,241,53,.05),transparent 60%);
-  opacity:0;transition:opacity .4s;
-}
-.svc-card:hover::before{opacity:1}
-.svc-num{
-  font-family:var(--mono);font-size:.58rem;color:rgba(200,241,53,.35);
-  letter-spacing:.14em;margin-bottom:2rem;display:block;
-}
-.svc-icon{
-  font-size:2rem;margin-bottom:1.5rem;display:block;
-  transition:transform .4s var(--ease);
-}
-.svc-card:hover .svc-icon{transform:scale(1.12) rotate(-5deg)}
-.svc-name{
-  font-family:var(--serif);font-size:1.55rem;font-weight:400;
-  color:var(--cream);line-height:1.15;margin-bottom:.9rem;
-}
-.svc-desc{font-size:.82rem;color:var(--sand);line-height:1.72;font-weight:300;flex:1}
-.svc-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1.6rem}
-.svc-tag{
-  font-family:var(--mono);font-size:.56rem;color:var(--sand);
-  border:1px solid var(--dim);padding:.22rem .65rem;border-radius:100px;
-  letter-spacing:.04em;transition:all .25s;
-}
-.svc-card:hover .svc-tag{border-color:var(--lborder);color:var(--lime)}
-.svc-arrow{
-  position:absolute;top:2rem;right:2rem;
-  width:38px;height:38px;border:1px solid var(--dim);border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  color:var(--sand);font-size:.85rem;
-  transition:all .35s var(--ease);
-}
-.svc-card:hover .svc-arrow{
-  background:var(--lime);color:var(--bg);border-color:transparent;
-  transform:rotate(45deg);box-shadow:0 4px 18px var(--lglow);
-}
-
-/* ─── PLATFORM PREVIEW ─── */
-#platform{
-  background:var(--bg2);border-top:1px solid var(--dim);
-}
-.platform-header{text-align:center;margin-bottom:4rem}
-.platform-header p{color:var(--sand);font-size:1rem;font-weight:300;line-height:1.7;max-width:500px;margin:.8rem auto 0}
-.dashboard{
-  background:rgba(5,7,6,.97);
-  border:1px solid rgba(200,241,53,.14);border-radius:20px;overflow:hidden;
-  box-shadow:0 40px 100px rgba(0,0,0,.6),0 0 0 1px rgba(200,241,53,.05);
-  max-width:1080px;margin:0 auto;
-}
-.dash-bar{
-  display:flex;align-items:center;gap:.8rem;
-  padding:.85rem 1.4rem;background:rgba(200,241,53,.02);
-  border-bottom:1px solid rgba(200,241,53,.08);
-}
-.dash-dots{display:flex;gap:.4rem}
-.dash-dot{width:9px;height:9px;border-radius:50%}
-.dash-dot:nth-child(1){background:#ff5f57}
-.dash-dot:nth-child(2){background:#febc2e}
-.dash-dot:nth-child(3){background:#28c840}
-.dash-bar-title{margin-left:.4rem;font-family:var(--mono);font-size:.6rem;color:rgba(200,241,53,.4);letter-spacing:.1em}
-.dash-bar-status{
-  margin-left:auto;display:flex;align-items:center;gap:.45rem;
-  font-family:var(--mono);font-size:.56rem;color:var(--muted);
-}
-.live-dot{width:5px;height:5px;border-radius:50%;background:#28c840;box-shadow:0 0 6px #28c840;animation:pulse 2s ease infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-.dash-body{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:rgba(200,241,53,.06)}
-.dash-panel{background:rgba(5,7,6,.99);padding:1.5rem 1.7rem}
-.dash-label{font-family:var(--mono);font-size:.55rem;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.9rem}
-.dash-metric{font-family:var(--serif);font-size:2.5rem;font-weight:300;color:var(--cream);line-height:1;letter-spacing:-.02em}
-.dash-metric em{background:linear-gradient(135deg,var(--lime),var(--lime2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-style:normal}
-.dash-sub{font-size:.72rem;color:var(--sand);margin-top:.35rem;font-weight:300}
-.dash-badge{
-  display:inline-flex;align-items:center;gap:.35rem;
-  font-family:var(--mono);font-size:.56rem;padding:.18rem .6rem;border-radius:100px;margin-top:.5rem;
-}
-.badge-ok{background:rgba(40,200,64,.1);color:#28c840;border:1px solid rgba(40,200,64,.22)}
-.badge-warn{background:rgba(254,188,46,.08);color:#febc2e;border:1px solid rgba(254,188,46,.18)}
-.dash-chart-panel{grid-column:span 2;background:rgba(5,7,6,.99);padding:1.5rem 1.7rem}
-.chart-area{position:relative;height:120px;margin-top:.7rem}
-.dash-feed-panel{background:rgba(5,7,6,.99);padding:1.5rem 1.7rem}
-.feed{display:flex;flex-direction:column;gap:.6rem;margin-top:.3rem}
-.feed-row{
-  display:flex;align-items:center;gap:.75rem;
-  padding:.55rem .75rem;background:rgba(200,241,53,.02);
-  border:1px solid rgba(200,241,53,.06);border-radius:8px;
-  transition:border-color .25s;
-}
-.feed-row:hover{border-color:rgba(200,241,53,.16)}
-.feed-emoji{font-size:.95rem;flex-shrink:0}
-.feed-name{font-size:.75rem;color:var(--cream)}
-.feed-conf{font-family:var(--mono);font-size:.56rem;color:var(--sand);margin-top:.08rem}
-.feed-pill{
-  margin-left:auto;font-family:var(--mono);font-size:.54rem;
-  padding:.12rem .5rem;border-radius:4px;flex-shrink:0;
-}
-.feed-pill.ok{background:rgba(40,200,64,.1);color:#28c840}
-.feed-pill.warn{background:rgba(254,188,46,.08);color:#febc2e}
-
-/* ─── HOW WE WORK ─── */
-#how{background:var(--bg);border-top:1px solid var(--dim);position:relative;overflow:hidden}
-#how::before{
-  content:'';position:absolute;left:-200px;top:50%;transform:translateY(-50%);
-  width:500px;height:500px;border-radius:50%;
-  background:radial-gradient(circle,rgba(200,241,53,.03),transparent 65%);pointer-events:none;
-}
-.how-layout{display:grid;grid-template-columns:1fr 1fr;gap:7rem;align-items:start}
-.how-left p{color:var(--sand);font-size:.98rem;line-height:1.85;font-weight:300;margin-top:1.5rem;max-width:420px}
-.how-steps{display:flex;flex-direction:column;gap:0}
-.how-step{
-  padding:2.5rem 0;border-bottom:1px solid var(--dim);
-  display:grid;grid-template-columns:48px 1fr;gap:1.5rem;align-items:start;
-  position:relative;transition:all .35s var(--ease);
-}
-.how-step:first-child{border-top:1px solid var(--dim)}
-.how-step::before{
-  content:'';position:absolute;left:0;bottom:0;top:0;width:0;
-  background:linear-gradient(180deg,var(--lime),transparent);
-  transition:width .4s var(--ease);opacity:.15;
-}
-.how-step:hover::before{width:3px}
-.step-n{
-  font-family:var(--mono);font-size:.6rem;color:var(--lime);
-  letter-spacing:.1em;padding-top:.2rem;
-}
-.step-title{
-  font-family:var(--serif);font-size:1.3rem;font-weight:400;
-  color:var(--cream);margin-bottom:.5rem;line-height:1.2;
-}
-.step-desc{font-size:.82rem;color:var(--sand);line-height:1.7;font-weight:300}
-
-/* ─── PROJECTS ─── */
-#projects{background:var(--bg2);border-top:1px solid var(--dim)}
-.proj-header{display:flex;justify-content:space-between;align-items:flex-end;gap:3rem;margin-bottom:5rem}
-.proj-header p{color:var(--sand);font-size:.92rem;line-height:1.75;font-weight:300;max-width:320px}
-.proj-stack{display:flex;flex-direction:column;gap:2px;background:var(--dim);border:1px solid var(--dim);border-radius:var(--r2);overflow:hidden}
-.proj-card{
-  background:var(--bg);display:grid;grid-template-columns:1fr 380px;
-  text-decoration:none;color:inherit;
-  transition:background .4s var(--ease);overflow:hidden;position:relative;
-}
-.proj-card:hover{background:var(--bg3)}
-.proj-card-body{padding:3.5rem 4rem;display:flex;flex-direction:column}
-.proj-idx{font-family:var(--mono);font-size:.56rem;color:rgba(200,241,53,.35);letter-spacing:.14em;display:block;margin-bottom:1rem}
-.proj-result-pill{
-  display:inline-flex;align-items:center;gap:.45rem;
-  background:rgba(200,241,53,.07);border:1px solid var(--lborder);border-radius:100px;
-  padding:.28rem .85rem;font-family:var(--mono);font-size:.58rem;color:var(--lime);
-  letter-spacing:.05em;margin-bottom:1.6rem;width:fit-content;
-}
-.proj-title{
-  font-family:var(--serif);font-size:clamp(1.6rem,2.2vw,2.5rem);font-weight:400;
-  color:var(--cream);line-height:1.1;letter-spacing:-.02em;margin-bottom:1.2rem;
-  transition:all .35s var(--ease);
-}
-.proj-card:hover .proj-title{
-  background:linear-gradient(135deg,var(--lime),var(--lime2));
-  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
-}
-.proj-desc{font-size:.84rem;color:var(--sand);line-height:1.78;font-weight:300;margin-bottom:1.6rem;max-width:520px;flex:1}
-.proj-tags-row{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:2rem}
-.proj-foot{display:flex;align-items:center;gap:1.5rem;margin-top:auto}
-.proj-date{font-family:var(--mono);font-size:.56rem;color:var(--muted);letter-spacing:.07em}
-.proj-link-btn{
-  display:inline-flex;align-items:center;gap:.45rem;
-  font-family:var(--mono);font-size:.6rem;color:var(--lime);
-  letter-spacing:.09em;text-transform:uppercase;
-  border-bottom:1px solid rgba(200,241,53,.3);padding-bottom:1px;
-  transition:all .3s var(--ease);
-}
-.proj-card:hover .proj-link-btn{border-color:var(--lime);gap:.8rem}
-.proj-img-col{position:relative;overflow:hidden}
-.proj-img-col img{width:100%;height:100%;object-fit:cover;filter:saturate(.3) brightness(.5);transition:all .6s var(--ease)}
-.proj-card:hover .proj-img-col img{filter:saturate(.75) brightness(.7);transform:scale(1.06)}
-.proj-img-grad{position:absolute;inset:0;background:linear-gradient(to right,var(--bg) 0%,transparent 55%);transition:opacity .5s;pointer-events:none}
-.proj-card:hover .proj-img-grad{opacity:.5}
-
-/* ─── FOUNDER ─── */
-#founder{background:var(--bg3);border-top:1px solid var(--dim);position:relative;overflow:hidden}
-.founder-wrap{display:grid;grid-template-columns:420px 1fr;gap:8rem;align-items:center}
-.founder-frame{
-  position:relative;aspect-ratio:3/4;border-radius:var(--r2);
-  background:var(--bg2);border:1px solid var(--dim);overflow:hidden;
-}
-.founder-frame img{width:100%;height:100%;object-fit:cover;filter:saturate(.45) brightness(.55);transition:filter .5s}
-.founder-frame:hover img{filter:saturate(.75) brightness(.75)}
-.founder-badge-overlay{
-  position:absolute;bottom:1.5rem;left:1.5rem;right:1.5rem;
-  background:rgba(5,7,6,.88);backdrop-filter:blur(16px);
-  border:1px solid var(--lborder);border-radius:12px;padding:1.2rem 1.4rem;
-}
-.f-name{font-family:var(--serif);font-size:1.4rem;font-weight:400;color:var(--cream);line-height:1.1}
-.f-role{font-family:var(--mono);font-size:.58rem;color:var(--lime);letter-spacing:.1em;margin-top:.3rem}
-.f-creds{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.85rem}
-.f-cred{font-family:var(--mono);font-size:.54rem;padding:.18rem .6rem;border-radius:100px;background:rgba(200,241,53,.07);border:1px solid var(--lborder);color:var(--lime)}
-.founder-right p{color:var(--sand);font-size:.98rem;line-height:1.88;font-weight:300;margin-top:1.6rem;max-width:540px}
-.founder-quote{
-  margin-top:2.5rem;padding:1.6rem 1.8rem;
-  background:var(--bg2);border:1px solid var(--dim);border-left:3px solid var(--lime);
-  border-radius:0 var(--r) var(--r) 0;
-  font-family:var(--serif);font-size:1.1rem;font-style:italic;color:var(--cream);
-  line-height:1.65;font-weight:300;max-width:520px;
-}
-.founder-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem;padding-top:2.5rem;border-top:1px solid var(--dim)}
-.f-metric-num{font-family:var(--serif);font-size:2.8rem;font-weight:300;line-height:1;letter-spacing:-.02em}
-.f-metric-num em{background:linear-gradient(135deg,var(--lime),var(--lime2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-style:normal}
-.f-metric-label{font-size:.76rem;color:var(--sand);font-weight:300;margin-top:.35rem;line-height:1.4}
-
-/* ─── TESTIMONIALS ─── */
-#testimonials{background:var(--bg2);border-top:1px solid var(--dim)}
-.testi-header{text-align:center;margin-bottom:4.5rem}
-.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
-.testi-card{
-  background:var(--bg);border:1px solid var(--dim);border-radius:var(--r2);
-  padding:2.5rem 2.2rem;position:relative;overflow:hidden;
-  transition:all .4s var(--ease);display:flex;flex-direction:column;
-}
-.testi-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--ldim),transparent);opacity:0;transition:opacity .4s}
-.testi-card:hover{border-color:var(--lborder);transform:translateY(-6px);box-shadow:0 24px 60px rgba(0,0,0,.3)}
-.testi-card:hover::before{opacity:1}
-.testi-mark{font-family:var(--serif);font-size:4.5rem;line-height:.5;color:var(--lime);opacity:.2;position:absolute;top:1.5rem;right:1.8rem;font-weight:300}
-.testi-text{font-family:var(--serif);font-size:1.08rem;font-style:italic;color:var(--cream);line-height:1.68;font-weight:300;flex:1;margin-bottom:1.8rem;position:relative;z-index:1}
-.testi-author{display:flex;align-items:center;gap:.9rem;position:relative;z-index:1}
-.testi-icon{width:40px;height:40px;border-radius:50%;background:var(--bg3);border:1px solid var(--dim);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
-.testi-name{font-size:.84rem;color:var(--cream);font-weight:500}
-.testi-role{font-family:var(--mono);font-size:.56rem;color:var(--sand);letter-spacing:.04em;margin-top:.12rem}
-
-/* ─── CTA ─── */
-#cta{
-  position:relative;min-height:65vh;display:flex;align-items:center;justify-content:center;
-  text-align:center;overflow:hidden;
-}
-.cta-bg{
-  position:absolute;inset:0;
-  background:url('https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=1800&q=80') center/cover;
-  transform:scale(1.06);
-}
-.cta-overlay{position:absolute;inset:0;background:rgba(5,7,6,.88)}
-.cta-inner{position:relative;z-index:2;padding:6rem 5vw;max-width:800px;margin:0 auto}
-.cta-eyebrow{font-family:var(--mono);font-size:.62rem;color:var(--lime);letter-spacing:.18em;text-transform:uppercase;margin-bottom:2rem}
-.cta-title{font-family:var(--serif);font-size:clamp(2.8rem,6vw,6rem);font-weight:300;line-height:.96;letter-spacing:-.03em;margin-bottom:1.5rem}
-.cta-title em{font-style:italic;background:linear-gradient(135deg,var(--lime),var(--lime2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.cta-sub{color:var(--sand);font-size:1rem;line-height:1.8;font-weight:300;margin-bottom:3rem;max-width:500px;margin-left:auto;margin-right:auto}
-.cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
-.btn-outline{border:1px solid rgba(255,255,255,.2);color:var(--cream);padding:.95rem 2rem;font-size:.8rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border-radius:100px;transition:all .3s var(--ease)}
-.btn-outline:hover{border-color:var(--lime);color:var(--lime);box-shadow:0 0 28px rgba(200,241,53,.14)}
-
-/* ─── CONTACT ─── */
-#contact{background:var(--bg2);border-top:1px solid var(--dim)}
-.contact-wrap{display:grid;grid-template-columns:1fr 1.2fr;gap:7rem;align-items:start}
-.contact-left p{color:var(--sand);font-size:.96rem;line-height:1.85;font-weight:300;margin-bottom:2.5rem;max-width:380px;margin-top:1.5rem}
-.contact-links{display:flex;flex-direction:column;gap:.7rem}
-.clink{
-  display:flex;align-items:center;gap:1.4rem;
-  padding:1.2rem 1.6rem;background:var(--bg);border:1px solid var(--dim);border-radius:var(--r);
-  text-decoration:none;color:inherit;transition:all .35s var(--ease);
-}
-.clink:hover{border-color:var(--lborder);background:var(--ldim);transform:translateX(8px)}
-.clink-lbl{font-family:var(--mono);font-size:.54rem;color:var(--muted);letter-spacing:.12em;text-transform:uppercase}
-.clink-val{font-size:.9rem;color:var(--cream);margin-top:.12rem}
-.clink-arr{margin-left:auto;color:var(--muted);transition:all .25s}
-.clink:hover .clink-arr{color:var(--lime);transform:translate(3px,-3px)}
-.form-box{background:var(--bg);border:1px solid var(--dim);border-radius:var(--r2);padding:3.5rem}
-.form-title{font-family:var(--serif);font-size:2.2rem;font-weight:300;color:var(--cream);margin-bottom:.4rem}
-.form-sub{font-family:var(--mono);font-size:.58rem;color:var(--lime);letter-spacing:.1em;margin-bottom:2.5rem;padding-bottom:2rem;border-bottom:1px solid var(--dim)}
-.f-row{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;margin-bottom:1.4rem}
-.fg{margin-bottom:1.4rem}
-.fg label{font-family:var(--mono);font-size:.54rem;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;display:block;margin-bottom:.55rem}
-.fg input,.fg select,.fg textarea{
-  width:100%;background:transparent;border:none;border-bottom:1px solid var(--dim);
-  color:var(--cream);padding:.7rem 0;font-family:var(--sans);font-size:.88rem;font-weight:300;
-  outline:none;transition:border-color .3s;appearance:none;border-radius:0;
-}
-.fg input::placeholder,.fg textarea::placeholder{color:rgba(143,168,135,.3)}
-.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--lime)}
-.fg textarea{resize:none;line-height:1.7}
-.fg select option{background:var(--bg2)}
-.form-foot{display:flex;align-items:center;justify-content:space-between;margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--dim);gap:2rem}
-.form-note{font-family:var(--mono);font-size:.56rem;color:var(--muted);letter-spacing:.05em;line-height:1.8}
-.form-note b{color:var(--lime);font-weight:400}
-.submit-btn{
-  background:var(--lime);color:var(--bg);border:none;
-  padding:.95rem 2.1rem;font-family:var(--sans);font-size:.8rem;font-weight:600;letter-spacing:.07em;
-  text-transform:uppercase;cursor:none;border-radius:100px;
-  transition:all .35s var(--ease);display:flex;align-items:center;gap:.55rem;white-space:nowrap;
-  box-shadow:0 6px 24px rgba(200,241,53,.22);
-}
-.submit-btn:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(200,241,53,.42)}
-
-/* ─── FOOTER ─── */
-footer{background:var(--bg);border-top:1px solid var(--dim);padding:5rem 5vw 2.5rem}
-.footer-top{display:flex;justify-content:space-between;align-items:flex-start;gap:4rem;flex-wrap:wrap;padding-bottom:3.5rem;border-bottom:1px solid var(--dim);margin-bottom:2.5rem}
-.footer-brand{max-width:280px}
-.footer-logo{display:flex;align-items:center;gap:.7rem;text-decoration:none;color:var(--cream);margin-bottom:.7rem}
-.footer-logo img{height:32px;width:32px;filter:drop-shadow(0 0 8px rgba(200,241,53,.18))}
-.footer-logo-text{font-family:var(--mono);font-size:1rem;font-weight:500}
-.footer-logo-text span{color:var(--lime)}
-.footer-tagline{font-size:.82rem;color:var(--sand);line-height:1.65;font-weight:300}
-.footer-nav{display:flex;gap:5rem}
-.footer-col h5{font-family:var(--mono);font-size:.56rem;color:var(--lime);letter-spacing:.14em;text-transform:uppercase;margin-bottom:1.2rem}
-.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:.65rem}
-.footer-col a{color:var(--muted);font-size:.82rem;text-decoration:none;font-weight:300;transition:color .25s}
-.footer-col a:hover{color:var(--cream)}
-.footer-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
-.footer-copy{font-family:var(--mono);font-size:.54rem;color:rgba(143,168,135,.3);letter-spacing:.05em}
-.footer-legal{display:flex;gap:2rem;list-style:none}
-.footer-legal a{font-family:var(--mono);font-size:.54rem;color:rgba(143,168,135,.35);text-decoration:none;letter-spacing:.06em;text-transform:uppercase;transition:color .25s}
-.footer-legal a:hover{color:var(--lime)}
-
-/* ─── PHOTO DIVIDER ─── */
-.photo-divider{position:relative;height:55vh;overflow:hidden}
-.photo-divider img{width:100%;height:100%;object-fit:cover;transform:scale(1.1)}
-.photo-divider-overlay{position:absolute;inset:0;background:linear-gradient(to right,rgba(5,7,6,.88) 0%,rgba(5,7,6,.3) 60%,rgba(5,7,6,.7) 100%)}
-.photo-divider-content{position:absolute;left:5vw;top:50%;transform:translateY(-50%);z-index:2;max-width:680px}
-.photo-divider-content blockquote{font-family:var(--serif);font-size:clamp(1.8rem,4vw,4rem);font-weight:300;font-style:italic;line-height:1.2;color:var(--cream)}
-.photo-divider-content blockquote em{font-style:normal;background:linear-gradient(135deg,var(--lime),var(--lime2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.photo-divider-content cite{font-family:var(--mono);font-size:.62rem;color:var(--sand);letter-spacing:.1em;display:block;margin-top:1.5rem;font-style:normal}
-
-/* ─── RESPONSIVE ─── */
-@media(max-width:1200px){
-  .hero-grid{grid-template-columns:1fr 40vw}
-  .crisis-wrap{gap:4rem}
-  .founder-wrap{gap:5rem}
-  .testi-grid{grid-template-columns:repeat(2,1fr)}
-  .dash-body{grid-template-columns:1fr 1fr}
-  .dash-chart-panel{grid-column:span 2}
-}
-@media(max-width:1024px){
-  .hero-grid{grid-template-columns:1fr}
-  .hero-right{height:350px;width:100%;order:-1}
-  .hero-stats{grid-template-columns:1fr 1fr}
-  .h-stat:nth-child(2){border-right:none}
-  .h-stat:nth-child(3),.h-stat:nth-child(4){border-top:1px solid var(--dim)}
-  .crisis-wrap{grid-template-columns:1fr}
-  .contact-wrap{grid-template-columns:1fr}
-  .founder-wrap{grid-template-columns:1fr;gap:4rem}
-  .founder-frame{aspect-ratio:4/3;max-width:500px}
-  .how-layout{grid-template-columns:1fr}
-  .proj-card{grid-template-columns:1fr}
-  .proj-img-col{height:220px;order:-1}
-  .proj-img-grad{background:linear-gradient(to bottom,var(--bg) 0%,transparent 40%)}
-  .dash-body{grid-template-columns:1fr}
-  .dash-chart-panel{grid-column:span 1}
-}
-@media(max-width:768px){
-  .s-pad{padding:6rem 5vw}
-  .s-pad-sm{padding:4.5rem 5vw}
-  .nav-links,.nav-cta{display:none}
-  .nav-burger{display:flex}
-  .hero-grid{padding:0 5vw}
-  .hero-right{height:280px}
-  .hero-stats{grid-template-columns:1fr}
-  .h-stat{border-right:none;border-bottom:1px solid var(--dim)}
-  .h-stat:last-child{border-bottom:none}
-  .crisis-right{grid-template-columns:1fr}
-  .testi-grid{grid-template-columns:1fr}
-  .footer-top{flex-direction:column;gap:3rem}
-  .footer-nav{gap:3rem}
-  .footer-bottom{flex-direction:column;align-items:flex-start}
-  .cta-btns{flex-direction:column;align-items:center}
-  .f-row{grid-template-columns:1fr}
-  .form-foot{flex-direction:column;align-items:flex-start}
-  .submit-btn{width:100%;justify-content:center}
-  .founder-metrics{grid-template-columns:1fr}
-  .proj-card-body{padding:2.5rem 2rem}
-  .proj-header{flex-direction:column;align-items:flex-start}
-  .services-header{flex-direction:column;align-items:flex-start}
-  #cur,#cur-ring{display:none}
-}
-@media(max-width:480px){
-  .hero-title{font-size:clamp(2.8rem,11vw,4rem)}
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vanyax — Environmental Intelligence</title>
+  <link rel="icon" href="/logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;0,9..144,400;1,9..144,200;1,9..144,300;1,9..144,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/style.css">
 </head>
 <body>
 
-<div id="prog"></div>
-<div id="cur"></div>
-<div id="cur-ring"></div>
+  <div id="cur"></div>
+  <div id="cur-ring"></div>
+  <div id="prog"></div>
 
-<!-- Mobile menu -->
-<div id="mobile-menu">
-  <a href="#services" onclick="closeMenu()">Services</a>
-  <a href="#platform" onclick="closeMenu()">Platform</a>
-  <a href="#projects" onclick="closeMenu()">Work</a>
-  <a href="#founder" onclick="closeMenu()">About</a>
-  <a href="#contact" onclick="closeMenu()">Contact</a>
-</div>
+  <header id="nav">
+    <div class="nav-pill">
+      <a class="nav-brand" href="#">
+        <img src="/logo.svg" width="22" height="22" alt="">
+        <span>Vanyax</span>
+      </a>
+      <div class="nav-divider"></div>
+      <ul class="nav-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#platform">Platform</a></li>
+        <li><a href="#projects">Work</a></li>
+      </ul>
+      <a class="btn-pill" href="#contact">Get started</a>
+    </div>
+  </header>
 
-<!-- Nav -->
-<nav id="nav">
-  <a href="#" class="nav-logo">
-    <img src="logo.svg" alt="Vanyax" class="nav-logo-mark">
-    <span class="nav-logo-text"><span>V</span>anyax</span>
-  </a>
-  <ul class="nav-links">
-    <li><a href="#services">Services</a></li>
-    <li><a href="#platform">Platform</a></li>
-    <li><a href="#projects">Work</a></li>
-    <li><a href="#founder">About</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-  <a href="#contact" class="nav-cta">Start a project</a>
-  <button class="nav-burger" id="burger" onclick="toggleMenu()">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
-
-<!-- ══════════════════════════════════ HERO ══ -->
-<section id="hero">
-  <div class="hero-grid">
-    <div class="hero-left">
-      <div class="hero-eyebrow">Environmental Intelligence</div>
-      <h1 class="hero-title">
-        We give the<br>
-        living world its<br>
-        <em>data science team.</em>
-      </h1>
-      <p class="hero-sub">Vanyax is a specialist ML agency built exclusively for wildlife conservation, environmental agencies, and ecological research. We turn field data into intelligence that saves species.</p>
-      <div class="hero-btns">
-        <a href="#contact" class="btn-primary">
-          Start a project
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-        <a href="#projects" class="btn-ghost">
-          See our work
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
+  <section id="hero">
+    <div class="hero-frame">
+      <img class="hero-img" src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=1920&auto=format&fit=crop" alt="Sunlit forest canopy">
+      <div class="hero-frame-overlay"></div>
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        <span>Live ecosystem monitoring — 47 countries</span>
       </div>
     </div>
-    <div class="hero-right">
+    <div class="hero-body">
+      <div class="hero-body-l">
+        <p class="eyebrow">Data science × conservation</p>
+        <h1 class="h-hero">Wildlife<br>data,<br><em>decoded</em><br>for the<br>planet's<br>future.</h1>
+      </div>
+      <div class="hero-body-r">
+        <p class="hero-desc">We convert ecosystem field data into actionable conservation strategy — combining machine learning, satellite imagery, and ground-truth surveys to protect what remains.</p>
+        <div class="hero-ctas">
+          <a href="#contact" class="btn-primary">Start a project →</a>
+          <a href="#platform" class="btn-outline">See the platform</a>
+        </div>
+        <div class="hero-trust">
+          <span class="trust-lbl">Trusted by</span>
+          <div class="trust-row">
+            <span>WWF</span><span>IUCN</span><span>WCS</span><span>NatGeo</span><span>UNEP</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="stats-band">
+    <div class="stat-cell"><b class="stat-n" data-target="8">0</b><sup>M+</sup><span>Species catalogued</span></div>
+    <div class="stat-cell"><b class="stat-n" data-target="68">0</b><sup>%</sup><span>Wildlife lost since 1970</span></div>
+    <div class="stat-cell"><b class="stat-n" data-target="140">0</b><sup>+</sup><span>Field projects delivered</span></div>
+    <div class="stat-cell"><b class="stat-n" data-target="92">0</b><sup>%</sup><span>ML prediction accuracy</span></div>
+  </div>
+
+  <section id="services">
+    <div class="section-hd">
+      <p class="section-tag">What we do</p>
+      <h2 class="h2">Intelligence across<br>every ecosystem</h2>
+    </div>
+    <div class="svc-grid">
+      <div class="svc-card"><div class="svc-n">01</div><h3>Species Monitoring</h3><p>Camera trap networks, acoustic sensors, and satellite-tagged animal tracking processed by our ML pipeline into real-time population dashboards.</p><a href="#" class="link-arrow">Learn more →</a></div>
+      <div class="svc-card"><div class="svc-n">02</div><h3>Habitat Mapping</h3><p>Multi-spectral satellite imagery segmented by deep learning to map land cover, deforestation pressure, and habitat connectivity at continental scale.</p><a href="#" class="link-arrow">Learn more →</a></div>
+      <div class="svc-card"><div class="svc-n">03</div><h3>Climate Risk Modeling</h3><p>Species distribution models under CMIP6 scenarios — identifying refugia, migration bottlenecks, and extinction risk hotspots for conservation prioritization.</p><a href="#" class="link-arrow">Learn more →</a></div>
+      <div class="svc-card"><div class="svc-n">04</div><h3>Anti-Poaching Intel</h3><p>Predictive patrol deployment using ranger history, terrain, and incident data — proven to cut poaching incidents by up to 40% in live deployments.</p><a href="#" class="link-arrow">Learn more →</a></div>
+      <div class="svc-card"><div class="svc-n">05</div><h3>Conservation ROI</h3><p>Quantify the monetary and ecological value of protected areas. Build the evidence base for funding, policy, and corporate nature-positive commitments.</p><a href="#" class="link-arrow">Learn more →</a></div>
+      <div class="svc-card"><div class="svc-n">06</div><h3>Ecosystem Valuation</h3><p>Carbon, watershed, pollination — measured, monetized, and reported to TNFD, CSRD, and voluntary carbon markets with full audit trails.</p><a href="#" class="link-arrow">Learn more →</a></div>
+    </div>
+  </section>
+
+  <section id="platform">
+    <div class="platform-inner">
+      <div class="platform-l">
+        <p class="section-tag">The Platform</p>
+        <h2 class="h2">Your field data,<br>living and<br>breathing</h2>
+        <div class="platform-feats">
+          <div class="pfeat"><span class="pfeat-n">01</span><div><h4>Real-time species alerts</h4><p>ML-classified camera trap images arrive in your dashboard within minutes. Set custom alert thresholds for priority species.</p></div></div>
+          <div class="pfeat"><span class="pfeat-n">02</span><div><h4>Trend analysis &amp; forecasting</h4><p>30-year biodiversity indices, population trends, and 10-year projections at the touch of a button.</p></div></div>
+          <div class="pfeat"><span class="pfeat-n">03</span><div><h4>Habitat layer editor</h4><p>Draw, edit, and analyze protected area geometries on satellite imagery. Export to Esri, QGIS, or KML.</p></div></div>
+        </div>
+      </div>
+      <div class="platform-r">
+        <div class="dash-window">
+          <div class="dash-bar">
+            <span class="dash-dot"></span><span class="dash-dot"></span><span class="dash-dot"></span>
+            <span class="dash-title">Vanyax Platform — Biodiversity Index 1990–2040</span>
+          </div>
+          <div class="dash-body">
+            <div id="d3-chart"></div>
+            <div class="dash-legend">
+              <div class="dl-item"><span style="background:#c8f135"></span>Species richness index</div>
+              <div class="dl-item"><span style="background:#6b9b6b"></span>Projected recovery</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="globe-sec">
+    <div class="globe-txt">
+      <p class="section-tag">Global reach</p>
+      <h2 class="h2">Monitoring<br>biodiversity<br>across <em>6 continents</em></h2>
+      <p class="globe-sub">From the Amazon to the Serengeti, our sensor networks and satellite partnerships span 47 countries — delivering unified conservation data where it matters most.</p>
+      <a href="#contact" class="btn-primary" style="margin-top:2rem;display:inline-block">Partner with us →</a>
+    </div>
+    <div class="globe-wrap">
       <canvas id="globe-canvas"></canvas>
-      <div class="globe-label">// Biodiversity Intelligence Network</div>
+      <div class="globe-glow"></div>
     </div>
-  </div>
-  <div class="hero-stats">
-    <div class="h-stat">
-      <div class="h-stat-num">1<em>M+</em></div>
-      <div class="h-stat-label">Species at risk of extinction this decade</div>
-      <div class="h-stat-src">IPBES Global Assessment, 2024</div>
+  </section>
+
+  <section id="projects">
+    <div class="section-hd">
+      <p class="section-tag">Case studies</p>
+      <h2 class="h2">From data to<br>conservation outcomes</h2>
     </div>
-    <div class="h-stat">
-      <div class="h-stat-num">80<em>%</em></div>
-      <div class="h-stat-label">Of ecological field data is never formally analysed</div>
-      <div class="h-stat-src">IUCN Data Gap Report, 2023</div>
+    <div class="proj-grid">
+      <article class="proj-card proj-large">
+        <img src="https://images.unsplash.com/photo-1549366021-9f761d450615?q=80&w=900&auto=format&fit=crop" alt="Bengal tiger">
+        <div class="proj-info"><p class="proj-tag">Species monitoring · India</p><h3>Bengal Tiger Population Recovery</h3><p>Camera trap network across 4,200 km² — automated individual ID raised monitoring efficiency 8×.</p><a href="#" class="link-arrow">Read case study →</a></div>
+      </article>
+      <article class="proj-card">
+        <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=700&auto=format&fit=crop" alt="Aerial forest">
+        <div class="proj-info"><p class="proj-tag">Habitat mapping · Brazil</p><h3>Amazon Deforestation Early Warning</h3><p>72-hour satellite alert system across 3.2M km².</p><a href="#" class="link-arrow">Read case study →</a></div>
+      </article>
+      <article class="proj-card">
+        <img src="https://images.unsplash.com/photo-1566438480900-0609be27a4be?q=80&w=700&auto=format&fit=crop" alt="Coral reef">
+        <div class="proj-info"><p class="proj-tag">Marine conservation · Australia</p><h3>Great Barrier Reef Bleaching Monitor</h3><p>Drone + sonar fusion model predicts bleaching events 6 weeks out.</p><a href="#" class="link-arrow">Read case study →</a></div>
+      </article>
     </div>
-    <div class="h-stat">
-      <div class="h-stat-num">68<em>%</em></div>
-      <div class="h-stat-label">Average decline in monitored wildlife since 1970</div>
-      <div class="h-stat-src">WWF Living Planet Report, 2024</div>
+  </section>
+
+  <section id="testimonials">
+    <div class="testi-inner">
+      <blockquote class="testi"><p>"Vanyax's population models gave us the evidence to double the protected corridor. The data quality and platform UX are exceptional."</p><cite>Dr. Priya Sharma · Wildlife Conservation Society</cite></blockquote>
+      <blockquote class="testi"><p>"We went from quarterly reports to real-time dashboards. The early deforestation alerts have already saved thousands of hectares."</p><cite>Carlos Medina · Amazon Fund</cite></blockquote>
+      <blockquote class="testi"><p>"The TNFD-aligned reporting outputs cut our compliance workload in half. Finally a platform built for conservation practitioners."</p><cite>Aiko Tanaka · Ministry of Environment, Japan</cite></blockquote>
     </div>
-    <div class="h-stat">
-      <div class="h-stat-num">11<em>%</em></div>
-      <div class="h-stat-label">Of conservation orgs have dedicated data science capacity</div>
-      <div class="h-stat-src">IUCN Capacity Survey, 2023</div>
+  </section>
+
+  <section id="contact">
+    <div class="cta-glow"></div>
+    <p class="section-tag">Ready to start?</p>
+    <h2 class="h-cta">Every dataset is<br>a chance to save<br>something.</h2>
+    <form id="cta-form" class="cta-form">
+      <input type="email" placeholder="your@email.com" required>
+      <button type="submit">Get in touch →</button>
+    </form>
+    <p class="cta-alt">Or reach us at <a href="mailto:hello@vanyax.io">hello@vanyax.io</a></p>
+  </section>
+
+  <footer id="footer">
+    <div class="footer-top">
+      <div class="footer-brand"><img src="/logo.svg" width="28" height="28" alt="Vanyax"><span>Vanyax</span></div>
+      <nav class="footer-cols">
+        <div class="footer-col"><h5>Services</h5><a href="#">Species Monitoring</a><a href="#">Habitat Mapping</a><a href="#">Climate Risk</a><a href="#">Anti-Poaching</a></div>
+        <div class="footer-col"><h5>Platform</h5><a href="#">Dashboard</a><a href="#">API Docs</a><a href="#">Integrations</a><a href="#">Pricing</a></div>
+        <div class="footer-col"><h5>Company</h5><a href="#">About</a><a href="#">Blog</a><a href="#">Careers</a><a href="#">Contact</a></div>
+      </nav>
     </div>
-  </div>
-</section>
-
-<!-- Ticker -->
-<div class="ticker">
-  <div class="ticker-track">
-    <div class="ticker-item">Satellite Imagery ML <span class="ticker-dot"></span></div>
-    <div class="ticker-item">Wildlife Camera Traps <span class="ticker-dot"></span></div>
-    <div class="ticker-item">Climate Forecasting <span class="ticker-dot"></span></div>
-    <div class="ticker-item">Species Distribution Models <span class="ticker-dot"></span></div>
-    <div class="ticker-item">Geospatial Intelligence <span class="ticker-dot"></span></div>
-    <div class="ticker-item">Acoustic Biodiversity <span class="ticker-dot"></span></div>
-    <div class="ticker-item">Deforestation Detection <span class="ticker-dot"></span></div>
-    <div class="ticker-item">Habitat Mapping <span class="ticker-dot"></span></div>
-    <div class="ticker-item">LLMs for Conservation <span class="ticker-dot"></span></div>
-    <div class="ticker-item">RAG Pipelines <span class="ticker-dot"></span></div>
-    <div class="ticker-item">Satellite Imagery ML <span class="ticker-dot"></span></div>
-    <div class="ticker-item">Wildlife Camera Traps <span class="ticker-dot"></span></div>
-    <div class="ticker-item">Climate Forecasting <span class="ticker-dot"></span></div>
-    <div class="ticker-item">Species Distribution Models <span class="ticker-dot"></span></div>
-    <div class="ticker-item">Geospatial Intelligence <span class="ticker-dot"></span></div>
-    <div class="ticker-item">Acoustic Biodiversity <span class="ticker-dot"></span></div>
-    <div class="ticker-item">Deforestation Detection <span class="ticker-dot"></span></div>
-    <div class="ticker-item">Habitat Mapping <span class="ticker-dot"></span></div>
-    <div class="ticker-item">LLMs for Conservation <span class="ticker-dot"></span></div>
-    <div class="ticker-item">RAG Pipelines <span class="ticker-dot"></span></div>
-  </div>
-</div>
-
-<!-- ══════════════════════════════════ CRISIS ══ -->
-<section id="crisis" class="s-pad">
-  <div class="crisis-wrap">
-    <div class="crisis-left">
-      <div class="eyebrow">The Problem</div>
-      <h2 class="section-title">Conservation is drowning<br>in data — <em>starved of insight</em></h2>
-      <p class="body-text">Wildlife agencies, NGOs, and research institutions collect extraordinary data — camera trap images, satellite feeds, sensor networks, acoustic recordings. Almost none of it becomes actionable intelligence.</p>
-      <p class="body-text">The problem is not the data. It is the absence of data science capacity built specifically for ecological work. Generic firms don't understand the domain. In-house teams are too expensive. The gap is costing us species.</p>
-      <a href="#services" class="btn-primary" style="margin-top:2.5rem;display:inline-flex">
-        See how we close it
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:15px;height:15px"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
+    <div class="footer-btm">
+      <span>© 2026 Vanyax. All rights reserved.</span>
+      <span>Environmental Intelligence Platform</span>
     </div>
-    <div class="crisis-right">
-      <div class="crisis-card">
-        <span class="crisis-num">68%</span>
-        <p class="crisis-desc">Average decline in monitored wildlife populations since 1970</p>
-        <small class="crisis-src">WWF Living Planet Report 2024</small>
-      </div>
-      <div class="crisis-card">
-        <span class="crisis-num">$0</span>
-        <p class="crisis-desc">In-house data science budget at the average conservation NGO globally</p>
-        <small class="crisis-src">Conservation Finance Network 2023</small>
-      </div>
-      <div class="crisis-card">
-        <span class="crisis-num">4.7B</span>
-        <p class="crisis-desc">Camera trap images collected globally each year — less than 3% analysed with ML</p>
-        <small class="crisis-src">Wildlife Insights Platform 2024</small>
-      </div>
-      <div class="crisis-card">
-        <span class="crisis-num">3×</span>
-        <p class="crisis-desc">Faster species loss without data-driven conservation decisions</p>
-        <small class="crisis-src">Conservation Biology Journal, 2022</small>
-      </div>
-    </div>
-  </div>
-</section>
+  </footer>
 
-<!-- ══════════════════════════════════ SERVICES ══ -->
-<section id="services">
-  <div class="services-header">
-    <div>
-      <div class="eyebrow">Services</div>
-      <h2 class="section-title">What we build for<br><em>defenders of the wild</em></h2>
-    </div>
-    <div class="services-hint">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18l6-6-6-6"/></svg>
-      Scroll to explore
-    </div>
-  </div>
-  <div class="svc-track-wrap">
-    <div class="svc-track" id="svcTrack">
-      <div class="svc-card">
-        <span class="svc-num">01</span>
-        <div class="svc-arrow">↗</div>
-        <span class="svc-icon">🛰️</span>
-        <h3 class="svc-name">Geospatial & Satellite Intelligence</h3>
-        <p class="svc-desc">Habitat mapping, land-cover change detection, and deforestation monitoring at scale. Vision Transformers on Sentinel-2 imagery. Raw pixels to actionable alerts.</p>
-        <div class="svc-tags"><span class="svc-tag">TorchGeo</span><span class="svc-tag">ViT</span><span class="svc-tag">GDAL</span><span class="svc-tag">ONNX</span></div>
-      </div>
-      <div class="svc-card">
-        <span class="svc-num">02</span>
-        <div class="svc-arrow">↗</div>
-        <span class="svc-icon">🐆</span>
-        <h3 class="svc-name">Wildlife AI & Camera Trap Analysis</h3>
-        <p class="svc-desc">Species identification, population estimation, and poaching alerts. Trained on real field imagery. Acoustic biodiversity indices from audio. Runs at the edge.</p>
-        <div class="svc-tags"><span class="svc-tag">YOLO</span><span class="svc-tag">CNN</span><span class="svc-tag">Audio ML</span><span class="svc-tag">Edge AI</span></div>
-      </div>
-      <div class="svc-card">
-        <span class="svc-num">03</span>
-        <div class="svc-arrow">↗</div>
-        <span class="svc-icon">🌡️</span>
-        <h3 class="svc-name">Climate Forecasting Pipelines</h3>
-        <p class="svc-desc">Long-range temperature, precipitation, and ecological impact modelling. Reproducible, containerised pipelines your policy team can trust and present to funders.</p>
-        <div class="svc-tags"><span class="svc-tag">SVR</span><span class="svc-tag">LSTM</span><span class="svc-tag">Docker</span><span class="svc-tag">Quarto</span></div>
-      </div>
-      <div class="svc-card">
-        <span class="svc-num">04</span>
-        <div class="svc-arrow">↗</div>
-        <span class="svc-icon">⚡</span>
-        <h3 class="svc-name">Custom ML Projects & Pipelines</h3>
-        <p class="svc-desc">End-to-end data science for your specific dataset. Scoped, built, validated, and deployed. Full code ownership, documented architecture, and tools that work.</p>
-        <div class="svc-tags"><span class="svc-tag">PyTorch</span><span class="svc-tag">XGBoost</span><span class="svc-tag">AWS</span><span class="svc-tag">Airflow</span></div>
-      </div>
-      <div class="svc-card">
-        <span class="svc-num">05</span>
-        <div class="svc-arrow">↗</div>
-        <span class="svc-icon">📊</span>
-        <h3 class="svc-name">Conservation Data Platforms</h3>
-        <p class="svc-desc">Biodiversity dashboards, species range visualisers, and real-time deforestation alert systems on a SaaS model — built for the conservation sector's budget reality.</p>
-        <div class="svc-tags"><span class="svc-tag">React</span><span class="svc-tag">D3.js</span><span class="svc-tag">Leaflet</span><span class="svc-tag">API</span></div>
-      </div>
-      <div class="svc-card">
-        <span class="svc-num">06</span>
-        <div class="svc-arrow">↗</div>
-        <span class="svc-icon">🤖</span>
-        <h3 class="svc-name">LLMs & AI for Field Teams</h3>
-        <p class="svc-desc">RAG pipelines over field manuals, species databases, and research literature. AI tools your teams can actually use — in the forest, on the boat, in the lab.</p>
-        <div class="svc-tags"><span class="svc-tag">LangChain</span><span class="svc-tag">FAISS</span><span class="svc-tag">LLaMA</span><span class="svc-tag">RAG</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════ PLATFORM ══ -->
-<section id="platform" class="s-pad">
-  <div class="platform-header">
-    <div class="eyebrow" style="justify-content:center">Live Intelligence Platform</div>
-    <h2 class="section-title" style="text-align:center">This is what your data<br>looks like <em>after Vanyax</em></h2>
-    <p>A live preview of the dashboards, models, and alerts we deploy for conservation teams worldwide.</p>
-  </div>
-  <div class="dashboard">
-    <div class="dash-bar">
-      <div class="dash-dots"><div class="dash-dot"></div><div class="dash-dot"></div><div class="dash-dot"></div></div>
-      <span class="dash-bar-title">VANYAX CONSERVATION INTELLIGENCE · LIVE DASHBOARD</span>
-      <div class="dash-bar-status"><div class="live-dot"></div>Live · Updated 4s ago</div>
-    </div>
-    <div class="dash-body">
-      <div class="dash-panel">
-        <div class="dash-label">Species Detections · 24h</div>
-        <div class="dash-metric">2,<em>847</em></div>
-        <div class="dash-sub">Across 14 camera trap sites</div>
-        <div class="dash-badge badge-ok">↑ 12% vs last week</div>
-      </div>
-      <div class="dash-panel">
-        <div class="dash-label">Forest Cover · Sector NE-44</div>
-        <div class="dash-metric"><em>91</em>.3%</div>
-        <div class="dash-sub">Sentinel-2 · 10m resolution</div>
-        <div class="dash-badge badge-warn">⚠ −3.2 ha this week</div>
-      </div>
-      <div class="dash-panel">
-        <div class="dash-label">Climate Risk Index · 2030</div>
-        <div class="dash-metric"><em>0</em>.847</div>
-        <div class="dash-sub">SVR model · R² = 0.961</div>
-        <div class="dash-badge badge-warn">Critical threshold zone</div>
-      </div>
-      <div class="dash-chart-panel">
-        <div class="dash-label">Global Surface Temp Anomaly · 1900–2030 (°C above 1951–80 baseline)</div>
-        <div class="chart-area" id="climateChart"></div>
-      </div>
-      <div class="dash-feed-panel">
-        <div class="dash-label">Camera Trap AI · Live Feed</div>
-        <div class="feed">
-          <div class="feed-row"><span class="feed-emoji">🐆</span><div><div class="feed-name">Amur Leopard</div><div class="feed-conf">Conf. 98.7% · Site C-12 · 3m ago</div></div><div class="feed-pill ok">ID</div></div>
-          <div class="feed-row"><span class="feed-emoji">🦅</span><div><div class="feed-name">Steppe Eagle</div><div class="feed-conf">Conf. 94.1% · Site A-07 · 11m ago</div></div><div class="feed-pill ok">ID</div></div>
-          <div class="feed-row"><span class="feed-emoji">⚠️</span><div><div class="feed-name">Unknown vehicle</div><div class="feed-conf">Sector boundary · NE-44 · 18m ago</div></div><div class="feed-pill warn">ALERT</div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════ PHOTO DIVIDER ══ -->
-<div class="photo-divider">
-  <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?w=1800&q=80" alt="Forest aerial" loading="lazy">
-  <div class="photo-divider-overlay"></div>
-  <div class="photo-divider-content">
-    <blockquote>"Every day without ecological intelligence is a decision made <em>blind.</em>"</blockquote>
-    <cite>— Vanyax Environmental Intelligence</cite>
-  </div>
-</div>
-
-<!-- ══════════════════════════════════ HOW ══ -->
-<section id="how" class="s-pad">
-  <div class="how-layout">
-    <div class="how-left">
-      <div class="eyebrow">Our Approach</div>
-      <h2 class="section-title">Ecology first,<br>data <em>second</em></h2>
-      <p>A hybrid agency and platform model — we start with your specific challenge and build toward reusable, scalable infrastructure that outlasts any single project.</p>
-    </div>
-    <div class="how-steps">
-      <div class="how-step">
-        <div class="step-n">01</div>
-        <div>
-          <div class="step-title">Understand the field reality</div>
-          <p class="step-desc">We begin with your ecological context — species, terrain, decisions that need to be made. Data science without domain knowledge produces useless numbers.</p>
-        </div>
-      </div>
-      <div class="how-step">
-        <div class="step-n">02</div>
-        <div>
-          <div class="step-title">Audit every data asset</div>
-          <p class="step-desc">Camera traps, satellite imagery, sensor networks, acoustic recordings, survey data. We map what you have and precisely what intelligence can be extracted.</p>
-        </div>
-      </div>
-      <div class="how-step">
-        <div class="step-n">03</div>
-        <div>
-          <div class="step-title">Build production-grade pipelines</div>
-          <p class="step-desc">Reproducible, containerised ML pipelines validated against ecological ground truth — not just statistical benchmarks. Fully documented, fully deployable.</p>
-        </div>
-      </div>
-      <div class="how-step">
-        <div class="step-n">04</div>
-        <div>
-          <div class="step-title">Scale as platform modules</div>
-          <p class="step-desc">Repeated solutions become platform features — species APIs, habitat dashboards, deforestation alerts — so every new client benefits from prior work.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════ PROJECTS ══ -->
-<section id="projects" class="s-pad">
-  <div class="proj-header">
-    <div>
-      <div class="eyebrow">Selected Work</div>
-      <h2 class="section-title">Research &amp;<br><em>live projects</em></h2>
-    </div>
-    <p>Open-documented, reproducible, and validated against real ecological data. Not proof-of-concept — production.</p>
-  </div>
-  <div class="proj-stack">
-    <a class="proj-card" href="https://github.com/ojasvissar/yield-forecasting-transformer" target="_blank">
-      <div class="proj-card-body">
-        <span class="proj-idx">Project 001 · Jan 2026</span>
-        <div class="proj-result-pill">↑ 14% accuracy vs baseline</div>
-        <h3 class="proj-title">Geospatial Multimodal Yield Forecasting Transformer</h3>
-        <p class="proj-desc">Extended the MMST-ViT architecture by fusing Sentinel-2 satellite imagery with time-series weather signals. Grad-CAM attention reveals which spatial regions and temporal windows drive predictions. Exported to ONNX for production deployment.</p>
-        <div class="proj-tags-row"><span class="svc-tag">PyTorch</span><span class="svc-tag">TorchGeo</span><span class="svc-tag">Vision Transformer</span><span class="svc-tag">ONNX</span><span class="svc-tag">Grad-CAM</span></div>
-        <div class="proj-foot">
-          <span class="proj-date">Jan 2026</span>
-          <span class="proj-link-btn">View on GitHub →</span>
-        </div>
-      </div>
-      <div class="proj-img-col">
-        <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=600&q=75" alt="Satellite agriculture" loading="lazy">
-        <div class="proj-img-grad"></div>
-      </div>
-    </a>
-    <a class="proj-card" href="https://github.com/kessler24/predicting_daily_land_average_earth_temperature" target="_blank">
-      <div class="proj-card-body">
-        <span class="proj-idx">Project 002 · Dec 2025</span>
-        <div class="proj-result-pill">R² 0.961 · +2.1°C projected 2030</div>
-        <h3 class="proj-title">222-Year Global Climate Forecasting Pipeline</h3>
-        <p class="proj-desc">Modelled 222 years of Berkeley Earth geospatial temperature records. Benchmarked SVR, Random Forest, and Linear Regression across RMSE, MAE, and R². Containerised with Docker, delivered as reproducible Quarto report used by policy teams.</p>
-        <div class="proj-tags-row"><span class="svc-tag">Python</span><span class="svc-tag">SVR</span><span class="svc-tag">Random Forest</span><span class="svc-tag">Docker</span><span class="svc-tag">Quarto</span></div>
-        <div class="proj-foot">
-          <span class="proj-date">Dec 2025</span>
-          <span class="proj-link-btn">View on GitHub →</span>
-        </div>
-      </div>
-      <div class="proj-img-col">
-        <img src="https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?w=600&q=75" alt="Climate data" loading="lazy">
-        <div class="proj-img-grad"></div>
-      </div>
-    </a>
-    <a class="proj-card" href="https://github.com/harshil2sharma/Applying-Machine-Learning-Principles-to-Categorize-Asteroids-as-Hazardous-or-Non-Hazardous" target="_blank">
-      <div class="proj-card-body">
-        <span class="proj-idx">Project 003 · Nov 2025</span>
-        <div class="proj-result-pill">958K records · F1 0.94 minority class</div>
-        <h3 class="proj-title">Planetary Hazard Classification — 958K NASA/JPL Records</h3>
-        <p class="proj-desc">Full ML pipeline on 958,524 NASA/JPL Near-Earth Object records. Applied SMOTENC for severe class imbalance, RFE and chi-squared feature selection, and benchmarked XGBoost against Random Forest across precision and recall curves.</p>
-        <div class="proj-tags-row"><span class="svc-tag">XGBoost</span><span class="svc-tag">Random Forest</span><span class="svc-tag">SMOTENC</span><span class="svc-tag">Feature Engineering</span></div>
-        <div class="proj-foot">
-          <span class="proj-date">Nov 2025</span>
-          <span class="proj-link-btn">View on GitHub →</span>
-        </div>
-      </div>
-      <div class="proj-img-col">
-        <img src="https://images.unsplash.com/photo-1446776858070-70c3d5ed6758?w=600&q=75" alt="Space data" loading="lazy">
-        <div class="proj-img-grad"></div>
-      </div>
-    </a>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════ FOUNDER ══ -->
-<section id="founder" class="s-pad">
-  <div class="founder-wrap">
-    <div class="founder-frame">
-      <img src="https://images.unsplash.com/photo-1560250097-0dc05a977d3a?w=600&q=80" alt="Founder" loading="lazy">
-      <div class="founder-badge-overlay">
-        <div class="f-name">Ojasvi Ssar</div>
-        <div class="f-role">Founder & Lead Data Scientist</div>
-        <div class="f-creds">
-          <span class="f-cred">MDS · UBC</span>
-          <span class="f-cred">Vancouver, BC</span>
-          <span class="f-cred">4+ yrs ML</span>
-        </div>
-      </div>
-    </div>
-    <div class="founder-right">
-      <div class="eyebrow">The Person Behind Vanyax</div>
-      <h2 class="section-title">Built by someone who<br><em>speaks ecology</em></h2>
-      <p>Vanyax exists because I kept seeing the same problem everywhere: extraordinary field data collected by passionate, underfunded teams — and almost none of it being analysed in a way that informs real decisions.</p>
-      <p style="margin-top:1rem">After years building ML systems across computer vision, NLP, and geospatial analysis, I realised the tools existed — what was missing was the domain expertise to apply them to ecology. Vanyax closes that gap.</p>
-      <blockquote class="founder-quote">"Every dataset I work on represents a species someone spent years monitoring. That responsibility is what gets me to the terminal each morning."</blockquote>
-      <div class="founder-metrics">
-        <div><div class="f-metric-num">30<em>+</em></div><div class="f-metric-label">ML projects across CV, NLP & geospatial</div></div>
-        <div><div class="f-metric-num">6<em>+</em></div><div class="f-metric-label">Continents served — fully remote delivery</div></div>
-        <div><div class="f-metric-num">4<em>yr</em></div><div class="f-metric-label">ML engineering on distributed AWS pipelines</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════ TESTIMONIALS ══ -->
-<section id="testimonials" class="s-pad">
-  <div class="testi-header">
-    <div class="eyebrow" style="justify-content:center">Client Voices</div>
-    <h2 class="section-title" style="text-align:center">What our partners say</h2>
-  </div>
-  <div class="testi-grid">
-    <div class="testi-card">
-      <div class="testi-mark">"</div>
-      <p class="testi-text">Vanyax took our five years of camera trap data — 2.1 million images on a hard drive — and turned it into a real-time species monitoring dashboard in eight weeks. We now make decisions we couldn't imagine before.</p>
-      <div class="testi-author">
-        <div class="testi-icon">🐘</div>
-        <div><div class="testi-name">Dr. Amara Diallo</div><div class="testi-role">Director of Research · Wildlife Conservation Society</div></div>
-      </div>
-    </div>
-    <div class="testi-card">
-      <div class="testi-mark">"</div>
-      <p class="testi-text">The climate forecasting pipeline is the most rigorous modelling our policy team has ever seen. Docker-containerised, fully reproducible, and our funders actually understand the outputs. That combination is rare.</p>
-      <div class="testi-author">
-        <div class="testi-icon">🌊</div>
-        <div><div class="testi-name">Maria Kovács</div><div class="testi-role">Lead Scientist · European Climate Research Institute</div></div>
-      </div>
-    </div>
-    <div class="testi-card">
-      <div class="testi-mark">"</div>
-      <p class="testi-text">We're a small NGO — we couldn't afford an in-house data team. Vanyax gave us satellite deforestation alerts that used to cost six figures. It changed how we deploy our field rangers.</p>
-      <div class="testi-author">
-        <div class="testi-icon">🌿</div>
-        <div><div class="testi-name">James Osei</div><div class="testi-role">Executive Director · Rainforest Alliance Ghana</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════ CTA ══ -->
-<section id="cta">
-  <div class="cta-bg"></div>
-  <div class="cta-overlay"></div>
-  <div class="cta-inner">
-    <div class="cta-eyebrow">// The wild world needs data science</div>
-    <h2 class="cta-title">Every ecosystem<br>deserves <em>intelligence</em></h2>
-    <p class="cta-sub">You are already collecting the data that could change everything. Let Vanyax turn it into decisions that protect the planet.</p>
-    <div class="cta-btns">
-      <a href="#contact" class="btn-primary">Start a project <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:15px;height:15px"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-      <a href="#services" class="btn-outline">Explore services</a>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════ CONTACT ══ -->
-<section id="contact" class="s-pad">
-  <div class="contact-wrap">
-    <div>
-      <div class="eyebrow">Get in Touch</div>
-      <h2 class="section-title">Your data is<br>waiting to<br><em>protect the wild</em></h2>
-      <p>Tell us your conservation challenge. We'll tell you exactly what is possible with your data and how long it will take.</p>
-      <div class="contact-links">
-        <a href="mailto:ojasvissar4@gmail.com" class="clink">
-          <div><div class="clink-lbl">Email</div><div class="clink-val">ojasvissar4@gmail.com</div></div>
-          <span class="clink-arr">↗</span>
-        </a>
-        <a href="https://www.linkedin.com/in/ojasvissar/" target="_blank" class="clink">
-          <div><div class="clink-lbl">LinkedIn</div><div class="clink-val">linkedin.com/in/ojasvissar</div></div>
-          <span class="clink-arr">↗</span>
-        </a>
-        <a href="https://github.com/ojasvissar" target="_blank" class="clink">
-          <div><div class="clink-lbl">GitHub</div><div class="clink-val">github.com/ojasvissar</div></div>
-          <span class="clink-arr">↗</span>
-        </a>
-      </div>
-    </div>
-    <div class="form-box">
-      <div class="form-title">Send us a brief</div>
-      <div class="form-sub">48-hour response guaranteed · NGOs, governments & research institutions</div>
-      <div class="f-row">
-        <div class="fg"><label>Organisation</label><input type="text" placeholder="WWF, your university…"></div>
-        <div class="fg"><label>Your Name</label><input type="text" placeholder="Full name"></div>
-      </div>
-      <div class="fg"><label>Email</label><input type="email" placeholder="you@organisation.org"></div>
-      <div class="fg">
-        <label>Service Area</label>
-        <select>
-          <option value="" disabled selected>What do you need?</option>
-          <option>Wildlife AI & Camera Trap Analysis</option>
-          <option>Geospatial & Satellite Imagery ML</option>
-          <option>Climate Forecasting Pipeline</option>
-          <option>Biodiversity Data Platform</option>
-          <option>LLM / AI Assistant for Field Teams</option>
-          <option>Custom ML Project</option>
-          <option>Not sure — let's talk</option>
-        </select>
-      </div>
-      <div class="fg"><label>Your data challenge</label><textarea rows="4" placeholder="What data do you have? What decision are you trying to make? What's at stake?"></textarea></div>
-      <div class="form-foot">
-        <div class="form-note">Full code ownership + docs included.<br><b>30-min free scoping call</b> with every project.</div>
-        <button class="submit-btn" id="submitBtn">
-          Send Brief
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:15px;height:15px"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════ FOOTER ══ -->
-<footer>
-  <div class="footer-top">
-    <div class="footer-brand">
-      <a href="#" class="footer-logo">
-        <img src="logo.svg" alt="Vanyax">
-        <span class="footer-logo-text"><span>V</span>anyax</span>
-      </a>
-      <p class="footer-tagline">Data science built exclusively for wildlife conservation and ecological research. Vancouver, BC.</p>
-    </div>
-    <nav class="footer-nav">
-      <div class="footer-col">
-        <h5>Platform</h5>
-        <ul>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#platform">Live Dashboard</a></li>
-          <li><a href="#how">Our Approach</a></li>
-          <li><a href="#projects">Case Studies</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h5>Connect</h5>
-        <ul>
-          <li><a href="#contact">Start a Project</a></li>
-          <li><a href="mailto:ojasvissar4@gmail.com">Email Us</a></li>
-          <li><a href="https://www.linkedin.com/in/ojasvissar/" target="_blank">LinkedIn</a></li>
-          <li><a href="https://github.com/ojasvissar" target="_blank">GitHub</a></li>
-        </ul>
-      </div>
-    </nav>
-  </div>
-  <div class="footer-bottom">
-    <div class="footer-copy">© 2026 Vanyax Inc. · Intelligence for the living world.</div>
-    <ul class="footer-legal">
-      <li><a href="#">Privacy</a></li>
-      <li><a href="#">Terms</a></li>
-    </ul>
-  </div>
-</footer>
-
-<script>
-/* ═══════════════════════════════════════════════
-   VANYAX v2 — Lenis · GSAP · Three.js · D3
-   ═══════════════════════════════════════════════ */
-
-gsap.registerPlugin(ScrollTrigger);
-
-/* ── Lenis ── */
-const lenis = new Lenis({ duration:1.3, easing: t => Math.min(1,1.001-Math.pow(2,-10*t)), smoothTouch:false });
-lenis.on('scroll', ScrollTrigger.update);
-gsap.ticker.add(t => lenis.raf(t*1000));
-gsap.ticker.lagSmoothing(0);
-
-/* ── Scroll progress ── */
-const prog = document.getElementById('prog');
-lenis.on('scroll', ({scroll}) => {
-  const total = document.documentElement.scrollHeight - window.innerHeight;
-  prog.style.width = (scroll/total*100)+'%';
-});
-
-/* ── Custom cursor ── */
-const cur = document.getElementById('cur');
-const curR = document.getElementById('cur-ring');
-let mx=0,my=0,rx=0,ry=0;
-if(window.matchMedia('(pointer:fine)').matches){
-  document.addEventListener('mousemove',e=>{
-    mx=e.clientX; my=e.clientY;
-    cur.style.left=mx+'px'; cur.style.top=my+'px';
-  });
-  (function loop(){ rx+=(mx-rx)*.12; ry+=(my-ry)*.12; curR.style.left=rx+'px'; curR.style.top=ry+'px'; requestAnimationFrame(loop); })();
-  document.querySelectorAll('a,button').forEach(el=>{
-    el.addEventListener('mouseenter',()=>curR.classList.add('on'));
-    el.addEventListener('mouseleave',()=>curR.classList.remove('on'));
-  });
-}
-
-/* ── Nav ── */
-ScrollTrigger.create({ start:60, onEnter:()=>document.getElementById('nav').classList.add('scrolled'), onLeaveBack:()=>document.getElementById('nav').classList.remove('scrolled') });
-
-/* ── Mobile menu ── */
-function toggleMenu(){ document.getElementById('mobile-menu').classList.toggle('open'); document.getElementById('burger').classList.toggle('open'); }
-function closeMenu(){ document.getElementById('mobile-menu').classList.remove('open'); document.getElementById('burger').classList.remove('open'); }
-
-/* ════════════════════════════════════
-   THREE.JS — Biodiversity Globe
-   ════════════════════════════════════ */
-(function initGlobe(){
-  const canvas = document.getElementById('globe-canvas');
-  if(!canvas||!window.THREE) return;
-  const W=canvas.parentElement.clientWidth, H=canvas.parentElement.clientHeight;
-  const renderer = new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
-  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
-  renderer.setSize(W,H);
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(52,W/H,.1,100);
-  camera.position.z=3.8;
-
-  /* Wireframe sphere */
-  const sphereGeo = new THREE.SphereGeometry(1.5,28,28);
-  const sphereMat = new THREE.MeshBasicMaterial({color:0xc8f135,wireframe:true,transparent:true,opacity:.04});
-  scene.add(new THREE.Mesh(sphereGeo,sphereMat));
-
-  /* Fibonacci-distributed data points on sphere surface */
-  const N = 220, R = 1.52;
-  const ptPos = new Float32Array(N*3);
-  const golden = Math.PI*(3-Math.sqrt(5));
-  for(let i=0;i<N;i++){
-    const y = 1-(i/(N-1))*2;
-    const r = Math.sqrt(1-y*y);
-    const th = golden*i;
-    ptPos[i*3]  = Math.cos(th)*r*R;
-    ptPos[i*3+1]= y*R;
-    ptPos[i*3+2]= Math.sin(th)*r*R;
-  }
-  const ptGeo = new THREE.BufferGeometry();
-  ptGeo.setAttribute('position',new THREE.BufferAttribute(ptPos,3));
-  const ptMat = new THREE.PointsMaterial({color:0xc8f135,size:.045,transparent:true,opacity:.7,blending:THREE.AdditiveBlending,depthWrite:false});
-  const pts = new THREE.Points(ptGeo,ptMat);
-  scene.add(pts);
-
-  /* Connection arcs (short lines between nearby points) */
-  const arcVerts=[];
-  for(let i=0;i<N;i++){
-    for(let j=i+1;j<N;j++){
-      const dx=ptPos[i*3]-ptPos[j*3], dy=ptPos[i*3+1]-ptPos[j*3+1], dz=ptPos[i*3+2]-ptPos[j*3+2];
-      const dist=Math.sqrt(dx*dx+dy*dy+dz*dz);
-      if(dist<.85) arcVerts.push(ptPos[i*3],ptPos[i*3+1],ptPos[i*3+2],ptPos[j*3],ptPos[j*3+1],ptPos[j*3+2]);
-    }
-  }
-  const arcGeo=new THREE.BufferGeometry();
-  arcGeo.setAttribute('position',new THREE.BufferAttribute(new Float32Array(arcVerts),3));
-  scene.add(new THREE.LineSegments(arcGeo,new THREE.LineBasicMaterial({color:0xc8f135,transparent:true,opacity:.09,blending:THREE.AdditiveBlending})));
-
-  /* Glow ring equator */
-  const ringGeo = new THREE.TorusGeometry(1.52,.008,8,80);
-  scene.add(new THREE.Mesh(ringGeo, new THREE.MeshBasicMaterial({color:0xc8f135,transparent:true,opacity:.18})));
-
-  /* Mouse */
-  let mx2=0,my2=0;
-  document.addEventListener('mousemove',e=>{ mx2=(e.clientX/innerWidth-.5); my2=(e.clientY/innerHeight-.5); });
-
-  /* Scroll fade */
-  ScrollTrigger.create({ trigger:'#hero',start:'top top',end:'bottom top',scrub:true, onUpdate:self=>{ canvas.style.opacity=.9*(1-self.progress); } });
-
-  /* Animate */
-  const clock=new THREE.Clock();
-  (function tick(){
-    const t=clock.getElapsedTime();
-    const group=[pts,...scene.children];
-    scene.rotation.y = t*.04+mx2*.22;
-    scene.rotation.x = my2*.14;
-    renderer.render(scene,camera);
-    requestAnimationFrame(tick);
-  })();
-
-  window.addEventListener('resize',()=>{
-    const nW=canvas.parentElement.clientWidth, nH=canvas.parentElement.clientHeight;
-    renderer.setSize(nW,nH); camera.aspect=nW/nH; camera.updateProjectionMatrix();
-  });
-})();
-
-/* ════════════════════════════════════
-   GSAP — Hero entrance
-   ════════════════════════════════════ */
-gsap.set(['.hero-eyebrow','.hero-title','.hero-sub','.hero-btns','.h-stat'],{autoAlpha:0});
-const htl = gsap.timeline({delay:.1});
-htl.to('.hero-eyebrow',{autoAlpha:1,y:0,duration:.7,ease:'power3.out',from:{y:20}})
-   .from('.hero-title',{y:50,autoAlpha:0,duration:1.1,ease:'power3.out'},'-=.4')
-   .from('.hero-sub',  {y:30,autoAlpha:0,duration:.8,ease:'power3.out'},'-=.55')
-   .from('.hero-btns', {y:25,autoAlpha:0,duration:.7,ease:'power3.out'},'-=.5')
-   .from('.h-stat',    {y:22,autoAlpha:0,duration:.6,ease:'power3.out',stagger:.1},'-=.4');
-
-/* ════════════════════════════════════
-   GSAP — Scroll reveals
-   ════════════════════════════════════ */
-function reveal(sel,props={}){
-  gsap.utils.toArray(sel).forEach((el,i)=>{
-    gsap.from(el,{
-      scrollTrigger:{trigger:el,start:'top 88%',toggleActions:'play none none none'},
-      autoAlpha:0, y:50, duration:.9, ease:'power3.out',
-      delay:(i%5)*.08, ...props
-    });
-  });
-}
-reveal('.eyebrow,.section-title,.crisis-left .body-text,.how-left p,.platform-header p,.proj-header p,.testi-header,.cta-eyebrow,.cta-title,.cta-sub,.founder-right p,.contact-left p,.form-note');
-reveal('.crisis-card',{y:40,stagger:.1});
-reveal('.how-step',{y:35,stagger:.12});
-reveal('.svc-card',{y:50,stagger:.08});
-reveal('.testi-card',{y:40,stagger:.1});
-reveal('.proj-card',{y:45,stagger:.12});
-reveal('.clink',{y:20,stagger:.08});
-reveal('.founder-metrics>div',{y:30,stagger:.1});
-
-gsap.utils.toArray('.crisis-right,.dashboard,.founder-frame,.form-box').forEach(el=>{
-  gsap.from(el,{ scrollTrigger:{trigger:el,start:'top 86%',toggleActions:'play none none none'}, autoAlpha:0, scale:.94, duration:1, ease:'power3.out' });
-});
-gsap.from('.founder-wrap .founder-right',{ scrollTrigger:{trigger:'#founder',start:'top 85%'}, x:60, autoAlpha:0, duration:1.1, ease:'power3.out' });
-gsap.from('.founder-wrap .founder-frame',{ scrollTrigger:{trigger:'#founder',start:'top 85%'}, x:-60, autoAlpha:0, duration:1.1, ease:'power3.out' });
-
-/* Parallax on photo divider */
-gsap.to('.photo-divider img',{ scrollTrigger:{trigger:'.photo-divider',scrub:1.5}, yPercent:15 });
-gsap.from('.photo-divider-content',{ scrollTrigger:{trigger:'.photo-divider',start:'top 85%'}, x:-40, autoAlpha:0, duration:1, ease:'power3.out' });
-
-/* ── Services horizontal scroll (GSAP pin) ── */
-(function initHScroll(){
-  const track = document.getElementById('svcTrack');
-  if(!track) return;
-  const cards = track.querySelectorAll('.svc-card');
-  const gap = 24;
-  const cardW = 320;
-  const totalScroll = (cardW+gap)*cards.length - window.innerWidth + window.innerWidth*.1;
-  gsap.to(track,{
-    x: -totalScroll,
-    ease:'none',
-    scrollTrigger:{
-      trigger:'#services',
-      pin:true,
-      scrub:1,
-      end:()=>'+='+(totalScroll+200),
-      invalidateOnRefresh:true,
-    }
-  });
-})();
-
-/* ── Stat counters ── */
-document.querySelectorAll('.h-stat-num').forEach(el=>{
-  const em=el.querySelector('em');
-  const suffix=em?em.outerHTML:'';
-  const raw=el.innerHTML.replace(/<.*?>/g,'').replace(/[^0-9.]/g,'');
-  const target=parseFloat(raw);
-  if(isNaN(target)||target<=0) return;
-  const obj={v:0};
-  gsap.to(obj,{ v:target, duration:2, ease:'power2.out',
-    scrollTrigger:{trigger:el,start:'top 90%',once:true},
-    onUpdate(){ el.innerHTML=(Number.isInteger(target)?Math.round(obj.v):obj.v.toFixed(1))+suffix; },
-    onComplete(){ el.innerHTML=(Number.isInteger(target)?target:target.toFixed(1))+suffix; }
-  });
-});
-
-/* ════════════════════════════════════
-   D3 — Climate chart
-   ════════════════════════════════════ */
-(function initChart(){
-  const container=document.getElementById('climateChart');
-  if(!container||!window.d3) return;
-  const margin={top:10,right:88,bottom:24,left:34};
-  const totalW=container.getBoundingClientRect().width||520;
-  const totalH=120;
-  const w=totalW-margin.left-margin.right, h=totalH-margin.top-margin.bottom;
-  const svg=d3.select(container).append('svg')
-    .attr('width','100%').attr('height',totalH)
-    .attr('viewBox',`0 0 ${totalW} ${totalH}`)
-    .append('g').attr('transform',`translate(${margin.left},${margin.top})`);
-  function temp(yr){
-    if(yr<=1950) return -0.1+.004*(yr-1900)+Math.sin(yr)*.07;
-    if(yr<=2000) return .10+.014*(yr-1950)+Math.sin(yr*.7)*.05;
-    if(yr<=2023) return .80+.024*(yr-2000)+Math.sin(yr*1.1)*.035;
-    return 1.35+.058*(yr-2023);
-  }
-  const data=d3.range(1900,2031).map(y=>({year:y,temp:temp(y)}));
-  const hist=data.filter(d=>d.year<=2023), proj=data.filter(d=>d.year>=2023);
-  const x=d3.scaleLinear().domain([1900,2030]).range([0,w]);
-  const y=d3.scaleLinear().domain([-.3,2.6]).range([h,0]);
-  const defs=svg.append('defs');
-  const grad=defs.append('linearGradient').attr('id','cg').attr('x2','0').attr('y2','1');
-  grad.append('stop').attr('offset','0%').attr('stop-color','#c8f135').attr('stop-opacity',.2);
-  grad.append('stop').attr('offset','100%').attr('stop-color','#c8f135').attr('stop-opacity',0);
-  const clip=defs.append('clipPath').attr('id','cc');
-  const cr=clip.append('rect').attr('y',-10).attr('height',h+20).attr('width',0);
-  [0,.5,1,1.5,2].forEach(v=>{
-    svg.append('line').attr('x1',0).attr('y1',y(v)).attr('x2',w).attr('y2',y(v)).attr('stroke','rgba(200,241,53,.07)').attr('stroke-width',1);
-    svg.append('text').attr('x',-5).attr('y',y(v)+3).attr('text-anchor','end').attr('fill','rgba(143,168,135,.4)').attr('font-size',8).attr('font-family','monospace').text(v>=0?`+${v}°`:v+'°');
-  });
-  const ln=d3.line().x(d=>x(d.year)).y(d=>y(d.temp)).curve(d3.curveCatmullRom.alpha(.5));
-  const ar=d3.area().x(d=>x(d.year)).y0(h).y1(d=>y(d.temp)).curve(d3.curveCatmullRom.alpha(.5));
-  svg.append('path').datum(hist).attr('fill','url(#cg)').attr('d',ar).attr('clip-path','url(#cc)');
-  svg.append('path').datum(hist).attr('fill','none').attr('stroke','#c8f135').attr('stroke-width',2.2).attr('d',ln).attr('clip-path','url(#cc)');
-  svg.append('path').datum(proj).attr('fill','none').attr('stroke','#febc2e').attr('stroke-width',2).attr('stroke-dasharray','5,4').attr('d',ln).attr('clip-path','url(#cc)');
-  [1900,1950,2000,2023].forEach(yr=>{ svg.append('text').attr('x',x(yr)).attr('y',h+17).attr('text-anchor','middle').attr('fill','rgba(143,168,135,.38)').attr('font-size',8).attr('font-family','monospace').text(yr); });
-  const last=proj[proj.length-1];
-  svg.append('circle').attr('cx',x(last.year)).attr('cy',y(last.temp)).attr('r',4).attr('fill','#febc2e');
-  svg.append('text').attr('x',x(last.year)+8).attr('y',y(last.temp)+3).attr('fill','#febc2e').attr('font-size',9).attr('font-family','monospace').text(`+${last.temp.toFixed(1)}°C (2030)`);
-  ScrollTrigger.create({ trigger:container,start:'top 88%',once:true, onEnter:()=>cr.transition().duration(2200).ease(d3.easeLinear).attr('width',w+margin.right+20) });
-})();
-
-/* ── Mouse glow (subtle on bg) ── */
-document.addEventListener('mousemove',e=>{
-  const nx=e.clientX/innerWidth, ny=e.clientY/innerHeight;
-  document.body.style.setProperty('--mx',(nx-.5)*100+'px');
-  document.body.style.setProperty('--my',(ny-.5)*60+'px');
-});
-
-/* ── Form submit ── */
-document.getElementById('submitBtn').addEventListener('click',function(){
-  this.innerHTML='Sent ✓'; this.style.background='#8abf18'; this.style.pointerEvents='none';
-});
-</script>
+  <script type="module" src="/src/main.js"></script>
 </body>
 </html>
