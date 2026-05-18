@@ -1932,25 +1932,72 @@ nav.scrolled{
 
 /* ─── FOOTER ─── */
 footer{
-  padding:3rem 6vw;
+  padding:4rem 6vw 2.5rem;
   border-top:1px solid var(--dim);
+  background:var(--bg);
+}
+.footer-top{
   display:flex;
   justify-content:space-between;
-  align-items:center;
-  background:var(--bg);
+  align-items:flex-start;
+  gap:4rem;
   flex-wrap:wrap;
-  gap:2rem;
+  padding-bottom:3rem;
+  border-bottom:1px solid var(--dim);
+  margin-bottom:2.5rem;
 }
 .footer-brand{
   display:flex;
   flex-direction:column;
-  gap:.3rem;
+  gap:.5rem;
+  max-width:300px;
 }
 .footer-tag{
   font-family:var(--mono);
   font-size:.58rem;
   color:rgba(168,184,156,.4);
   letter-spacing:.08em;
+  margin-top:.3rem;
+}
+.footer-tagline{
+  font-size:.88rem;
+  color:var(--sand);
+  font-weight:300;
+  line-height:1.65;
+  margin-top:.6rem;
+}
+.footer-nav{
+  display:flex;
+  gap:5rem;
+}
+.footer-col h5{
+  font-family:var(--mono);
+  font-size:.58rem;
+  color:var(--lime);
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  margin-bottom:1.2rem;
+}
+.footer-col-links{
+  display:flex;
+  flex-direction:column;
+  gap:.7rem;
+  list-style:none;
+}
+.footer-col-links a{
+  color:rgba(168,184,156,.55);
+  font-size:.82rem;
+  text-decoration:none;
+  transition:color .25s;
+  font-weight:300;
+}
+.footer-col-links a:hover{color:var(--cream)}
+.footer-bottom{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:1.5rem;
 }
 .footer-links{
   display:flex;
@@ -1958,9 +2005,9 @@ footer{
   list-style:none;
 }
 .footer-links a{
-  color:rgba(168,184,156,.5);
+  color:rgba(168,184,156,.4);
   font-family:var(--mono);
-  font-size:.62rem;
+  font-size:.58rem;
   letter-spacing:.08em;
   text-transform:uppercase;
   text-decoration:none;
@@ -1969,10 +2016,20 @@ footer{
 .footer-links a:hover{color:var(--lime)}
 .footer-copy{
   font-family:var(--mono);
-  font-size:.58rem;
+  font-size:.55rem;
   color:rgba(168,184,156,.3);
   letter-spacing:.06em;
-  text-align:right;
+}
+/* Page-scroll progress bar */
+#scroll-progress{
+  position:fixed;
+  top:0;left:0;
+  height:2px;
+  background:linear-gradient(90deg,var(--lime),var(--lime2));
+  z-index:9999;
+  width:0%;
+  pointer-events:none;
+  box-shadow:0 0 8px var(--lime);
 }
 
 /* ─── RESPONSIVE ─── */
@@ -2036,12 +2093,9 @@ footer{
   .submit-btn{width:100%;justify-content:center}
   .crisis-cards{grid-template-columns:1fr}
   .trust-cards{grid-template-columns:1fr}
-  footer{
-    flex-direction:column;
-    text-align:center;
-    gap:1.5rem;
-  }
-  .footer-copy{text-align:center}
+  .footer-top{flex-direction:column;gap:2.5rem}
+  .footer-nav{gap:3rem}
+  .footer-bottom{flex-direction:column;align-items:flex-start;gap:1rem}
   .cta-btns{flex-direction:column;align-items:center}
   .stats-bar{grid-template-columns:1fr}
   .stat-item{border-right:none;border-bottom:1px solid var(--dim)}
@@ -2752,22 +2806,47 @@ footer{
   </div>
 </section>
 
+<div id="scroll-progress"></div>
+
 <footer>
-  <div class="footer-brand">
-    <a href="#" class="footer-logo">
-      <img src="logo.svg" alt="Vanyax logo mark" class="logo-mark">
-      <span class="logo-text"><span class="v-accent">V</span>anyax</span>
-    </a>
-    <div class="footer-tag">// Environmental Intelligence Platform · Vancouver, BC</div>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="#" class="footer-logo">
+        <img src="logo.svg" alt="Vanyax logo mark" class="logo-mark">
+        <span class="logo-text"><span class="v-accent">V</span>anyax</span>
+      </a>
+      <div class="footer-tag">// Environmental Intelligence Platform · Vancouver, BC</div>
+      <p class="footer-tagline">Data science built exclusively for wildlife conservation and ecological research.</p>
+    </div>
+    <nav class="footer-nav">
+      <div class="footer-col">
+        <h5>Platform</h5>
+        <ul class="footer-col-links">
+          <li><a href="#how">Our Approach</a></li>
+          <li><a href="#capabilities">Services</a></li>
+          <li><a href="#platform">Live Dashboard</a></li>
+          <li><a href="#projects">Case Studies</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Connect</h5>
+        <ul class="footer-col-links">
+          <li><a href="#contact">Start a Project</a></li>
+          <li><a href="mailto:ojasvissar4@gmail.com">Email Us</a></li>
+          <li><a href="https://www.linkedin.com/in/ojasvissar/" target="_blank">LinkedIn</a></li>
+          <li><a href="https://github.com/ojasvissar" target="_blank">GitHub</a></li>
+        </ul>
+      </div>
+    </nav>
   </div>
-  <ul class="footer-links">
-    <li><a href="#how">Approach</a></li>
-    <li><a href="#capabilities">Services</a></li>
-    <li><a href="#projects">Work</a></li>
-    <li><a href="#trust">About</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-  <div class="footer-copy">© 2026 Vanyax Inc.<br>Intelligence for the living world.</div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Vanyax Inc. · Intelligence for the living world.</div>
+    <ul class="footer-links">
+      <li><a href="#">Privacy</a></li>
+      <li><a href="#">Terms</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
 </footer>
 
 <script>
@@ -3113,6 +3192,15 @@ document.getElementById('submitBtn').addEventListener('click', function() {
   this.style.background = 'linear-gradient(135deg,#8abf18,#a5d830)';
   this.style.pointerEvents = 'none';
 });
+
+/* ── Scroll progress bar ── */
+const progressBar = document.getElementById('scroll-progress');
+if (progressBar) {
+  lenis.on('scroll', ({ scroll }) => {
+    const total = document.documentElement.scrollHeight - window.innerHeight;
+    progressBar.style.width = (scroll / total * 100) + '%';
+  });
+}
 </script>
 </body>
 </html>
