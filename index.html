@@ -119,38 +119,39 @@ body::after{
   background:rgba(200,241,53,.08);
 }
 
-/* ─── ENHANCED LOGO STYLING ─── */
+/* ─── LOGO STYLING ─── */
 .nav-logo, .footer-logo {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: .85rem;
   text-decoration: none;
-  color: var(--cream);
+  color: var(--lime);
   transition: all 0.3s var(--ease);
 }
 .nav-logo:hover, .footer-logo:hover {
   transform: translateY(-1px);
 }
-.logo-img {
-  height: 48px; /* Increased size as requested */
-  width: auto;
-  display: block;
-  filter: drop-shadow(0 0 10px rgba(200,241,53,0.1));
+.logo-mark {
+  height: 42px;
+  width: 42px;
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 12px rgba(200,241,53,0.2));
+  transition: filter .3s var(--ease);
+}
+.nav-logo:hover .logo-mark,
+.footer-logo:hover .logo-mark {
+  filter: drop-shadow(0 0 20px rgba(200,241,53,0.45));
 }
 .logo-text {
-  font-family: var(--typewriter); /* Using the new Courier Prime font */
+  font-family: var(--typewriter);
   font-weight: 700;
-  font-size: 1.6rem;
-  letter-spacing: -0.03em;
+  font-size: 1.55rem;
+  letter-spacing: -0.04em;
   line-height: 1;
+  color: var(--cream);
 }
-.v-low {
-  text-transform: lowercase;
-}
-/* Slightly smaller footer logo for balance */
-.footer-logo .logo-img {
-  height: 40px;
-}
+.logo-text .v-accent { color: var(--lime); }
+.footer-logo .logo-mark { height: 36px; width: 36px; }
 
 /* ─── NAV ─── */
 nav{
@@ -1618,8 +1619,8 @@ footer{
 
 <nav id="nav">
   <a href="#" class="nav-logo">
-    <img src="Gemini_Generated_Image_fdmrd9fdmrd9fdmr-removebg-preview.png" alt="Vanyax Logo" class="logo-img">
-    <span class="logo-text"><span class="v-low">v</span>anyax</span>
+    <img src="logo.svg" alt="Vanyax logo mark" class="logo-mark">
+    <span class="logo-text"><span class="v-accent">V</span>anyax</span>
   </a>
   <ul class="nav-links">
     <li><a href="#how">Approach</a></li>
@@ -2070,8 +2071,8 @@ footer{
 <footer>
   <div class="footer-brand">
     <a href="#" class="footer-logo">
-      <img src="Gemini_Generated_Image_fdmrd9fdmrd9fdmr-removebg-preview.png" alt="Vanyax Logo" class="logo-img">
-      <span class="logo-text"><span class="v-low">v</span>anyax</span>
+      <img src="logo.svg" alt="Vanyax logo mark" class="logo-mark">
+      <span class="logo-text"><span class="v-accent">V</span>anyax</span>
     </a>
     <div class="footer-tag">// Environmental Intelligence Platform · Vancouver, BC</div>
   </div>
