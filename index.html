@@ -838,6 +838,180 @@ nav.scrolled{
   font-style:normal;
 }
 
+/* ─── PLATFORM PREVIEW ─── */
+#platform{
+  background:var(--bg3);
+  border-top:1px solid var(--dim);
+  border-bottom:1px solid var(--dim);
+  position:relative;
+  overflow:hidden;
+}
+#platform::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 0%, rgba(200,241,53,.04), transparent);
+  pointer-events:none;
+}
+.platform-header{
+  text-align:center;
+  margin-bottom:4rem;
+}
+.platform-header p{
+  color:var(--sand);
+  font-size:1rem;
+  font-weight:300;
+  line-height:1.7;
+  max-width:520px;
+  margin:.8rem auto 0;
+}
+.dashboard{
+  background:rgba(5,7,6,.95);
+  border:1px solid rgba(200,241,53,.15);
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 40px 100px rgba(0,0,0,.6), 0 0 0 1px rgba(200,241,53,.06);
+  max-width:1100px;
+  margin:0 auto;
+}
+.dash-topbar{
+  display:flex;
+  align-items:center;
+  gap:1rem;
+  padding:.9rem 1.5rem;
+  background:rgba(200,241,53,.025);
+  border-bottom:1px solid rgba(200,241,53,.08);
+}
+.dash-dots{display:flex;gap:.45rem}
+.dash-dot{width:10px;height:10px;border-radius:50%}
+.dash-dot:nth-child(1){background:#ff5f57}
+.dash-dot:nth-child(2){background:#febc2e}
+.dash-dot:nth-child(3){background:#28c840}
+.dash-title{
+  margin-left:.5rem;
+  font-family:var(--mono);
+  font-size:.62rem;
+  color:rgba(200,241,53,.5);
+  letter-spacing:.12em;
+}
+.dash-status{
+  margin-left:auto;
+  display:flex;
+  align-items:center;
+  gap:.5rem;
+  font-family:var(--mono);
+  font-size:.58rem;
+  color:rgba(168,184,156,.5);
+}
+.dash-status-dot{
+  width:6px;height:6px;
+  border-radius:50%;
+  background:#28c840;
+  box-shadow:0 0 6px #28c840;
+  animation:pulse-green 2s ease infinite;
+}
+@keyframes pulse-green{0%,100%{opacity:1}50%{opacity:.4}}
+.dash-body{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  grid-template-rows:auto auto;
+  gap:1px;
+  background:rgba(200,241,53,.06);
+}
+.dash-panel{
+  background:rgba(5,7,6,.98);
+  padding:1.6rem 1.8rem;
+}
+.dash-panel-label{
+  font-family:var(--mono);
+  font-size:.58rem;
+  color:rgba(168,184,156,.45);
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  margin-bottom:1rem;
+}
+/* Metric cards */
+.dash-metric-val{
+  font-family:var(--serif);
+  font-size:2.6rem;
+  font-weight:300;
+  color:var(--cream);
+  line-height:1;
+  letter-spacing:-.02em;
+}
+.dash-metric-val em{
+  background:linear-gradient(135deg,var(--lime),var(--lime2));
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+  font-style:normal;
+}
+.dash-metric-sub{
+  font-size:.75rem;
+  color:var(--sand);
+  margin-top:.4rem;
+  font-weight:300;
+}
+.dash-metric-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:.4rem;
+  font-family:var(--mono);
+  font-size:.6rem;
+  padding:.2rem .65rem;
+  border-radius:100px;
+  margin-top:.6rem;
+}
+.badge-up{background:rgba(40,200,64,.12);color:#28c840;border:1px solid rgba(40,200,64,.25)}
+.badge-warn{background:rgba(254,188,46,.1);color:#febc2e;border:1px solid rgba(254,188,46,.2)}
+/* Chart panel - spans 2 cols */
+.dash-chart-panel{
+  grid-column:span 2;
+  background:rgba(5,7,6,.98);
+  padding:1.6rem 1.8rem;
+}
+.chart-area{
+  position:relative;
+  height:120px;
+  margin-top:.8rem;
+}
+.chart-svg{width:100%;height:100%;overflow:visible}
+/* Feed panel */
+.dash-feed{display:flex;flex-direction:column;gap:.7rem;margin-top:.3rem}
+.feed-item{
+  display:flex;
+  align-items:center;
+  gap:.8rem;
+  padding:.6rem .8rem;
+  background:rgba(200,241,53,.03);
+  border:1px solid rgba(200,241,53,.07);
+  border-radius:8px;
+  transition:border-color .25s;
+}
+.feed-item:hover{border-color:rgba(200,241,53,.18)}
+.feed-icon{font-size:1rem;flex-shrink:0}
+.feed-name{
+  font-size:.78rem;
+  color:var(--cream);
+  font-weight:400;
+}
+.feed-conf{
+  font-family:var(--mono);
+  font-size:.6rem;
+  color:var(--sand);
+  margin-top:.1rem;
+}
+.feed-badge{
+  margin-left:auto;
+  font-family:var(--mono);
+  font-size:.58rem;
+  padding:.15rem .55rem;
+  border-radius:4px;
+  flex-shrink:0;
+}
+.feed-badge.ok{background:rgba(40,200,64,.1);color:#28c840}
+.feed-badge.warn{background:rgba(254,188,46,.1);color:#febc2e}
+
 /* ─── HOW WE WORK ─── */
 #how{
   background:var(--bg2);
@@ -1604,10 +1778,14 @@ footer{
   .cap-grid{grid-template-columns:repeat(2,1fr)}
   .crisis-grid{gap:4rem}
   .trust-grid{gap:4rem}
+  .dash-body{grid-template-columns:1fr 1fr}
+  .dash-chart-panel{grid-column:span 2}
 }
 @media(max-width:1024px){
   .crisis-grid{grid-template-columns:1fr}
   .how-grid{grid-template-columns:1fr 1fr}
+  .dash-body{grid-template-columns:1fr}
+  .dash-chart-panel{grid-column:span 1}
   .trust-grid{grid-template-columns:1fr}
   .contact-grid{grid-template-columns:1fr}
   .stats-bar{grid-template-columns:1fr 1fr}
@@ -1860,6 +2038,112 @@ footer{
     <cite>— Vanyax Environmental Intelligence</cite>
   </div>
 </div>
+
+<section id="platform" class="section-pad">
+  <div class="platform-header reveal">
+    <div class="eyebrow">Live Intelligence Platform</div>
+    <h2 class="section-title">This is what your data<br>looks like <em>after Vanyax</em></h2>
+    <p>A live preview of the kind of dashboards, models, and alerts we deploy for conservation teams worldwide.</p>
+  </div>
+  <div class="dashboard reveal-scale">
+    <div class="dash-topbar">
+      <div class="dash-dots">
+        <div class="dash-dot"></div><div class="dash-dot"></div><div class="dash-dot"></div>
+      </div>
+      <span class="dash-title">VANYAX CONSERVATION INTELLIGENCE — LIVE DASHBOARD</span>
+      <div class="dash-status">
+        <div class="dash-status-dot"></div>
+        <span>Live · Updated 4s ago</span>
+      </div>
+    </div>
+    <div class="dash-body">
+      <!-- Metric 1: Species -->
+      <div class="dash-panel">
+        <div class="dash-panel-label">Species Detections · Last 24h</div>
+        <div class="dash-metric-val">2,<em>847</em></div>
+        <div class="dash-metric-sub">Across 14 camera trap sites</div>
+        <div class="dash-metric-badge badge-up">↑ 12% vs last week</div>
+      </div>
+      <!-- Metric 2: Habitat -->
+      <div class="dash-panel">
+        <div class="dash-panel-label">Forest Cover · Sector NE-44</div>
+        <div class="dash-metric-val"><em>91</em>.3%</div>
+        <div class="dash-metric-sub">Sentinel-2 · 10m resolution</div>
+        <div class="dash-metric-badge badge-warn">⚠ −3.2 ha this week</div>
+      </div>
+      <!-- Metric 3: Climate -->
+      <div class="dash-panel">
+        <div class="dash-panel-label">Climate Risk Index · 2030</div>
+        <div class="dash-metric-val"><em>0</em>.847</div>
+        <div class="dash-metric-sub">SVR model · R² = 0.961</div>
+        <div class="dash-metric-badge badge-warn">Critical threshold zone</div>
+      </div>
+      <!-- Chart: temperature trend -->
+      <div class="dash-chart-panel">
+        <div class="dash-panel-label">Global Surface Temperature Anomaly · 1900–2030 (°C above 1951–80 baseline)</div>
+        <div class="chart-area">
+          <svg class="chart-svg" viewBox="0 0 600 120" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#c8f135" stop-opacity="0.25"/>
+                <stop offset="100%" stop-color="#c8f135" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <!-- Grid lines -->
+            <line x1="0" y1="100" x2="600" y2="100" stroke="rgba(200,241,53,.08)" stroke-width="1"/>
+            <line x1="0" y1="70" x2="600" y2="70" stroke="rgba(200,241,53,.06)" stroke-width="1"/>
+            <line x1="0" y1="40" x2="600" y2="40" stroke="rgba(200,241,53,.06)" stroke-width="1"/>
+            <line x1="0" y1="10" x2="600" y2="10" stroke="rgba(200,241,53,.04)" stroke-width="1"/>
+            <!-- Area fill -->
+            <path d="M0,95 C30,94 60,92 90,91 C120,89 150,87 180,85 C210,82 240,78 270,73 C300,67 330,58 360,48 C390,38 420,28 450,18 C480,10 510,6 540,4 C570,3 590,3 600,2 L600,110 L0,110 Z"
+                  fill="url(#chartGrad)"/>
+            <!-- Line -->
+            <path d="M0,95 C30,94 60,92 90,91 C120,89 150,87 180,85 C210,82 240,78 270,73 C300,67 330,58 360,48 C390,38 420,28 450,18 C480,10 510,6 540,4 C570,3 590,3 600,2"
+                  fill="none" stroke="#c8f135" stroke-width="2.5" stroke-linecap="round"/>
+            <!-- 2030 projection marker -->
+            <line x1="540" y1="0" x2="540" y2="110" stroke="rgba(254,188,46,.3)" stroke-width="1" stroke-dasharray="4,3"/>
+            <circle cx="540" cy="4" r="4" fill="#febc2e"/>
+            <text x="545" y="16" fill="#febc2e" font-size="9" font-family="monospace">+2.1°C (2030)</text>
+            <!-- Y axis labels -->
+            <text x="4" y="99" fill="rgba(168,184,156,.4)" font-size="8" font-family="monospace">0°</text>
+            <text x="4" y="69" fill="rgba(168,184,156,.4)" font-size="8" font-family="monospace">+1°</text>
+            <text x="4" y="39" fill="rgba(168,184,156,.4)" font-size="8" font-family="monospace">+2°</text>
+          </svg>
+        </div>
+      </div>
+      <!-- Camera trap feed -->
+      <div class="dash-panel">
+        <div class="dash-panel-label">Camera Trap AI · Live Feed</div>
+        <div class="dash-feed">
+          <div class="feed-item">
+            <span class="feed-icon">🐆</span>
+            <div>
+              <div class="feed-name">Amur Leopard</div>
+              <div class="feed-conf">Conf. 98.7% · Site C-12 · 3m ago</div>
+            </div>
+            <div class="feed-badge ok">ID</div>
+          </div>
+          <div class="feed-item">
+            <span class="feed-icon">🦅</span>
+            <div>
+              <div class="feed-name">Steppe Eagle</div>
+              <div class="feed-conf">Conf. 94.1% · Site A-07 · 11m ago</div>
+            </div>
+            <div class="feed-badge ok">ID</div>
+          </div>
+          <div class="feed-item">
+            <span class="feed-icon">⚠️</span>
+            <div>
+              <div class="feed-name">Unknown vehicle</div>
+              <div class="feed-conf">Sector boundary · NE-44 · 18m ago</div>
+            </div>
+            <div class="feed-badge warn">ALERT</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <section id="how" class="section-pad-lg">
   <div class="how-header">
