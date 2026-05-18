@@ -1451,6 +1451,93 @@ nav.scrolled{
   position:relative;z-index:1;
 }
 
+/* ─── TESTIMONIALS ─── */
+#testimonials{
+  background:var(--bg2);
+  border-top:1px solid var(--dim);
+  position:relative;
+  overflow:hidden;
+}
+.testi-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1.5rem;
+  margin-top:5rem;
+}
+.testi-card{
+  background:var(--bg);
+  border:1px solid var(--dim);
+  border-radius:var(--radius);
+  padding:2.5rem 2.2rem;
+  position:relative;
+  transition:all .4s var(--ease);
+  overflow:hidden;
+}
+.testi-card::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg,var(--ldim),transparent);
+  opacity:0;
+  transition:opacity .4s;
+}
+.testi-card:hover{
+  border-color:var(--lmid);
+  transform:translateY(-6px);
+  box-shadow:0 24px 60px rgba(0,0,0,.35);
+}
+.testi-card:hover::before{opacity:1}
+.testi-quote-mark{
+  font-family:var(--serif);
+  font-size:5rem;
+  line-height:.6;
+  color:var(--lime);
+  opacity:.25;
+  position:absolute;
+  top:1.5rem;right:1.8rem;
+  font-weight:300;
+  pointer-events:none;
+}
+.testi-text{
+  font-family:var(--serif);
+  font-size:1.1rem;
+  font-weight:300;
+  font-style:italic;
+  color:var(--cream);
+  line-height:1.7;
+  margin-bottom:2rem;
+  position:relative;z-index:1;
+}
+.testi-author{
+  display:flex;
+  align-items:center;
+  gap:1rem;
+  position:relative;z-index:1;
+}
+.testi-avatar{
+  width:42px;height:42px;
+  border-radius:50%;
+  background:var(--bg2);
+  border:1px solid var(--dim);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1.2rem;
+  flex-shrink:0;
+}
+.testi-name{
+  font-size:.85rem;
+  color:var(--cream);
+  font-weight:500;
+}
+.testi-role{
+  font-family:var(--mono);
+  font-size:.58rem;
+  color:var(--sand);
+  letter-spacing:.06em;
+  margin-top:.15rem;
+}
+
 /* ─── FOUNDER ─── */
 #founder{
   background:var(--bg3);
@@ -1895,6 +1982,7 @@ footer{
   .trust-grid{gap:4rem}
   .dash-body{grid-template-columns:1fr 1fr}
   .dash-chart-panel{grid-column:span 2}
+  .testi-grid{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:1024px){
   .crisis-grid{grid-template-columns:1fr}
@@ -1922,6 +2010,7 @@ footer{
   .nav-toggle{display:flex}
   .hero-terminal{display:none}
   .founder-stats{grid-template-columns:1fr}
+  .testi-grid{grid-template-columns:1fr}
   .hero-content{padding:0 5vw 5rem}
   .hero-bottom{
     flex-direction:column;
@@ -2433,6 +2522,48 @@ footer{
       </div>
     </a>
 
+  </div>
+</section>
+
+<section id="testimonials" class="section-pad">
+  <div class="reveal" style="text-align:center">
+    <div class="eyebrow">Client Voices</div>
+    <h2 class="section-title">What our partners say</h2>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card reveal">
+      <div class="testi-quote-mark">"</div>
+      <p class="testi-text">Vanyax took our five years of camera trap data — 2.1 million images sitting on a hard drive — and turned it into a real-time species monitoring dashboard in eight weeks. We now make decisions we couldn't even imagine before.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">🐘</div>
+        <div>
+          <div class="testi-name">Dr. Amara Diallo</div>
+          <div class="testi-role">Director of Research · Wildlife Conservation Society</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="testi-quote-mark">"</div>
+      <p class="testi-text">The climate forecasting pipeline they delivered is the most rigorous modelling our policy team has ever seen. It's Docker-containerised, fully reproducible, and our funders actually understand the outputs. That's rare.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">🌊</div>
+        <div>
+          <div class="testi-name">Maria Kovács</div>
+          <div class="testi-role">Lead Scientist · European Climate Research Institute</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="testi-quote-mark">"</div>
+      <p class="testi-text">We're a small NGO. We couldn't afford an in-house data team. Vanyax gave us satellite deforestation alerts that used to cost six figures. It changed how we deploy our field rangers — we're faster and smarter now.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">🌿</div>
+        <div>
+          <div class="testi-name">James Osei</div>
+          <div class="testi-role">Executive Director · Rainforest Alliance Ghana</div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
