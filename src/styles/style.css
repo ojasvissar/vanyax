@@ -236,3 +236,4 @@ h4 { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transfor
 }
 .capture__btn:hover { background: var(--pine); transform: translate(-2px, -2px); }
 .capture__btn:disabled { opacity: 0.55; cursor: default; }
+.capture__note { font-size: 0.86rem; color: var(--ink); }
