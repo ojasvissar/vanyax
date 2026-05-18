@@ -234,3 +234,4 @@ h4 { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transfor
   padding: 0.85rem 1.5rem; border-radius: var(--pill); background: var(--night); color: var(--cream);
   box-shadow: 4px 4px 0 rgba(34, 30, 29, 0.35); transition: transform 0.25s var(--ease), background 0.25s var(--ease);
 }
+.capture__btn:hover { background: var(--pine); transform: translate(-2px, -2px); }
