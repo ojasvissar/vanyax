@@ -228,3 +228,4 @@ h4 { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transfor
   background: var(--cream); color: var(--night); border: 2px solid var(--night);
 }
 .capture__input::placeholder { color: var(--ink-3); }
+.capture__input:focus { outline: 0; border-color: var(--pine); }
