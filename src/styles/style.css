@@ -222,3 +222,4 @@ h4 { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transfor
 .cta h2 { color: var(--night); max-width: 16ch; }
 .cta .lede { color: var(--ink); }
 .capture { display: grid; gap: 0.8rem; width: 100%; max-width: 32rem; margin-top: 0.4rem; }
+.capture__field { display: flex; gap: 0.5rem; flex-wrap: wrap; }
