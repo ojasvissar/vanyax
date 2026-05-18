@@ -227,3 +227,4 @@ h4 { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transfor
   flex: 1 1 15rem; min-width: 0; font: inherit; padding: 0.85rem 1.25rem; border-radius: var(--pill);
   background: var(--cream); color: var(--night); border: 2px solid var(--night);
 }
+.capture__input::placeholder { color: var(--ink-3); }
