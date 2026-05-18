@@ -223,3 +223,7 @@ h4 { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transfor
 .cta .lede { color: var(--ink); }
 .capture { display: grid; gap: 0.8rem; width: 100%; max-width: 32rem; margin-top: 0.4rem; }
 .capture__field { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.capture__input {
+  flex: 1 1 15rem; min-width: 0; font: inherit; padding: 0.85rem 1.25rem; border-radius: var(--pill);
+  background: var(--cream); color: var(--night); border: 2px solid var(--night);
+}
