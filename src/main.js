@@ -12,9 +12,11 @@ gsap.registerPlugin(ScrollTrigger);
 
 /* ── SMOOTH SCROLL ── */
 const lenis = new Lenis({
-  duration: 1.3,
+  duration: 1.1,
   easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
   smoothTouch: false,
+  normalizeWheel: true,
+  wheelMultiplier: 0.88,
 });
 lenis.on('scroll', ScrollTrigger.update);
 gsap.ticker.add(t => lenis.raf(t * 1000));
