@@ -35,21 +35,13 @@ ScrollTrigger.create({
 });
 
 /* ── HERO ENTRANCE ── */
-gsap.set('.hero-bg', { scale: 1.06 });
 const heroTl = gsap.timeline({ delay: 0.1 });
 heroTl
-  .to('.hero-bg',        { scale: 1, duration: 8, ease: 'power1.out' }, 0)
-  .from('.hero-eyebrow', { opacity: 0, y: 14, duration: 0.8, ease: 'power3.out' }, 0.3)
-  .from('.h-hero',       { opacity: 0, y: 22, duration: 1.0, ease: 'power3.out' }, 0.5)
-  .from('.hero-sub',     { opacity: 0, y: 16, duration: 0.8, ease: 'power3.out' }, 0.75)
-  .from('.hero-ctas',    { opacity: 0, y: 14, duration: 0.7, ease: 'power3.out' }, 0.9)
-  .from('.scroll-cue',   { opacity: 0, duration: 1.2, ease: 'power2.out' }, 1.4);
-
-/* ── HERO PARALLAX ── */
-gsap.to('.hero-bg', {
-  yPercent: 20, ease: 'none',
-  scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true }
-});
+  .from('.hero-tag',   { opacity: 0, y: 12, duration: 0.7, ease: 'power3.out' }, 0.2)
+  .from('.h-hero',     { opacity: 0, y: 26, duration: 1.0, ease: 'power3.out' }, 0.4)
+  .from('.hero-desc',  { opacity: 0, y: 16, duration: 0.8, ease: 'power3.out' }, 0.65)
+  .from('.hero-ctas',  { opacity: 0, y: 14, duration: 0.7, ease: 'power3.out' }, 0.85)
+  .from('.hero-scene', { opacity: 0, y: 22, duration: 1.2, ease: 'power3.out' }, 0.5);
 
 /* ── SCROLL REVEALS ── */
 document.querySelectorAll('.svc-card, .eco-card, .pfeat').forEach((el, i) => {
@@ -63,7 +55,7 @@ document.querySelectorAll('.svc-card, .eco-card, .pfeat').forEach((el, i) => {
   );
 });
 
-document.querySelectorAll('.h2, .h-cta').forEach(el => {
+document.querySelectorAll('.h2, .h2-light, .h-cta').forEach(el => {
   gsap.fromTo(el,
     { opacity: 0, y: 22 },
     { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
@@ -117,11 +109,11 @@ function initD3() {
 
   g.append('g').attr('transform', `translate(0,${iH})`).call(axisBottom(x).ticks(7).tickFormat(d3format('d')))
     .call(ax => { ax.select('.domain').remove(); ax.selectAll('.tick line').remove(); })
-    .call(ax => ax.selectAll('text').attr('fill', 'rgba(237,229,208,.3)').style('font-family', 'JetBrains Mono').style('font-size', '10px'));
+    .call(ax => ax.selectAll('text').attr('fill', 'rgba(237,229,208,.3)').style('font-family', 'Space Mono').style('font-size', '10px'));
 
   g.append('g').call(axisLeft(y).ticks(4).tickFormat(d => d.toFixed(2)))
     .call(ax => { ax.select('.domain').remove(); ax.selectAll('.tick line').remove(); })
-    .call(ax => ax.selectAll('text').attr('fill', 'rgba(237,229,208,.3)').style('font-family', 'JetBrains Mono').style('font-size', '10px'));
+    .call(ax => ax.selectAll('text').attr('fill', 'rgba(237,229,208,.3)').style('font-family', 'Space Mono').style('font-size', '10px'));
 
   const hist = data.filter(d => !d.proj);
   const proj = data.filter(d => d.proj || d.year >= 2022);
