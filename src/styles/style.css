@@ -244,3 +244,4 @@ h4 { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transfor
 /* ── footer, and the hill it ends on ─────────────────────── */
 .site-foot { position: relative; overflow: hidden; padding-block: clamp(3rem, 8vh, 5rem) 0; border-top: 1px solid var(--line-dark); }
 .wordmark--big { font-size: clamp(3.4rem, 12vw, 10rem); margin-bottom: clamp(1.6rem, 4vh, 2.6rem); }
+.site-foot__grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: clamp(1.5rem, 5vw, 4rem); }
