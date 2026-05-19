@@ -240,3 +240,6 @@ h4 { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transfor
 .mailto { border-bottom: 3px solid var(--night); font-weight: 600; }
 .mailto:hover { color: var(--pine); border-bottom-color: var(--pine); }
 .cta :focus-visible { outline-color: var(--night); }
+
+/* ── footer, and the hill it ends on ─────────────────────── */
+.site-foot { position: relative; overflow: hidden; padding-block: clamp(3rem, 8vh, 5rem) 0; border-top: 1px solid var(--line-dark); }
