@@ -7,7 +7,7 @@
   <link rel="icon" href="/logo.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;0,9..144,400;1,9..144,200;1,9..144,300;1,9..144,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=VT323&family=JetBrains+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/src/style.css">
 </head>
 <body>
@@ -16,96 +16,152 @@
   <div id="cur-ring"></div>
   <div id="prog"></div>
 
+  <!-- NAV -->
   <header id="nav">
     <div class="nav-pill">
       <a class="nav-brand" href="#">
-        <img src="/logo.svg" width="22" height="22" alt="">
+        <img src="/logo.svg" width="20" height="20" alt="">
         <span>Vanyax</span>
       </a>
-      <div class="nav-divider"></div>
+      <div class="nav-div"></div>
       <ul class="nav-links">
         <li><a href="#services">Services</a></li>
         <li><a href="#platform">Platform</a></li>
-        <li><a href="#projects">Work</a></li>
+        <li><a href="#ecosystems">Ecosystems</a></li>
       </ul>
       <a class="btn-pill" href="#contact">Get started</a>
     </div>
   </header>
 
+  <!-- HERO -->
   <section id="hero">
     <div class="hero-frame">
-      <img class="hero-img" src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=1920&auto=format&fit=crop" alt="Sunlit forest canopy">
+      <img class="hero-img" src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=1920&auto=format&fit=crop" alt="Forest canopy">
       <div class="hero-frame-overlay"></div>
-      <div class="hero-badge">
-        <span class="badge-dot"></span>
-        <span>Live ecosystem monitoring — 47 countries</span>
+      <div class="hero-terminal">
+        <div class="ht-bar"><span class="ht-title">vanyax-cli v0.1.0</span></div>
+        <div class="ht-body">
+          <div class="ht-line"><span class="t-prompt">$</span> vanyax connect --global</div>
+          <div class="ht-line t-dim" id="tl-1"></div>
+          <div class="ht-line t-dim" id="tl-2"></div>
+          <div class="ht-line t-dim" id="tl-3"></div>
+          <div class="ht-line"><span class="t-prompt">$</span> <span class="blink">_</span></div>
+        </div>
       </div>
     </div>
+
     <div class="hero-body">
-      <div class="hero-body-l">
-        <p class="eyebrow">Data science × conservation</p>
-        <h1 class="h-hero">Wildlife<br>data,<br><em>decoded</em><br>for the<br>planet's<br>future.</h1>
+      <div class="hero-l">
+        <p class="eyebrow">// data science × conservation</p>
+        <h1 class="h-hero">WILDLIFE<br>DATA,<br>DECODED.</h1>
       </div>
-      <div class="hero-body-r">
-        <p class="hero-desc">We convert ecosystem field data into actionable conservation strategy — combining machine learning, satellite imagery, and ground-truth surveys to protect what remains.</p>
+      <div class="hero-r">
+        <p class="hero-desc">We build data pipelines, ML models, and monitoring systems for wildlife conservation — turning sensor feeds and satellite imagery into decisions that protect ecosystems.</p>
         <div class="hero-ctas">
           <a href="#contact" class="btn-primary">Start a project →</a>
           <a href="#platform" class="btn-outline">See the platform</a>
         </div>
         <div class="hero-trust">
-          <span class="trust-lbl">Trusted by</span>
+          <span class="trust-lbl">// aligned with</span>
           <div class="trust-row">
-            <span>WWF</span><span>IUCN</span><span>WCS</span><span>NatGeo</span><span>UNEP</span>
+            <span>IPBES</span><span>TNFD</span><span>Kunming-Montreal</span><span>SDG 15</span>
           </div>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- STATS — real, citable figures -->
   <div class="stats-band">
-    <div class="stat-cell"><b class="stat-n" data-target="8">0</b><sup>M+</sup><span>Species catalogued</span></div>
-    <div class="stat-cell"><b class="stat-n" data-target="68">0</b><sup>%</sup><span>Wildlife lost since 1970</span></div>
-    <div class="stat-cell"><b class="stat-n" data-target="140">0</b><sup>+</sup><span>Field projects delivered</span></div>
-    <div class="stat-cell"><b class="stat-n" data-target="92">0</b><sup>%</sup><span>ML prediction accuracy</span></div>
+    <div class="stat-cell">
+      <b class="stat-n" data-target="68">0</b><sup>%</sup>
+      <span>vertebrate decline since 1970 <em>WWF 2022</em></span>
+    </div>
+    <div class="stat-cell">
+      <b class="stat-n" data-target="8">0</b><sup>M</sup>
+      <span>estimated species on Earth <em>IPBES</em></span>
+    </div>
+    <div class="stat-cell">
+      <b class="stat-n" data-target="1">0</b><sup>M+</sup>
+      <span>species threatened with extinction <em>IPBES 2019</em></span>
+    </div>
+    <div class="stat-cell">
+      <b class="stat-n" data-target="2030">0</b>
+      <span>deadline for 30×30 biodiversity targets <em>CBD</em></span>
+    </div>
   </div>
 
+  <!-- SERVICES -->
   <section id="services">
     <div class="section-hd">
-      <p class="section-tag">What we do</p>
-      <h2 class="h2">Intelligence across<br>every ecosystem</h2>
+      <p class="section-tag">// services</p>
+      <h2 class="h2">WHAT WE BUILD</h2>
     </div>
     <div class="svc-grid">
-      <div class="svc-card"><div class="svc-n">01</div><h3>Species Monitoring</h3><p>Camera trap networks, acoustic sensors, and satellite-tagged animal tracking processed by our ML pipeline into real-time population dashboards.</p><a href="#" class="link-arrow">Learn more →</a></div>
-      <div class="svc-card"><div class="svc-n">02</div><h3>Habitat Mapping</h3><p>Multi-spectral satellite imagery segmented by deep learning to map land cover, deforestation pressure, and habitat connectivity at continental scale.</p><a href="#" class="link-arrow">Learn more →</a></div>
-      <div class="svc-card"><div class="svc-n">03</div><h3>Climate Risk Modeling</h3><p>Species distribution models under CMIP6 scenarios — identifying refugia, migration bottlenecks, and extinction risk hotspots for conservation prioritization.</p><a href="#" class="link-arrow">Learn more →</a></div>
-      <div class="svc-card"><div class="svc-n">04</div><h3>Anti-Poaching Intel</h3><p>Predictive patrol deployment using ranger history, terrain, and incident data — proven to cut poaching incidents by up to 40% in live deployments.</p><a href="#" class="link-arrow">Learn more →</a></div>
-      <div class="svc-card"><div class="svc-n">05</div><h3>Conservation ROI</h3><p>Quantify the monetary and ecological value of protected areas. Build the evidence base for funding, policy, and corporate nature-positive commitments.</p><a href="#" class="link-arrow">Learn more →</a></div>
-      <div class="svc-card"><div class="svc-n">06</div><h3>Ecosystem Valuation</h3><p>Carbon, watershed, pollination — measured, monetized, and reported to TNFD, CSRD, and voluntary carbon markets with full audit trails.</p><a href="#" class="link-arrow">Learn more →</a></div>
+      <div class="svc-card">
+        <div class="svc-n">01</div>
+        <h3>Species Monitoring Pipelines</h3>
+        <p>End-to-end data ingestion from camera traps, acoustic sensors, and GPS collars. ML classification, individual ID, and real-time dashboards.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-n">02</div>
+        <h3>Habitat Mapping</h3>
+        <p>Multi-spectral satellite imagery processed by deep learning to map land cover, deforestation pressure, and habitat connectivity at continental scale.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-n">03</div>
+        <h3>Climate Risk Modeling</h3>
+        <p>Species distribution models under CMIP6 climate scenarios. Identify refugia, migration corridors, and extinction risk hotspots for conservation planning.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-n">04</div>
+        <h3>Biodiversity Reporting</h3>
+        <p>Automated, audit-ready reporting aligned with TNFD, CSRD, and the Kunming-Montreal Global Biodiversity Framework. Turn field data into compliance evidence.</p>
+      </div>
     </div>
   </section>
 
+  <!-- PLATFORM -->
   <section id="platform">
     <div class="platform-inner">
       <div class="platform-l">
-        <p class="section-tag">The Platform</p>
-        <h2 class="h2">Your field data,<br>living and<br>breathing</h2>
+        <p class="section-tag">// platform</p>
+        <h2 class="h2">FIELD DATA,<br>LIVE.</h2>
         <div class="platform-feats">
-          <div class="pfeat"><span class="pfeat-n">01</span><div><h4>Real-time species alerts</h4><p>ML-classified camera trap images arrive in your dashboard within minutes. Set custom alert thresholds for priority species.</p></div></div>
-          <div class="pfeat"><span class="pfeat-n">02</span><div><h4>Trend analysis &amp; forecasting</h4><p>30-year biodiversity indices, population trends, and 10-year projections at the touch of a button.</p></div></div>
-          <div class="pfeat"><span class="pfeat-n">03</span><div><h4>Habitat layer editor</h4><p>Draw, edit, and analyze protected area geometries on satellite imagery. Export to Esri, QGIS, or KML.</p></div></div>
+          <div class="pfeat">
+            <span class="pfeat-n">[01]</span>
+            <div>
+              <h4>Sensor-to-dashboard in minutes</h4>
+              <p>Camera trap images classified by ML, alerts routed to field teams. No manual data entry.</p>
+            </div>
+          </div>
+          <div class="pfeat">
+            <span class="pfeat-n">[02]</span>
+            <div>
+              <h4>30-year trend baselines</h4>
+              <p>Biodiversity index time-series with anomaly detection. Know when something changes before it becomes a crisis.</p>
+            </div>
+          </div>
+          <div class="pfeat">
+            <span class="pfeat-n">[03]</span>
+            <div>
+              <h4>GIS integration</h4>
+              <p>Draw, edit, and analyze protected area geometries on satellite imagery. Export to Esri, QGIS, or KML.</p>
+            </div>
+          </div>
         </div>
       </div>
       <div class="platform-r">
         <div class="dash-window">
           <div class="dash-bar">
-            <span class="dash-dot"></span><span class="dash-dot"></span><span class="dash-dot"></span>
-            <span class="dash-title">Vanyax Platform — Biodiversity Index 1990–2040</span>
+            <span class="dash-dot r"></span><span class="dash-dot y"></span><span class="dash-dot g"></span>
+            <span class="dash-title">biodiversity-index.py — Vanyax Platform</span>
           </div>
           <div class="dash-body">
             <div id="d3-chart"></div>
             <div class="dash-legend">
-              <div class="dl-item"><span style="background:#c8f135"></span>Species richness index</div>
-              <div class="dl-item"><span style="background:#6b9b6b"></span>Projected recovery</div>
+              <div class="dl-item"><span style="background:#c8f135"></span>species richness index</div>
+              <div class="dl-item dl-dash"><span></span>1990 baseline</div>
             </div>
           </div>
         </div>
@@ -113,71 +169,105 @@
     </div>
   </section>
 
+  <!-- REAL GLOBE -->
   <section id="globe-sec">
     <div class="globe-txt">
-      <p class="section-tag">Global reach</p>
-      <h2 class="h2">Monitoring<br>biodiversity<br>across <em>6 continents</em></h2>
-      <p class="globe-sub">From the Amazon to the Serengeti, our sensor networks and satellite partnerships span 47 countries — delivering unified conservation data where it matters most.</p>
-      <a href="#contact" class="btn-primary" style="margin-top:2rem;display:inline-block">Partner with us →</a>
+      <p class="section-tag">// global reach</p>
+      <h2 class="h2">BIODIVERSITY<br>HOTSPOTS<br>WE MONITOR</h2>
+      <p class="globe-sub">Active monitoring across the world's most critical ecosystems — from the Amazon basin to the Coral Triangle. Each point is a real conservation zone.</p>
+      <div class="globe-legend">
+        <div class="gl-item"><span class="gl-dot"></span>Monitoring station</div>
+        <div class="gl-item"><span class="gl-arc"></span>Data corridor</div>
+      </div>
     </div>
-    <div class="globe-wrap">
-      <canvas id="globe-canvas"></canvas>
-      <div class="globe-glow"></div>
+    <div class="globe-wrap" id="globe-wrap">
+      <div id="globe-container"></div>
     </div>
   </section>
 
-  <section id="projects">
+  <!-- ECOSYSTEMS — honest, no fake case studies -->
+  <section id="ecosystems">
     <div class="section-hd">
-      <p class="section-tag">Case studies</p>
-      <h2 class="h2">From data to<br>conservation outcomes</h2>
+      <p class="section-tag">// ecosystems</p>
+      <h2 class="h2">WHERE WE WORK</h2>
     </div>
-    <div class="proj-grid">
-      <article class="proj-card proj-large">
-        <img src="https://images.unsplash.com/photo-1549366021-9f761d450615?q=80&w=900&auto=format&fit=crop" alt="Bengal tiger">
-        <div class="proj-info"><p class="proj-tag">Species monitoring · India</p><h3>Bengal Tiger Population Recovery</h3><p>Camera trap network across 4,200 km² — automated individual ID raised monitoring efficiency 8×.</p><a href="#" class="link-arrow">Read case study →</a></div>
-      </article>
-      <article class="proj-card">
-        <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=700&auto=format&fit=crop" alt="Aerial forest">
-        <div class="proj-info"><p class="proj-tag">Habitat mapping · Brazil</p><h3>Amazon Deforestation Early Warning</h3><p>72-hour satellite alert system across 3.2M km².</p><a href="#" class="link-arrow">Read case study →</a></div>
-      </article>
-      <article class="proj-card">
-        <img src="https://images.unsplash.com/photo-1566438480900-0609be27a4be?q=80&w=700&auto=format&fit=crop" alt="Coral reef">
-        <div class="proj-info"><p class="proj-tag">Marine conservation · Australia</p><h3>Great Barrier Reef Bleaching Monitor</h3><p>Drone + sonar fusion model predicts bleaching events 6 weeks out.</p><a href="#" class="link-arrow">Read case study →</a></div>
-      </article>
+    <div class="eco-grid">
+      <div class="eco-card">
+        <img src="https://images.unsplash.com/photo-1536514498073-50e69d39c6cf?q=80&w=700&auto=format&fit=crop" alt="Tropical rainforest">
+        <div class="eco-info">
+          <p class="eco-tag">Tropical Rainforests</p>
+          <p>Deforestation monitoring, carbon flux modeling, canopy species surveys.</p>
+        </div>
+      </div>
+      <div class="eco-card">
+        <img src="https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?q=80&w=700&auto=format&fit=crop" alt="African savanna">
+        <div class="eco-info">
+          <p class="eco-tag">African Savanna</p>
+          <p>Large mammal population dynamics, prey-predator modeling, anti-poaching intelligence.</p>
+        </div>
+      </div>
+      <div class="eco-card">
+        <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?q=80&w=700&auto=format&fit=crop" alt="Coral reef">
+        <div class="eco-info">
+          <p class="eco-tag">Marine &amp; Coastal</p>
+          <p>Coral bleaching prediction, fish biomass estimation, mangrove change detection.</p>
+        </div>
+      </div>
+      <div class="eco-card">
+        <img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?q=80&w=700&auto=format&fit=crop" alt="Mountain ecosystem">
+        <div class="eco-info">
+          <p class="eco-tag">Mountain &amp; Boreal</p>
+          <p>Snowpack monitoring, glacial retreat modeling, elevation-range shift tracking.</p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section id="testimonials">
-    <div class="testi-inner">
-      <blockquote class="testi"><p>"Vanyax's population models gave us the evidence to double the protected corridor. The data quality and platform UX are exceptional."</p><cite>Dr. Priya Sharma · Wildlife Conservation Society</cite></blockquote>
-      <blockquote class="testi"><p>"We went from quarterly reports to real-time dashboards. The early deforestation alerts have already saved thousands of hectares."</p><cite>Carlos Medina · Amazon Fund</cite></blockquote>
-      <blockquote class="testi"><p>"The TNFD-aligned reporting outputs cut our compliance workload in half. Finally a platform built for conservation practitioners."</p><cite>Aiko Tanaka · Ministry of Environment, Japan</cite></blockquote>
-    </div>
-  </section>
-
+  <!-- CTA -->
   <section id="contact">
     <div class="cta-glow"></div>
-    <p class="section-tag">Ready to start?</p>
-    <h2 class="h-cta">Every dataset is<br>a chance to save<br>something.</h2>
+    <p class="section-tag">// contact</p>
+    <h2 class="h-cta">EVERY DATASET<br>IS A CHANCE TO<br>SAVE SOMETHING.</h2>
     <form id="cta-form" class="cta-form">
-      <input type="email" placeholder="your@email.com" required>
-      <button type="submit">Get in touch →</button>
+      <input type="email" placeholder="your@email.com" required autocomplete="off">
+      <button type="submit">Send →</button>
     </form>
-    <p class="cta-alt">Or reach us at <a href="mailto:hello@vanyax.io">hello@vanyax.io</a></p>
+    <p class="cta-alt">Or write to <a href="mailto:hello@vanyax.io">hello@vanyax.io</a></p>
   </section>
 
+  <!-- FOOTER -->
   <footer id="footer">
     <div class="footer-top">
-      <div class="footer-brand"><img src="/logo.svg" width="28" height="28" alt="Vanyax"><span>Vanyax</span></div>
+      <div class="footer-brand">
+        <img src="/logo.svg" width="26" height="26" alt="Vanyax">
+        <span>Vanyax</span>
+      </div>
       <nav class="footer-cols">
-        <div class="footer-col"><h5>Services</h5><a href="#">Species Monitoring</a><a href="#">Habitat Mapping</a><a href="#">Climate Risk</a><a href="#">Anti-Poaching</a></div>
-        <div class="footer-col"><h5>Platform</h5><a href="#">Dashboard</a><a href="#">API Docs</a><a href="#">Integrations</a><a href="#">Pricing</a></div>
-        <div class="footer-col"><h5>Company</h5><a href="#">About</a><a href="#">Blog</a><a href="#">Careers</a><a href="#">Contact</a></div>
+        <div class="footer-col">
+          <h5>Services</h5>
+          <a href="#">Species Monitoring</a>
+          <a href="#">Habitat Mapping</a>
+          <a href="#">Climate Risk</a>
+          <a href="#">Reporting</a>
+        </div>
+        <div class="footer-col">
+          <h5>Platform</h5>
+          <a href="#">Dashboard</a>
+          <a href="#">API</a>
+          <a href="#">Integrations</a>
+        </div>
+        <div class="footer-col">
+          <h5>Company</h5>
+          <a href="#">About</a>
+          <a href="#">Blog</a>
+          <a href="#">Careers</a>
+          <a href="#contact">Contact</a>
+        </div>
       </nav>
     </div>
     <div class="footer-btm">
-      <span>© 2026 Vanyax. All rights reserved.</span>
-      <span>Environmental Intelligence Platform</span>
+      <span>© 2026 Vanyax</span>
+      <span class="footer-mono">// environmental intelligence</span>
     </div>
   </footer>
 
