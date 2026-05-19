@@ -20,25 +20,6 @@ lenis.on('scroll', ScrollTrigger.update);
 gsap.ticker.add(t => lenis.raf(t * 1000));
 gsap.ticker.lagSmoothing(0);
 
-/* ── CURSOR ── */
-const cur = document.getElementById('cur');
-const ring = document.getElementById('cur-ring');
-let mx = window.innerWidth / 2, my = window.innerHeight / 2;
-let rx = mx, ry = my;
-
-window.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-gsap.ticker.add(() => {
-  rx += (mx - rx) * 0.12;
-  ry += (my - ry) * 0.12;
-  cur.style.left  = mx + 'px';
-  cur.style.top   = my + 'px';
-  ring.style.left = rx + 'px';
-  ring.style.top  = ry + 'px';
-});
-document.querySelectorAll('a, button').forEach(el => {
-  el.addEventListener('mouseenter', () => ring.classList.add('on'));
-  el.addEventListener('mouseleave', () => ring.classList.remove('on'));
-});
 
 /* ── SCROLL PROGRESS ── */
 ScrollTrigger.create({
@@ -151,7 +132,7 @@ function initD3() {
   y.ticks(4).forEach(t => {
     g.append('line')
       .attr('x1', 0).attr('x2', iW).attr('y1', y(t)).attr('y2', y(t))
-      .attr('stroke', 'rgba(200,241,53,0.06)').attr('stroke-width', 1);
+      .attr('stroke', 'rgba(201,168,76,0.06)').attr('stroke-width', 1);
   });
 
   // Axes
@@ -176,7 +157,7 @@ function initD3() {
     .attr('stroke-dasharray', '4,3').attr('opacity', 0.4);
 
   // Area under historical
-  g.append('path').datum(hist).attr('d', ar).attr('fill', 'rgba(200,241,53,0.06)');
+  g.append('path').datum(hist).attr('d', ar).attr('fill', 'rgba(201,168,76,0.06)');
 
   // Clip for animation
   svg.append('defs').append('clipPath').attr('id', 'lc')
@@ -184,18 +165,18 @@ function initD3() {
 
   // Historical line
   g.append('path').datum(hist).attr('d', ln)
-    .attr('fill', 'none').attr('stroke', '#c8f135').attr('stroke-width', 2.2)
+    .attr('fill', 'none').attr('stroke', '#c9a84c').attr('stroke-width', 2.2)
     .attr('clip-path', 'url(#lc)');
 
   // Projected
   g.append('path').datum(proj).attr('d', ln)
-    .attr('fill', 'none').attr('stroke', '#c8f135').attr('stroke-width', 1.8)
+    .attr('fill', 'none').attr('stroke', '#c9a84c').attr('stroke-width', 1.8)
     .attr('stroke-dasharray', '5,3').attr('opacity', 0.55)
     .attr('clip-path', 'url(#lc)');
 
   // Point at 2022
   g.append('circle').attr('cx', x(2022)).attr('cy', y(0.55))
-    .attr('r', 3.5).attr('fill', '#c8f135').attr('clip-path', 'url(#lc)');
+    .attr('r', 3.5).attr('fill', '#c9a84c').attr('clip-path', 'url(#lc)');
 
   // Animate on scroll
   ScrollTrigger.create({
@@ -248,18 +229,18 @@ function initGlobe() {
     .width(size).height(size)
     .backgroundColor('rgba(0,0,0,0)')
     .globeImageUrl('//unpkg.com/three-globe/example/img/earth-night.jpg')
-    .atmosphereColor('#c8f135')
+    .atmosphereColor('#d4aa50')
     .atmosphereAltitude(0.12)
     .pointsData(hotspots)
     .pointLat('lat').pointLng('lng')
-    .pointColor(() => '#c8f135')
+    .pointColor(() => '#c9a84c')
     .pointAltitude(0.04)
     .pointRadius(0.45)
     .pointLabel('label')
     .arcsData(arcs)
     .arcStartLat('startLat').arcStartLng('startLng')
     .arcEndLat('endLat').arcEndLng('endLng')
-    .arcColor(() => ['rgba(200,241,53,0.0)', 'rgba(200,241,53,0.7)', 'rgba(200,241,53,0.0)'])
+    .arcColor(() => ['rgba(201,168,76,0.0)', 'rgba(201,168,76,0.7)', 'rgba(201,168,76,0.0)'])
     .arcAltitude(0.28)
     .arcStroke(0.4)
     .arcDashLength(0.35)
@@ -267,7 +248,7 @@ function initGlobe() {
     .arcDashAnimateTime(2400)
     .ringsData(hotspots)
     .ringLat('lat').ringLng('lng')
-    .ringColor(() => t => `rgba(200,241,53,${(1 - t) * 0.5})`)
+    .ringColor(() => t => `rgba(201,168,76,${(1 - t) * 0.5})`)
     .ringMaxRadius(3.5)
     .ringPropagationSpeed(1.5)
     .ringRepeatPeriod(1200);
