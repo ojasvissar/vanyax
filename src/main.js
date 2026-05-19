@@ -29,19 +29,40 @@ ScrollTrigger.create({
 /* ── NAV SOLID ON SCROLL ── */
 const nav = document.getElementById('nav');
 ScrollTrigger.create({
-  start: 80,
+  start: 60,
   onEnter:     () => nav.classList.add('solid'),
   onLeaveBack: () => nav.classList.remove('solid'),
 });
 
+/* ── HERO TAG TYPEWRITER ── */
+const heroTag = document.querySelector('.hero-tag');
+if (heroTag) {
+  const text = heroTag.textContent.trim();
+  heroTag.textContent = '';
+  const cursor = document.createElement('span');
+  cursor.style.cssText = 'animation:cursor-blink .7s step-end infinite;color:var(--green);font-style:normal;';
+  cursor.textContent = '|';
+  heroTag.appendChild(cursor);
+  let i = 0;
+  setTimeout(() => {
+    const iv = setInterval(() => {
+      if (i < text.length) {
+        heroTag.insertBefore(document.createTextNode(text[i++]), cursor);
+      } else {
+        clearInterval(iv);
+        setTimeout(() => cursor.remove(), 1400);
+      }
+    }, 46);
+  }, 300);
+}
+
 /* ── HERO ENTRANCE ── */
 const heroTl = gsap.timeline({ delay: 0.1 });
 heroTl
-  .from('.hero-tag',   { opacity: 0, y: 12, duration: 0.7, ease: 'power3.out' }, 0.2)
-  .from('.h-hero',     { opacity: 0, y: 26, duration: 1.0, ease: 'power3.out' }, 0.4)
-  .from('.hero-desc',  { opacity: 0, y: 16, duration: 0.8, ease: 'power3.out' }, 0.65)
-  .from('.hero-ctas',  { opacity: 0, y: 14, duration: 0.7, ease: 'power3.out' }, 0.85)
-  .from('.hero-scene', { opacity: 0, y: 22, duration: 1.2, ease: 'power3.out' }, 0.5);
+  .from('.h-hero',     { opacity: 0, y: 26, duration: 1.0, ease: 'power3.out' }, 0.5)
+  .from('.hero-desc',  { opacity: 0, y: 16, duration: 0.8, ease: 'power3.out' }, 0.75)
+  .from('.hero-ctas',  { opacity: 0, y: 14, duration: 0.7, ease: 'power3.out' }, 0.95)
+  .from('.hero-scene', { opacity: 0, y: 18, duration: 1.2, ease: 'power3.out' }, 0.55);
 
 /* ── SCROLL REVEALS ── */
 document.querySelectorAll('.svc-card, .eco-card, .pfeat').forEach((el, i) => {

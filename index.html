@@ -14,10 +14,10 @@
 
   <div id="prog"></div>
 
-  <!-- NAV -->
+  <!-- NAV — floating dark pill -->
   <header id="nav">
     <a class="nav-brand" href="#">
-      <img src="/logo.svg" width="22" height="22" alt="">
+      <img src="/logo.svg" width="20" height="20" alt="">
       <span>Vanyax</span>
     </a>
     <ul class="nav-links">
@@ -45,145 +45,166 @@
     <div class="hero-scene-wrap">
       <svg viewBox="0 0 1200 360" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges" class="hero-scene" preserveAspectRatio="xMidYMax meet">
 
-        <!-- data constellation -->
-        <circle cx="155" cy="72" r="5" fill="#2d5c27" opacity=".55"/>
-        <circle cx="275" cy="44" r="4" fill="#2d5c27" opacity=".45"/>
-        <circle cx="375" cy="85" r="6" fill="#2d5c27" opacity=".5"/>
-        <circle cx="478" cy="38" r="4" fill="#c97b2e" opacity=".55"/>
-        <circle cx="560" cy="65" r="3" fill="#2d5c27" opacity=".4"/>
+        <!-- pixel stars scattered in sky -->
+        <rect x="320" y="28" width="3" height="3" fill="#f4f0e6" opacity=".22"/>
+        <rect x="448" y="18" width="2" height="2" fill="#f4f0e6" opacity=".18"/>
+        <rect x="612" y="40" width="2" height="2" fill="#c97b2e" opacity=".28"/>
+        <rect x="840" y="26" width="3" height="3" fill="#f4f0e6" opacity=".2"/>
+        <rect x="975" y="14" width="2" height="2" fill="#f4f0e6" opacity=".18"/>
+        <rect x="1082" y="36" width="2" height="2" fill="#f4f0e6" opacity=".16"/>
+        <rect x="205"  y="52" width="2" height="2" fill="#c97b2e" opacity=".25"/>
+        <rect x="522"  y="22" width="2" height="2" fill="#f4f0e6" opacity=".2"/>
+        <rect x="1148" y="48" width="3" height="3" fill="#f4f0e6" opacity=".18"/>
+        <rect x="100"  y="38" width="2" height="2" fill="#c97b2e" opacity=".2"/>
+        <rect x="716"  y="30" width="2" height="2" fill="#f4f0e6" opacity=".16"/>
+        <rect x="58"   y="60" width="2" height="2" fill="#f4f0e6" opacity=".14"/>
+        <rect x="1030" y="55" width="2" height="2" fill="#c97b2e" opacity=".18"/>
+
+        <!-- data constellation left -->
+        <circle class="star-dot" cx="155" cy="72" r="5"  fill="#2d5c27" opacity=".55"/>
+        <circle class="star-dot" cx="275" cy="44" r="4"  fill="#2d5c27" opacity=".45"/>
+        <circle class="star-dot" cx="375" cy="85" r="6"  fill="#2d5c27" opacity=".5"/>
+        <circle class="star-dot" cx="478" cy="38" r="4"  fill="#c97b2e" opacity=".55"/>
+        <circle class="star-dot" cx="560" cy="65" r="3"  fill="#2d5c27" opacity=".4"/>
         <line x1="155" y1="72" x2="275" y2="44" stroke="#2d5c27" stroke-width="1.2" opacity=".22"/>
         <line x1="275" y1="44" x2="375" y2="85" stroke="#2d5c27" stroke-width="1.2" opacity=".22"/>
         <line x1="375" y1="85" x2="478" y2="38" stroke="#c97b2e" stroke-width="1.2" opacity=".22"/>
         <line x1="478" y1="38" x2="560" y2="65" stroke="#2d5c27" stroke-width="1.2" opacity=".18"/>
-        <circle cx="800" cy="55" r="5" fill="#2d5c27" opacity=".45"/>
-        <circle cx="915" cy="32" r="3" fill="#c97b2e" opacity=".5"/>
-        <circle cx="1048" cy="66" r="4" fill="#2d5c27" opacity=".4"/>
-        <circle cx="1120" cy="42" r="3" fill="#2d5c27" opacity=".35"/>
-        <line x1="800" y1="55" x2="915" y2="32" stroke="#2d5c27" stroke-width="1.2" opacity=".2"/>
-        <line x1="915" y1="32" x2="1048" y2="66" stroke="#2d5c27" stroke-width="1.2" opacity=".2"/>
+
+        <!-- data constellation right -->
+        <circle class="star-dot" cx="800"  cy="55" r="5"  fill="#2d5c27" opacity=".45"/>
+        <circle class="star-dot" cx="915"  cy="32" r="3"  fill="#c97b2e" opacity=".5"/>
+        <circle class="star-dot" cx="1048" cy="66" r="4"  fill="#2d5c27" opacity=".4"/>
+        <circle class="star-dot" cx="1120" cy="42" r="3"  fill="#2d5c27" opacity=".35"/>
+        <line x1="800"  y1="55" x2="915"  y2="32" stroke="#2d5c27" stroke-width="1.2" opacity=".2"/>
+        <line x1="915"  y1="32" x2="1048" y2="66" stroke="#2d5c27" stroke-width="1.2" opacity=".2"/>
         <line x1="1048" y1="66" x2="1120" y2="42" stroke="#2d5c27" stroke-width="1.2" opacity=".18"/>
 
+        <!-- floating pixel data terminal -->
+        <rect x="666" y="10" width="124" height="78" fill="#0c0f0a" opacity=".84"/>
+        <rect x="668" y="12" width="120" height="14" fill="#1a2416"/>
+        <rect x="672" y="16" width="5"   height="5"  fill="#ff5f57"/>
+        <rect x="681" y="16" width="5"   height="5"  fill="#febc2e"/>
+        <rect x="690" y="16" width="5"   height="5"  fill="#28c840"/>
+        <text x="702" y="25" fill="rgba(237,229,208,.28)" font-size="6.5" font-family="'Space Mono',monospace">biodiversity.log</text>
+        <text x="672" y="39" fill="rgba(201,168,76,.8)"   font-size="7.5" font-family="'Space Mono',monospace">species: 3,247</text>
+        <text x="672" y="51" fill="rgba(201,168,76,.55)"  font-size="7.5" font-family="'Space Mono',monospace">status: 0x4F4B</text>
+        <text x="672" y="63" fill="rgba(45,92,39,.9)"     font-size="7.5" font-family="'Space Mono',monospace">health: 94.2%</text>
+        <text x="672" y="75" fill="rgba(237,229,208,.4)"  font-size="7.5" font-family="'Space Mono',monospace">▮ tracking...</text>
+        <rect x="666" y="10" width="124" height="78" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+
+        <!-- pixel satellite in upper right -->
+        <rect x="1058" y="86" width="20" height="9"  fill="#2a2f26" opacity=".55"/>
+        <rect x="1043" y="88" width="15" height="5"  fill="#3a6e33" opacity=".5"/>
+        <rect x="1078" y="88" width="15" height="5"  fill="#3a6e33" opacity=".5"/>
+        <rect x="1064" y="84" width="6"  height="3"  fill="#c97b2e" opacity=".45"/>
+        <rect x="1067" y="95" width="2"  height="5"  fill="#c97b2e" opacity=".3"/>
+
         <!-- mountains back layer -->
-        <polygon points="0,360 0,215 160,95 320,215 320,360"   fill="#8fad84" opacity=".38"/>
-        <polygon points="200,360 200,195 390,72 580,195 580,360" fill="#7a9870" opacity=".32"/>
+        <polygon points="0,360 0,215 160,95 320,215 320,360"     fill="#8fad84" opacity=".38"/>
+        <polygon points="200,360 200,195 390,72 580,195 580,360"  fill="#7a9870" opacity=".32"/>
         <polygon points="460,360 460,225 650,105 840,225 840,360" fill="#8fad84" opacity=".3"/>
         <polygon points="700,360 700,205 900,85 1100,205 1100,360" fill="#7a9870" opacity=".34"/>
         <polygon points="980,360 980,230 1100,120 1200,180 1200,360" fill="#8fad84" opacity=".36"/>
 
         <!-- left tree cluster -->
-        <rect x="0"   y="270" width="28" height="90" fill="#3a6e33" opacity=".8"/>
-        <rect x="24"  y="252" width="44" height="36" fill="#3a6e33" opacity=".75"/>
-        <!-- pine 1 -->
+        <rect x="0"   y="270" width="28" height="90"  fill="#3a6e33" opacity=".8"/>
+        <rect x="24"  y="252" width="44" height="36"  fill="#3a6e33" opacity=".75"/>
         <rect x="52"  y="220" width="16" height="140" fill="#1a2416"/>
-        <rect x="36"  y="175" width="48" height="56" fill="#2d5c27"/>
-        <rect x="44"  y="138" width="32" height="46" fill="#3a6e33"/>
-        <rect x="52"  y="108" width="16" height="36" fill="#2d5c27"/>
-        <!-- pine 2 -->
+        <rect x="36"  y="175" width="48" height="56"  fill="#2d5c27"/>
+        <rect x="44"  y="138" width="32" height="46"  fill="#3a6e33"/>
+        <rect x="52"  y="108" width="16" height="36"  fill="#2d5c27"/>
         <rect x="112" y="238" width="14" height="122" fill="#1a2416"/>
-        <rect x="97"  y="194" width="42" height="54" fill="#2d5c27"/>
-        <rect x="105" y="158" width="26" height="44" fill="#3a6e33"/>
-        <rect x="113" y="130" width="12" height="32" fill="#2d5c27"/>
-        <!-- pine 3 small -->
+        <rect x="97"  y="194" width="42" height="54"  fill="#2d5c27"/>
+        <rect x="105" y="158" width="26" height="44"  fill="#3a6e33"/>
+        <rect x="113" y="130" width="12" height="32"  fill="#2d5c27"/>
         <rect x="152" y="255" width="10" height="105" fill="#1a2416"/>
-        <rect x="140" y="218" width="34" height="46" fill="#2d5c27"/>
-        <rect x="148" y="186" width="18" height="38" fill="#3a6e33"/>
-        <!-- pine 4 -->
+        <rect x="140" y="218" width="34" height="46"  fill="#2d5c27"/>
+        <rect x="148" y="186" width="18" height="38"  fill="#3a6e33"/>
         <rect x="185" y="248" width="12" height="112" fill="#1a2416"/>
-        <rect x="171" y="203" width="40" height="52" fill="#2d5c27"/>
-        <rect x="179" y="168" width="24" height="42" fill="#3a6e33"/>
-        <rect x="187" y="140" width="10" height="32" fill="#2d5c27"/>
-        <!-- oak 1 -->
-        <rect x="228" y="262" width="14" height="98" fill="#1a2416"/>
-        <rect x="208" y="220" width="54" height="50" fill="#3a6e33"/>
-        <rect x="216" y="196" width="38" height="30" fill="#2d5c27"/>
-        <!-- bush -->
-        <rect x="260" y="326" width="48" height="18" fill="#3a6e33"/>
-        <rect x="272" y="314" width="28" height="16" fill="#2d5c27"/>
+        <rect x="171" y="203" width="40" height="52"  fill="#2d5c27"/>
+        <rect x="179" y="168" width="24" height="42"  fill="#3a6e33"/>
+        <rect x="187" y="140" width="10" height="32"  fill="#2d5c27"/>
+        <rect x="228" y="262" width="14" height="98"  fill="#1a2416"/>
+        <rect x="208" y="220" width="54" height="50"  fill="#3a6e33"/>
+        <rect x="216" y="196" width="38" height="30"  fill="#2d5c27"/>
+        <rect x="260" y="326" width="48" height="18"  fill="#3a6e33"/>
+        <rect x="272" y="314" width="28" height="16"  fill="#2d5c27"/>
 
         <!-- center — ELEPHANT pixel art -->
-        <!-- body -->
         <rect x="510" y="262" width="100" height="78" fill="#2a2f26"/>
-        <!-- head -->
-        <rect x="594" y="244" width="68" height="54" fill="#2a2f26"/>
-        <!-- ear -->
-        <rect x="586" y="237" width="22" height="46" fill="#222620"/>
-        <rect x="580" y="244" width="10" height="32" fill="#1a1e17"/>
-        <!-- eye -->
-        <rect x="642" y="257" width="9"  height="9"  fill="#f5f0e8"/>
-        <rect x="644" y="259" width="5"  height="5"  fill="#1a1e17"/>
-        <!-- tusk -->
-        <rect x="650" y="274" width="28" height="7"  fill="#e8dcc0"/>
-        <rect x="670" y="281" width="10" height="7"  fill="#e8dcc0"/>
-        <!-- trunk -->
-        <rect x="650" y="290" width="16" height="14" fill="#2a2f26"/>
-        <rect x="654" y="304" width="13" height="14" fill="#2a2f26"/>
-        <rect x="650" y="318" width="13" height="13" fill="#2a2f26"/>
-        <rect x="647" y="331" width="14" height="10" fill="#2a2f26"/>
-        <rect x="643" y="341" width="12" height="8"  fill="#2a2f26"/>
-        <!-- tail -->
-        <rect x="510" y="268" width="8"  height="22" fill="#2a2f26"/>
-        <rect x="504" y="288" width="8"  height="10" fill="#2a2f26"/>
-        <!-- legs -->
-        <rect x="518" y="332" width="22" height="28" fill="#2a2f26"/>
-        <rect x="548" y="332" width="22" height="28" fill="#2a2f26"/>
-        <rect x="598" y="332" width="22" height="28" fill="#2a2f26"/>
-        <rect x="628" y="332" width="22" height="28" fill="#2a2f26"/>
+        <rect x="594" y="244" width="68"  height="54" fill="#2a2f26"/>
+        <rect x="586" y="237" width="22"  height="46" fill="#222620"/>
+        <rect x="580" y="244" width="10"  height="32" fill="#1a1e17"/>
+        <rect x="642" y="257" width="9"   height="9"  fill="#f5f0e8"/>
+        <rect x="644" y="259" width="5"   height="5"  fill="#1a1e17"/>
+        <rect x="650" y="274" width="28"  height="7"  fill="#e8dcc0"/>
+        <rect x="670" y="281" width="10"  height="7"  fill="#e8dcc0"/>
+        <rect x="650" y="290" width="16"  height="14" fill="#2a2f26"/>
+        <rect x="654" y="304" width="13"  height="14" fill="#2a2f26"/>
+        <rect x="650" y="318" width="13"  height="13" fill="#2a2f26"/>
+        <rect x="647" y="331" width="14"  height="10" fill="#2a2f26"/>
+        <rect x="643" y="341" width="12"  height="8"  fill="#2a2f26"/>
+        <rect x="510" y="268" width="8"   height="22" fill="#2a2f26"/>
+        <rect x="504" y="288" width="8"   height="10" fill="#2a2f26"/>
+        <rect x="518" y="332" width="22"  height="28" fill="#2a2f26"/>
+        <rect x="548" y="332" width="22"  height="28" fill="#2a2f26"/>
+        <rect x="598" y="332" width="22"  height="28" fill="#2a2f26"/>
+        <rect x="628" y="332" width="22"  height="28" fill="#2a2f26"/>
 
-        <!-- birds (simple pixel v-shapes) -->
-        <rect x="393" y="130" width="18" height="6"  fill="#2a2f26" opacity=".55"/>
-        <rect x="385" y="126" width="12" height="5"  fill="#2a2f26" opacity=".5"/>
-        <rect x="411" y="126" width="12" height="5"  fill="#2a2f26" opacity=".5"/>
-        <rect x="745" y="110" width="16" height="5"  fill="#2a2f26" opacity=".5"/>
-        <rect x="738" y="106" width="10" height="4"  fill="#2a2f26" opacity=".45"/>
-        <rect x="761" y="106" width="10" height="4"  fill="#2a2f26" opacity=".45"/>
-        <rect x="780" y="122" width="12" height="4"  fill="#2a2f26" opacity=".4"/>
-        <rect x="773" y="119" width="8"  height="3"  fill="#2a2f26" opacity=".38"/>
-        <rect x="792" y="119" width="8"  height="3"  fill="#2a2f26" opacity=".38"/>
+        <!-- birds (grouped for CSS animation) -->
+        <g class="px-bird">
+          <rect x="393" y="130" width="18" height="6" fill="#2a2f26" opacity=".55"/>
+          <rect x="385" y="126" width="12" height="5" fill="#2a2f26" opacity=".5"/>
+          <rect x="411" y="126" width="12" height="5" fill="#2a2f26" opacity=".5"/>
+        </g>
+        <g class="px-bird px-bird-2">
+          <rect x="745" y="110" width="16" height="5" fill="#2a2f26" opacity=".5"/>
+          <rect x="738" y="106" width="10" height="4" fill="#2a2f26" opacity=".45"/>
+          <rect x="761" y="106" width="10" height="4" fill="#2a2f26" opacity=".45"/>
+        </g>
+        <g class="px-bird px-bird-3">
+          <rect x="780" y="122" width="12" height="4" fill="#2a2f26" opacity=".4"/>
+          <rect x="773" y="119" width="8"  height="3" fill="#2a2f26" opacity=".38"/>
+          <rect x="792" y="119" width="8"  height="3" fill="#2a2f26" opacity=".38"/>
+        </g>
 
         <!-- right tree cluster -->
-        <!-- pine 5 -->
         <rect x="820" y="222" width="16" height="138" fill="#1a2416"/>
-        <rect x="804" y="176" width="48" height="56" fill="#2d5c27"/>
-        <rect x="812" y="138" width="32" height="46" fill="#3a6e33"/>
-        <rect x="820" y="108" width="16" height="36" fill="#2d5c27"/>
-        <!-- pine 6 -->
+        <rect x="804" y="176" width="48" height="56"  fill="#2d5c27"/>
+        <rect x="812" y="138" width="32" height="46"  fill="#3a6e33"/>
+        <rect x="820" y="108" width="16" height="36"  fill="#2d5c27"/>
         <rect x="850" y="244" width="12" height="116" fill="#1a2416"/>
-        <rect x="836" y="198" width="40" height="56" fill="#2d5c27"/>
-        <rect x="844" y="162" width="24" height="44" fill="#3a6e33"/>
-        <!-- pine 7 -->
+        <rect x="836" y="198" width="40" height="56"  fill="#2d5c27"/>
+        <rect x="844" y="162" width="24" height="44"  fill="#3a6e33"/>
         <rect x="886" y="256" width="10" height="104" fill="#1a2416"/>
-        <rect x="874" y="216" width="34" height="50" fill="#2d5c27"/>
-        <rect x="882" y="184" width="18" height="38" fill="#3a6e33"/>
-        <!-- pine 8 tall -->
+        <rect x="874" y="216" width="34" height="50"  fill="#2d5c27"/>
+        <rect x="882" y="184" width="18" height="38"  fill="#3a6e33"/>
         <rect x="920" y="218" width="16" height="142" fill="#1a2416"/>
-        <rect x="904" y="170" width="48" height="58" fill="#2d5c27"/>
-        <rect x="912" y="130" width="32" height="48" fill="#3a6e33"/>
-        <rect x="920" y="100" width="16" height="36" fill="#2d5c27"/>
-        <!-- pine 9 -->
+        <rect x="904" y="170" width="48" height="58"  fill="#2d5c27"/>
+        <rect x="912" y="130" width="32" height="48"  fill="#3a6e33"/>
+        <rect x="920" y="100" width="16" height="36"  fill="#2d5c27"/>
         <rect x="955" y="246" width="12" height="114" fill="#1a2416"/>
-        <rect x="941" y="200" width="40" height="56" fill="#2d5c27"/>
-        <rect x="949" y="165" width="24" height="43" fill="#3a6e33"/>
-        <!-- oak 2 -->
+        <rect x="941" y="200" width="40" height="56"  fill="#2d5c27"/>
+        <rect x="949" y="165" width="24" height="43"  fill="#3a6e33"/>
         <rect x="994" y="260" width="14" height="100" fill="#1a2416"/>
-        <rect x="974" y="218" width="54" height="50" fill="#3a6e33"/>
-        <rect x="982" y="194" width="38" height="30" fill="#2d5c27"/>
-        <!-- bush right -->
+        <rect x="974" y="218" width="54" height="50"  fill="#3a6e33"/>
+        <rect x="982" y="194" width="38" height="30"  fill="#2d5c27"/>
         <rect x="1030" y="324" width="48" height="18" fill="#3a6e33"/>
         <rect x="1042" y="312" width="28" height="16" fill="#2d5c27"/>
-        <!-- right edge -->
         <rect x="1140" y="265" width="30" height="95" fill="#3a6e33" opacity=".8"/>
         <rect x="1158" y="248" width="42" height="36" fill="#2d5c27" opacity=".75"/>
         <rect x="1175" y="272" width="25" height="88" fill="#2d5c27" opacity=".8"/>
 
         <!-- grass tufts -->
-        <rect x="244" y="350" width="8"  height="14" fill="#2d5c27"/>
-        <rect x="258" y="347" width="8"  height="17" fill="#3a6e33"/>
-        <rect x="272" y="351" width="8"  height="13" fill="#2d5c27"/>
-        <rect x="486" y="350" width="8"  height="14" fill="#2d5c27"/>
-        <rect x="500" y="346" width="8"  height="18" fill="#3a6e33"/>
-        <rect x="680" y="349" width="8"  height="15" fill="#2d5c27"/>
-        <rect x="694" y="351" width="8"  height="13" fill="#3a6e33"/>
-        <rect x="793" y="350" width="8"  height="14" fill="#2d5c27"/>
+        <rect x="244" y="350" width="8" height="14" fill="#2d5c27"/>
+        <rect x="258" y="347" width="8" height="17" fill="#3a6e33"/>
+        <rect x="272" y="351" width="8" height="13" fill="#2d5c27"/>
+        <rect x="486" y="350" width="8" height="14" fill="#2d5c27"/>
+        <rect x="500" y="346" width="8" height="18" fill="#3a6e33"/>
+        <rect x="680" y="349" width="8" height="15" fill="#2d5c27"/>
+        <rect x="694" y="351" width="8" height="13" fill="#3a6e33"/>
+        <rect x="793" y="350" width="8" height="14" fill="#2d5c27"/>
 
         <!-- ground -->
         <rect x="0" y="352" width="1200" height="8" fill="#2d5c27" opacity=".9"/>
@@ -191,6 +212,48 @@
       </svg>
     </div>
   </section>
+
+  <!-- TICKER — scrolling conservation facts -->
+  <div class="ticker-strip" aria-hidden="true">
+    <div class="ticker-track">
+      <div class="ticker-inner">
+        <span>↓ 68% vertebrate populations since 1970</span>
+        <span class="tk-sep">◆</span>
+        <span>1,000,000+ species threatened with extinction</span>
+        <span class="tk-sep">◆</span>
+        <span>30×30 — protect 30% of Earth by 2030</span>
+        <span class="tk-sep">◆</span>
+        <span>$700B annual biodiversity finance gap</span>
+        <span class="tk-sep">◆</span>
+        <span>Only 17% of land currently protected</span>
+        <span class="tk-sep">◆</span>
+        <span>Coral cover: −50% since 1950</span>
+        <span class="tk-sep">◆</span>
+        <span>Amazon: 17% deforested in 50 years</span>
+        <span class="tk-sep">◆</span>
+        <span>IPBES: nature declining at unprecedented rates</span>
+        <span class="tk-sep">◆</span>
+      </div>
+      <div class="ticker-inner" aria-hidden="true">
+        <span>↓ 68% vertebrate populations since 1970</span>
+        <span class="tk-sep">◆</span>
+        <span>1,000,000+ species threatened with extinction</span>
+        <span class="tk-sep">◆</span>
+        <span>30×30 — protect 30% of Earth by 2030</span>
+        <span class="tk-sep">◆</span>
+        <span>$700B annual biodiversity finance gap</span>
+        <span class="tk-sep">◆</span>
+        <span>Only 17% of land currently protected</span>
+        <span class="tk-sep">◆</span>
+        <span>Coral cover: −50% since 1950</span>
+        <span class="tk-sep">◆</span>
+        <span>Amazon: 17% deforested in 50 years</span>
+        <span class="tk-sep">◆</span>
+        <span>IPBES: nature declining at unprecedented rates</span>
+        <span class="tk-sep">◆</span>
+      </div>
+    </div>
+  </div>
 
   <!-- STATS -->
   <div class="stats-band">
@@ -224,22 +287,34 @@
     </div>
     <div class="svc-grid">
       <div class="svc-card">
-        <div class="svc-icon">🌿</div>
+        <div class="svc-head">
+          <div class="svc-icon">🌿</div>
+          <span class="svc-num">01</span>
+        </div>
         <h3>Species Monitoring Pipelines</h3>
         <p>End-to-end ingestion from camera traps, acoustic sensors, and GPS collars. ML classification, individual ID, real-time dashboards.</p>
       </div>
       <div class="svc-card">
-        <div class="svc-icon">🛰</div>
+        <div class="svc-head">
+          <div class="svc-icon">🛰</div>
+          <span class="svc-num">02</span>
+        </div>
         <h3>Habitat Mapping</h3>
         <p>Multi-spectral satellite imagery processed by deep learning to map land cover, deforestation pressure, and habitat connectivity at continental scale.</p>
       </div>
       <div class="svc-card">
-        <div class="svc-icon">🌡</div>
+        <div class="svc-head">
+          <div class="svc-icon">🌡</div>
+          <span class="svc-num">03</span>
+        </div>
         <h3>Climate Risk Modeling</h3>
         <p>Species distribution models under CMIP6 scenarios. Identify refugia, migration corridors, and extinction hotspots for conservation planning.</p>
       </div>
       <div class="svc-card">
-        <div class="svc-icon">📊</div>
+        <div class="svc-head">
+          <div class="svc-icon">📊</div>
+          <span class="svc-num">04</span>
+        </div>
         <h3>Biodiversity Reporting</h3>
         <p>Audit-ready outputs aligned with TNFD, CSRD, and Kunming-Montreal. Turn field data into compliance evidence your investors can read.</p>
       </div>
@@ -393,6 +468,7 @@
     </div>
     <div class="footer-btm">
       <span>© 2026 Vanyax</span>
+      <span class="footer-px">■□■□■□■□■□</span>
       <span class="footer-mono">// environmental intelligence</span>
     </div>
   </footer>
