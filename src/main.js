@@ -39,11 +39,35 @@ ScrollTrigger.create({
 /* ── HERO ENTRANCE ── */
 const heroTl = gsap.timeline({ delay: 0.1 });
 heroTl
-  .from('.hero-tag',   { opacity: 0, y: 10, duration: 0.7, ease: 'power3.out' }, 0.2)
-  .from('.h-hero',     { opacity: 0, y: 26, duration: 1.0, ease: 'power3.out' }, 0.45)
-  .from('.hero-desc',  { opacity: 0, y: 16, duration: 0.8, ease: 'power3.out' }, 0.70)
-  .from('.hero-ctas',  { opacity: 0, y: 14, duration: 0.7, ease: 'power3.out' }, 0.90)
-  .from('.hero-scene', { opacity: 0, duration: 1.4, ease: 'power2.out' }, 0.60);
+  .from('.hero-tag',    { opacity: 0, y: 10, duration: 0.7, ease: 'power3.out' }, 0.2)
+  .from('.h-hero',      { opacity: 0, y: 30, duration: 1.0, ease: 'power3.out' }, 0.42)
+  .from('.hero-desc',   { opacity: 0, y: 18, duration: 0.8, ease: 'power3.out' }, 0.68)
+  .from('.hero-ctas',   { opacity: 0, y: 14, duration: 0.7, ease: 'power3.out' }, 0.88)
+  .from('.hero-scroll', { opacity: 0, duration: 1.0, ease: 'power2.out' }, 1.2)
+  .from('.pl-mtn',      { opacity: 0, y: 18, duration: 1.4, ease: 'power2.out' }, 0.55)
+  .from('.pl-trees',    { opacity: 0, y: 28, duration: 1.4, ease: 'power3.out' }, 0.65)
+  .from('.pl-sky',      { opacity: 0, duration: 1.6, ease: 'power2.out' }, 0.4);
+
+/* ── HERO PARALLAX (mouse-move depth) ── */
+const heroEl = document.getElementById('hero');
+if (heroEl) {
+  let ticking = false;
+  heroEl.addEventListener('mousemove', e => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      const r = heroEl.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;   // -0.5 → 0.5
+      gsap.to('.pl-sky',   { x: x * -10, duration: 1.6, ease: 'power2.out', overwrite: 'auto' });
+      gsap.to('.pl-mtn',   { x: x * -20, duration: 1.6, ease: 'power2.out', overwrite: 'auto' });
+      gsap.to('.pl-trees', { x: x * -34, duration: 1.6, ease: 'power2.out', overwrite: 'auto' });
+      ticking = false;
+    });
+  });
+  heroEl.addEventListener('mouseleave', () => {
+    gsap.to(['.pl-sky', '.pl-mtn', '.pl-trees'], { x: 0, duration: 2.2, ease: 'power3.out' });
+  });
+}
 
 /* ── SCROLL REVEALS ── */
 document.querySelectorAll('.svc-card, .eco-card, .pfeat').forEach((el, i) => {
