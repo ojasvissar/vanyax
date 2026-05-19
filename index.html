@@ -7,71 +7,61 @@
   <link rel="icon" href="/logo.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=VT323&family=JetBrains+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=VT323&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/src/style.css">
 </head>
 <body>
-
-
 
   <div id="prog"></div>
 
   <!-- NAV -->
   <header id="nav">
-    <div class="nav-pill">
-      <a class="nav-brand" href="#">
-        <img src="/logo.svg" width="20" height="20" alt="">
-        <span>Vanyax</span>
-      </a>
-      <div class="nav-div"></div>
-      <ul class="nav-links">
-        <li><a href="#services">Services</a></li>
-        <li><a href="#platform">Platform</a></li>
-        <li><a href="#ecosystems">Ecosystems</a></li>
-      </ul>
-      <a class="btn-pill" href="#contact">Get started</a>
-    </div>
+    <a class="nav-brand" href="#">
+      <img src="/logo.svg" width="22" height="22" alt="">
+      <span>Vanyax</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#platform">Platform</a></li>
+      <li><a href="#globe-sec">Global</a></li>
+      <li><a href="#ecosystems">Ecosystems</a></li>
+    </ul>
+    <a class="btn-nav" href="#contact">Get started</a>
   </header>
 
-  <!-- HERO -->
+  <!-- HERO — full-screen photo -->
   <section id="hero">
-    <div class="hero-frame">
-      <img class="hero-img" src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=1920&auto=format&fit=crop" alt="Forest canopy">
-      <div class="hero-frame-overlay"></div>
-      <div class="hero-terminal">
-        <div class="ht-bar"><span class="ht-title">vanyax-cli v0.1.0</span></div>
-        <div class="ht-body">
-          <div class="ht-line"><span class="t-prompt">$</span> vanyax connect --global</div>
-          <div class="ht-line t-dim" id="tl-1"></div>
-          <div class="ht-line t-dim" id="tl-2"></div>
-          <div class="ht-line t-dim" id="tl-3"></div>
-          <div class="ht-line"><span class="t-prompt">$</span> <span class="blink">_</span></div>
-        </div>
+    <img
+      class="hero-bg"
+      src="https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?q=85&w=1920&auto=format&fit=crop"
+      alt="Aerial forest"
+    >
+    <div class="hero-vignette"></div>
+
+    <div class="hero-center">
+      <p class="hero-eyebrow">Data science × conservation</p>
+      <h1 class="h-hero">
+        Wildlife data,<br>
+        <em>decoded</em> for a<br>
+        planet worth saving.
+      </h1>
+      <p class="hero-sub">
+        We build monitoring systems, ML models, and data pipelines<br>
+        that protect the world's most critical ecosystems.
+      </p>
+      <div class="hero-ctas">
+        <a href="#contact" class="btn-primary">Start a project →</a>
+        <a href="#platform" class="btn-ghost">See the platform</a>
       </div>
     </div>
 
-    <div class="hero-body">
-      <div class="hero-l">
-        <p class="eyebrow">// data science × conservation</p>
-        <h1 class="h-hero">WILDLIFE<br>DATA,<br>DECODED.</h1>
-      </div>
-      <div class="hero-r">
-        <p class="hero-desc">We build data pipelines, ML models, and monitoring systems for wildlife conservation — turning sensor feeds and satellite imagery into decisions that protect ecosystems.</p>
-        <div class="hero-ctas">
-          <a href="#contact" class="btn-primary">Start a project →</a>
-          <a href="#platform" class="btn-outline">See the platform</a>
-        </div>
-        <div class="hero-trust">
-          <span class="trust-lbl">// aligned with</span>
-          <div class="trust-row">
-            <span>IPBES</span><span>TNFD</span><span>Kunming-Montreal</span><span>SDG 15</span>
-          </div>
-        </div>
-      </div>
+    <div class="scroll-cue">
+      <span>SCROLL</span>
+      <div class="scroll-line"></div>
     </div>
   </section>
 
-  <!-- STATS — real, citable figures -->
+  <!-- STATS -->
   <div class="stats-band">
     <div class="stat-cell">
       <b class="stat-n" data-target="68">0</b><sup>%</sup>
@@ -94,14 +84,14 @@
   <!-- SERVICES -->
   <section id="services">
     <div class="section-hd">
-      <p class="section-tag">// services</p>
-      <h2 class="h2">WHAT WE BUILD</h2>
+      <p class="section-tag">// what we build</p>
+      <h2 class="h2">CAPABILITIES</h2>
     </div>
     <div class="svc-grid">
       <div class="svc-card">
         <div class="svc-n">01</div>
         <h3>Species Monitoring Pipelines</h3>
-        <p>End-to-end data ingestion from camera traps, acoustic sensors, and GPS collars. ML classification, individual ID, and real-time dashboards.</p>
+        <p>End-to-end ingestion from camera traps, acoustic sensors, and GPS collars. ML classification, individual ID, and real-time dashboards.</p>
       </div>
       <div class="svc-card">
         <div class="svc-n">02</div>
@@ -116,16 +106,16 @@
       <div class="svc-card">
         <div class="svc-n">04</div>
         <h3>Biodiversity Reporting</h3>
-        <p>Automated, audit-ready reporting aligned with TNFD, CSRD, and the Kunming-Montreal Global Biodiversity Framework. Turn field data into compliance evidence.</p>
+        <p>Audit-ready outputs aligned with TNFD, CSRD, and the Kunming-Montreal Global Biodiversity Framework. Turn field data into compliance evidence.</p>
       </div>
     </div>
   </section>
 
-  <!-- PLATFORM -->
+  <!-- PLATFORM / D3 -->
   <section id="platform">
     <div class="platform-inner">
       <div class="platform-l">
-        <p class="section-tag">// platform</p>
+        <p class="section-tag">// the platform</p>
         <h2 class="h2">FIELD DATA,<br>LIVE.</h2>
         <div class="platform-feats">
           <div class="pfeat">
@@ -160,7 +150,7 @@
           <div class="dash-body">
             <div id="d3-chart"></div>
             <div class="dash-legend">
-              <div class="dl-item"><span style="background:#c8f135"></span>species richness index</div>
+              <div class="dl-item"><span style="background:#c9a84c"></span>species richness index</div>
               <div class="dl-item dl-dash"><span></span>1990 baseline</div>
             </div>
           </div>
@@ -169,52 +159,52 @@
     </div>
   </section>
 
-  <!-- REAL GLOBE -->
+  <!-- GLOBE — the centrepiece -->
   <section id="globe-sec">
-    <div class="globe-txt">
+    <div class="globe-hd">
       <p class="section-tag">// global reach</p>
-      <h2 class="h2">BIODIVERSITY<br>HOTSPOTS<br>WE MONITOR</h2>
-      <p class="globe-sub">Active monitoring across the world's most critical ecosystems — from the Amazon basin to the Coral Triangle. Each point is a real conservation zone.</p>
+      <h2 class="h2">BIODIVERSITY<br>HOTSPOTS</h2>
+      <p class="globe-sub">Active monitoring across 15 of the world's most threatened ecosystems — from the Amazon basin to the Coral Triangle.</p>
       <div class="globe-legend">
         <div class="gl-item"><span class="gl-dot"></span>Monitoring station</div>
         <div class="gl-item"><span class="gl-arc"></span>Data corridor</div>
       </div>
     </div>
-    <div class="globe-wrap" id="globe-wrap">
+    <div class="globe-wrap">
       <div id="globe-container"></div>
     </div>
   </section>
 
-  <!-- ECOSYSTEMS — honest, no fake case studies -->
+  <!-- ECOSYSTEMS -->
   <section id="ecosystems">
     <div class="section-hd">
-      <p class="section-tag">// ecosystems</p>
-      <h2 class="h2">WHERE WE WORK</h2>
+      <p class="section-tag">// where we work</p>
+      <h2 class="h2">ECOSYSTEMS</h2>
     </div>
     <div class="eco-grid">
       <div class="eco-card">
-        <img src="https://images.unsplash.com/photo-1536514498073-50e69d39c6cf?q=80&w=700&auto=format&fit=crop" alt="Tropical rainforest">
+        <img src="https://images.unsplash.com/photo-1536514498073-50e69d39c6cf?q=80&w=800&auto=format&fit=crop" alt="Rainforest">
         <div class="eco-info">
           <p class="eco-tag">Tropical Rainforests</p>
-          <p>Deforestation monitoring, carbon flux modeling, canopy species surveys.</p>
+          <p>Deforestation monitoring, carbon flux, canopy species surveys.</p>
         </div>
       </div>
       <div class="eco-card">
-        <img src="https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?q=80&w=700&auto=format&fit=crop" alt="African savanna">
+        <img src="https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?q=80&w=800&auto=format&fit=crop" alt="Savanna">
         <div class="eco-info">
           <p class="eco-tag">African Savanna</p>
-          <p>Large mammal population dynamics, prey-predator modeling, anti-poaching intelligence.</p>
+          <p>Large mammal dynamics, prey-predator modeling, anti-poaching intelligence.</p>
         </div>
       </div>
       <div class="eco-card">
-        <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?q=80&w=700&auto=format&fit=crop" alt="Coral reef">
+        <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?q=80&w=800&auto=format&fit=crop" alt="Coral">
         <div class="eco-info">
           <p class="eco-tag">Marine &amp; Coastal</p>
           <p>Coral bleaching prediction, fish biomass estimation, mangrove change detection.</p>
         </div>
       </div>
       <div class="eco-card">
-        <img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?q=80&w=700&auto=format&fit=crop" alt="Mountain ecosystem">
+        <img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?q=80&w=800&auto=format&fit=crop" alt="Mountains">
         <div class="eco-info">
           <p class="eco-tag">Mountain &amp; Boreal</p>
           <p>Snowpack monitoring, glacial retreat modeling, elevation-range shift tracking.</p>
@@ -225,14 +215,15 @@
 
   <!-- CTA -->
   <section id="contact">
-    <div class="cta-glow"></div>
-    <p class="section-tag">// contact</p>
-    <h2 class="h-cta">EVERY DATASET<br>IS A CHANCE TO<br>SAVE SOMETHING.</h2>
-    <form id="cta-form" class="cta-form">
-      <input type="email" placeholder="your@email.com" required autocomplete="off">
-      <button type="submit">Send →</button>
-    </form>
-    <p class="cta-alt">Or write to <a href="mailto:hello@vanyax.io">hello@vanyax.io</a></p>
+    <div class="cta-inner">
+      <p class="section-tag">// ready to start</p>
+      <h2 class="h-cta">Every dataset is a chance<br>to save something.</h2>
+      <form id="cta-form" class="cta-form">
+        <input type="email" placeholder="your@email.com" required autocomplete="off">
+        <button type="submit">Get in touch →</button>
+      </form>
+      <p class="cta-alt">Or write to <a href="mailto:hello@vanyax.io">hello@vanyax.io</a></p>
+    </div>
   </section>
 
   <!-- FOOTER -->
@@ -267,7 +258,7 @@
     </div>
     <div class="footer-btm">
       <span>© 2026 Vanyax</span>
-      <span class="footer-mono">// environmental intelligence</span>
+      <span class="footer-mono">// environmental intelligence platform</span>
     </div>
   </footer>
 
