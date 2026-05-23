@@ -246,3 +246,4 @@ h4 { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transfor
 .wordmark--big { font-size: clamp(3.4rem, 12vw, 10rem); margin-bottom: clamp(1.6rem, 4vh, 2.6rem); }
 .site-foot__grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: clamp(1.5rem, 5vw, 4rem); }
 .site-foot h4 { color: var(--moss); margin-bottom: 0.9rem; }
+.site-foot a:not(.wordmark) { display: block; color: var(--on-dark-2); padding-block: 0.2rem; transition: color 0.3s var(--ease); }
