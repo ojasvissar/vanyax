@@ -249,3 +249,4 @@ h4 { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transfor
 .site-foot a:not(.wordmark) { display: block; color: var(--on-dark-2); padding-block: 0.2rem; transition: color 0.3s var(--ease); }
 .site-foot a:not(.wordmark):hover { color: var(--maple); }
 .site-foot__etym { color: var(--on-dark-2); max-width: 44ch; }
+.site-foot__etym b { color: var(--cream); }
