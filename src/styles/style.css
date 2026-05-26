@@ -255,3 +255,4 @@ h4 { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transfor
 
 /* ── cover, progress, veil ───────────────────────────────── */
 .intro { position: fixed; inset: 0; z-index: 200; background: var(--mocha); display: grid; place-content: center; text-align: center; color: var(--cream); }
+.intro__boot b { display: block; font-family: var(--display); font-weight: 400; font-size: clamp(3rem, 10vw, 6rem); letter-spacing: 0.02em; }
