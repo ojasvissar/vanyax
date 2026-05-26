@@ -257,3 +257,4 @@ h4 { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transfor
 .intro { position: fixed; inset: 0; z-index: 200; background: var(--mocha); display: grid; place-content: center; text-align: center; color: var(--cream); }
 .intro__boot b { display: block; font-family: var(--display); font-weight: 400; font-size: clamp(3rem, 10vw, 6rem); letter-spacing: 0.02em; }
 .intro__boot i { font-style: normal; font-size: 0.82rem; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--moss); }
+.progress { position: fixed; top: 0; left: 0; right: 0; height: 4px; z-index: 300; background: var(--maple); transform: scaleX(0); transform-origin: 0 50%; pointer-events: none; }
