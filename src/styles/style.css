@@ -269,3 +269,9 @@ h4 { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transfor
 .badge-art .star:nth-of-type(4) { animation-delay: -2.2s; }
 .badge-art .tree { transform-box: fill-box; transform-origin: 50% 100%; animation: sway 7s ease-in-out infinite; }
 .badge-art .moon { transform-box: fill-box; transform-origin: 50% 50%; animation: glow 5s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  [data-anim], [data-rise], .word { opacity: 1 !important; transform: none !important; }
+  .progress, .leave { display: none !important; }
+}
