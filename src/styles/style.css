@@ -285,3 +285,8 @@ h4 { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transfor
   .site-foot__grid { grid-template-columns: 1fr 1fr; }
   .site-foot__etym { grid-column: 1 / -1; }
 }
+@media (max-width: 560px) {
+  .site-foot__grid { grid-template-columns: 1fr; }
+  .banner__text { font-size: 64px; }
+  .tiles > :nth-child(n) { grid-column: 1 / -1; }
+}
