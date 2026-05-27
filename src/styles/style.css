@@ -266,3 +266,4 @@ h4 { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transfor
 @keyframes glow { 0%, 100% { scale: 1; } 50% { scale: 1.06; } }
 .badge-art .star { animation: twinkle 3.2s ease-in-out infinite; }
 .badge-art .star:nth-of-type(3) { animation-delay: -1.1s; }
+.badge-art .star:nth-of-type(4) { animation-delay: -2.2s; }
