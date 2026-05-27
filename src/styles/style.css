@@ -275,3 +275,13 @@ h4 { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transfor
   [data-anim], [data-rise], .word { opacity: 1 !important; transform: none !important; }
   .progress, .leave { display: none !important; }
 }
+@media (max-width: 900px) {
+  .site-nav { display: none; }
+  .hero__grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+  .hero__lead { grid-column: 1 / -1; grid-row: auto; }
+  .tiles > :nth-child(n) { grid-column: span 3; }
+  .faq__grid { grid-template-columns: 1fr; }
+  .faq__badge { display: none; }
+  .site-foot__grid { grid-template-columns: 1fr 1fr; }
+  .site-foot__etym { grid-column: 1 / -1; }
+}
