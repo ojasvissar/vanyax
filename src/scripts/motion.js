@@ -149,13 +149,17 @@ export function intro() {
 export function heroIn() {
   const hero = document.querySelector('.hero');
   if (!hero || reduced) return;
-  /* The printed landscape comes up from the back, one layer at a time, and
-     the clouds drift in last — the way a print is built up ink by ink.
-     yPercent, so it composes with the scroll parallax, which owns y. */
-  gsap.from(hero.querySelectorAll('.layer--far, .layer--mid, .layer--near'), {
-    yPercent: 12, opacity: 0, duration: 1.7, ease: 'expo.out', stagger: 0.15, delay: 0.3,
-  });
-  gsap.from(hero.querySelector('.layer--clouds'), { yPercent: -20, opacity: 0, duration: 2.2, ease: 'power2.out', delay: 0.8 });
+  /* The badges are pressed onto the board one after another, the banner
+     swings up under them, and its two pines grow out of the ground. */
+  const tl = gsap.timeline({ delay: 0.35 });
+  // fromTo with explicit end values: a plain from() read its end state back
+  // off the element and settled on the start pose, so the badges stayed tilted
+  tl.fromTo(hero.querySelectorAll('.hero__badge'),
+    { scale: 0.6, rotation: (i) => (i ? 6 : -6), opacity: 0 },
+    { scale: 1, rotation: 0, opacity: 1, duration: 0.9, ease: 'back.out(1.7)', stagger: 0.12, clearProps: 'transform' }, 0.2)
+    .from(hero.querySelectorAll('.badge-art .tree'), { scaleY: 0, duration: 1.1, ease: 'back.out(1.4)', stagger: 0.12 }, 0.45)
+    .from(hero.querySelector('.banner__art'), { yPercent: 30, rotation: -2, opacity: 0, duration: 1.1, ease: 'expo.out' }, 0.5)
+    .from(hero.querySelectorAll('.banner__tree'), { scaleY: 0, duration: 1, ease: 'back.out(1.6)', stagger: 0.1 }, 0.85);
 }
 
 /* ══════════════════════════════════════════════════════════
@@ -289,7 +293,7 @@ export function depth(root = document) {
 
 /* ── rise: things that arrive in a row arrive one after another ── */
 export function rise(root = document) {
-  const items = [...root.querySelectorAll('[data-rise]')];
+  const items = [...root.querySelectorAll('[data-rise]')].filter((el) => !el.closest('.hero'));
   if (!items.length || reduced) return;
   gsap.set(items, { opacity: 0, y: 30 });
   ScrollTrigger.batch(items, {
