@@ -51,37 +51,35 @@ preloaded before it is shown so the map never blinks. Watching a species fill
 in from 1878 onward is mostly a history of who was looking, which is the point
 the caveats underneath make in words.
 
-## Design: field print
+## Design: trail badge
 
-Modelled on illustrated agricultural-research sites: a landscape printed in a
-few flat inks, a soft serif for anything read at a distance, deep forest-green
-bands on cream paper, lime for the one thing to press, small rust labels over
-each section, and grass where one band meets the next. It should read as a
-field station — calm, practical, outdoors.
+Modelled on a national-park brand board: a dark mocha ground with flat colour
+tiles laid on it like enamel badges, a squat poster face in capitals, narrow
+cut-out pines, a crescent moon and a few stars. The tiles carry the colour; the
+type stays cream or near-black; every tile says one thing.
 
-| Token | Value | Used for |
+| Token | Value | Named for |
 | --- | --- | --- |
-| `--cream` | `#f3eee2` | the page |
-| `--forest` | `#1f3b27` | header, bands, headings |
-| `--lime` | `#c8d46a` | buttons, the header strip |
-| `--sky` | `#b6d8de` | the hero and explorer sky |
-| `--rust-ink` | `#963f1d` | section labels (the brighter `--rust` is for artwork only) |
+| `--pine` | `#196555` | eastern white pine |
+| `--moss` | `#beaa30` | rock moss |
+| `--maple` | `#f16a46` | maple leaf |
+| `--berry` | `#6380c0` | wild blueberry (`--berry-deep` `#4a63a2` where it carries text) |
+| `--mocha` | `#3b3735` | bear-claw mocha — the ground |
+| `--cream` | `#f4ecd8` | type on the dark tiles |
 
-Type is **Fraunces** with its soft axis turned up for headings and **Work Sans**
-for text and labels.
+Type is **Bowlby One** for display and **Montserrat** for everything else. In
+the wordmark a pine stands in for the first A.
 
-### The illustrations
+### The artwork
 
-[tools/gen_illustration.py](tools/gen_illustration.py) draws everything in
-[src/assets/illo/](src/assets/illo/): the hero in parallax layers (clouds, far
-hills, near hills with trees, a meadow with a recording post and a
-camera-trapped tree), the grass edges between bands, two circular vignettes,
-the five service scenes and the emblem. Hills are hatched along their own
-contours like a linocut; grass is drawn blade by blade. Seeded, so a rerun
-gives the same pictures:
+[tools/gen_wild.py](tools/gen_wild.py) draws everything in
+[src/assets/wild/](src/assets/wild/): the two badge scenes (a pine under a moon,
+a pine under stars), a lone pine, the five service icons and the emblem. All
+flat, one fill per shape, no gradients. The hero's badges are inlined so their
+stars can twinkle and their pines grow.
 
 ```bash
-python3 tools/gen_illustration.py
+python3 tools/gen_wild.py
 ```
 
 ### Accordion
