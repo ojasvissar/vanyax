@@ -5,183 +5,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>vanyax — data science for the living world</title>
   <meta name="description" content="vanyax turns field data into answers — machine learning and statistics for conservation teams, researchers and NGOs." />
-  <meta name="theme-color" content="#1f3b27" />
+  <meta name="theme-color" content="#3b3735" />
   <meta property="og:title" content="vanyax — data science for the living world" />
   <meta property="og:description" content="vanyax turns field data into answers — machine learning and statistics for conservation teams, researchers and NGOs." />
   <meta property="og:type" content="website" />
-  <link rel="icon" href="/assets/illo/emblem.svg" type="image/svg+xml" />
+  <link rel="icon" href="/assets/wild/emblem.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,500..700,100&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/styles/style.css" />
   <script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
-  <div class="intro" aria-hidden="true"><p class="intro__boot"><b>vanyax</b><i>data science for the living world</i></p></div>
+  <div class="intro" aria-hidden="true"><p class="intro__boot"><b>VANYAX</b><i>data science for the living world</i></p></div>
 
   <header class="site-head">
-    <p class="site-head__strip">Data science for biodiversity and ecosystems</p>
     <div class="site-head__in">
-      <a class="wordmark" href="/vanyax/"><img src="/assets/illo/emblem.svg" alt="" width="38" height="38" /><span>vanyax</span></a>
+      <a class="wordmark " href="/vanyax/" aria-label="vanyax, home"><span aria-hidden="true">V</span><svg class="wm-pine" viewBox="0 0 60 100" aria-hidden="true"><path d="M30,0 L42.8,30 L37,30 L50.9,62 L42.8,62 L59,100 L1,100 L17.2,62 L9.1,62 L23,30 L17.2,30 Z" fill="currentColor"/></svg><span aria-hidden="true">NYAX</span></a>
       <nav class="site-nav" aria-label="Primary">
-        <a href="#approach">Approach</a>
         <a href="#what">What we do</a>
+        <a href="#keep">What you keep</a>
         <a href="#faq">Questions</a>
         <a href="/vanyax/explore/">Explorer</a>
       </nav>
-      <a class="btn btn--lime site-head__cta" href="#contact">Work with us</a>
+      <a class="btn btn--maple site-head__cta" href="#contact">Work with us</a>
     </div>
   </header>
 
-  <main>
-    <section class="hero" id="top">
-      <div class="hero__art" aria-hidden="true">
-        <img class="layer layer--clouds" src="/assets/illo/hero-clouds.svg" alt="" data-depth="-0.5" />
-        <img class="layer layer--birds" src="/assets/illo/hero-birds.svg" alt="" />
-        <img class="layer layer--far" src="/assets/illo/hero-far.svg" alt="" data-depth="-0.32" />
-        <img class="layer layer--mid" src="/assets/illo/hero-mid.svg" alt="" data-depth="-0.16" />
-        <img class="layer layer--near" src="/assets/illo/hero-near.svg" alt="" />
-      </div>
-      <div class="hero__in">
-        <h1 data-reveal-hero>Turning field data into answers</h1>
-        <p class="hero__sub" data-anim data-delay="0.15">
-          Machine learning and statistics for conservation teams, researchers and NGOs.
-          You collect the recordings, images and counts — we read them.
-        </p>
-        <div class="hero__actions" data-anim data-delay="0.25">
-          <a class="btn btn--lime" href="#contact">Work with us</a>
-          <a class="btn btn--outline" href="/vanyax/explore/">Try the explorer</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="band band--forest approach" id="approach">
-      <img class="edge" src="/assets/illo/edge-forest.svg" alt="" aria-hidden="true" />
-      <div class="wrap approach__grid">
-        <div class="approach__text">
-          <p class="eyebrow" data-anim>The approach</p>
-          <h2 data-reveal-heading>Analysis for the half of conservation nobody funds</h2>
-          <p data-anim data-delay="0.1">
-            Field teams collect far more than they can read. Recorders fill drives that are never opened;
-            camera-trap folders sit untouched between grants. We build the models that read it, and hand
-            back results you can act on — with the data, the code and a plain account of what the model
-            does badly as well as well.
-          </p>
-          <a class="more" href="#what" data-anim data-delay="0.15">What we do <span aria-hidden="true">→</span></a>
-        </div>
-        <img class="vignette" src="/assets/illo/vignette-approach.svg" alt="" aria-hidden="true" data-rise />
-      </div>
-    </section>
-
-    <section class="band band--cream what" id="what">
-      <img class="edge" src="/assets/illo/edge-cream.svg" alt="" aria-hidden="true" />
-      <div class="wrap">
-        <div class="sec-head">
-          <p class="eyebrow" data-anim>What we do</p>
-          <h2 data-reveal-heading>Five kinds of field data, read properly</h2>
-        </div>
-        <div class="services">
-          <article class="service" data-rise>
-            <img class="service__art" src="/assets/illo/service-audio.svg" alt="" loading="lazy" />
-            <h3>Bioacoustics</h3>
-            <p>An autonomous recorder captures more sound in a season than a person could listen to in a year. We build the classifiers that find the species in it — including where existing models barely reach.</p>
-          </article>
-          <article class="service" data-rise>
-            <img class="service__art" src="/assets/illo/service-camera.svg" alt="" loading="lazy" />
-            <h3>Camera traps</h3>
-            <p>Millions of frames, most of them empty or set off by wind. We clear the empties, deduplicate bursts, tag what is left and keep timestamps and station data straight.</p>
-          </article>
-          <article class="service" data-rise>
-            <img class="service__art" src="/assets/illo/service-survey.svg" alt="" loading="lazy" />
-            <h3>Surveys &amp; counts</h3>
-            <p>Transects, point counts, ringing records, plot surveys — often the longest series anyone holds. We turn them into occupancy and abundance models you can defend.</p>
-          </article>
-          <article class="service" data-rise>
-            <img class="service__art" src="/assets/illo/service-satellite.svg" alt="" loading="lazy" />
-            <h3>Satellite &amp; drone</h3>
-            <p>Open Sentinel and Landsat archives already cover your site. We turn them, and your own drone flights, into dated maps of canopy loss, regrowth and change.</p>
-          </article>
-          <article class="service" data-rise>
-            <img class="service__art" src="/assets/illo/service-edna.svg" alt="" loading="lazy" />
-            <h3>eDNA pipelines</h3>
-            <p>From sequencing reads to a species list: the pipeline, the reference database, and an honest line on what the reads can support. In development.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="band band--lime faq" id="faq">
-      <img class="edge" src="/assets/illo/edge-lime.svg" alt="" aria-hidden="true" />
-      <div class="wrap faq__grid">
-        <img class="vignette" src="/assets/illo/vignette-questions.svg" alt="" aria-hidden="true" data-rise />
-        <div>
-          <p class="eyebrow" data-anim>Questions</p>
-          <h2 data-reveal-heading>Before you get in touch</h2>
-          <div class="acc acc--faq" data-accordion="single">
-            <div class="acc__item">
-              <h3 class="acc__head">
-                <button class="acc__btn" type="button" id="faq-1-btn" aria-expanded="false" aria-controls="faq-1">
-                  <span>Who do you work with?</span><i class="acc__plus" aria-hidden="true"></i>
-                </button>
-              </h3>
-              <div class="acc__panel" id="faq-1" role="region" aria-labelledby="faq-1-btn"><p>Anyone gathering data about ecosystems without a data scientist on hand — rangers, field biologists, community monitoring groups, small NGOs, conservancies and students. You don’t need to know what model you want, only what you collected and what you want to find out.</p></div>
-            </div>
-            <div class="acc__item">
-              <h3 class="acc__head">
-                <button class="acc__btn" type="button" id="faq-2-btn" aria-expanded="false" aria-controls="faq-2">
-                  <span>What data can you take?</span><i class="acc__plus" aria-hidden="true"></i>
-                </button>
-              </h3>
-              <div class="acc__panel" id="faq-2" role="region" aria-labelledby="faq-2-btn"><p>Audio from passive recorders, camera-trap images, transect and point counts, eDNA reads, GPS tracks, satellite or drone imagery, and spreadsheets kept by hand over many seasons. Messy and incomplete is fine — most ecological data is both.</p></div>
-            </div>
-            <div class="acc__item">
-              <h3 class="acc__head">
-                <button class="acc__btn" type="button" id="faq-3-btn" aria-expanded="false" aria-controls="faq-3">
-                  <span>How does a project run?</span><i class="acc__plus" aria-hidden="true"></i>
-                </button>
-              </h3>
-              <div class="acc__panel" id="faq-3" role="region" aria-labelledby="faq-3-btn"><p>You tell us what you have. We come back with what’s answerable and the smallest first step — and if a careful count or a good chart will do, we say so instead of building a model. We test on a sample, build, then hand over the outputs, the code and the documentation.</p></div>
-            </div>
-            <div class="acc__item">
-              <h3 class="acc__head">
-                <button class="acc__btn" type="button" id="faq-4-btn" aria-expanded="false" aria-controls="faq-4">
-                  <span>What happens to our data?</span><i class="acc__plus" aria-hidden="true"></i>
-                </button>
-              </h3>
-              <div class="acc__panel" id="faq-4" role="region" aria-labelledby="faq-4-btn"><p>You own it, and we don’t reuse it without asking. Precise locations of anything poachable or collectable stay out of everything we publish. If you need a data-sharing agreement or an ethics review signed, send it — that’s normal.</p></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="band band--forest cta" id="contact">
-      <img class="edge" src="/assets/illo/edge-forest.svg" alt="" aria-hidden="true" />
-      <div class="wrap contact">
-        <p class="eyebrow" data-anim>Work with us</p>
-        <h2 data-reveal-heading>Ready to put your data to work?</h2>
-        <p class="lede" data-anim>Tell us what you’re measuring. Leave an address and we’ll write back, or email <a class="mailto" href="mailto:hello@vanyax.org">hello@vanyax.org</a>.</p>
-        <div data-anim><form class="capture" id="capture" novalidate>
-            <div class="capture__field">
-              <input class="capture__input" type="email" id="email" name="email" inputmode="email"
-                     autocomplete="email" placeholder="you@organisation.org" aria-label="Email address" required />
-              <button class="capture__btn" type="submit"><span>Send</span></button>
-            </div>
-            <p class="capture__note" id="note">We reply to everything, and only write when there’s something to say.</p>
-          </form></div>
-      </div>
-    </section>
-  </main>
+  <main></main>
 
   <footer class="site-foot">
-    <img class="edge" src="/assets/illo/edge-ink.svg" alt="" aria-hidden="true" />
     <div class="wrap">
+      <a class="wordmark wordmark--big" href="/vanyax/" aria-label="vanyax, home"><span aria-hidden="true">V</span><svg class="wm-pine" viewBox="0 0 60 100" aria-hidden="true"><path d="M30,0 L42.8,30 L37,30 L50.9,62 L42.8,62 L59,100 L1,100 L17.2,62 L9.1,62 L23,30 L17.2,30 Z" fill="currentColor"/></svg><span aria-hidden="true">NYAX</span></a>
       <div class="site-foot__grid">
-        <div>
-          <a class="wordmark wordmark--foot" href="/vanyax/"><img src="/assets/illo/emblem.svg" alt="" width="44" height="44" /><span>vanyax</span></a>
-          <p class="site-foot__etym"><b>van</b> — the forest. <b>yax</b> — the spirits that keep it.</p>
-          <p class="site-foot__who">A one-person data science practice for biodiversity and ecosystems, bringing in collaborators as projects need them.</p>
-        </div>
+        <p class="site-foot__etym"><b>van</b> — the forest. <b>yax</b> — the spirits that keep it.<br />A one-person data science practice for biodiversity and ecosystems, bringing in collaborators as projects need them.</p>
         <div>
           <h4>Contact</h4>
           <a href="mailto:hello@vanyax.org">hello@vanyax.org</a>
@@ -198,6 +55,7 @@
         <span>No trackers on this site</span>
       </div>
     </div>
+    <div class="hill" aria-hidden="true"></div>
   </footer>
 
   <script type="module" src="/scripts/main.js"></script>
