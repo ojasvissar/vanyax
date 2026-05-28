@@ -90,17 +90,16 @@ arrow keys, Home and End move between rows.
 
 ## Motion
 
-Lenis for the scroll, GSAP for everything hung off it, kept slow:
+Lenis for the scroll, GSAP for everything hung off it:
 
-- The hero's layers come up from the back one at a time, the clouds last.
-- Scrolling, the clouds and far hills lag behind the page, so distance reads
-  as it does from a moving window. Clouds drift; birds cross about once a minute.
-- Vignettes and service scenes rise into place in order; headings reveal word
-  by word; the header hides going down and returns going up, and marks the
-  section you are in.
+- The hero's badges are pressed on one after another, the banner swings up
+  under them, and its pines grow out of the ground.
+- Stars twinkle, the moon breathes, the pines sway a degree either way.
+- Tiles and swatches lift with a printed offset shadow on hover; swatches tip.
+- Headings reveal word by word; tiles rise into place in order; the header
+  hides going down, returns going up, and marks the section you are in.
 
-`prefers-reduced-motion` stills all of it and shows everything finished —
-verified under emulation.
+`prefers-reduced-motion` stills all of it and shows everything finished.
 
 ## Accessibility
 
