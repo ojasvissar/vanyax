@@ -690,7 +690,10 @@ function sizeInput() {
   // the gap after the name has to scale with the display size, or the "?"
   // crowds the last letter at 4rem and floats away at 2rem
   const pad = parseFloat(getComputedStyle(q).fontSize) * 0.14;
-  q.style.width = `${Math.min(Math.max(mirror.getBoundingClientRect().width + pad, 120), 620)}px`;
+  // capped by the line it sits on, not a fixed number: in a heavy display face
+  // a binomial easily runs past 620px, and the field then clips its own text
+  const room = q.closest('.ask__line')?.clientWidth || 620;
+  q.style.width = `${Math.min(Math.max(mirror.getBoundingClientRect().width + pad, 120), room)}px`;
 }
 
 // the first measurement happens in the fallback face, which is a different
