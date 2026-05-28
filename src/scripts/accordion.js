@@ -77,8 +77,11 @@ export function rowsIn(root = document) {
   if (reduced) return;
   root.querySelectorAll('[data-accordion]').forEach((acc) => {
     const items = acc.querySelectorAll('.acc__item');
-    gsap.from(items, {
-      xPercent: -12, opacity: 0, duration: 0.9, ease: 'expo.out', stagger: 0.09,
+    // explicit end values: these rows have a CSS transition on transform, and a
+    // plain from() reads its end state through that transition — which is still
+    // showing the start pose — so the rows stayed pushed off to the left
+    gsap.fromTo(items, { xPercent: -12, opacity: 0 }, {
+      xPercent: 0, opacity: 1, duration: 0.9, ease: 'expo.out', stagger: 0.09, clearProps: 'transform,opacity',
       scrollTrigger: { trigger: acc, start: 'top 82%', once: true },
     });
   });
