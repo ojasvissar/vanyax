@@ -1351,3 +1351,9 @@ input, button { border: none; background: none; outline: none; }
 /* ── SELECTION: custom highlight colour ── */
 ::selection { background: rgba(26,102,64,.18); color: var(--text); }
 ::-moz-selection { background: rgba(26,102,64,.18); color: var(--text); }
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(26,102,64,.3); }
