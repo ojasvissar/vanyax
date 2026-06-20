@@ -1627,3 +1627,6 @@ section[id], div[id] { scroll-margin-top: 88px; }
   text-transform: uppercase; color: rgba(248,246,241,.3);
   display: block; margin-bottom: .4rem;
 }
+
+/* ── EYEBROW: tighten spacing slightly for balance ── */
+.eyebrow { letter-spacing: .16em; }
