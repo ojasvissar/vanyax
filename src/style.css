@@ -1384,3 +1384,10 @@ input, button { border: none; background: none; outline: none; }
 
 /* ── HERO: more breathing room above CTA buttons ── */
 .hero-actions { margin-top: 2.8rem; }
+
+/* ── BTN-GHOST: dark background variant ── */
+.btn-ghost--dark {
+  border-color: rgba(248,246,241,.2);
+  color: var(--bg);
+}
+.btn-ghost--dark:hover { background: rgba(248,246,241,.08); border-color: rgba(248,246,241,.5); }
