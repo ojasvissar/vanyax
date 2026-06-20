@@ -1613,3 +1613,10 @@ input, button { border: none; background: none; outline: none; }
 
 /* ── SCROLL OFFSET: account for sticky nav ── */
 section[id], div[id] { scroll-margin-top: 88px; }
+
+/* ── MOTION: disable floating card animation if reduced ── */
+@media (prefers-reduced-motion: reduce) {
+  .hero-card { animation: none; }
+  .badge-dot { animation: none; }
+  .hero-bg { animation: none; }
+}
