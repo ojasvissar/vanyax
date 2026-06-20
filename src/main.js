@@ -372,3 +372,9 @@ gsap.from('.contact-form > *', {
   const el = document.getElementById(id);
   if (el) activeObs.observe(el);
 });
+
+/* ── CASE STUDY: parallax on image ── */
+gsap.to('.cs-img img', {
+  scrollTrigger: { trigger: '.cs-card', start: 'top bottom', end: 'bottom top', scrub: 1 },
+  y: -30,
+});
