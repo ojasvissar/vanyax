@@ -1066,3 +1066,6 @@ input, button { border: none; background: none; outline: none; }
   cursor: default;
 }
 .num-cell:hover { background: var(--green-dim); }
+
+/* ── PROCESS: add checkmark on step complete hover ── */
+.step:hover .step-n::after { content: ' ✓'; opacity: .4; }
