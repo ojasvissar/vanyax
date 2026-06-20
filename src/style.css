@@ -892,3 +892,15 @@ input, button { border: none; background: none; outline: none; }
   border-bottom: 1px solid var(--border);
   margin-bottom: 1.4rem;
 }
+
+/* ── STACK: item number prefix ── */
+.stack-group li { display: flex; align-items: center; gap: .7rem; }
+.stack-group li::before {
+  content: '–';
+  color: var(--green);
+  font-size: 11px;
+  flex-shrink: 0;
+  opacity: .5;
+  transition: opacity .2s;
+}
+.stack-group li:hover::before { opacity: 1; }
