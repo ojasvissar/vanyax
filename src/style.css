@@ -1242,3 +1242,9 @@ input, button { border: none; background: none; outline: none; }
 .num-cell:hover::before {
   background: linear-gradient(90deg, transparent, var(--green), transparent);
 }
+
+/* ── SERVICES: grid gap between cards ── */
+.svc-grid { gap: 0; }
+.svc-card { border-right: 1px solid rgba(248,246,241,.06); border-bottom: 1px solid rgba(248,246,241,.06); }
+.svc-card:nth-child(2n) { border-right: none; }
+.svc-card:nth-child(n+3) { border-bottom: none; }
