@@ -423,3 +423,12 @@ document.addEventListener('keydown', e => {
     burger.focus();
   }
 });
+
+/* ── TRUSTED: gentle opacity cycle ── */
+const trustedSpans = document.querySelectorAll('.trusted-logos span');
+if (trustedSpans.length > 0) {
+  gsap.to(trustedSpans, {
+    opacity: 0.5, duration: 2, stagger: 0.4, repeat: -1, yoyo: true,
+    ease: 'sine.inOut', delay: 1.5,
+  });
+}
