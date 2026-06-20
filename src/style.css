@@ -1001,3 +1001,11 @@ input, button { border: none; background: none; outline: none; }
 #stack    { border-top: 1px solid var(--border); }
 #about    { border-top: 1px solid var(--border); }
 #contact  { border-top: none; }
+
+/* ── SERVICES: card number label ── */
+.svc-n {
+  font-family: var(--mono);
+  font-size: 10px; letter-spacing: .12em;
+  color: rgba(82,183,136,.4);
+  display: block; margin-bottom: 1.4rem;
+}
