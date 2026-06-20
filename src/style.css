@@ -1416,3 +1416,6 @@ input, button { border: none; background: none; outline: none; }
 
 /* ── TRUSTED: italicise org names ── */
 .trusted-logos span { font-style: italic; letter-spacing: -.01em; }
+
+/* ── SERVICES: section heading left-aligned ── */
+#services .section-hd { text-align: left; }
