@@ -1654,3 +1654,7 @@ section[id], div[id] { scroll-margin-top: 88px; }
 
 /* ── IMG: smooth scaling ── */
 img { image-rendering: auto; }
+
+/* ── ABOUT: image slightly desaturated until hover ── */
+.about-img img { filter: saturate(.8); transition: filter .5s; }
+.about-img:hover img { filter: saturate(1); }
