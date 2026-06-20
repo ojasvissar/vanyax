@@ -395,3 +395,9 @@ gsap.to('.hero-photo', {
   scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: 1 },
   y: 40, ease: 'none',
 });
+
+/* ── INSIGHTS: stagger cards ── */
+gsap.from('.insight-card', {
+  scrollTrigger: { trigger: '#insights', start: 'top 78%' },
+  y: 28, opacity: 0, duration: 0.7, stagger: 0.12, ease: 'power3.out',
+});
