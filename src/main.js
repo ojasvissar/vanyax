@@ -257,3 +257,13 @@ document.querySelectorAll('.eyebrow').forEach(el => {
     opacity: 0, y: 12, duration: 0.5, ease: 'power2.out',
   });
 });
+
+/* ── CASE STUDY animation ── */
+gsap.from('.cs-img', {
+  scrollTrigger: { trigger: '#case-study', start: 'top 78%' },
+  x: -30, opacity: 0, duration: 0.9, ease: 'power3.out',
+});
+gsap.from('.cs-body > *', {
+  scrollTrigger: { trigger: '#case-study', start: 'top 78%' },
+  y: 20, opacity: 0, duration: 0.7, stagger: 0.1, ease: 'power3.out', delay: 0.2,
+});
