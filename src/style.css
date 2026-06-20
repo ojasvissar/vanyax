@@ -982,3 +982,13 @@ input, button { border: none; background: none; outline: none; }
   100% { transform: scaleY(1); opacity: .3; }
 }
 .scroll-line { animation: scroll-line-grow 1.8s var(--ease) 1s both; transform-origin: top; }
+
+/* ── A11Y: skip to content link ── */
+.skip-link {
+  position: fixed; top: -100%; left: 1rem; z-index: 9999;
+  background: var(--green); color: #fff;
+  padding: .6rem 1.2rem; border-radius: 0 0 8px 8px;
+  font-size: 13px; text-decoration: none;
+  transition: top .2s;
+}
+.skip-link:focus { top: 0; }
