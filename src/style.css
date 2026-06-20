@@ -775,3 +775,6 @@ input, button { border: none; background: none; outline: none; }
 
 /* ── EYEBROW: dot separators as spans ── */
 .eyebrow .dot { opacity: .4; margin: 0 .3em; }
+
+/* ── HERO HEADLINE: italic uses green-2 for depth ── */
+.hero-hl em { font-style: italic; color: var(--green-2); }
