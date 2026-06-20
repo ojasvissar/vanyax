@@ -1709,3 +1709,6 @@ cite a:hover { text-decoration-color: var(--green); }
 
 /* ── FOOTER: heart in amber ── */
 .df-tagline { color: inherit; }
+
+/* ── PROCESS: stronger alt step bg ── */
+.step:nth-child(even) { background: rgba(26,102,64,.025); }
