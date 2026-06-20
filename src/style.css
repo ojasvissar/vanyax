@@ -1028,3 +1028,6 @@ input, button { border: none; background: none; outline: none; }
 
 /* ── CONTACT FORM: button active press ── */
 .contact-form button:active { transform: scale(.97); }
+
+/* ── NAV: slight vertical compression when scrolled ── */
+#nav.scrolled { padding-top: 8px; padding-bottom: 8px; }
