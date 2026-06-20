@@ -1658,3 +1658,6 @@ img { image-rendering: auto; }
 /* ── ABOUT: image slightly desaturated until hover ── */
 .about-img img { filter: saturate(.8); transition: filter .5s; }
 .about-img:hover img { filter: saturate(1); }
+
+/* ── TICKER: pause scrolling when user hovers ── */
+.ticker-wrap:hover .ticker-track { animation-play-state: paused; }
