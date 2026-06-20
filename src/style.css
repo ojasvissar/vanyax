@@ -1728,3 +1728,9 @@ cite a:hover { text-decoration-color: var(--green); }
   body { background: #fff; color: #000; }
   .hero-hl, .h2, .h2-light { color: #000; }
 }
+
+/* ── ABOUT: badges gap on mobile ── */
+@media (max-width: 480px) {
+  .about-badges { gap: 6px; }
+  .about-badges span { font-size: 9px; padding: 3px 9px; }
+}
