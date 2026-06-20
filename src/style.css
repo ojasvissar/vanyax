@@ -790,3 +790,6 @@ input, button { border: none; background: none; outline: none; }
   background: radial-gradient(ellipse, rgba(201,148,58,.04) 0%, transparent 70%);
   pointer-events: none;
 }
+
+/* ── SECTION: consistent vertical padding token ── */
+.section-pad { padding: var(--space-xl) 0; }
