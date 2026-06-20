@@ -1740,3 +1740,12 @@ cite a:hover { text-decoration-color: var(--green); }
 
 /* ── BTN-GREEN: pressed scale ── */
 .btn-green:active { transform: scale(.97); }
+
+/* ── HERO: bottom fade to bg ── */
+#hero::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 80px;
+  background: linear-gradient(to bottom, transparent, var(--bg));
+  pointer-events: none; z-index: 3;
+}
