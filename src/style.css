@@ -1470,3 +1470,11 @@ input, button { border: none; background: none; outline: none; }
 
 /* ── NAV LOGO: green dot accent ── */
 .logo-dot { color: var(--green); font-size: 1.3em; line-height: 0; vertical-align: bottom; }
+
+/* ── ABOUT: mission statement styling ── */
+.about-mission {
+  font-size: .9rem; line-height: 1.7;
+  color: var(--text-muted); border-left: 2px solid var(--green);
+  padding-left: 1rem; margin-bottom: 1.4rem;
+  font-style: italic;
+}
