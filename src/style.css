@@ -1516,3 +1516,7 @@ input, button { border: none; background: none; outline: none; }
 
 /* ── PROGRESS BAR: brighter gradient ── */
 /* handled inline via JS — no override needed; note here for audit */
+
+/* ── LINK ARROW: smooth right movement ── */
+.link-arrow::after { content: ''; display: inline-block; transition: transform .2s var(--ease); }
+.link-arrow:hover::after { transform: translateX(3px); }
