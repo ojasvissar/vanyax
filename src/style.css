@@ -1585,3 +1585,6 @@ input, button { border: none; background: none; outline: none; }
 /* ── CONTACT: highlight ring on focused input ── */
 .contact-form input:focus { box-shadow: 0 0 0 3px rgba(45,138,90,.2); }
 .contact-form textarea:focus { box-shadow: 0 0 0 3px rgba(45,138,90,.2); }
+
+/* ── DRAWER: frosted glass backdrop ── */
+.nav-drawer { backdrop-filter: blur(12px); }
