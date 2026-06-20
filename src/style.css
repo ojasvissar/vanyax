@@ -1835,3 +1835,10 @@ a, button { transition-duration: var(--dur-fast); }
 
 /* ── HERO: align cards label left ── */
 .hero-cards-label { text-align: left; }
+
+/* ── SECTION DIVIDER: between problem and services ── */
+#services::before {
+  content: '';
+  display: block; height: 1px;
+  background: rgba(248,246,241,.06);
+}
