@@ -1842,3 +1842,6 @@ a, button { transition-duration: var(--dur-fast); }
   display: block; height: 1px;
   background: rgba(248,246,241,.06);
 }
+
+/* ── INSIGHTS: section eyebrow and heading inherit dark bg colours ── */
+#insights .section-hd .eyebrow { color: var(--green-3); }
