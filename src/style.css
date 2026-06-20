@@ -1749,3 +1749,11 @@ cite a:hover { text-decoration-color: var(--green); }
   background: linear-gradient(to bottom, transparent, var(--bg));
   pointer-events: none; z-index: 3;
 }
+
+/* ── NUMBERS: top border accent line ── */
+#numbers::before {
+  content: '';
+  display: block; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--green), transparent);
+  opacity: .3;
+}
