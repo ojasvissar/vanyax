@@ -1046,3 +1046,6 @@ input, button { border: none; background: none; outline: none; }
 
 /* ── ABOUT: more breathing room below heading ── */
 .about-text .h2 { margin-bottom: 1.6rem; }
+
+/* ── PROCESS: increase step body padding ── */
+.step-body { padding-right: 2rem; }
