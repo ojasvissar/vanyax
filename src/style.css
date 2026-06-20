@@ -1767,3 +1767,6 @@ cite a:hover { text-decoration-color: var(--green); }
 
 /* ── INSIGHTS: brighter card bg on hover ── */
 .insight-card:hover { background: rgba(26,102,64,.18); }
+
+/* ── INSIGHTS: heading reveals green on hover ── */
+.insight-card:hover h3 { color: rgba(248,246,241,1); }
