@@ -218,3 +218,11 @@ const activeObs = new IntersectionObserver(entries => {
 }, { threshold: 0.4 });
 
 sections.forEach(s => activeObs.observe(s));
+
+/* ── NUMBERS: stagger each cell ── */
+gsap.utils.toArray('.num-cell').forEach((cell, i) => {
+  gsap.from(cell, {
+    scrollTrigger: { trigger: cell, start: 'top 88%' },
+    y: 20, opacity: 0, duration: 0.6, ease: 'power3.out', delay: i * 0.1,
+  });
+});
