@@ -1251,3 +1251,14 @@ input, button { border: none; background: none; outline: none; }
 
 /* ── SERVICES: tag hover underline ── */
 .svc-tags li:hover { text-decoration: underline; text-decoration-color: var(--green-3); text-underline-offset: 2px; }
+
+/* ── ABOUT: amber corner bracket ── */
+.about-img::before {
+  content: '';
+  position: absolute; bottom: -8px; right: -8px; z-index: -1;
+  width: 60%; height: 60%;
+  border: 2px solid var(--amber);
+  border-radius: 12px;
+  opacity: .25;
+  pointer-events: none;
+}
