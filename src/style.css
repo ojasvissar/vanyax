@@ -1718,3 +1718,13 @@ cite a:hover { text-decoration-color: var(--green); }
   -webkit-box-shadow: 0 0 0 100px rgba(13,23,16,.98) inset;
   -webkit-text-fill-color: var(--bg);
 }
+
+/* ─────────────────────────────────────
+   PRINT STYLES
+───────────────────────────────────── */
+@media print {
+  #nav, .ticker-wrap, #dev-footer, #trusted { display: none; }
+  #hero { min-height: auto; padding-top: 2rem; }
+  body { background: #fff; color: #000; }
+  .hero-hl, .h2, .h2-light { color: #000; }
+}
