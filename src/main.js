@@ -226,3 +226,18 @@ gsap.utils.toArray('.num-cell').forEach((cell, i) => {
     y: 20, opacity: 0, duration: 0.6, ease: 'power3.out', delay: i * 0.1,
   });
 });
+
+/* ── CURSOR DOT ── */
+const dot = document.createElement('div');
+dot.style.cssText = 'position:fixed;width:6px;height:6px;border-radius:50%;background:var(--green);pointer-events:none;z-index:9998;opacity:0;transition:opacity .3s,transform .3s;mix-blend-mode:multiply;transform:translate(-50%,-50%);';
+document.body.appendChild(dot);
+document.addEventListener('mousemove', e => {
+  dot.style.left = e.clientX + 'px';
+  dot.style.top = e.clientY + 'px';
+  dot.style.opacity = '1';
+});
+document.addEventListener('mouseleave', () => dot.style.opacity = '0');
+document.querySelectorAll('a, button').forEach(el => {
+  el.addEventListener('mouseenter', () => { dot.style.transform = 'translate(-50%,-50%) scale(3)'; dot.style.opacity = '.4'; });
+  el.addEventListener('mouseleave', () => { dot.style.transform = 'translate(-50%,-50%) scale(1)'; dot.style.opacity = '1'; });
+});
