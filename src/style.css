@@ -1643,3 +1643,8 @@ section[id], div[id] { scroll-margin-top: 88px; }
 
 /* ── CONTAINER: responsive max-width fine-tuning ── */
 @media (min-width: 1600px) { .container { max-width: 1360px; } }
+
+/* ── CONTACT: subtle field label above on focus ── */
+.contact-form { position: relative; }
+.contact-form input,
+.contact-form textarea { width: 100%; box-sizing: border-box; }
