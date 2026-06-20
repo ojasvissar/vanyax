@@ -433,3 +433,11 @@ if (trustedSpans.length > 0) {
     ease: 'sine.inOut', delay: 1.5,
   });
 }
+
+/* ── IMAGES: fade in when loaded ── */
+document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+  img.style.opacity = '0';
+  img.style.transition = 'opacity .4s';
+  img.addEventListener('load', () => img.style.opacity = '1');
+  if (img.complete) img.style.opacity = '1';
+});
