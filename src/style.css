@@ -1330,3 +1330,6 @@ input, button { border: none; background: none; outline: none; }
 /* ── CASE STUDY: image desaturated → full colour on hover ── */
 .cs-img img { filter: saturate(.55) brightness(.95); }
 .cs-card:hover .cs-img img { filter: saturate(1) brightness(1); }
+
+/* ── STACK: use gap for card spacing ── */
+.stack-grid { gap: 1.5rem; }
