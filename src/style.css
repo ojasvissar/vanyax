@@ -1276,3 +1276,10 @@ input, button { border: none; background: none; outline: none; }
 
 /* ── DEV FOOTER: taller forest photo on wide screens ── */
 @media (min-width: 1200px) { .df-photo { height: 520px; } }
+
+/* ── NUMBERS: maintain 4-col until narrower ── */
+@media (max-width: 1000px) and (min-width: 601px) {
+  .nums-grid { grid-template-columns: repeat(2, 1fr); }
+  .num-cell:nth-child(even) { border-right: none; }
+  .num-cell:nth-child(-n+2) { border-bottom: 1px solid var(--border); }
+}
