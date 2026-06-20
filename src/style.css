@@ -1419,3 +1419,9 @@ input, button { border: none; background: none; outline: none; }
 
 /* ── SERVICES: section heading left-aligned ── */
 #services .section-hd { text-align: left; }
+
+/* ── PROCESS: mobile step layout ── */
+@media (max-width: 560px) {
+  .process-steps::before { display: none; }
+  .step { grid-template-columns: 44px 1fr; padding: 1.6rem 1.4rem; }
+}
