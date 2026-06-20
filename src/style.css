@@ -1269,3 +1269,7 @@ input, button { border: none; background: none; outline: none; }
   color: rgba(248,246,241,.3); margin-bottom: .6rem;
   text-transform: uppercase;
 }
+
+/* ── LINK ARROW: use padding-right instead of gap for animated feel ── */
+.link-arrow { transition: gap var(--dur-fast), color var(--dur-fast); }
+.link-arrow:hover { color: var(--green-2); }
