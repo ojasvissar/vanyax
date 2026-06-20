@@ -1531,3 +1531,11 @@ input, button { border: none; background: none; outline: none; }
 @media (min-width: 1400px) {
   .num-cell { padding: 3.5rem 2.5rem; }
 }
+
+/* ── STACK: list item hover ── */
+.stack-group li {
+  padding: 4px 8px; margin: 0 -8px;
+  border-radius: 6px;
+  transition: background .15s, color .15s;
+}
+.stack-group li:hover { background: var(--green-dim); color: var(--green); }
