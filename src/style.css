@@ -1357,3 +1357,10 @@ input, button { border: none; background: none; outline: none; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 2px; }
 ::-webkit-scrollbar-thumb:hover { background: rgba(26,102,64,.3); }
+
+/* ── FOCUS: visible keyboard focus rings ── */
+:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
