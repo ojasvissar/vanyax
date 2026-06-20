@@ -1757,3 +1757,6 @@ cite a:hover { text-decoration-color: var(--green); }
   background: linear-gradient(90deg, transparent, var(--green), transparent);
   opacity: .3;
 }
+
+/* ── TICKER: italic font for editorial feel ── */
+.ticker-row span { font-style: italic; }
