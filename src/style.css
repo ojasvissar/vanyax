@@ -1234,3 +1234,6 @@ input, button { border: none; background: none; outline: none; }
 
 /* ── STACK: item hover tooltip via title attribute ── */
 .stack-group li { position: relative; }
+
+/* ── HERO CARDS: shadow deepens on hover ── */
+.hero-card:hover { box-shadow: 0 20px 48px rgba(17,24,16,.12), 0 2px 8px rgba(17,24,16,.06); }
