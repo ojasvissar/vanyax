@@ -1314,3 +1314,12 @@ input, button { border: none; background: none; outline: none; }
   transition: color .2s;
 }
 .trusted-logos span:hover { color: rgba(17,24,16,.6); }
+
+/* ── HERO: subtle nature photo backdrop ── */
+.hero-photo {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    linear-gradient(to right, var(--bg) 45%, rgba(248,246,241,.6) 70%, transparent 100%),
+    url('https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?q=60&w=1920&auto=format&fit=crop') right center / cover no-repeat;
+  opacity: .12;
+}
