@@ -450,3 +450,14 @@ window.addEventListener('load', () => {
 
 /* ── HERO: cards label fade in ── */
 gsap.from('.hero-cards-label', { opacity: 0, y: -8, duration: .5, ease: 'power2.out', delay: .9 });
+
+/* ── CONTACT: character counter on textarea ── */
+const msgArea = document.querySelector('.contact-form textarea');
+if (msgArea) {
+  const counter = document.createElement('div');
+  counter.style.cssText = 'text-align:right;font-family:var(--mono);font-size:10px;color:rgba(248,246,241,.3);margin-top:4px;';
+  msgArea.parentNode.insertBefore(counter, msgArea.nextSibling);
+  msgArea.addEventListener('input', () => {
+    counter.textContent = `${msgArea.value.length} chars`;
+  });
+}
