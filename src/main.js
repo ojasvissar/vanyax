@@ -441,3 +441,9 @@ document.querySelectorAll('img[loading="lazy"]').forEach(img => {
   img.addEventListener('load', () => img.style.opacity = '1');
   if (img.complete) img.style.opacity = '1';
 });
+
+/* ── PAGE: fade body in on load ── */
+document.body.style.opacity = '0';
+window.addEventListener('load', () => {
+  gsap.to(document.body, { opacity: 1, duration: .4, ease: 'power1.out' });
+});
