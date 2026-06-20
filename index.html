@@ -3,519 +3,359 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vanyax — Environmental Intelligence</title>
+  <title>Vanyax — Biodiversity Intelligence</title>
+  <meta name="description" content="Vanyax builds AI and machine learning systems that help conservation teams monitor species, map habitats, and measure biodiversity at scale.">
   <link rel="icon" href="/logo.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Space+Mono:wght@400&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/src/style.css">
 </head>
 <body>
 
-  <div id="prog"></div>
-
   <!-- ═══ NAV ═══ -->
   <header id="nav">
     <a class="nav-brand" href="#">
-      <img src="/logo.svg" width="20" height="20" alt="">
+      <svg class="nav-logo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M12 2C6.5 2 4 6 4 9c0 4.5 8 13 8 13s8-8.5 8-13c0-3-2.5-7-8-7z" fill="currentColor" opacity=".18"/>
+        <path d="M12 4c-2 0-3.5 1-4.5 2.5C9 6 11 6.5 12 8c1-1.5 3-2 4.5-1.5C15.5 5 14 4 12 4z" fill="currentColor"/>
+        <circle cx="12" cy="11" r="2" fill="currentColor" opacity=".6"/>
+      </svg>
       <span>Vanyax</span>
     </a>
     <ul class="nav-links">
       <li><a href="#services">Services</a></li>
-      <li><a href="#platform">Platform</a></li>
-      <li><a href="#globe-sec">Global</a></li>
-      <li><a href="#ecosystems">Ecosystems</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#stack">Stack</a></li>
+      <li><a href="#contact">Contact</a></li>
     </ul>
-    <a class="btn-nav" href="#dev-footer">Get started →</a>
+    <a class="nav-cta" href="#contact">Start a project</a>
+    <button class="nav-burger" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span>
+    </button>
   </header>
+
+  <!-- mobile drawer -->
+  <div class="nav-drawer" aria-hidden="true">
+    <ul>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#stack">Stack</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="btn-primary" href="#contact">Start a project</a>
+  </div>
 
   <!-- ═══ HERO ═══ -->
   <section id="hero">
-
-    <!-- viewfinder frame corners -->
-    <div class="hero-frame" aria-hidden="true"></div>
-
-    <!-- hero copy -->
-    <div class="hero-text">
-      <p class="hero-tag">// environmental intelligence · est. 2024</p>
-      <h1 class="h-hero">The forest<br>keeps the<br>score.</h1>
-      <p class="hero-desc">We build monitoring systems, ML models, and data pipelines that give conservation teams real intelligence — before the window closes.</p>
-      <div class="hero-ctas">
-        <a href="#contact" class="btn-primary">Start a project →</a>
-        <a href="#services" class="btn-ghost">Our services</a>
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="hero-inner container">
+      <div class="hero-text">
+        <p class="eyebrow">Biodiversity · AI · ML · Conservation</p>
+        <h1 class="hero-hl">Intelligence<br><em>for the</em><br>natural world.</h1>
+        <p class="hero-sub">We build AI and machine learning systems that help conservation teams monitor species, map habitats, and measure biodiversity — at planetary scale.</p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn-primary">Start a project →</a>
+          <a href="#services" class="btn-ghost">Our services</a>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="hero-card">
+          <p class="hc-label">Species detected · last 24h</p>
+          <p class="hc-number">1,847</p>
+          <div class="hc-sparkline" id="sparkline"></div>
+          <div class="hc-footer">
+            <span class="hc-up">↑ 12% vs prior week</span>
+            <span class="hc-badge">LIVE</span>
+          </div>
+        </div>
+        <div class="hero-card hero-card--sm">
+          <p class="hc-label">Camera traps active</p>
+          <p class="hc-number">342</p>
+          <p class="hc-sub">across 6 reserves</p>
+        </div>
+        <div class="hero-card hero-card--sm hero-card--green">
+          <p class="hc-label">Model accuracy</p>
+          <p class="hc-number">98.4<small>%</small></p>
+          <p class="hc-sub">species identification</p>
+        </div>
       </div>
     </div>
-
-    <!-- floating data cards — real sourced stats -->
-    <div class="hero-card hc-l" aria-hidden="true">
-      <p class="hc-label">// species at risk</p>
-      <p class="hc-val">1M<sup>+</sup></p>
-      <p class="hc-desc">threatened with extinction</p>
-      <p class="hc-src">IPBES Global Assessment 2019</p>
-    </div>
-    <div class="hero-card hc-r" aria-hidden="true">
-      <p class="hc-label">// wildlife index</p>
-      <p class="hc-val">↓68<sup>%</sup></p>
-      <p class="hc-desc">vertebrates since 1970</p>
-      <p class="hc-src">WWF Living Planet 2022</p>
-    </div>
-
-    <!-- scroll hint -->
-    <div class="hero-scroll" aria-hidden="true">
+    <div class="hero-scroll-hint" aria-hidden="true">
+      <span class="scroll-line"></span>
       <span>scroll</span>
-      <span class="hero-scroll-arrow">↓</span>
-    </div>
-
-    <!-- ── PIXEL FOREST SCENE — dark night ── -->
-    <div class="hero-scene-wrap">
-      <svg viewBox="0 0 1200 360" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges" class="hero-scene" preserveAspectRatio="xMidYMax meet">
-        <defs>
-          <linearGradient id="sky-g" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%"   stop-color="#060d04"/>
-            <stop offset="60%"  stop-color="#0b1908"/>
-            <stop offset="88%"  stop-color="#132610"/>
-            <stop offset="100%" stop-color="#1a3014"/>
-          </linearGradient>
-          <radialGradient id="moon-halo" cx="72%" cy="14%" r="22%">
-            <stop offset="0%"   stop-color="rgba(201,168,76,.1)"/>
-            <stop offset="100%" stop-color="rgba(201,168,76,0)"/>
-          </radialGradient>
-        </defs>
-
-        <!-- sky -->
-        <rect x="0" y="0" width="1200" height="360" fill="url(#sky-g)"/>
-        <rect x="0" y="0" width="1200" height="360" fill="url(#moon-halo)"/>
-
-        <!-- SKY LAYER -->
-        <g class="pl-sky">
-          <!-- stars -->
-          <rect x="80"   y="18"  width="3" height="3" fill="#f0ebe0" opacity=".78"/>
-          <rect x="185"  y="34"  width="2" height="2" fill="#f0ebe0" opacity=".65"/>
-          <rect x="310"  y="14"  width="3" height="3" fill="#f0ebe0" opacity=".82"/>
-          <rect x="440"  y="28"  width="2" height="2" fill="#c9a84c" opacity=".9"/>
-          <rect x="505"  y="10"  width="2" height="2" fill="#f0ebe0" opacity=".6"/>
-          <rect x="598"  y="42"  width="3" height="3" fill="#f0ebe0" opacity=".72"/>
-          <rect x="680"  y="20"  width="2" height="2" fill="#c9a84c" opacity=".78"/>
-          <rect x="755"  y="36"  width="2" height="2" fill="#f0ebe0" opacity=".62"/>
-          <rect x="982"  y="18"  width="3" height="3" fill="#f0ebe0" opacity=".7"/>
-          <rect x="1052" y="46"  width="2" height="2" fill="#c9a84c" opacity=".68"/>
-          <rect x="1132" y="22"  width="3" height="3" fill="#f0ebe0" opacity=".75"/>
-          <rect x="42"   y="55"  width="2" height="2" fill="#f0ebe0" opacity=".55"/>
-          <rect x="268"  y="58"  width="2" height="2" fill="#c9a84c" opacity=".62"/>
-          <rect x="1170" y="54"  width="2" height="2" fill="#f0ebe0" opacity=".58"/>
-
-          <!-- pixel moon -->
-          <rect x="860" y="16"  width="8"  height="4" fill="#ede4c4" opacity=".9"/>
-          <rect x="856" y="20"  width="16" height="4" fill="#ede4c4" opacity=".9"/>
-          <rect x="852" y="24"  width="24" height="4" fill="#ede4c4" opacity=".9"/>
-          <rect x="852" y="28"  width="24" height="4" fill="#ede4c4" opacity=".9"/>
-          <rect x="852" y="32"  width="24" height="4" fill="#ede4c4" opacity=".9"/>
-          <rect x="856" y="36"  width="16" height="4" fill="#ede4c4" opacity=".9"/>
-          <rect x="860" y="40"  width="8"  height="4" fill="#ede4c4" opacity=".9"/>
-          <!-- crescent shadow -->
-          <rect x="864" y="22"  width="8"  height="4" fill="#0b1908" opacity=".65"/>
-          <rect x="864" y="26"  width="10" height="4" fill="#0b1908" opacity=".55"/>
-          <rect x="864" y="30"  width="10" height="4" fill="#0b1908" opacity=".45"/>
-
-          <!-- constellation left — amber -->
-          <circle class="star-dot" cx="155" cy="72" r="4"   fill="#c9a84c" opacity=".72"/>
-          <circle class="star-dot" cx="275" cy="44" r="3.5" fill="#c9a84c" opacity=".6"/>
-          <circle class="star-dot" cx="362" cy="80" r="5"   fill="#c9a84c" opacity=".65"/>
-          <circle class="star-dot" cx="462" cy="38" r="3"   fill="#f0ebe0" opacity=".72"/>
-          <circle class="star-dot" cx="548" cy="62" r="2.5" fill="#c9a84c" opacity=".58"/>
-          <line x1="155" y1="72" x2="275" y2="44"  stroke="#c9a84c" stroke-width="1" opacity=".2"/>
-          <line x1="275" y1="44" x2="362" y2="80"  stroke="#c9a84c" stroke-width="1" opacity=".2"/>
-          <line x1="362" y1="80" x2="462" y2="38"  stroke="#f0ebe0" stroke-width="1" opacity=".16"/>
-          <line x1="462" y1="38" x2="548" y2="62"  stroke="#c9a84c" stroke-width="1" opacity=".15"/>
-
-          <!-- constellation right -->
-          <circle class="star-dot" cx="780"  cy="52" r="4"   fill="#c9a84c" opacity=".62"/>
-          <circle class="star-dot" cx="912"  cy="30" r="3"   fill="#f0ebe0" opacity=".68"/>
-          <circle class="star-dot" cx="1042" cy="62" r="3.5" fill="#c9a84c" opacity=".58"/>
-          <circle class="star-dot" cx="1118" cy="40" r="2.5" fill="#c9a84c" opacity=".52"/>
-          <line x1="780"  y1="52" x2="912"  y2="30"  stroke="#c9a84c" stroke-width="1" opacity=".18"/>
-          <line x1="912"  y1="30" x2="1042" y2="62"  stroke="#c9a84c" stroke-width="1" opacity=".18"/>
-          <line x1="1042" y1="62" x2="1118" y2="40"  stroke="#c9a84c" stroke-width="1" opacity=".14"/>
-
-          <!-- satellite -->
-          <rect x="1064" y="90" width="18" height="8"  fill="#1a2a16" opacity=".7"/>
-          <rect x="1050" y="92" width="14" height="4"  fill="#2a5022" opacity=".6"/>
-          <rect x="1082" y="92" width="14" height="4"  fill="#2a5022" opacity=".6"/>
-          <rect x="1070" y="88" width="5"  height="3"  fill="#c9a84c" opacity=".55"/>
-          <rect x="1072" y="98" width="2"  height="4"  fill="#c9a84c" opacity=".35"/>
-        </g>
-
-        <!-- MOUNTAIN LAYER — dark silhouettes -->
-        <g class="pl-mtn">
-          <polygon points="0,360 0,218 155,98 310,218 310,360"      fill="#0c1a09"/>
-          <polygon points="190,360 190,198 385,75 578,198 578,360"  fill="#091408"/>
-          <polygon points="450,360 450,228 645,108 838,228 838,360" fill="#0c1a09"/>
-          <polygon points="695,360 695,208 895,88 1095,208 1095,360" fill="#091408"/>
-          <polygon points="975,360 975,232 1095,122 1200,182 1200,360" fill="#0c1a09"/>
-        </g>
-
-        <!-- TREE + WILDLIFE LAYER -->
-        <g class="pl-trees">
-          <!-- left tree cluster -->
-          <rect x="0"   y="272" width="26" height="88"  fill="#060e04"/>
-          <rect x="22"  y="254" width="42" height="34"  fill="#09140a"/>
-          <rect x="52"  y="222" width="14" height="138" fill="#050a04"/>
-          <rect x="36"  y="178" width="46" height="54"  fill="#09140a"/>
-          <rect x="44"  y="142" width="30" height="44"  fill="#0c1a0b"/>
-          <rect x="52"  y="112" width="14" height="34"  fill="#09140a"/>
-          <rect x="112" y="240" width="12" height="120" fill="#050a04"/>
-          <rect x="97"  y="196" width="40" height="52"  fill="#09140a"/>
-          <rect x="105" y="160" width="24" height="42"  fill="#0c1a0b"/>
-          <rect x="113" y="132" width="10" height="32"  fill="#09140a"/>
-          <rect x="152" y="257" width="9"  height="103" fill="#050a04"/>
-          <rect x="140" y="220" width="32" height="44"  fill="#09140a"/>
-          <rect x="148" y="188" width="16" height="36"  fill="#0c1a0b"/>
-          <rect x="185" y="250" width="11" height="110" fill="#050a04"/>
-          <rect x="171" y="205" width="38" height="50"  fill="#09140a"/>
-          <rect x="179" y="170" width="22" height="40"  fill="#0c1a0b"/>
-          <rect x="187" y="142" width="9"  height="30"  fill="#09140a"/>
-          <rect x="228" y="264" width="12" height="96"  fill="#050a04"/>
-          <rect x="208" y="222" width="52" height="48"  fill="#0c1a0b"/>
-          <rect x="216" y="198" width="36" height="28"  fill="#09140a"/>
-          <rect x="260" y="328" width="46" height="16"  fill="#0c1a0b"/>
-          <rect x="272" y="316" width="26" height="14"  fill="#09140a"/>
-
-          <!-- ELEPHANT — dark body, amber tusk -->
-          <rect x="510" y="264" width="98"  height="76" fill="#101a0e"/>
-          <rect x="594" y="246" width="66"  height="52" fill="#101a0e"/>
-          <rect x="586" y="239" width="20"  height="44" fill="#0d1509"/>
-          <rect x="580" y="246" width="9"   height="30" fill="#09120a"/>
-          <rect x="642" y="259" width="8"   height="8"  fill="#ece4d0"/>
-          <rect x="644" y="261" width="4"   height="4"  fill="#09120a"/>
-          <rect x="650" y="276" width="26"  height="6"  fill="#c9a84c" opacity=".88"/>
-          <rect x="668" y="282" width="9"   height="5"  fill="#c9a84c" opacity=".72"/>
-          <rect x="650" y="292" width="14"  height="12" fill="#101a0e"/>
-          <rect x="654" y="306" width="12"  height="12" fill="#101a0e"/>
-          <rect x="650" y="320" width="12"  height="12" fill="#101a0e"/>
-          <rect x="647" y="333" width="13"  height="9"  fill="#101a0e"/>
-          <rect x="643" y="343" width="11"  height="7"  fill="#101a0e"/>
-          <rect x="510" y="270" width="7"   height="20" fill="#101a0e"/>
-          <rect x="504" y="290" width="7"   height="9"  fill="#101a0e"/>
-          <rect x="518" y="334" width="20"  height="26" fill="#101a0e"/>
-          <rect x="548" y="334" width="20"  height="26" fill="#101a0e"/>
-          <rect x="598" y="334" width="20"  height="26" fill="#101a0e"/>
-          <rect x="628" y="334" width="20"  height="26" fill="#101a0e"/>
-
-          <!-- birds — amber tinted -->
-          <g class="px-bird">
-            <rect x="393" y="130" width="18" height="5" fill="#c9a84c" opacity=".48"/>
-            <rect x="385" y="126" width="12" height="4" fill="#c9a84c" opacity=".42"/>
-            <rect x="411" y="126" width="12" height="4" fill="#c9a84c" opacity=".42"/>
-          </g>
-          <g class="px-bird px-bird-2">
-            <rect x="745" y="110" width="16" height="5" fill="#c9a84c" opacity=".42"/>
-            <rect x="738" y="106" width="10" height="4" fill="#c9a84c" opacity=".36"/>
-            <rect x="761" y="106" width="10" height="4" fill="#c9a84c" opacity=".36"/>
-          </g>
-          <g class="px-bird px-bird-3">
-            <rect x="780" y="122" width="12" height="4" fill="#c9a84c" opacity=".36"/>
-            <rect x="773" y="119" width="8"  height="3" fill="#c9a84c" opacity=".3"/>
-            <rect x="792" y="119" width="8"  height="3" fill="#c9a84c" opacity=".3"/>
-          </g>
-
-          <!-- right tree cluster -->
-          <rect x="820" y="224" width="14" height="136" fill="#050a04"/>
-          <rect x="804" y="178" width="46" height="54"  fill="#09140a"/>
-          <rect x="812" y="140" width="30" height="44"  fill="#0c1a0b"/>
-          <rect x="820" y="110" width="14" height="34"  fill="#09140a"/>
-          <rect x="850" y="246" width="11" height="114" fill="#050a04"/>
-          <rect x="836" y="200" width="38" height="54"  fill="#09140a"/>
-          <rect x="844" y="164" width="22" height="42"  fill="#0c1a0b"/>
-          <rect x="886" y="258" width="9"  height="102" fill="#050a04"/>
-          <rect x="874" y="218" width="32" height="48"  fill="#09140a"/>
-          <rect x="882" y="186" width="16" height="36"  fill="#0c1a0b"/>
-          <rect x="920" y="220" width="14" height="140" fill="#050a04"/>
-          <rect x="904" y="172" width="46" height="56"  fill="#09140a"/>
-          <rect x="912" y="132" width="30" height="46"  fill="#0c1a0b"/>
-          <rect x="920" y="102" width="14" height="34"  fill="#09140a"/>
-          <rect x="955" y="248" width="11" height="112" fill="#050a04"/>
-          <rect x="941" y="202" width="38" height="54"  fill="#09140a"/>
-          <rect x="949" y="167" width="22" height="41"  fill="#0c1a0b"/>
-          <rect x="994" y="262" width="12" height="98"  fill="#050a04"/>
-          <rect x="974" y="220" width="52" height="48"  fill="#0c1a0b"/>
-          <rect x="982" y="196" width="36" height="28"  fill="#09140a"/>
-          <rect x="1030" y="326" width="46" height="16" fill="#0c1a0b"/>
-          <rect x="1042" y="314" width="26" height="14" fill="#09140a"/>
-          <rect x="1142" y="267" width="28" height="93" fill="#09140a"/>
-          <rect x="1160" y="250" width="40" height="34" fill="#0c1a0b"/>
-          <rect x="1177" y="274" width="24" height="86" fill="#09140a"/>
-
-          <!-- grass -->
-          <rect x="244" y="351" width="7" height="12" fill="#0c1a0b"/>
-          <rect x="258" y="348" width="7" height="15" fill="#09140a"/>
-          <rect x="272" y="352" width="7" height="11" fill="#0c1a0b"/>
-          <rect x="486" y="351" width="7" height="12" fill="#0c1a0b"/>
-          <rect x="500" y="347" width="7" height="16" fill="#09140a"/>
-          <rect x="680" y="350" width="7" height="13" fill="#0c1a0b"/>
-          <rect x="694" y="352" width="7" height="11" fill="#09140a"/>
-          <rect x="793" y="351" width="7" height="12" fill="#0c1a0b"/>
-
-          <!-- fireflies -->
-          <rect x="292" y="234" width="3" height="3" fill="#c9a84c" class="ff"/>
-          <rect x="352" y="198" width="3" height="3" fill="#c9a84c" class="ff ff-2"/>
-          <rect x="424" y="258" width="2" height="2" fill="#c9a84c" class="ff ff-3"/>
-          <rect x="476" y="212" width="3" height="3" fill="#c9a84c" class="ff ff-4"/>
-          <rect x="524" y="246" width="2" height="2" fill="#e2c26a" class="ff ff-5"/>
-          <rect x="706" y="222" width="3" height="3" fill="#c9a84c" class="ff ff-6"/>
-          <rect x="764" y="188" width="2" height="2" fill="#c9a84c" class="ff ff-7"/>
-          <rect x="812" y="252" width="3" height="3" fill="#e2c26a" class="ff ff-8"/>
-        </g>
-
-        <!-- GROUND -->
-        <g class="pl-fg">
-          <rect x="0" y="352" width="1200" height="8"  fill="#091208"/>
-          <rect x="0" y="356" width="1200" height="4"  fill="#050e04"/>
-        </g>
-      </svg>
     </div>
   </section>
 
   <!-- ═══ TICKER ═══ -->
-  <div class="ticker-strip" aria-hidden="true">
+  <div class="ticker" aria-hidden="true">
     <div class="ticker-track">
-      <div class="ticker-inner">
-        <span>↓ 68% vertebrate populations since 1970</span>
-        <span class="tk-sep">◆</span>
-        <span>1,000,000+ species threatened with extinction</span>
-        <span class="tk-sep">◆</span>
-        <span>30×30 — protect 30% of Earth by 2030</span>
-        <span class="tk-sep">◆</span>
-        <span>$700B annual biodiversity finance gap</span>
-        <span class="tk-sep">◆</span>
-        <span>Only 17% of land currently protected</span>
-        <span class="tk-sep">◆</span>
-        <span>Coral cover: −50% since 1950</span>
-        <span class="tk-sep">◆</span>
-        <span>Amazon: 17% deforested in 50 years</span>
-        <span class="tk-sep">◆</span>
-        <span>IPBES: nature declining at unprecedented rates</span>
-        <span class="tk-sep">◆</span>
+      <div class="ticker-row">
+        <span>↓ 68% vertebrate populations since 1970</span><span class="sep">◆</span>
+        <span>1,000,000+ species threatened with extinction</span><span class="sep">◆</span>
+        <span>30×30 — protect 30% of Earth by 2030</span><span class="sep">◆</span>
+        <span>$700B annual biodiversity finance gap</span><span class="sep">◆</span>
+        <span>Only 17% of land currently protected</span><span class="sep">◆</span>
+        <span>Coral cover: −50% since 1950</span><span class="sep">◆</span>
+        <span>Amazon: 17% deforested in 50 years</span><span class="sep">◆</span>
+        <span>IPBES: nature declining at unprecedented rates</span><span class="sep">◆</span>
       </div>
-      <div class="ticker-inner" aria-hidden="true">
-        <span>↓ 68% vertebrate populations since 1970</span>
-        <span class="tk-sep">◆</span>
-        <span>1,000,000+ species threatened with extinction</span>
-        <span class="tk-sep">◆</span>
-        <span>30×30 — protect 30% of Earth by 2030</span>
-        <span class="tk-sep">◆</span>
-        <span>$700B annual biodiversity finance gap</span>
-        <span class="tk-sep">◆</span>
-        <span>Only 17% of land currently protected</span>
-        <span class="tk-sep">◆</span>
-        <span>Coral cover: −50% since 1950</span>
-        <span class="tk-sep">◆</span>
-        <span>Amazon: 17% deforested in 50 years</span>
-        <span class="tk-sep">◆</span>
-        <span>IPBES: nature declining at unprecedented rates</span>
-        <span class="tk-sep">◆</span>
+      <div class="ticker-row" aria-hidden="true">
+        <span>↓ 68% vertebrate populations since 1970</span><span class="sep">◆</span>
+        <span>1,000,000+ species threatened with extinction</span><span class="sep">◆</span>
+        <span>30×30 — protect 30% of Earth by 2030</span><span class="sep">◆</span>
+        <span>$700B annual biodiversity finance gap</span><span class="sep">◆</span>
+        <span>Only 17% of land currently protected</span><span class="sep">◆</span>
+        <span>Coral cover: −50% since 1950</span><span class="sep">◆</span>
+        <span>Amazon: 17% deforested in 50 years</span><span class="sep">◆</span>
+        <span>IPBES: nature declining at unprecedented rates</span><span class="sep">◆</span>
       </div>
     </div>
   </div>
 
-  <!-- ═══ STATS ═══ -->
-  <div class="stats-band">
-    <div class="stat-cell">
-      <b class="stat-n" data-target="68">0</b><sup>%</sup>
-      <span>vertebrate decline since 1970</span>
-      <em>WWF Living Planet 2022</em>
-    </div>
-    <div class="stat-cell">
-      <b class="stat-n" data-target="8">0</b><sup>M</sup>
-      <span>estimated species on Earth</span>
-      <em>IPBES Global Assessment</em>
-    </div>
-    <div class="stat-cell">
-      <b class="stat-n" data-target="1">0</b><sup>M+</sup>
-      <span>species threatened with extinction</span>
-      <em>IPBES 2019</em>
-    </div>
-    <div class="stat-cell">
-      <b class="stat-n" data-target="2030">0</b>
-      <span>deadline for 30×30 targets</span>
-      <em>Kunming-Montreal CBD</em>
-    </div>
-  </div>
-
-  <!-- ═══ MANIFESTO ═══ -->
-  <section id="manifesto">
-    <div class="manifesto-wrap">
-      <div class="manifesto-eyebrow">
-        <p class="section-tag">// why we exist</p>
-        <div class="manifesto-line-dec"></div>
+  <!-- ═══ NUMBERS ═══ -->
+  <section id="numbers">
+    <div class="container">
+      <div class="nums-grid">
+        <div class="num-cell">
+          <span class="num" data-to="8">0</span><sup>M</sup>
+          <p>estimated species on Earth</p>
+        </div>
+        <div class="num-cell">
+          <span class="num" data-to="1">0</span><sup>M+</sup>
+          <p>species threatened with extinction</p>
+        </div>
+        <div class="num-cell">
+          <span class="num" data-to="68">0</span><sup>%</sup>
+          <p>vertebrate decline since 1970</p>
+        </div>
+        <div class="num-cell">
+          <span class="num" data-to="2030">0</span>
+          <p>deadline for 30×30 global targets</p>
+        </div>
       </div>
-      <h2 class="manifesto-hl">
-        Before the window closes,<br>
-        we need better data.<br>
-        <span class="hl-amber">We're building it.</span>
-      </h2>
-      <div class="manifesto-foot">
-        <p class="section-tag">// mission</p>
-        <p class="manifesto-sub">Conservation decisions are being made with incomplete information — fragmented sensor data, outdated baselines, and no way to see the full picture in real time. Vanyax exists to close that gap: turning raw field data into decisions that actually protect what's left.</p>
+    </div>
+  </section>
+
+  <!-- ═══ PROBLEM ═══ -->
+  <section id="problem">
+    <div class="container">
+      <div class="problem-inner">
+        <div class="problem-left">
+          <p class="eyebrow">The challenge</p>
+          <h2 class="h2">Conservation teams are<br><em>data-rich, insight-poor.</em></h2>
+        </div>
+        <div class="problem-right">
+          <p>Field sensors generate terabytes of camera footage, acoustic recordings, and GPS traces — but most organizations lack the technical infrastructure to turn raw data into decisions. Fragmented pipelines, manual analysis, and outdated baselines leave critical windows for action unopened.</p>
+          <p>Vanyax exists to close that gap. We bring production-grade AI and data engineering to conservation — the same tools that power billion-dollar tech companies, built for the science and scale that biodiversity demands.</p>
+          <a href="#services" class="link-arrow">See what we build →</a>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- ═══ SERVICES ═══ -->
   <section id="services">
-    <div class="section-hd">
-      <p class="section-tag">// capabilities</p>
-      <h2 class="h2">What we build</h2>
-    </div>
-    <div class="svc-list">
-      <div class="svc-row">
-        <span class="sr-num">01</span>
-        <div class="sr-icon">🌿</div>
-        <div class="sr-body">
-          <h3>Species Monitoring Pipelines</h3>
-          <p>End-to-end ingestion from camera traps, acoustic sensors, and GPS collars. ML classification, individual ID, and real-time dashboards — no manual data entry.</p>
-        </div>
-        <div class="sr-tags">
-          <span>ML / CV</span><span>IoT</span><span>Real-time</span>
-        </div>
-        <span class="sr-arr">→</span>
+    <div class="container">
+      <div class="section-hd">
+        <p class="eyebrow">What we do</p>
+        <h2 class="h2">Four ways we help<br><em>conservation teams.</em></h2>
       </div>
-      <div class="svc-row">
-        <span class="sr-num">02</span>
-        <div class="sr-icon">🛰</div>
-        <div class="sr-body">
-          <h3>Habitat Mapping</h3>
-          <p>Multi-spectral satellite imagery processed by deep learning to map land cover, deforestation pressure, and habitat connectivity at continental scale.</p>
+      <div class="svc-grid">
+
+        <div class="svc-card">
+          <div class="svc-icon">
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="8" width="24" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/>
+              <circle cx="16" cy="17" r="4" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M12 8V6M20 8V6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <circle cx="24" cy="11" r="1.5" fill="currentColor"/>
+            </svg>
+          </div>
+          <h3>Species Monitoring</h3>
+          <p>End-to-end ML pipelines from camera traps, acoustic sensors, and GPS collars. Species identification, individual re-ID, and real-time population dashboards — no manual data entry.</p>
+          <ul class="svc-tags">
+            <li>Computer vision</li><li>Acoustic ML</li><li>Real-time</li>
+          </ul>
         </div>
-        <div class="sr-tags">
-          <span>Remote sensing</span><span>Deep learning</span><span>GIS</span>
+
+        <div class="svc-card">
+          <div class="svc-icon">
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="16" cy="16" r="12" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M4 16h24M16 4c-4 4-4 8 0 12s4 8 0 12M16 4c4 4 4 8 0 12s-4 8 0 12" stroke="currentColor" stroke-width="1.5"/>
+              <circle cx="16" cy="16" r="2" fill="currentColor"/>
+            </svg>
+          </div>
+          <h3>Habitat Intelligence</h3>
+          <p>Multispectral satellite imagery processed by deep learning to map land cover, deforestation pressure, and habitat connectivity. From patch to continental scale.</p>
+          <ul class="svc-tags">
+            <li>Remote sensing</li><li>Deep learning</li><li>GIS</li>
+          </ul>
         </div>
-        <span class="sr-arr">→</span>
-      </div>
-      <div class="svc-row">
-        <span class="sr-num">03</span>
-        <div class="sr-icon">🌡</div>
-        <div class="sr-body">
+
+        <div class="svc-card">
+          <div class="svc-icon">
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 24l6-8 5 4 5-10 8 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <rect x="4" y="4" width="24" height="24" rx="1" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <h3>Biodiversity Analytics</h3>
+          <p>Audit-ready data pipelines, biodiversity index tracking, and compliance dashboards aligned with TNFD, CSRD, and the Kunming-Montreal Global Biodiversity Framework.</p>
+          <ul class="svc-tags">
+            <li>TNFD / CSRD</li><li>Dashboards</li><li>Data pipelines</li>
+          </ul>
+        </div>
+
+        <div class="svc-card">
+          <div class="svc-icon">
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16 4v4M16 24v4M4 16h4M24 16h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <circle cx="16" cy="16" r="6" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M8 8l2.5 2.5M21.5 21.5L24 24M8 24l2.5-2.5M21.5 10.5L24 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
           <h3>Climate Risk Modeling</h3>
-          <p>Species distribution models under CMIP6 scenarios. Identify refugia, migration corridors, and extinction hotspots so plans are built for what's coming, not what's passed.</p>
+          <p>Species distribution models under CMIP6 scenarios. Identify refugia, migration corridors, and extinction hotspots — so conservation plans account for where the world is going, not where it was.</p>
+          <ul class="svc-tags">
+            <li>CMIP6</li><li>SDM</li><li>Scenario analysis</li>
+          </ul>
         </div>
-        <div class="sr-tags">
-          <span>CMIP6</span><span>SDM</span><span>Scenario analysis</span>
-        </div>
-        <span class="sr-arr">→</span>
-      </div>
-      <div class="svc-row">
-        <span class="sr-num">04</span>
-        <div class="sr-icon">📊</div>
-        <div class="sr-body">
-          <h3>Biodiversity Reporting</h3>
-          <p>Audit-ready outputs aligned with TNFD, CSRD, and the Kunming-Montreal Global Biodiversity Framework. Turn field data into compliance evidence your investors can actually read.</p>
-        </div>
-        <div class="sr-tags">
-          <span>TNFD</span><span>CSRD</span><span>GBF</span>
-        </div>
-        <span class="sr-arr">→</span>
+
       </div>
     </div>
   </section>
 
-  <!-- ═══ PLATFORM ═══ -->
-  <section id="platform">
-    <div class="platform-inner">
-      <div class="platform-l">
-        <p class="section-tag">// the platform</p>
-        <h2 class="h2">Field data,<br>live.</h2>
-        <div class="platform-feats">
-          <div class="pfeat">
-            <span class="pfeat-n">01</span>
-            <div>
-              <h4>Sensor-to-dashboard in minutes</h4>
-              <p>Camera trap images classified by ML, alerts routed to field teams. No spreadsheets.</p>
-            </div>
-          </div>
-          <div class="pfeat">
-            <span class="pfeat-n">02</span>
-            <div>
-              <h4>30-year trend baselines</h4>
-              <p>Biodiversity index time-series with anomaly detection. Know when something changes before it becomes a crisis.</p>
-            </div>
-          </div>
-          <div class="pfeat">
-            <span class="pfeat-n">03</span>
-            <div>
-              <h4>GIS integration</h4>
-              <p>Draw, edit, and analyse protected area geometries on satellite imagery. Export to Esri, QGIS, or KML.</p>
-            </div>
+  <!-- ═══ PROCESS ═══ -->
+  <section id="process">
+    <div class="container">
+      <div class="section-hd">
+        <p class="eyebrow">How we work</p>
+        <h2 class="h2">From raw data to<br><em>real decisions.</em></h2>
+      </div>
+      <div class="process-steps">
+        <div class="step">
+          <span class="step-n">01</span>
+          <div class="step-body">
+            <h3>Discover</h3>
+            <p>We map your data landscape — sensors, formats, storage, gaps. Understand the decisions you need to make and work backward to the systems that enable them.</p>
           </div>
         </div>
-      </div>
-      <div class="platform-r">
-        <div class="dash-window">
-          <div class="dash-bar">
-            <span class="dash-dot r"></span><span class="dash-dot y"></span><span class="dash-dot g"></span>
-            <span class="dash-title">biodiversity-index.py</span>
+        <div class="step">
+          <span class="step-n">02</span>
+          <div class="step-body">
+            <h3>Architect</h3>
+            <p>Design the right pipeline for your context. We don't over-engineer. A field team of 12 needs different infrastructure than a government agency covering 40 million hectares.</p>
           </div>
-          <div class="dash-body">
-            <div id="d3-chart"></div>
-            <div class="dash-legend">
-              <div class="dl-item"><span class="dl-line"></span>Species richness index</div>
-              <div class="dl-item"><span class="dl-dash"></span>1970 baseline</div>
-            </div>
+        </div>
+        <div class="step">
+          <span class="step-n">03</span>
+          <div class="step-body">
+            <h3>Build</h3>
+            <p>Develop ML models, ETL pipelines, and dashboards. Tight feedback loops with your scientists — models that your ecologists can interrogate and trust.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-n">04</span>
+          <div class="step-body">
+            <h3>Deploy</h3>
+            <p>Production-grade infrastructure with monitoring, alerting, and documentation. Built so your team can run it independently — we're not here to create dependency.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-n">05</span>
+          <div class="step-body">
+            <h3>Evolve</h3>
+            <p>As data accumulates, models improve. We set up retraining loops, evaluate drift, and quarterly check-ins to keep systems sharp as conditions change.</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ═══ GLOBE ═══ -->
-  <section id="globe-sec">
-    <div class="globe-hd">
-      <p class="section-tag">// global reach</p>
-      <h2 class="h2-light">Biodiversity<br>hotspots</h2>
-      <p class="globe-sub">Active monitoring across 15 of the world's most threatened ecosystems — from the Amazon basin to the Coral Triangle. Each point is a real conservation zone.</p>
-      <div class="globe-legend">
-        <div class="gl-item"><span class="gl-dot"></span>Monitoring station</div>
-        <div class="gl-item"><span class="gl-arc"></span>Data corridor</div>
+  <!-- ═══ STACK ═══ -->
+  <section id="stack">
+    <div class="container">
+      <div class="section-hd">
+        <p class="eyebrow">Our stack</p>
+        <h2 class="h2">Production tools,<br><em>conservation grade.</em></h2>
       </div>
-    </div>
-    <div class="globe-wrap">
-      <div id="globe-container"></div>
+      <div class="stack-grid">
+        <div class="stack-group">
+          <h4>ML &amp; Modeling</h4>
+          <ul>
+            <li>Python 3.11+</li>
+            <li>PyTorch · TensorFlow</li>
+            <li>Ultralytics YOLO</li>
+            <li>scikit-learn</li>
+            <li>MaxEnt · SDMtoolbox</li>
+          </ul>
+        </div>
+        <div class="stack-group">
+          <h4>Geospatial</h4>
+          <ul>
+            <li>GDAL · GEOS · Proj</li>
+            <li>PostGIS · GeoPandas</li>
+            <li>QGIS · Esri</li>
+            <li>Google Earth Engine</li>
+            <li>Sentinel · Landsat</li>
+          </ul>
+        </div>
+        <div class="stack-group">
+          <h4>Data &amp; Pipelines</h4>
+          <ul>
+            <li>PostgreSQL · DuckDB</li>
+            <li>Apache Airflow</li>
+            <li>dbt · Prefect</li>
+            <li>Apache Kafka</li>
+            <li>Parquet · Arrow</li>
+          </ul>
+        </div>
+        <div class="stack-group">
+          <h4>Infrastructure</h4>
+          <ul>
+            <li>AWS · GCP</li>
+            <li>Docker · Kubernetes</li>
+            <li>Terraform</li>
+            <li>GitHub Actions</li>
+            <li>Grafana · Prometheus</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- ═══ ECOSYSTEMS ═══ -->
-  <section id="ecosystems">
-    <div class="section-hd">
-      <p class="section-tag">// where we work</p>
-      <h2 class="h2">Ecosystems</h2>
+  <!-- ═══ ABOUT ═══ -->
+  <section id="about">
+    <div class="container">
+      <div class="about-inner">
+        <div class="about-img" aria-hidden="true">
+          <img src="https://images.unsplash.com/photo-1576086213369-97a306d36557?q=80&w=960&auto=format&fit=crop" alt="Forest ecosystem" loading="lazy">
+        </div>
+        <div class="about-text">
+          <p class="eyebrow">Who we are</p>
+          <h2 class="h2">A small team.<br><em>A focused mission.</em></h2>
+          <p>We're data scientists and engineers who came up in ecology before moving into tech. We've seen too many conservation projects fail — not from lack of field data, but from lack of the systems to use it.</p>
+          <p>Vanyax is our answer to that gap: a studio that treats biodiversity monitoring with the same engineering rigour as fintech or logistics, because the stakes are at least as high.</p>
+          <p class="about-location">Based in <strong>Berlin</strong>. Working globally.</p>
+        </div>
+      </div>
     </div>
-    <div class="eco-grid">
-      <div class="eco-card">
-        <img src="https://images.unsplash.com/photo-1536514498073-50e69d39c6cf?q=80&w=800&auto=format&fit=crop" alt="Rainforest" loading="lazy">
-        <div class="eco-info">
-          <p class="eco-tag">Tropical Rainforests</p>
-          <p>Deforestation monitoring, carbon flux, canopy surveys.</p>
-        </div>
-      </div>
-      <div class="eco-card">
-        <img src="https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?q=80&w=800&auto=format&fit=crop" alt="Savanna" loading="lazy">
-        <div class="eco-info">
-          <p class="eco-tag">African Savanna</p>
-          <p>Population dynamics, prey-predator modeling, anti-poaching.</p>
-        </div>
-      </div>
-      <div class="eco-card">
-        <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?q=80&w=800&auto=format&fit=crop" alt="Coral" loading="lazy">
-        <div class="eco-info">
-          <p class="eco-tag">Marine &amp; Coastal</p>
-          <p>Coral bleaching prediction, fish biomass, mangrove detection.</p>
-        </div>
-      </div>
-      <div class="eco-card">
-        <img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?q=80&w=800&auto=format&fit=crop" alt="Mountains" loading="lazy">
-        <div class="eco-info">
-          <p class="eco-tag">Mountain &amp; Boreal</p>
-          <p>Snowpack, glacial retreat, elevation-range shift tracking.</p>
-        </div>
+  </section>
+
+  <!-- ═══ CONTACT / CTA ═══ -->
+  <section id="contact">
+    <div class="container">
+      <div class="contact-inner">
+        <p class="eyebrow">Get in touch</p>
+        <h2 class="h2-light">Every dataset is a chance<br><em>to save something.</em></h2>
+        <p class="contact-sub">Tell us about your project. We'll respond within two business days.</p>
+        <form class="contact-form" id="contact-form">
+          <input type="email" placeholder="your@email.com" required autocomplete="off">
+          <button type="submit">Start a project →</button>
+        </form>
+        <p class="contact-alt">Or write to <a href="mailto:hello@vanyax.io">hello@vanyax.io</a></p>
       </div>
     </div>
   </section>
@@ -536,11 +376,9 @@
         <a href="#">X</a>
       </nav>
     </div>
-
-
-    <!-- forest photo -->
     <div class="df-photo" aria-hidden="true"></div>
   </section>
+
   <script type="module" src="/src/main.js"></script>
 </body>
 </html>
