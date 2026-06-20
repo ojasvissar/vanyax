@@ -403,3 +403,12 @@ gsap.from('.insight-card', {
   scrollTrigger: { trigger: '#insights', start: 'top 78%' },
   y: 28, opacity: 0, duration: 0.7, stagger: 0.12, ease: 'power3.out',
 });
+
+/* ── CONTACT: basic client validation ── */
+if (contactForm) {
+  const emailInput = contactForm.querySelector('input[type="email"]');
+  emailInput?.addEventListener('blur', () => {
+    const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value);
+    emailInput.style.borderColor = emailInput.value && !valid ? '#c0392b' : '';
+  });
+}
