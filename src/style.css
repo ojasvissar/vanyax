@@ -953,3 +953,11 @@ input, button { border: none; background: none; outline: none; }
   border-color: #1a6fe8;
   box-shadow: 0 0 0 3px rgba(26,111,232,.12);
 }
+
+/* ── DEV FOOTER: photo parallax hint via scale ── */
+.df-photo::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(240,235,224,.15) 0%, transparent 50%);
+  pointer-events: none;
+}
