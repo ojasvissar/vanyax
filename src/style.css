@@ -793,3 +793,6 @@ input, button { border: none; background: none; outline: none; }
 
 /* ── SECTION: consistent vertical padding token ── */
 .section-pad { padding: var(--space-xl) 0; }
+
+/* ── TICKER: slow to 52s for readability ── */
+.ticker-track { animation-duration: 52s; }
