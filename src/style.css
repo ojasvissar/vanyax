@@ -1689,3 +1689,6 @@ img { image-rendering: auto; }
   border-color: #c0392b;
   box-shadow: 0 0 0 3px rgba(192,57,43,.15);
 }
+
+/* ── FOOTER: address element reset ── */
+.df-tagline address { display: inline; font-style: normal; font-weight: 600; color: inherit; }
