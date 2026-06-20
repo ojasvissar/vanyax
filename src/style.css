@@ -1286,3 +1286,7 @@ input, button { border: none; background: none; outline: none; }
 
 /* ── TICKER: slightly larger text ── */
 .ticker-row span { font-size: 11px; }
+
+/* ── PROCESS: step-time badge colour on hover ── */
+.step:hover .step-time { background: var(--green); color: #fff; }
+.step-time { transition: background .25s, color .25s; }
