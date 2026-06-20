@@ -1090,3 +1090,10 @@ input, button { border: none; background: none; outline: none; }
   padding: 1px 6px; border-radius: 100px;
   vertical-align: middle;
 }
+
+/* ── HERO: eyebrow monospace tracking animation ── */
+@keyframes eyebrow-in {
+  from { letter-spacing: .5em; opacity: 0; }
+  to   { letter-spacing: .18em; opacity: 1; }
+}
+#hero .eyebrow { animation: eyebrow-in .9s var(--ease) .1s both; }
