@@ -1043,3 +1043,6 @@ input, button { border: none; background: none; outline: none; }
 
 /* ── NUMBERS: font-size bump ── */
 @media (min-width: 900px) { .num { font-size: 4rem; } }
+
+/* ── ABOUT: more breathing room below heading ── */
+.about-text .h2 { margin-bottom: 1.6rem; }
