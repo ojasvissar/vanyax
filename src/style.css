@@ -1581,3 +1581,7 @@ input, button { border: none; background: none; outline: none; }
   0%, 100% { box-shadow: 0 0 0 0 rgba(26,102,64,.4), 0 0 0 2px rgba(26,102,64,.2); }
   50%       { box-shadow: 0 0 0 5px rgba(26,102,64,0), 0 0 0 2px rgba(26,102,64,.2); }
 }
+
+/* ── CONTACT: highlight ring on focused input ── */
+.contact-form input:focus { box-shadow: 0 0 0 3px rgba(45,138,90,.2); }
+.contact-form textarea:focus { box-shadow: 0 0 0 3px rgba(45,138,90,.2); }
