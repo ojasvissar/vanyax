@@ -182,7 +182,9 @@ if (contactForm) {
     const btn = contactForm.querySelector('button');
     btn.textContent = 'Sent ✓';
     btn.style.background = '#2d8a5a';
-    setTimeout(() => { btn.textContent = 'Start a project →'; btn.style.background = ''; contactForm.reset(); }, 3000);
+    const status = document.getElementById('form-status');
+    if (status) status.textContent = 'Message sent successfully!';
+    setTimeout(() => { btn.textContent = 'Start a project →'; btn.style.background = ''; contactForm.reset(); if (status) status.textContent = ''; }, 3000);
   });
 }
 
