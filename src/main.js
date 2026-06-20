@@ -384,3 +384,8 @@ gsap.to('.about-img img', {
   scrollTrigger: { trigger: '#about', start: 'top bottom', end: 'bottom top', scrub: 1 },
   y: -20,
 });
+
+/* ── NAV LOGO: fade + slide on load ── */
+gsap.from('.nav-logo', { x: -12, opacity: 0, duration: .6, ease: 'power2.out', delay: .1 });
+gsap.from('.nav-links li', { opacity: 0, y: -8, duration: .4, stagger: .07, ease: 'power2.out', delay: .3 });
+gsap.from('.nav-cta', { opacity: 0, x: 12, duration: .5, ease: 'power2.out', delay: .6 });
