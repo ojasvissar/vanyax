@@ -915,3 +915,14 @@ input, button { border: none; background: none; outline: none; }
 @media (max-width: 900px) {
   #stack { background-image: none; }
 }
+
+/* ── ABOUT: image overlay on hover ── */
+.about-img::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(26,102,64,.1) 0%, transparent 60%);
+  transition: opacity .4s;
+}
+.about-img { position: relative; }
+.about-img:hover img { transform: scale(1.03); }
+.about-img img { transition: transform .7s var(--ease); }
