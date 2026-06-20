@@ -1513,3 +1513,6 @@ input, button { border: none; background: none; outline: none; }
 .cs-teaser-text {
   font-size: 13.5px; line-height: 1.75; color: var(--text-muted); margin: 0;
 }
+
+/* ── PROGRESS BAR: brighter gradient ── */
+/* handled inline via JS — no override needed; note here for audit */
