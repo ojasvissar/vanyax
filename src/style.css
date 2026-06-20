@@ -1575,3 +1575,9 @@ input, button { border: none; background: none; outline: none; }
 .insight-card p { font-size: 13px; line-height: 1.75; color: rgba(248,246,241,.45); margin: 0; flex: 1; }
 .insight-card .link-arrow { color: var(--green-3); font-size: 13px; margin-top: auto; }
 @media (max-width: 900px) { .insights-grid { grid-template-columns: 1fr; } }
+
+/* ── BADGE DOT: pulse shadow rings ── */
+@keyframes live-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(26,102,64,.4), 0 0 0 2px rgba(26,102,64,.2); }
+  50%       { box-shadow: 0 0 0 5px rgba(26,102,64,0), 0 0 0 2px rgba(26,102,64,.2); }
+}
