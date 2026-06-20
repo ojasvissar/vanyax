@@ -926,3 +926,9 @@ input, button { border: none; background: none; outline: none; }
 .about-img { position: relative; }
 .about-img:hover img { transform: scale(1.03); }
 .about-img img { transition: transform .7s var(--ease); }
+
+/* ── ABOUT: location tag with leaf dot ── */
+.about-location::before {
+  content: '🌿 ';
+  font-size: .9em;
+}
