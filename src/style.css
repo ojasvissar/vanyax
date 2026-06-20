@@ -866,3 +866,7 @@ input, button { border: none; background: none; outline: none; }
 }
 #services { position: relative; }
 #services .container { position: relative; z-index: 1; }
+
+/* ── PROCESS: step number grows on hover ── */
+.step:hover .step-n { font-size: 13px; color: var(--green-2); }
+.step-n { transition: font-size .25s, color .25s; }
