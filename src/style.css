@@ -1630,3 +1630,6 @@ section[id], div[id] { scroll-margin-top: 88px; }
 
 /* ── EYEBROW: tighten spacing slightly for balance ── */
 .eyebrow { letter-spacing: .16em; }
+
+/* ── PROCESS: line connector thinner ── */
+.process-steps::before { width: 1px; }
