@@ -447,3 +447,6 @@ document.body.style.opacity = '0';
 window.addEventListener('load', () => {
   gsap.to(document.body, { opacity: 1, duration: .4, ease: 'power1.out' });
 });
+
+/* ── HERO: cards label fade in ── */
+gsap.from('.hero-cards-label', { opacity: 0, y: -8, duration: .5, ease: 'power2.out', delay: .9 });
