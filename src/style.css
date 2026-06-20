@@ -1526,3 +1526,8 @@ input, button { border: none; background: none; outline: none; }
   .h2 { font-size: clamp(2rem, 8vw, 3rem); }
   .h2-light { font-size: clamp(2rem, 8vw, 3rem); }
 }
+
+/* ── NUMBERS: thicker border on very large screens ── */
+@media (min-width: 1400px) {
+  .num-cell { padding: 3.5rem 2.5rem; }
+}
