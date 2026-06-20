@@ -967,3 +967,10 @@ input, button { border: none; background: none; outline: none; }
   color: var(--text);
   background: rgba(17,24,16,.07);
 }
+
+/* ── HERO BADGE: live pulse animation ── */
+@keyframes live-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(26,102,64,.5); }
+  50%       { box-shadow: 0 0 0 5px rgba(26,102,64,0); }
+}
+.hc-badge { animation: live-pulse 2.2s ease-in-out infinite; }
