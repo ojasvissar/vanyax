@@ -310,3 +310,10 @@ gsap.from('.trusted-logos span', {
   scrollTrigger: { trigger: '#trusted', start: 'top 90%' },
   opacity: 0, y: 12, duration: 0.5, stagger: 0.08, ease: 'power2.out',
 });
+
+/* ── MOTION: respect prefers-reduced-motion ── */
+if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  gsap.globalTimeline.timeScale(20);
+  lenis.destroy();
+  document.documentElement.style.scrollBehavior = 'auto';
+}
