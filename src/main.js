@@ -410,6 +410,7 @@ if (contactForm) {
   emailInput?.addEventListener('blur', () => {
     const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value);
     emailInput.style.borderColor = emailInput.value && !valid ? '#c0392b' : '';
+    emailInput.setAttribute('aria-invalid', emailInput.value && !valid ? 'true' : 'false');
   });
 }
 
