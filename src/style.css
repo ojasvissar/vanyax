@@ -1391,3 +1391,6 @@ input, button { border: none; background: none; outline: none; }
   color: var(--bg);
 }
 .btn-ghost--dark:hover { background: rgba(248,246,241,.08); border-color: rgba(248,246,241,.5); }
+
+/* ── ABOUT: extra bottom padding ── */
+#about { padding-bottom: calc(var(--space-xl) + 2rem); }
