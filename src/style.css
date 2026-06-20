@@ -1520,3 +1520,9 @@ input, button { border: none; background: none; outline: none; }
 /* ── LINK ARROW: smooth right movement ── */
 .link-arrow::after { content: ''; display: inline-block; transition: transform .2s var(--ease); }
 .link-arrow:hover::after { transform: translateX(3px); }
+
+/* ── H2: smaller on mobile ── */
+@media (max-width: 480px) {
+  .h2 { font-size: clamp(2rem, 8vw, 3rem); }
+  .h2-light { font-size: clamp(2rem, 8vw, 3rem); }
+}
