@@ -836,3 +836,7 @@ input, button { border: none; background: none; outline: none; }
   transition: opacity .4s var(--ease);
 }
 .svc-card:hover::before { opacity: 1; }
+
+/* ── SERVICES: icon scale on card hover ── */
+.svc-card:hover .svc-icon { background: rgba(82,183,136,.2); transform: scale(1.06); }
+.svc-icon { transition: background .25s, transform .25s var(--ease); }
