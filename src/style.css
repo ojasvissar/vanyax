@@ -1262,3 +1262,10 @@ input, button { border: none; background: none; outline: none; }
   opacity: .25;
   pointer-events: none;
 }
+
+/* ── CONTACT: trust line ── */
+.contact-trust {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .1em;
+  color: rgba(248,246,241,.3); margin-bottom: .6rem;
+  text-transform: uppercase;
+}
