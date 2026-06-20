@@ -1500,3 +1500,16 @@ input, button { border: none; background: none; outline: none; }
   75%       { transform: rotate(8deg); }
 }
 .svc-card:hover .svc-icon { animation: wiggle .4s ease; }
+
+/* ── CASE STUDY: more teaser ── */
+.cs-more-teaser {
+  margin-top: 3rem;
+  padding: 2rem;
+  border: 1px dashed var(--border-2);
+  border-radius: 12px;
+  background: var(--surface);
+}
+.cs-more-teaser .eyebrow { margin-bottom: .6rem; }
+.cs-teaser-text {
+  font-size: 13.5px; line-height: 1.75; color: var(--text-muted); margin: 0;
+}
