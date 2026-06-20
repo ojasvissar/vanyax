@@ -1648,3 +1648,6 @@ section[id], div[id] { scroll-margin-top: 88px; }
 .contact-form { position: relative; }
 .contact-form input,
 .contact-form textarea { width: 100%; box-sizing: border-box; }
+
+/* ── HERO: absolute minimum height ── */
+#hero { min-height: max(100svh, 640px); }
