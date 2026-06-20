@@ -1539,3 +1539,6 @@ input, button { border: none; background: none; outline: none; }
   transition: background .15s, color .15s;
 }
 .stack-group li:hover { background: var(--green-dim); color: var(--green); }
+
+/* ── EYEBROW: consistent bottom margin ── */
+.section-hd .eyebrow { margin-bottom: .8rem; display: block; }
