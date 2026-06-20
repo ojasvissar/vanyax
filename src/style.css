@@ -1492,3 +1492,11 @@ input, button { border: none; background: none; outline: none; }
 
 /* ── STACK: items in mono for techy feel ── */
 .stack-group li { font-family: var(--mono); font-size: 12px; letter-spacing: .02em; }
+
+/* ── SERVICES ICON: wiggle keyframe ── */
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25%       { transform: rotate(-8deg); }
+  75%       { transform: rotate(8deg); }
+}
+.svc-card:hover .svc-icon { animation: wiggle .4s ease; }
