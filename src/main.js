@@ -360,3 +360,9 @@ function initParticles() {
   }, { passive: true });
 }
 if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) initParticles();
+
+/* ── CONTACT: stagger form fields ── */
+gsap.from('.contact-form > *', {
+  scrollTrigger: { trigger: '.contact-form', start: 'top 88%' },
+  y: 14, opacity: 0, duration: 0.5, stagger: 0.07, ease: 'power2.out',
+});
