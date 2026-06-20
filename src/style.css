@@ -1333,3 +1333,6 @@ input, button { border: none; background: none; outline: none; }
 
 /* ── STACK: use gap for card spacing ── */
 .stack-grid { gap: 1.5rem; }
+
+/* ── TICKER: second row runs right ← (reserved for future) ── */
+.ticker-track { animation-direction: normal; }
