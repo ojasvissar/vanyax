@@ -304,3 +304,9 @@ if (heroHl) {
   ).join('');
   gsap.from('.hl-inner', { y: '100%', duration: .8, stagger: .1, ease: 'power3.out', delay: .4 });
 }
+
+/* ── TRUSTED: stagger logos ── */
+gsap.from('.trusted-logos span', {
+  scrollTrigger: { trigger: '#trusted', start: 'top 90%' },
+  opacity: 0, y: 12, duration: 0.5, stagger: 0.08, ease: 'power2.out',
+});
