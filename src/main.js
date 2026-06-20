@@ -202,3 +202,19 @@ const prog = document.createElement('div');
 prog.style.cssText = 'position:fixed;top:0;left:0;height:2px;z-index:9999;background:linear-gradient(90deg,#1a6640,#52b788);width:0;pointer-events:none;transition:width .08s linear;';
 document.body.prepend(prog);
 lenis.on('scroll', ({ progress }) => { prog.style.width = (progress * 100) + '%'; });
+
+/* ── NAV: active link highlight on scroll ── */
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+
+const activeObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(a => a.classList.remove('active'));
+      const link = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
+      if (link) link.classList.add('active');
+    }
+  });
+}, { threshold: 0.4 });
+
+sections.forEach(s => activeObs.observe(s));
