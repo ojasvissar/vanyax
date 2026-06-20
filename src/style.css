@@ -1283,3 +1283,6 @@ input, button { border: none; background: none; outline: none; }
   .num-cell:nth-child(even) { border-right: none; }
   .num-cell:nth-child(-n+2) { border-bottom: 1px solid var(--border); }
 }
+
+/* ── TICKER: slightly larger text ── */
+.ticker-row span { font-size: 11px; }
