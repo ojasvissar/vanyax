@@ -840,3 +840,7 @@ input, button { border: none; background: none; outline: none; }
 /* ── SERVICES: icon scale on card hover ── */
 .svc-card:hover .svc-icon { background: rgba(82,183,136,.2); transform: scale(1.06); }
 .svc-icon { transition: background .25s, transform .25s var(--ease); }
+
+/* ── SERVICES: tag border brighten on card hover ── */
+.svc-card:hover .svc-tags li { border-color: rgba(82,183,136,.4); }
+.svc-tags li { transition: border-color .25s; }
