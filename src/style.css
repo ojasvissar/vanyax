@@ -885,3 +885,10 @@ input, button { border: none; background: none; outline: none; }
 .step-body h3 { font-style: normal; }
 .step:hover .step-body h3 { color: var(--green); }
 .step-body h3 { transition: color .25s; }
+
+/* ── STACK: group heading bottom border ── */
+.stack-group h4 {
+  padding-bottom: .9rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 1.4rem;
+}
