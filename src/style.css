@@ -1031,3 +1031,9 @@ input, button { border: none; background: none; outline: none; }
 
 /* ── NAV: slight vertical compression when scrolled ── */
 #nav.scrolled { padding-top: 8px; padding-bottom: 8px; }
+
+/* ── TICKER: fade masks on edges ── */
+.ticker {
+  -webkit-mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+}
