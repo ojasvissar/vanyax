@@ -1760,3 +1760,7 @@ cite a:hover { text-decoration-color: var(--green); }
 
 /* ── TICKER: italic font for editorial feel ── */
 .ticker-row span { font-style: italic; }
+
+/* ── TRUSTED: underline on hover ── */
+.trusted-logos span { text-decoration: none; border-bottom: 1px solid transparent; transition: border-color .2s; }
+.trusted-logos span:hover { border-bottom-color: rgba(17,24,16,.3); }
