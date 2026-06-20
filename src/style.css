@@ -1832,3 +1832,6 @@ cite a:hover { text-decoration-color: var(--green); }
 /* ── GLOBAL: smooth colour transitions everywhere ── */
 * { transition-property: color, background-color, border-color, box-shadow, opacity; transition-duration: 0ms; }
 a, button { transition-duration: var(--dur-fast); }
+
+/* ── HERO: align cards label left ── */
+.hero-cards-label { text-align: left; }
