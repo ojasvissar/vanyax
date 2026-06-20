@@ -1176,3 +1176,22 @@ input, button { border: none; background: none; outline: none; }
   transition: background .2s, color .2s;
 }
 .problem-tags span:hover { background: var(--green); color: #fff; }
+
+/* ── DARK MODE: system preference support ── */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:       #0d1710;
+    --bg-2:     #111f14;
+    --surface:  #161f18;
+    --text:     #e8ebe6;
+    --text-muted: #7a9a7c;
+    --border:   rgba(232,235,230,.08);
+    --border-2: rgba(232,235,230,.14);
+    --green-dim: rgba(26,102,64,.2);
+  }
+  .df-photo { filter: brightness(.85); }
+  .hero-card { background: var(--surface); }
+  #dev-footer { background: #1a1814; }
+  .df-hl { color: #e8e4da; }
+  .df-tagline, .df-nav a { color: #6a6560; }
+}
