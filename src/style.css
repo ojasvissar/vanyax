@@ -1673,3 +1673,6 @@ img { image-rendering: auto; }
 @media (max-width: 480px) {
   .stack-grid { grid-template-columns: 1fr; }
 }
+
+/* ── CASE STUDY: overflow hidden on image for border radius ── */
+.cs-img { border-radius: 0; }
