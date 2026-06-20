@@ -1682,3 +1682,10 @@ img { image-rendering: auto; }
 
 /* ── A11Y: ensure text-muted passes 4.5:1 on bg ── */
 /* #556655 on #f8f6f1 → ~4.6:1 — passes WCAG AA */
+
+/* ── CONTACT: error state ── */
+.contact-form input[aria-invalid="true"],
+.contact-form textarea[aria-invalid="true"] {
+  border-color: #c0392b;
+  box-shadow: 0 0 0 3px rgba(192,57,43,.15);
+}
