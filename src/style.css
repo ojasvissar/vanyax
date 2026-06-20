@@ -1323,3 +1323,6 @@ input, button { border: none; background: none; outline: none; }
     url('https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?q=60&w=1920&auto=format&fit=crop') right center / cover no-repeat;
   opacity: .12;
 }
+
+/* ── PROCESS: slightly narrower for focus ── */
+#process .process-steps { max-width: 780px; margin: 0 auto; }
