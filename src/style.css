@@ -1097,3 +1097,36 @@ input, button { border: none; background: none; outline: none; }
   to   { letter-spacing: .18em; opacity: 1; }
 }
 #hero .eyebrow { animation: eyebrow-in .9s var(--ease) .1s both; }
+
+/* ─────────────────────────────────────
+   CASE STUDY
+───────────────────────────────────── */
+#case-study {
+  padding: var(--space-xl) 0;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+.cs-card {
+  display: grid; grid-template-columns: 1.1fr 1fr;
+  border: 1.5px solid var(--border);
+  border-radius: 20px; overflow: hidden;
+}
+.cs-img { aspect-ratio: 4/3; overflow: hidden; }
+.cs-img img { width: 100%; height: 100%; object-fit: cover; filter: saturate(.7); transition: filter .5s, transform .6s var(--ease); }
+.cs-card:hover .cs-img img { filter: saturate(1); transform: scale(1.04); }
+.cs-body {
+  padding: 3rem;
+  display: flex; flex-direction: column; justify-content: center;
+  background: var(--bg-2);
+}
+.cs-body h3 {
+  font-family: var(--serif);
+  font-size: 1.5rem; letter-spacing: -.015em;
+  color: var(--text); line-height: 1.2;
+  margin-bottom: 1rem;
+}
+.cs-body > p { font-size: 13.5px; line-height: 1.85; color: var(--text-muted); margin-bottom: 2rem; }
+.cs-metrics { display: flex; gap: 2rem; }
+.cs-m span { font-family: var(--serif); font-size: 1.6rem; display: block; color: var(--green); letter-spacing: -.02em; }
+.cs-m small { font-family: var(--mono); font-size: 9.5px; letter-spacing: .1em; color: var(--text-muted); text-transform: uppercase; }
+@media (max-width: 900px) { .cs-card { grid-template-columns: 1fr; } }
