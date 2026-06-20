@@ -844,3 +844,14 @@ input, button { border: none; background: none; outline: none; }
 /* ── SERVICES: tag border brighten on card hover ── */
 .svc-card:hover .svc-tags li { border-color: rgba(82,183,136,.4); }
 .svc-tags li { transition: border-color .25s; }
+
+/* ── SERVICES: card corner decoration ── */
+.svc-card > :last-child::after {
+  content: '→';
+  float: right;
+  font-size: 18px;
+  color: rgba(82,183,136,.3);
+  margin-top: -.5rem;
+  transition: color .25s, transform .25s var(--ease);
+}
+.svc-card:hover > :last-child::after { color: var(--green-3); transform: translateX(4px); }
