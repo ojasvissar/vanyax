@@ -1222,3 +1222,12 @@ input, button { border: none; background: none; outline: none; }
   border: 1px solid var(--border-2);
   padding: 4px 12px; border-radius: 100px;
 }
+
+/* ── PROCESS: time estimate label ── */
+.step-time {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .08em;
+  color: var(--green); background: var(--green-dim);
+  border-radius: 100px; padding: 2px 9px;
+  font-style: normal; margin-left: .6rem;
+  vertical-align: middle;
+}
