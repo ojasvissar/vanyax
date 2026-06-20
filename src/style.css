@@ -1210,3 +1210,15 @@ input, button { border: none; background: none; outline: none; }
   margin-bottom: .4rem;
   text-transform: uppercase;
 }
+
+/* ── ABOUT: badge row ── */
+.about-badges {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin-top: 1rem;
+}
+.about-badges span {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .1em;
+  color: var(--text-muted);
+  border: 1px solid var(--border-2);
+  padding: 4px 12px; border-radius: 100px;
+}
