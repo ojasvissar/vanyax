@@ -1273,3 +1273,6 @@ input, button { border: none; background: none; outline: none; }
 /* ── LINK ARROW: use padding-right instead of gap for animated feel ── */
 .link-arrow { transition: gap var(--dur-fast), color var(--dur-fast); }
 .link-arrow:hover { color: var(--green-2); }
+
+/* ── DEV FOOTER: taller forest photo on wide screens ── */
+@media (min-width: 1200px) { .df-photo { height: 520px; } }
