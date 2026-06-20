@@ -1651,3 +1651,6 @@ section[id], div[id] { scroll-margin-top: 88px; }
 
 /* ── HERO: absolute minimum height ── */
 #hero { min-height: max(100svh, 640px); }
+
+/* ── IMG: smooth scaling ── */
+img { image-rendering: auto; }
