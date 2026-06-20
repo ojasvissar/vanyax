@@ -992,3 +992,12 @@ input, button { border: none; background: none; outline: none; }
   transition: top .2s;
 }
 .skip-link:focus { top: 0; }
+
+/* ── SECTION TRANSITIONS: hairline separators ── */
+#numbers  { border-top: 1px solid var(--border); }
+#problem  { border-top: 1px solid var(--border); }
+#services { border-top: none; }
+#process  { border-top: 1px solid var(--border); }
+#stack    { border-top: 1px solid var(--border); }
+#about    { border-top: 1px solid var(--border); }
+#contact  { border-top: none; }
