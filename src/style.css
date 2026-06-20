@@ -1195,3 +1195,9 @@ input, button { border: none; background: none; outline: none; }
   .df-hl { color: #e8e4da; }
   .df-tagline, .df-nav a { color: #6a6560; }
 }
+
+/* ── NUMBERS: decline indicator ── */
+.num-decline {
+  font-size: 1.2rem; color: #c0392b; margin-left: .2rem;
+  vertical-align: middle; opacity: .7;
+}
