@@ -1403,3 +1403,8 @@ input, button { border: none; background: none; outline: none; }
   .cs-body { padding: 2rem; }
   .cs-metrics { gap: 1.4rem; }
 }
+
+/* ── ABOUT: image height on small screens ── */
+@media (max-width: 680px) {
+  .about-img { aspect-ratio: 16/10; }
+}
