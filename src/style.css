@@ -870,3 +870,13 @@ input, button { border: none; background: none; outline: none; }
 /* ── PROCESS: step number grows on hover ── */
 .step:hover .step-n { font-size: 13px; color: var(--green-2); }
 .step-n { transition: font-size .25s, color .25s; }
+
+/* ── PROCESS: connector line between steps ── */
+.process-steps { position: relative; }
+.process-steps::before {
+  content: '';
+  position: absolute; left: 80px; top: 0; bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, var(--border) 10%, var(--border) 90%, transparent);
+  pointer-events: none;
+}
