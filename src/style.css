@@ -1326,3 +1326,7 @@ input, button { border: none; background: none; outline: none; }
 
 /* ── PROCESS: slightly narrower for focus ── */
 #process .process-steps { max-width: 780px; margin: 0 auto; }
+
+/* ── CASE STUDY: image desaturated → full colour on hover ── */
+.cs-img img { filter: saturate(.55) brightness(.95); }
+.cs-card:hover .cs-img img { filter: saturate(1) brightness(1); }
