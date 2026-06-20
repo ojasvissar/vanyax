@@ -1591,3 +1591,15 @@ input, button { border: none; background: none; outline: none; }
 
 /* ── HERO CARD SPARKLINE: card entrance ── */
 .hero-card:first-child { animation-delay: 0s; }
+
+/* ── SKIP LINK: accessibility ── */
+.skip-link {
+  position: absolute; top: -100%;
+  left: 1rem; padding: .5rem 1rem;
+  background: var(--green); color: #fff;
+  border-radius: 0 0 8px 8px;
+  font-size: 13px; font-family: var(--mono);
+  z-index: 10000; transition: top .2s;
+  text-decoration: none;
+}
+.skip-link:focus { top: 0; }
