@@ -1069,3 +1069,13 @@ input, button { border: none; background: none; outline: none; }
 
 /* ── PROCESS: add checkmark on step complete hover ── */
 .step:hover .step-n::after { content: ' ✓'; opacity: .4; }
+
+/* ── CONTACT: bottom decorative pixel band ── */
+#contact::before {
+  background: radial-gradient(ellipse 60% 40%, rgba(26,102,64,.22) 0%, transparent 70%);
+  animation: breathe 8s ease-in-out infinite;
+}
+@keyframes breathe {
+  0%, 100% { opacity: 1; transform: translateX(-50%) translateY(-50%) scale(1); }
+  50%       { opacity: .6; transform: translateX(-50%) translateY(-50%) scale(1.08); }
+}
