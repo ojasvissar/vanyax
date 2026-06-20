@@ -1442,3 +1442,28 @@ input, button { border: none; background: none; outline: none; }
 
 /* ── PERF: font-display note (controlled by Google Fonts via &display=swap) ── */
 /* All fonts loaded with display=swap already — no FOUT on repeat visits */
+
+/* ── CONTACT: textarea and name field ── */
+.contact-form textarea {
+  padding: 1rem 1.4rem;
+  border: 1.5px solid var(--border-2);
+  border-radius: 10px;
+  background: rgba(248,246,241,.06);
+  color: var(--bg);
+  font-family: var(--sans); font-size: .95rem;
+  resize: none;
+  outline: none; transition: border-color var(--dur-fast);
+}
+.contact-form textarea:focus { border-color: var(--green-3); }
+.contact-form textarea::placeholder { color: rgba(248,246,241,.35); }
+.contact-form input[type="text"] {
+  padding: .95rem 1.4rem;
+  border: 1.5px solid var(--border-2);
+  border-radius: 10px;
+  background: rgba(248,246,241,.06);
+  color: var(--bg);
+  font-family: var(--sans); font-size: .95rem;
+  outline: none; transition: border-color var(--dur-fast);
+}
+.contact-form input[type="text"]:focus { border-color: var(--green-3); }
+.contact-form input[type="text"]::placeholder { color: rgba(248,246,241,.35); }
