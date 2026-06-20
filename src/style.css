@@ -1025,3 +1025,6 @@ input, button { border: none; background: none; outline: none; }
   border-radius: 12px;
   padding: 1.8rem;
 }
+
+/* ── CONTACT FORM: button active press ── */
+.contact-form button:active { transform: scale(.97); }
