@@ -769,3 +769,6 @@ input, button { border: none; background: none; outline: none; }
   background-image: radial-gradient(circle 1px at 50% 50%, rgba(17,24,16,.05) 100%, transparent 100%);
   background-size: 32px 32px;
 }
+
+/* ── HERO: two-col sm card row ── */
+.hero-cards-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
