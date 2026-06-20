@@ -1699,3 +1699,6 @@ img { image-rendering: auto; }
 
 /* ── PERF: CSS containment on ticker ── */
 .ticker-wrap { contain: layout style; }
+
+/* ── UX: pointer cursor on all clickable elements ── */
+a, button, label, [role="button"] { cursor: pointer; }
