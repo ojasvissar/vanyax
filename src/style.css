@@ -1692,3 +1692,7 @@ img { image-rendering: auto; }
 
 /* ── FOOTER: address element reset ── */
 .df-tagline address { display: inline; font-style: normal; font-weight: 600; color: inherit; }
+
+/* ── PERF: will-change on animated elements ── */
+.hero-card { will-change: transform; }
+.ticker-track { will-change: transform; }
