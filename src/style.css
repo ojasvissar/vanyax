@@ -778,3 +778,6 @@ input, button { border: none; background: none; outline: none; }
 
 /* ── HERO HEADLINE: italic uses green-2 for depth ── */
 .hero-hl em { font-style: italic; color: var(--green-2); }
+
+/* ── HERO CARD number letter-spacing ── */
+.hc-number { letter-spacing: -.03em; }
