@@ -1037,3 +1037,6 @@ input, button { border: none; background: none; outline: none; }
   -webkit-mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
   mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
 }
+
+/* ── HERO: sub-heading max-width tighter on large screens ── */
+@media (min-width: 1200px) { .hero-sub { max-width: 400px; } }
