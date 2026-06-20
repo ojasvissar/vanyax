@@ -1676,3 +1676,6 @@ img { image-rendering: auto; }
 
 /* ── CASE STUDY: overflow hidden on image for border radius ── */
 .cs-img { border-radius: 0; }
+
+/* ── LOGICAL PROPS: inline padding for LTR/RTL ── */
+.container { padding-inline: var(--gap); }
