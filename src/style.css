@@ -1425,3 +1425,8 @@ input, button { border: none; background: none; outline: none; }
   .process-steps::before { display: none; }
   .step { grid-template-columns: 44px 1fr; padding: 1.6rem 1.4rem; }
 }
+
+/* ── HERO: canvas sits above bg gradients ── */
+#hero { position: relative; overflow: hidden; }
+#hero > canvas { z-index: 1; }
+.hero-inner { position: relative; z-index: 2; }
