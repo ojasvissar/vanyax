@@ -1696,3 +1696,6 @@ img { image-rendering: auto; }
 /* ── PERF: will-change on animated elements ── */
 .hero-card { will-change: transform; }
 .ticker-track { will-change: transform; }
+
+/* ── PERF: CSS containment on ticker ── */
+.ticker-wrap { contain: layout style; }
