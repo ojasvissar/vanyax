@@ -267,3 +267,30 @@ gsap.from('.cs-body > *', {
   scrollTrigger: { trigger: '#case-study', start: 'top 78%' },
   y: 20, opacity: 0, duration: 0.7, stagger: 0.1, ease: 'power3.out', delay: 0.2,
 });
+
+/* ── CASE STUDY: metric numbers count up ── */
+const csMetrics = document.querySelectorAll('.cs-m span');
+const csObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const el = e.target;
+      const raw = el.textContent;
+      const num = parseFloat(raw.replace(/[^0-9.]/g, ''));
+      if (!isNaN(num) && num > 1) {
+        const prefix = raw.match(/^[^0-9]*/)[0];
+        const suffix = raw.match(/[^0-9.]*$/)[0];
+        let start = null;
+        const dur = 1200;
+        const tick = ts => {
+          if (!start) start = ts;
+          const p = Math.min((ts - start) / dur, 1);
+          el.textContent = prefix + (num * (1 - Math.pow(1-p,3))).toFixed(raw.includes('.') ? 1 : 0) + suffix;
+          if (p < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      }
+      csObs.unobserve(el);
+    }
+  });
+}, { threshold: 0.6 });
+csMetrics.forEach(m => csObs.observe(m));
