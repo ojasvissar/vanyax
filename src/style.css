@@ -1664,3 +1664,7 @@ img { image-rendering: auto; }
 
 /* ── HERO CARD: unit label after value ── */
 .hc-val small { font-size: .45em; opacity: .6; vertical-align: super; }
+
+/* ── PROCESS: active step accent ── */
+.step[data-active] { background: rgba(26,102,64,.04); }
+.step[data-active] .step-n { background: var(--green); color: #fff; }
