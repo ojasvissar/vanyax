@@ -1439,3 +1439,6 @@ input, button { border: none; background: none; outline: none; }
   transition: filter .25s, transform .25s;
 }
 .svc-card:hover .svc-icon { filter: grayscale(0); transform: scale(1.15) rotate(-5deg); }
+
+/* ── PERF: font-display note (controlled by Google Fonts via &display=swap) ── */
+/* All fonts loaded with display=swap already — no FOUT on repeat visits */
