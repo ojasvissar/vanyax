@@ -1397,3 +1397,9 @@ input, button { border: none; background: none; outline: none; }
 
 /* ── STACK: group heading uses normal weight ── */
 .stack-group h4 { font-weight: 500; }
+
+/* ── CASE STUDY: body padding on mobile ── */
+@media (max-width: 680px) {
+  .cs-body { padding: 2rem; }
+  .cs-metrics { gap: 1.4rem; }
+}
