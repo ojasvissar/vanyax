@@ -814,3 +814,14 @@ input, button { border: none; background: none; outline: none; }
 
 /* ── PROBLEM: paragraph first-child emphasis ── */
 .problem-right p:first-child { font-size: 1rem; font-weight: 400; line-height: 1.9; }
+
+/* ── LINK-ARROW: underline on hover ── */
+.link-arrow::after {
+  content: '';
+  position: absolute;
+  bottom: -1px; left: 0; right: 0;
+  height: 1px; background: currentColor; opacity: 0;
+  transition: opacity var(--dur-fast);
+}
+.link-arrow { position: relative; }
+.link-arrow:hover::after { opacity: .4; }
