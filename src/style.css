@@ -1231,3 +1231,6 @@ input, button { border: none; background: none; outline: none; }
   font-style: normal; margin-left: .6rem;
   vertical-align: middle;
 }
+
+/* ── STACK: item hover tooltip via title attribute ── */
+.stack-group li { position: relative; }
