@@ -1201,3 +1201,12 @@ input, button { border: none; background: none; outline: none; }
   font-size: 1.2rem; color: #c0392b; margin-left: .2rem;
   vertical-align: middle; opacity: .7;
 }
+
+/* ── HERO CARD: period label ── */
+.hc-period {
+  font-family: var(--mono);
+  font-size: 9px; letter-spacing: .1em;
+  color: var(--text-muted);
+  margin-bottom: .4rem;
+  text-transform: uppercase;
+}
