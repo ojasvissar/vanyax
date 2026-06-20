@@ -1764,3 +1764,6 @@ cite a:hover { text-decoration-color: var(--green); }
 /* ── TRUSTED: underline on hover ── */
 .trusted-logos span { text-decoration: none; border-bottom: 1px solid transparent; transition: border-color .2s; }
 .trusted-logos span:hover { border-bottom-color: rgba(17,24,16,.3); }
+
+/* ── INSIGHTS: brighter card bg on hover ── */
+.insight-card:hover { background: rgba(26,102,64,.18); }
