@@ -961,3 +961,9 @@ input, button { border: none; background: none; outline: none; }
   background: linear-gradient(to top, rgba(240,235,224,.15) 0%, transparent 50%);
   pointer-events: none;
 }
+
+/* ── NAV: active link style ── */
+.nav-links a.active {
+  color: var(--text);
+  background: rgba(17,24,16,.07);
+}
