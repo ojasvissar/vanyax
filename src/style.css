@@ -1773,3 +1773,6 @@ cite a:hover { text-decoration-color: var(--green); }
 
 /* ── CASE STUDY: section bottom spacing ── */
 #case-study { padding-bottom: calc(var(--space-xl) + 1rem); }
+
+/* ── DEV FOOTER: rounder Apply button ── */
+.df-form button { border-radius: 100px; }
