@@ -1668,3 +1668,8 @@ img { image-rendering: auto; }
 /* ── PROCESS: active step accent ── */
 .step[data-active] { background: rgba(26,102,64,.04); }
 .step[data-active] .step-n { background: var(--green); color: #fff; }
+
+/* ── STACK: single column on small phones ── */
+@media (max-width: 480px) {
+  .stack-grid { grid-template-columns: 1fr; }
+}
