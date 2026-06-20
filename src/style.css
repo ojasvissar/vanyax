@@ -1237,3 +1237,8 @@ input, button { border: none; background: none; outline: none; }
 
 /* ── HERO CARDS: shadow deepens on hover ── */
 .hero-card:hover { box-shadow: 0 20px 48px rgba(17,24,16,.12), 0 2px 8px rgba(17,24,16,.06); }
+
+/* ── NUMBERS: top accent expands on hover ── */
+.num-cell:hover::before {
+  background: linear-gradient(90deg, transparent, var(--green), transparent);
+}
