@@ -772,3 +772,6 @@ input, button { border: none; background: none; outline: none; }
 
 /* ── HERO: two-col sm card row ── */
 .hero-cards-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+/* ── EYEBROW: dot separators as spans ── */
+.eyebrow .dot { opacity: .4; margin: 0 .3em; }
