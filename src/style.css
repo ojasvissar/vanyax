@@ -1049,3 +1049,13 @@ input, button { border: none; background: none; outline: none; }
 
 /* ── PROCESS: increase step body padding ── */
 .step-body { padding-right: 2rem; }
+
+/* ── HERO CARDS: gentle float ── */
+@keyframes card-float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-6px); }
+}
+.hero-card { animation: card-float 6s ease-in-out infinite; }
+.hero-card:nth-child(2) .hero-card { animation-delay: -2s; }
+.hero-card--sm:first-child { animation-delay: -1s; animation-duration: 7s; }
+.hero-card--green { animation-delay: -3.5s; animation-duration: 8s; }
