@@ -366,3 +366,9 @@ gsap.from('.contact-form > *', {
   scrollTrigger: { trigger: '.contact-form', start: 'top 88%' },
   y: 14, opacity: 0, duration: 0.5, stagger: 0.07, ease: 'power2.out',
 });
+
+/* ── NAV: observe trusted and case-study for active state ── */
+['trusted', 'case-study'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) activeObs.observe(el);
+});
