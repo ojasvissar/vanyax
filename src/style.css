@@ -1848,3 +1848,7 @@ a, button { transition-duration: var(--dur-fast); }
 
 /* ── FOOTER: apply form placeholder colour ── */
 .df-form input::placeholder { color: rgba(139,123,99,.55); }
+
+/* ── GLOBAL: smooth scroll (fallback for no-JS Lenis) ── */
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
