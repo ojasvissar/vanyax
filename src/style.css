@@ -1633,3 +1633,10 @@ section[id], div[id] { scroll-margin-top: 88px; }
 
 /* ── PROCESS: line connector thinner ── */
 .process-steps::before { width: 1px; }
+
+/* ── HERO: label above cards column ── */
+.hero-cards-label {
+  font-family: var(--mono); font-size: 9.5px; letter-spacing: .14em;
+  color: var(--text-muted); text-transform: uppercase;
+  margin-bottom: .6rem;
+}
