@@ -1059,3 +1059,10 @@ input, button { border: none; background: none; outline: none; }
 .hero-card:nth-child(2) .hero-card { animation-delay: -2s; }
 .hero-card--sm:first-child { animation-delay: -1s; animation-duration: 7s; }
 .hero-card--green { animation-delay: -3.5s; animation-duration: 8s; }
+
+/* ── NUMBERS: cell hover lifts ── */
+.num-cell {
+  transition: background var(--dur-fast);
+  cursor: default;
+}
+.num-cell:hover { background: var(--green-dim); }
