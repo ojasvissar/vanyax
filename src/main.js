@@ -378,3 +378,9 @@ gsap.to('.cs-img img', {
   scrollTrigger: { trigger: '.cs-card', start: 'top bottom', end: 'bottom top', scrub: 1 },
   y: -30,
 });
+
+/* ── ABOUT: parallax on image ── */
+gsap.to('.about-img img', {
+  scrollTrigger: { trigger: '#about', start: 'top bottom', end: 'bottom top', scrub: 1 },
+  y: -20,
+});
