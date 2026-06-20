@@ -1364,3 +1364,13 @@ input, button { border: none; background: none; outline: none; }
   outline-offset: 3px;
   border-radius: 4px;
 }
+
+/* ── NAV LINKS: active has a green underline dot ── */
+.nav-links a.active::after {
+  content: '';
+  display: block;
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--green);
+  margin: 2px auto 0;
+}
