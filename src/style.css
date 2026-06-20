@@ -932,3 +932,9 @@ input, button { border: none; background: none; outline: none; }
   content: '🌿 ';
   font-size: .9em;
 }
+
+/* ── CONTACT: form input focus ring ── */
+.contact-form:focus-within {
+  border-color: rgba(82,183,136,.5);
+  box-shadow: 0 0 0 3px rgba(26,102,64,.12);
+}
