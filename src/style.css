@@ -938,3 +938,12 @@ input, button { border: none; background: none; outline: none; }
   border-color: rgba(82,183,136,.5);
   box-shadow: 0 0 0 3px rgba(26,102,64,.12);
 }
+
+/* ── CONTACT: section grid dot pattern ── */
+#contact::after {
+  content: '';
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image: radial-gradient(circle 1px at 50% 50%, rgba(82,183,136,.08) 100%, transparent 100%);
+  background-size: 24px 24px;
+}
+#contact .container { position: relative; z-index: 2; }
