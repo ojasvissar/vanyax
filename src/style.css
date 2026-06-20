@@ -1786,3 +1786,45 @@ cite a:hover { text-decoration-color: var(--green); }
   background: linear-gradient(to bottom, transparent, var(--bg));
   pointer-events: none;
 }
+
+/* ── PROCESS: step hover ring on number ── */
+.step:hover .step-n { box-shadow: 0 0 0 3px rgba(26,102,64,.2); }
+
+/* ── STACK: data-count badge threshold ── */
+.stack-group h4[data-count]::after { opacity: .6; }
+
+/* ── INSIGHTS: section padding uniform ── */
+#insights { padding-bottom: var(--space-xl); }
+
+/* ── CONTACT: form max constraint ── */
+.contact-inner { max-width: 560px; }
+
+/* ── FOOTER: df-nav link gap ── */
+.df-nav { gap: 1.2rem 2rem; flex-wrap: wrap; }
+
+/* ── HERO: cards-row gap on large screens ── */
+@media (min-width: 1200px) { .hero-cards-row { gap: 1rem; } }
+
+/* ── NAV: smooth border on scroll ── */
+#nav.scrolled { box-shadow: 0 2px 20px rgba(17,24,16,.06); }
+
+/* ── ABOUT: location text style ── */
+.about-location { font-size: .875rem; letter-spacing: .01em; }
+
+/* ── PROBLEM: link-arrow colour ── */
+#problem .link-arrow { color: var(--green-2); }
+
+/* ── CASE STUDY: h3 letter-spacing ── */
+.cs-body h3 { letter-spacing: -.02em; }
+
+/* ── NAV ACTIVE: absolute position dot ── */
+.nav-links a { position: relative; }
+.nav-links a.active::after {
+  position: absolute;
+  bottom: -8px; left: 50%;
+  transform: translateX(-50%);
+}
+
+/* ── HERO PHOTO BACKDROP: correct z-index ── */
+.hero-photo { z-index: 0; }
+.hero-inner { z-index: 4; }
