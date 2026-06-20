@@ -1017,3 +1017,11 @@ input, button { border: none; background: none; outline: none; }
 
 /* ── PROCESS: alternate step background ── */
 .step:nth-child(even) { background: var(--bg-2); }
+
+/* ── STACK: groups get card padding ── */
+.stack-group {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.8rem;
+}
