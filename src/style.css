@@ -1482,3 +1482,10 @@ input, button { border: none; background: none; outline: none; }
 /* ── TICKER: slightly slower for readability ── */
 @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 .ticker-track { animation-duration: 50s; }
+
+/* ── NUMBERS: green glow on the figures ── */
+.num-cell:hover .num {
+  text-shadow: 0 0 24px rgba(45,138,90,.4);
+  color: var(--green);
+}
+.num { transition: color var(--dur-fast), text-shadow var(--dur-fast); }
