@@ -806,3 +806,8 @@ input, button { border: none; background: none; outline: none; }
   margin-top: 6px;
   font-style: normal;
 }
+
+/* ── PROBLEM: left side sticky on large screens ── */
+@media (min-width: 900px) {
+  .problem-left { position: sticky; top: 140px; }
+}
