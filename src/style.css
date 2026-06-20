@@ -1489,3 +1489,6 @@ input, button { border: none; background: none; outline: none; }
   color: var(--green);
 }
 .num { transition: color var(--dur-fast), text-shadow var(--dur-fast); }
+
+/* ── STACK: items in mono for techy feel ── */
+.stack-group li { font-family: var(--mono); font-size: 12px; letter-spacing: .02em; }
