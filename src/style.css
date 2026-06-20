@@ -1467,3 +1467,6 @@ input, button { border: none; background: none; outline: none; }
 }
 .contact-form input[type="text"]:focus { border-color: var(--green-3); }
 .contact-form input[type="text"]::placeholder { color: rgba(248,246,241,.35); }
+
+/* ── NAV LOGO: green dot accent ── */
+.logo-dot { color: var(--green); font-size: 1.3em; line-height: 0; vertical-align: bottom; }
