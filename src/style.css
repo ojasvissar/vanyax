@@ -1712,3 +1712,9 @@ cite a:hover { text-decoration-color: var(--green); }
 
 /* ── PROCESS: stronger alt step bg ── */
 .step:nth-child(even) { background: rgba(26,102,64,.025); }
+
+/* ── CONTACT: override browser autocomplete yellow ── */
+.contact-form input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 100px rgba(13,23,16,.98) inset;
+  -webkit-text-fill-color: var(--bg);
+}
