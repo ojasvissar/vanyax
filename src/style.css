@@ -1776,3 +1776,13 @@ cite a:hover { text-decoration-color: var(--green); }
 
 /* ── DEV FOOTER: rounder Apply button ── */
 .df-form button { border-radius: 100px; }
+
+/* ── HERO: slight fade below cards ── */
+.hero-cards { position: relative; }
+.hero-cards::after {
+  content: '';
+  position: absolute; left: 0; right: 0; bottom: -32px;
+  height: 40px;
+  background: linear-gradient(to bottom, transparent, var(--bg));
+  pointer-events: none;
+}
