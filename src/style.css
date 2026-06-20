@@ -1154,3 +1154,6 @@ input, button { border: none; background: none; outline: none; }
   box-shadow: 0 0 0 2px rgba(26,102,64,.2);
   animation: live-pulse 2.5s ease-in-out infinite;
 }
+
+/* ── STACK: section keeps clean bg (remove grid lines for card design) ── */
+#stack { background-image: none; background: var(--bg); }
