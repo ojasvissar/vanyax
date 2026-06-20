@@ -1702,3 +1702,7 @@ img { image-rendering: auto; }
 
 /* ── UX: pointer cursor on all clickable elements ── */
 a, button, label, [role="button"] { cursor: pointer; }
+
+/* ── NUMBERS: cite link style ── */
+cite a { color: inherit; text-decoration: underline; text-decoration-color: rgba(17,24,16,.3); }
+cite a:hover { text-decoration-color: var(--green); }
