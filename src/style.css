@@ -1394,3 +1394,6 @@ input, button { border: none; background: none; outline: none; }
 
 /* ── ABOUT: extra bottom padding ── */
 #about { padding-bottom: calc(var(--space-xl) + 2rem); }
+
+/* ── STACK: group heading uses normal weight ── */
+.stack-group h4 { font-weight: 500; }
