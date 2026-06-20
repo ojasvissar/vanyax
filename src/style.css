@@ -947,3 +947,9 @@ input, button { border: none; background: none; outline: none; }
   background-size: 24px 24px;
 }
 #contact .container { position: relative; z-index: 2; }
+
+/* ── DEV FOOTER: form focus ring ── */
+.df-form:focus-within {
+  border-color: #1a6fe8;
+  box-shadow: 0 0 0 3px rgba(26,111,232,.12);
+}
