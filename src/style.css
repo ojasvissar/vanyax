@@ -1737,3 +1737,6 @@ cite a:hover { text-decoration-color: var(--green); }
 
 /* ── HERO SPARKLINE CARD: extra bottom padding for period label ── */
 .hero-card--main { padding-bottom: 1.2rem; }
+
+/* ── BTN-GREEN: pressed scale ── */
+.btn-green:active { transform: scale(.97); }
