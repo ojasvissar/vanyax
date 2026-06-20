@@ -1661,3 +1661,6 @@ img { image-rendering: auto; }
 
 /* ── TICKER: pause scrolling when user hovers ── */
 .ticker-wrap:hover .ticker-track { animation-play-state: paused; }
+
+/* ── HERO CARD: unit label after value ── */
+.hc-val small { font-size: .45em; opacity: .6; vertical-align: super; }
