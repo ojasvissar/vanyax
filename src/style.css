@@ -1620,3 +1620,10 @@ section[id], div[id] { scroll-margin-top: 88px; }
   .badge-dot { animation: none; }
   .hero-bg { animation: none; }
 }
+
+/* ── INSIGHTS: date label ── */
+.insight-date {
+  font-family: var(--mono); font-size: 9.5px; letter-spacing: .1em;
+  text-transform: uppercase; color: rgba(248,246,241,.3);
+  display: block; margin-bottom: .4rem;
+}
