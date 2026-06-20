@@ -1248,3 +1248,6 @@ input, button { border: none; background: none; outline: none; }
 .svc-card { border-right: 1px solid rgba(248,246,241,.06); border-bottom: 1px solid rgba(248,246,241,.06); }
 .svc-card:nth-child(2n) { border-right: none; }
 .svc-card:nth-child(n+3) { border-bottom: none; }
+
+/* ── SERVICES: tag hover underline ── */
+.svc-tags li:hover { text-decoration: underline; text-decoration-color: var(--green-3); text-underline-offset: 2px; }
