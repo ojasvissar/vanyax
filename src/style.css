@@ -1130,3 +1130,8 @@ input, button { border: none; background: none; outline: none; }
 .cs-m span { font-family: var(--serif); font-size: 1.6rem; display: block; color: var(--green); letter-spacing: -.02em; }
 .cs-m small { font-family: var(--mono); font-size: 9.5px; letter-spacing: .1em; color: var(--text-muted); text-transform: uppercase; }
 @media (max-width: 900px) { .cs-card { grid-template-columns: 1fr; } }
+
+/* ── NAV: hide "Stack" link on medium screens to save space ── */
+@media (max-width: 780px) and (min-width: 681px) {
+  .nav-links li:nth-child(3) { display: none; }
+}
