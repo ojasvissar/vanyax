@@ -294,3 +294,13 @@ const csObs = new IntersectionObserver(entries => {
   });
 }, { threshold: 0.6 });
 csMetrics.forEach(m => csObs.observe(m));
+
+/* ── HERO: stagger hero headline words ── */
+const heroHl = document.querySelector('.hero-hl');
+if (heroHl) {
+  const words = heroHl.innerHTML.split(/(\s+|<br>)/g);
+  heroHl.innerHTML = words.map(w =>
+    w === '<br>' ? '<br>' : w.trim() ? `<span class="hl-word" style="display:inline-block;overflow:hidden"><span class="hl-inner" style="display:inline-block">${w}</span></span>` : w
+  ).join('');
+  gsap.from('.hl-inner', { y: '100%', duration: .8, stagger: .1, ease: 'power3.out', delay: .4 });
+}
