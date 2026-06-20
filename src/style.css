@@ -1855,3 +1855,6 @@ html { scroll-behavior: smooth; }
 
 /* ── NUMBERS: cite font-size ── */
 .num-cell cite { font-size: 9px; }
+
+/* ── GLOBAL: smooth rendering on webkit ── */
+body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
