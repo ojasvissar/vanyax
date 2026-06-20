@@ -412,3 +412,14 @@ if (contactForm) {
     emailInput.style.borderColor = emailInput.value && !valid ? '#c0392b' : '';
   });
 }
+
+/* ── NAV: Escape closes mobile drawer ── */
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && drawer.classList.contains('open')) {
+    burger.classList.remove('open');
+    drawer.classList.remove('open');
+    drawer.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    burger.focus();
+  }
+});
