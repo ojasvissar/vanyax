@@ -1347,3 +1347,7 @@ input, button { border: none; background: none; outline: none; }
   margin: 1.8rem 0;
   opacity: .85;
 }
+
+/* ── SELECTION: custom highlight colour ── */
+::selection { background: rgba(26,102,64,.18); color: var(--text); }
+::-moz-selection { background: rgba(26,102,64,.18); color: var(--text); }
