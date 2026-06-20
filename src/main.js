@@ -249,3 +249,11 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     if (target) { e.preventDefault(); lenis.scrollTo(target, { offset: -80 }); }
   });
 });
+
+/* ── EYEBROW: letter-by-letter reveal ── */
+document.querySelectorAll('.eyebrow').forEach(el => {
+  gsap.from(el, {
+    scrollTrigger: { trigger: el, start: 'top 88%' },
+    opacity: 0, y: 12, duration: 0.5, ease: 'power2.out',
+  });
+});
