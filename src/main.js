@@ -131,32 +131,41 @@ function capture() {
   const btn = form?.querySelector('.capture__btn span');
   if (!form) return;
 
+  const field = form.querySelector('.capture__field');
+  const defaultNote = note.textContent;
   const valid = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
+  let done = false;
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    const v = input.value;
+    const v = input.value.trim();
 
     if (!valid(v)) {
       note.textContent = 'Hmm — that email doesn’t look right.';
-      gsap.fromTo(form.querySelector('.capture__field'),
-        { x: -6 }, { x: 0, duration: 0.5, ease: 'elastic.out(1, 0.4)' });
+      gsap.fromTo(field, { x: -6 }, { x: 0, duration: 0.5, ease: 'elastic.out(1, 0.4)' });
       input.focus();
       return;
     }
 
-    // success
+    // success — note: the field stays fully editable
+    done = true;
     form.classList.add('is-done');
-    btn && (btn.textContent = 'Added ✓');
-    form.querySelector('.capture__btn').disabled = true;
-    input.disabled = true;
+    if (btn) btn.textContent = 'Added ✓';
     note.textContent = 'You’re on the list. We’ll be in touch.';
+    gsap.fromTo(field, { scale: 1 }, { scale: 1.015, duration: 0.25, yoyo: true, repeat: 1, ease: 'power2.out' });
 
-    gsap.fromTo(form.querySelector('.capture__field'),
-      { scale: 1 }, { scale: 1.015, duration: 0.25, yoyo: true, repeat: 1, ease: 'power2.out' });
+    // persist locally (no server yet — see note in README)
+    try { localStorage.setItem('vanyax:email', v); } catch (_) {}
+  });
 
-    // persist locally so refresh keeps the confirmed state
-    try { localStorage.setItem('vanyax:email', v.trim()); } catch (_) {}
+  // editing after submit (or after an error) resets the UI back to default
+  input.addEventListener('input', () => {
+    if (done) {
+      done = false;
+      form.classList.remove('is-done');
+      if (btn) btn.textContent = 'Notify me';
+    }
+    if (note.textContent !== defaultNote) note.textContent = defaultNote;
   });
 }
 

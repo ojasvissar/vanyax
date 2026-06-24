@@ -198,6 +198,19 @@ a { color: inherit; text-decoration: none; }
 }
 .capture__input::placeholder { color: var(--ink-faint); }
 
+/* keep the glass field transparent through browser autofill (no white box) */
+.capture__input:-webkit-autofill,
+.capture__input:-webkit-autofill:hover,
+.capture__input:-webkit-autofill:focus,
+.capture__input:-webkit-autofill:active {
+  -webkit-text-fill-color: var(--ink);
+  caret-color: var(--ink);
+  -webkit-box-shadow: 0 0 0 1000px transparent inset;
+          box-shadow: 0 0 0 1000px transparent inset;
+  /* defer the forced autofill background indefinitely so it never paints */
+  transition: background-color 600000s 0s, color 600000s 0s;
+}
+
 .capture__btn {
   flex-shrink: 0;
   border: 0; cursor: pointer;
