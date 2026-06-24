@@ -99,9 +99,9 @@ a { color: inherit; text-decoration: none; }
 /* ── HERO ──────────────────────────────────── */
 .hero {
   align-self: center;
-  display: flex; flex-direction: column; align-items: center; text-align: center;
-  gap: clamp(0.7rem, 1.6vw, 1.1rem);
-  margin-top: -2vh;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center;
+  gap: clamp(0.55rem, 1.3vw, 0.95rem);
 }
 
 .hero__eyebrow {
@@ -112,22 +112,22 @@ a { color: inherit; text-decoration: none; }
 }
 
 .hero__title {
-  font-weight: 400;
-  font-size: clamp(4.2rem, 16vw, 11rem);
-  line-height: 0.92;
-  letter-spacing: -0.02em;
-  /* aesthetic warm cream → soft amber gradient */
-  background: linear-gradient(168deg, #fbf7ee 12%, #f0e3c6 52%, #e3c089 100%);
+  font-weight: 500;
+  font-size: clamp(3rem, 8.5vw, 6rem);
+  line-height: 0.95;
+  letter-spacing: -0.025em;
+  /* luminous moonlit white with the faintest cool tint */
+  background: linear-gradient(180deg, #ffffff 0%, #eef3f4 55%, #d9e4e3 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 2px 34px rgba(0, 0, 0, 0.5));
+  filter: drop-shadow(0 2px 30px rgba(0, 0, 0, 0.5));
 }
 
 .hero__sub {
-  max-width: 30ch;
-  font-size: clamp(1rem, 2.1vw, 1.22rem);
+  max-width: 34ch;
+  font-size: clamp(0.95rem, 1.7vw, 1.1rem);
   font-weight: 300;
   line-height: 1.5;
   color: var(--ink-soft);
@@ -143,14 +143,26 @@ a { color: inherit; text-decoration: none; }
   gap: 0.85rem;
 }
 
-.capture__cue {
-  font-size: 0.92rem;
+/* ── Subtle typewriter 'about' line (Perplexity-style) ── */
+.hero__about {
+  max-width: 52ch;
+  margin-top: clamp(1.1rem, 3vh, 2rem);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
   font-weight: 300;
-  letter-spacing: 0.01em;
-  color: var(--ink);
-  opacity: 0.9;
-  margin-bottom: 0.1rem;
+  line-height: 1.85;
+  letter-spacing: 0.02em;
+  color: var(--ink-faint);
+  min-height: 2.6em;            /* reserve space so layout doesn't jump while typing */
 }
+.hero__about::after {
+  content: "▌";
+  margin-left: 0.1em;
+  color: var(--amber);
+  opacity: 0;
+}
+.hero__about.is-typing::after { opacity: 0.7; animation: caret 1s steps(1) infinite; }
+@keyframes caret { 50% { opacity: 0; } }
 
 .capture__field {
   position: relative;

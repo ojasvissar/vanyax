@@ -93,6 +93,36 @@ function rain() {
   });
 }
 
+/* ── Typewriter 'about' line ──────────────────── */
+function typewriter() {
+  const el = document.querySelector('[data-typewriter]');
+  if (!el) return;
+  const full = el.textContent.trim();
+
+  if (reduceMotion) { el.textContent = full; return; }
+
+  el.textContent = '';
+  el.classList.add('is-typing');
+
+  let i = 0;
+  const base = 16; // ms per character
+
+  const tick = () => {
+    el.textContent = full.slice(0, i);
+    i += 1;
+    if (i <= full.length) {
+      const prev = full[i - 2];
+      const pause = /[.,—]/.test(prev) ? 180 : base + Math.random() * 24;
+      setTimeout(tick, pause);
+    } else {
+      // keep caret blinking a moment, then settle
+      setTimeout(() => el.classList.remove('is-typing'), 2600);
+    }
+  };
+
+  setTimeout(tick, 1500); // start after the entrance reveal
+}
+
 /* ── Email capture ───────────────────────────── */
 function capture() {
   const form = document.getElementById('capture');
@@ -134,4 +164,5 @@ function capture() {
 reveal();
 parallax();
 rain();
+typewriter();
 capture();
