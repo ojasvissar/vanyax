@@ -1,540 +1,75 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Vanyax — AI & ML for Biodiversity Conservation</title>
-  <meta name="description" content="Vanyax builds AI and machine learning systems that help conservation teams monitor species, map habitats, and measure biodiversity at scale.">
-  <meta property="og:title" content="Vanyax — Biodiversity Intelligence">
-  <meta property="og:description" content="AI and ML systems for conservation teams.">
-  <meta property="og:image" content="https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?q=80&w=1200&auto=format&fit=crop">
-  <meta property="og:type" content="website">
-  <meta name="theme-color" content="#f8f6f1">
-  <link rel="icon" href="/logo.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@400;500&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/src/style.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>">
-  <meta name="theme-color" content="#0d1710">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:site" content="@vanyax_io">
-  <meta name="twitter:title" content="Vanyax — AI & ML for Biodiversity Conservation">
-  <meta name="twitter:description" content="ML and data science systems for wildlife monitoring, habitat mapping, and biodiversity measurement.">
-  <meta name="keywords" content="biodiversity AI, wildlife ML, conservation data science, species identification, habitat mapping, camera trap, acoustic monitoring">
-  <link rel="canonical" href="https://vanyax.io/">
-  <meta name="robots" content="index, follow">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>vanyax</title>
+  <meta name="description" content="vanyax — intelligence for the living world. Join the list for early access." />
+  <meta name="theme-color" content="#0a120f" />
+  <meta property="og:title" content="vanyax" />
+  <meta property="og:description" content="Intelligence for the living world." />
+  <meta property="og:type" content="website" />
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐘</text></svg>" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/src/style.css" />
 </head>
 <body>
-  <a class="skip-link" href="#hero">Skip to content</a>
-
-  <a class="skip-link" href="#hero">Skip to content</a>
-  <!-- ═══ NAV ═══ -->
-  <header id="nav">
-    <a class="nav-brand" href="#">
-      <svg class="nav-logo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path d="M12 2C6.5 2 4 6 4 9c0 4.5 8 13 8 13s8-8.5 8-13c0-3-2.5-7-8-7z" fill="currentColor" opacity=".18"/>
-        <path d="M12 4c-2 0-3.5 1-4.5 2.5C9 6 11 6.5 12 8c1-1.5 3-2 4.5-1.5C15.5 5 14 4 12 4z" fill="currentColor"/>
-        <circle cx="12" cy="11" r="2" fill="currentColor" opacity=".6"/>
-      </svg>
-      <span>Vanyax</span>
-    </a>
-    <ul class="nav-links" role="list">
-      <li><a href="#services">Services</a></li>
-      <li><a href="#process">Process</a></li>
-      <li><a href="#case-study">Work</a></li>
-      <li><a href="#insights">Insights</a></li>
-      <li><a href="#stack">Stack</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-    <a class="nav-cta" href="#contact">Start a project →</a>
-    <button class="nav-burger" aria-label="Menu" aria-expanded="false">
-      <span></span><span></span>
-    </button>
-  </header>
-
-  <!-- mobile drawer -->
-  <div class="nav-drawer" aria-hidden="true">
-    <ul>
-      <li><a href="#services">Services</a></li>
-      <li><a href="#process">Process</a></li>
-      <li><a href="#case-study">Work</a></li>
-      <li><a href="#insights">Insights</a></li>
-      <li><a href="#stack">Stack</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-    <a class="btn-primary" href="#contact">Start a project →</a>
+  <!-- Background -->
+  <div class="bg" aria-hidden="true">
+    <div class="bg__image"></div>
+    <div class="bg__grain"></div>
+    <canvas class="bg__rain"></canvas>
+    <div class="bg__vignette"></div>
   </div>
 
-  <main id="main-content">
-  <!-- ═══ HERO ═══ -->
-  <section id="hero" role="banner" aria-label="Vanyax — biodiversity AI and ML consulting">
-    <div class="hero-bg" aria-hidden="true"></div>
-    <div class="hero-photo" aria-hidden="true"></div>
-    <div class="hero-inner container">
-      <div class="hero-text">
-        <p class="eyebrow">Biodiversity · AI · ML · Conservation</p>
-        <div class="hero-badge"><span class="badge-dot"></span>Open to new projects · Q3 2026</div>
-        <h1 class="hero-hl">Intelligence<br><em>for the</em><br>natural world.</h1>
-        <p class="hero-sub">We build AI and ML systems that turn raw sensor data into conservation intelligence — species identified, habitats mapped, biodiversity measured. At planetary scale.</p>
-        <div class="hero-actions">
-          <a href="#contact" class="btn-primary">Start a project →</a>
-          <a href="#services" class="btn-ghost">Our services</a>
-        </div>
-      </div>
-      <div class="hero-visual" aria-hidden="true">
-        <div class="hero-card">
-          <p class="hc-label">Species detected · last 24h</p>
-          <p class="hc-number">1,847</p>
-          <div class="hc-sparkline" id="sparkline"></div>
-          <div class="hc-period">30-day trend</div>
-          <div class="hc-footer">
-            <span class="hc-up">↑ 12% vs prior week</span>
-            <span class="hc-badge">LIVE</span>
-          </div>
-        </div>
-        <div class="hero-cards-row">
-          <div class="hero-card hero-card--sm">
-            <p class="hc-label">Camera traps active</p>
-            <p class="hc-number">342</p>
-            <p class="hc-sub">across 6 reserves</p>
-          </div>
-          <div class="hero-card hero-card--sm hero-card--green">
-            <p class="hc-label">Model accuracy</p>
-            <p class="hc-number">98.4<small>%</small></p>
-            <p class="hc-sub">species identification</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="hero-scroll-hint" aria-hidden="true">
-      <span class="scroll-line"></span>
-      <span>scroll</span>
-    </div>
-  </section>
+  <!-- Page -->
+  <main class="stage">
+    <header class="topbar">
+      <span class="topbar__mark">vanyax</span>
+      <span class="topbar__loc" data-reveal>Based in Canada</span>
+    </header>
 
+    <section class="hero">
+      <p class="hero__eyebrow" data-reveal>Early access · 2026</p>
+      <h1 class="hero__title" data-reveal>vanyax</h1>
+      <p class="hero__sub" data-reveal>Intelligence for the living world.</p>
 
-  <!-- ═══ TRUSTED BY ═══ -->
-  <div id="trusted" role="contentinfo">
-    <div class="container">
-      <p class="trusted-label">Trusted by teams at</p>
-      <div class="trusted-logos">
-        <span>WWF</span>
-        <span>IUCN</span>
-        <span>Conservation International</span>
-        <span>African Wildlife Foundation</span>
-        <span>Rainforest Alliance</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══ TICKER ═══ -->
-  <div class="ticker" role="marquee" aria-label="Conservation statistics" aria-hidden="true">
-    <div class="ticker-track">
-      <div class="ticker-row">
-        <span>↓ 68% vertebrate populations since 1970</span><span class="sep">◆</span>
-        <span>1,000,000+ species threatened with extinction</span><span class="sep">◆</span>
-        <span>30×30 — protect 30% of Earth by 2030</span><span class="sep">◆</span>
-        <span>$700B annual biodiversity finance gap</span><span class="sep">◆</span>
-        <span>Only 17% of land currently protected</span><span class="sep">◆</span>
-        <span>Coral cover: −50% since 1950</span><span class="sep">◆</span>
-        <span>Amazon: 17% deforested in 50 years</span><span class="sep">◆</span>
-        <span>IPBES: nature declining at unprecedented rates</span><span class="sep">◆</span>
-        <span>4T GDP depends on nature — World Economic Forum</span><span class="sep">◆</span>
-        <span>Freshwater species: −83% since 1970</span><span class="sep">◆</span>
-        <span>150–200 species go extinct every day — UN estimate</span><span class="sep">◆</span>
-      </div>
-      <div class="ticker-row" aria-hidden="true">
-        <span>↓ 68% vertebrate populations since 1970</span><span class="sep">◆</span>
-        <span>1,000,000+ species threatened with extinction</span><span class="sep">◆</span>
-        <span>30×30 — protect 30% of Earth by 2030</span><span class="sep">◆</span>
-        <span>$700B annual biodiversity finance gap</span><span class="sep">◆</span>
-        <span>Only 17% of land currently protected</span><span class="sep">◆</span>
-        <span>Coral cover: −50% since 1950</span><span class="sep">◆</span>
-        <span>Amazon: 17% deforested in 50 years</span><span class="sep">◆</span>
-        <span>IPBES: nature declining at unprecedented rates</span><span class="sep">◆</span>
-        <span>4T GDP depends on nature — World Economic Forum</span><span class="sep">◆</span>
-        <span>Freshwater species: −83% since 1970</span><span class="sep">◆</span>
-        <span>150–200 species go extinct every day — UN estimate</span><span class="sep">◆</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══ NUMBERS ═══ -->
-  <section id="numbers" aria-label="Impact statistics">
-    <div class="container">
-      <div class="nums-grid">
-        <div class="num-cell">
-          <span class="num" data-to="8">0</span><sup>M</sup>
-          <p>estimated species on Earth</p><cite><a href="https://www.ipbes.net/global-assessment" target="_blank" rel="noopener noreferrer" title="Intergovernmental Platform on Biodiversity and Ecosystem Services">IPBES Global Assessment</a></cite>
+      <form class="capture" id="capture" novalidate data-reveal>
+        <div class="capture__field">
+          <input
+            class="capture__input"
+            type="email"
+            id="email"
+            name="email"
+            inputmode="email"
+            autocomplete="email"
+            placeholder="Enter your email"
+            aria-label="Email address"
+            required
+          />
+          <button class="capture__btn" type="submit">
+            <span>Notify me</span>
+          </button>
         </div>
-        <div class="num-cell">
-          <span class="num" data-to="1">0</span><sup>M+</sup>
-          <p>species threatened with extinction</p><cite>IPBES 2019</cite>
-        </div>
-        <div class="num-cell">
-          <span class="num" data-to="68">0</span><sup>%</sup><span class="num-decline">↓</span>
-          <p>vertebrate decline since 1970</p><cite>WWF Living Planet 2022</cite>
-        </div>
-        <div class="num-cell">
-          <span class="num" data-to="2030">0</span>
-          <p>deadline for 30×30 global targets</p><cite>Kunming-Montreal Global Biodiversity Framework, 2022</cite>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ PROBLEM ═══ -->
-  <section id="problem">
-    <div class="container">
-      <div class="problem-inner">
-        <div class="problem-left">
-          <p class="eyebrow">The challenge</p>
-          <h2 class="h2">Conservation teams are<br><em>data-rich, insight-poor.</em></h2>
-        </div>
-        <div class="problem-right">
-          <p>Field sensors generate terabytes of camera footage, acoustic recordings, and GPS traces — but most organizations lack the technical infrastructure to turn raw data into decisions. Fragmented pipelines, manual analysis, and outdated baselines leave critical windows for action unopened.</p>
-          <p>Vanyax exists to close that gap. We bring production-grade AI and data engineering to conservation — the same tools that power billion-dollar tech companies, built for the science and scale that biodiversity demands.</p>
-          <p>The tools exist — Python, satellites, acoustic sensors, camera traps generating terabytes. The bridge between raw data and conservation action? Still built by hand, slowly, expensively, if at all.</p>
-          <blockquote class="pull-quote">“The data exists. The window is closing. We build the bridge.”</blockquote>
-          <a href="#services" class="link-arrow">See what we build →</a>
-          <div class="problem-tags">
-            <span>Camera trap ML</span>
-            <span>Acoustic monitoring</span>
-            <span>Satellite analysis</span>
-            <span>Biodiversity dashboards</span>
-            <span>SDM modeling</span>
-            <span>TNFD reporting</span>
-            <span>eDNA analysis</span>
-            <span>Population viability</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ SERVICES ═══ -->
-  <section id="services" role="region" aria-label="Services — what we build">
-    <div class="container">
-      <div class="section-hd">
-        <p class="eyebrow">What we do</p>
-        <h2 class="h2">Four ways we turn<br><em>data into action.</em></h2>
-      </div>
-      <div class="svc-grid">
-
-        <div class="svc-card">
-          <span class="svc-n">01</span>
-          <span class="svc-n">01</span>
-          <div class="svc-icon">
-            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="4" y="8" width="24" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/>
-              <circle cx="16" cy="17" r="4" stroke="currentColor" stroke-width="1.5"/>
-              <path d="M12 8V6M20 8V6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-              <circle cx="24" cy="11" r="1.5" fill="currentColor"/>
-            </svg>
-          </div>
-          <h3>Species Monitoring</h3>
-          <p>End-to-end ML pipelines from camera traps, acoustic sensors, and GPS collars. Species identification, individual re-ID, and real-time population dashboards — no manual data entry.</p>
-          <ul class="svc-tags">
-            <li>Computer vision</li><li>Acoustic ML</li><li>Real-time</li>
-          </ul>
-        </div>
-
-        <div class="svc-card">
-          <span class="svc-n">02</span>
-          <div class="svc-icon">
-            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="16" cy="16" r="12" stroke="currentColor" stroke-width="1.5"/>
-              <path d="M4 16h24M16 4c-4 4-4 8 0 12s4 8 0 12M16 4c4 4 4 8 0 12s-4 8 0 12" stroke="currentColor" stroke-width="1.5"/>
-              <circle cx="16" cy="16" r="2" fill="currentColor"/>
-            </svg>
-          </div>
-          <h3>Habitat Intelligence</h3>
-          <p>Multispectral satellite imagery processed by deep learning to map land cover, deforestation pressure, and habitat connectivity. From patch to continental scale.</p>
-          <ul class="svc-tags">
-            <li>Remote sensing</li><li>Deep learning</li><li>GIS</li>
-          </ul>
-        </div>
-
-        <div class="svc-card">
-          <span class="svc-n">03</span>
-          <div class="svc-icon">
-            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M4 24l6-8 5 4 5-10 8 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              <rect x="4" y="4" width="24" height="24" rx="1" stroke="currentColor" stroke-width="1.5"/>
-            </svg>
-          </div>
-          <h3>Biodiversity Analytics</h3>
-          <p>Audit-ready data pipelines, biodiversity index tracking, and compliance dashboards aligned with TNFD, CSRD, and the Kunming-Montreal Global Biodiversity Framework.</p>
-          <ul class="svc-tags">
-            <li>TNFD / CSRD</li><li>Dashboards</li><li>Data pipelines</li>
-          </ul>
-        </div>
-
-        <div class="svc-card">
-          <span class="svc-n">04</span>
-          <div class="svc-icon">
-            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M16 4v4M16 24v4M4 16h4M24 16h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-              <circle cx="16" cy="16" r="6" stroke="currentColor" stroke-width="1.5"/>
-              <path d="M8 8l2.5 2.5M21.5 21.5L24 24M8 24l2.5-2.5M21.5 10.5L24 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <h3>Climate Risk Modeling</h3>
-          <p>Species distribution models under CMIP6 scenarios. Identify refugia, migration corridors, and extinction hotspots — so conservation plans account for where the world is going, not where it was.</p>
-          <ul class="svc-tags">
-            <li>CMIP6</li><li>SDM</li><li>Scenario analysis</li>
-          </ul>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ PROCESS ═══ -->
-  <section id="process" role="region" aria-label="Process">
-    <div class="container">
-      <div class="section-hd">
-        <p class="eyebrow">How we work</p>
-        <p id="process-desc" class="sr-only">Our five-step process from discovery to ongoing evolution</p>
-        <h2 class="h2">From raw data to<br><em>real decisions.</em></h2>
-      </div>
-      <div class="process-steps">
-        <div class="step">
-          <span class="step-n">01</span>
-          <div class="step-body">
-            <h3>Discover <small class="step-time">1–2 weeks</small></h3>
-            <p>We map your data landscape — sensors, formats, storage, gaps. Understand the decisions you need to make and work backward to the systems that enable them.</p>
-          </div>
-        </div>
-        <div class="step">
-          <span class="step-n">02</span>
-          <div class="step-body">
-            <h3>Architect <small class="step-time">1 week</small></h3>
-            <p>Design the right pipeline for your context. We don't over-engineer. A field team of 12 needs different infrastructure than a government agency covering 40 million hectares.</p>
-          </div>
-        </div>
-        <div class="step">
-          <span class="step-n">03</span>
-          <div class="step-body">
-            <h3>Build <small class="step-time">4–12 weeks</small></h3>
-            <p>Develop ML models, ETL pipelines, and dashboards. Tight feedback loops with your scientists — models that your ecologists can interrogate and trust.</p>
-          </div>
-        </div>
-        <div class="step">
-          <span class="step-n">04</span>
-          <div class="step-body">
-            <h3>Deploy <small class="step-time">1–2 weeks</small></h3>
-            <p>Production-grade infrastructure with monitoring, alerting, and documentation. Built so your team can run it independently — we're not here to create dependency.</p>
-          </div>
-        </div>
-        <div class="step">
-          <span class="step-n">05</span>
-          <div class="step-body">
-            <h3>Evolve <small class="step-time">ongoing</small></h3>
-            <p>As data accumulates, models improve. We set up retraining loops, evaluate drift, and quarterly check-ins to keep systems sharp as conditions change.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ STACK ═══ -->
-  <section id="stack">
-    <div class="container">
-      <div class="section-hd">
-        <p class="eyebrow">Our stack</p>
-        <h2 class="h2">Production tools,<br><em>conservation grade.</em></h2>
-      </div>
-      <div class="stack-grid">
-        <div class="stack-group">
-          <h4 data-count="7">ML &amp; Modeling</h4>
-          <ul>
-            <li>Python 3.11+</li>
-            <li>PyTorch · TensorFlow</li>
-            <li>Ultralytics YOLO</li>
-            <li>scikit-learn</li>
-            <li>MaxEnt · SDMtoolbox</li>
-            <li>Hugging Face</li>
-            <li>LightGBM</li>
-            <li>MLflow · W&B</li>
-          </ul>
-        </div>
-        <div class="stack-group">
-          <h4 data-count="5">Geospatial</h4>
-          <ul>
-            <li>GDAL · GEOS · Proj</li>
-            <li>PostGIS · GeoPandas</li>
-            <li>QGIS · Esri</li>
-            <li>Google Earth Engine</li>
-            <li>Sentinel · Landsat</li>
-            <li>Mapbox · Deck.gl</li>
-          </ul>
-        </div>
-        <div class="stack-group">
-          <h4 data-count="5">Data &amp; Pipelines</h4>
-          <ul>
-            <li>PostgreSQL · DuckDB</li>
-            <li>Apache Airflow</li>
-            <li>dbt · Prefect</li>
-            <li>Apache Kafka</li>
-            <li>Parquet · Arrow</li>
-            <li>FastAPI · Pydantic</li>
-            <li>Streamlit · Gradio</li>
-          </ul>
-        </div>
-        <div class="stack-group">
-          <h4 data-count="5">Infrastructure</h4>
-          <ul>
-            <li>AWS · GCP</li>
-            <li>Docker · Kubernetes</li>
-            <li>Terraform</li>
-            <li>GitHub Actions</li>
-            <li>Grafana · Prometheus</li>
-            <li>CUDA · cuDNN</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ═══ CASE STUDY ═══ -->
-  <section id="case-study">
-    <div class="container">
-      <div class="section-hd">
-        <p class="eyebrow">Recent work</p>
-        <h2 class="h2">From the field.</h2>
-      </div>
-      <div class="cs-card">
-        <div class="cs-img">
-          <img src="https://images.unsplash.com/photo-1564349683136-77e08dba1ef7?q=80&w=960&auto=format&fit=crop" alt="Wildlife camera trap in forest" loading="lazy">
-        </div>
-        <div class="cs-body">
-          <p class="eyebrow">Tropical Forest Monitoring</p>
-          <h3>Real-time species identification across 180,000 hectares</h3>
-          <p>Deployed a camera trap ML pipeline for a conservation NGO in Southeast Asia. 340 traps, 98.4% species accuracy, results in under 2 minutes. Replaced 3 months of manual review per season.</p>
-          <div class="cs-metrics">
-            <div class="cs-m"><span>98.4%</span><small>Top-1 species accuracy</small></div>
-            <div class="cs-m"><span>&lt;2 min</span><small>Per image alert</small></div>
-            <div class="cs-m"><span>340</span><small>Active traps</small></div>
-          <a class="link-arrow" href="#contact">Discuss a similar project →</a>
-      <div class="cs-more-teaser">
-        <p class="eyebrow">More case studies coming soon</p>
-        <p class="cs-teaser-text">Acoustic bat monitoring in the Balkans. Coral reef bleaching detection via drone imagery. Migratory bird range shift modelling — all in progress.</p>
-      </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ ABOUT ═══ -->
-  <section id="about" role="region" aria-label="About us" itemscope itemtype="https://schema.org/AboutPage">
-    <div class="container">
-      <div class="about-inner">
-        <div class="about-img" aria-hidden="true">
-          <img src="https://images.unsplash.com/photo-1576086213369-97a306d36557?q=80&w=960&auto=format&fit=crop" alt="Forest ecosystem" loading="lazy">
-        </div>
-        <div class="about-text">
-          <p class="eyebrow">Who we are</p>
-          <h2 class="h2">A small team.<br><em>A focused mission.</em></h2>
-          <p>We're data scientists and engineers who came up in ecology before moving into tech. We've seen too many conservation projects fail — not from lack of field data, but from lack of the systems to use it.</p>
-          <p>Vanyax is our answer to that gap: a studio that treats biodiversity monitoring with the same engineering rigour as fintech or logistics, because the stakes are at least as high.</p>
-          <p class="about-mission">Our mission: make biodiversity data science accessible and actionable for the people doing the work on the ground.</p>
-          <p class="about-location">Based in <strong>Berlin</strong>. Working globally.</p>
-          <div class="about-badges"><span>Est. 2024</span><span>Small team</span><span>Remote-first</span><span>Open to pilots</span></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ═══ INSIGHTS ═══ -->
-  <section id="insights">
-    <div class="container">
-      <div class="section-hd">
-        <p class="eyebrow">Thinking out loud</p>
-        <h2 class="h2">Insights from<br><em>the field.</em></h2>
-      </div>
-      <div class="insights-grid">
-        <article class="insight-card">
-          <time class="insight-date">Coming Q3 2026</time>
-          <p class="eyebrow">Computer Vision</p>
-          <h3>Why YOLO beats ResNet for camera trap identification in low-light</h3>
-          <p>Real-time inference at the edge requires a different trade-off than lab accuracy benchmarks suggest.</p>
-          <a class="link-arrow" href="#contact">Coming soon →</a>
-        </article>
-        <article class="insight-card">
-          <time class="insight-date">Coming Q3 2026</time>
-          <p class="eyebrow">Geospatial ML</p>
-          <h3>Sentinel-2 vs. Planet: choosing the right satellite for forest edge detection</h3>
-          <p>Resolution, revisit frequency, and cost — a practical guide for conservation teams on constrained budgets.</p>
-          <a class="link-arrow" href="#contact">Coming soon →</a>
-        </article>
-        <article class="insight-card">
-          <time class="insight-date">Coming Q3 2026</time>
-          <p class="eyebrow">Data Strategy</p>
-          <h3>The 80% problem: why most conservation datasets are unusable as-is</h3>
-          <p>Data quality, not model complexity, is the primary constraint to biodiversity AI. Here is how we fix it.</p>
-          <a class="link-arrow" href="#contact">Coming soon →</a>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ CONTACT / CTA ═══ -->
-  <section id="contact" role="region" aria-label="Contact">
-    <div class="container">
-      <div class="contact-inner">
-        <p class="eyebrow">Get in touch</p>
-        <h2 class="h2-light">Every project is a chance<br>to <em>save something.</em></h2>
-        <p class="contact-sub">Tell us about your project. We'll respond within two business days.</p>
-        <div aria-live="polite" aria-atomic="true" id="form-status" class="sr-only"></div>
-        <form class="contact-form" id="contact-form">
-          <input type="text" name="name" placeholder="Your name" autocomplete="name">
-          <input type="email" name="email" placeholder="jane@conservation.org" required autocomplete="email">
-          <textarea name="message" placeholder="E.g. we have 200 camera traps across 3 parks and need automated species ID…" rows="3"></textarea>
-          <button type="submit">Start a project →</button>
-        </form>
-        <p class="contact-trust">No commitment. We respond within 48h.</p>
-        <p class="contact-alt">Or write directly to <a href="mailto:hello@vanyax.io">hello@vanyax.io</a> →</p>
-      </div>
-    </div>
-  </section>
-
-  </main>
-  <!-- ═══ DEV FOOTER ═══ -->
-  <footer id="dev-footer" role="contentinfo">
-    <div class="df-content">
-      <h2 class="df-hl">Vanyax is under<br>active development.</h2>
-      <form class="df-form" id="df-form">
-        <input type="email" placeholder="Get early access" autocomplete="off">
-        <button type="submit">Apply</button>
+        <p class="capture__note" id="note">No noise — just meaningful updates, now and then.</p>
       </form>
-      <p class="df-tagline">handcrafted with ♥ in <address>Berlin, Germany</address> · © 2026 Vanyax</p>
-      <nav class="df-nav" aria-label="Footer navigation">
-        <a href="#">Legal</a>
-        <a href="#">Privacy</a>
-        <a href="#">Terms</a>
-        <a href="#">LinkedIn</a>
-        <a href="#">X (Twitter)</a>
-      </nav>
-    </div>
-    <div class="df-photo" aria-hidden="true"></div>
-  </footer>
+    </section>
 
-  <noscript><style>.hero-card,.hero-text>*,.section-hd{opacity:1!important;transform:none!important}</style></noscript>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Vanyax",
-    "url": "https://vanyax.io",
-    "description": "AI and machine learning for biodiversity conservation",
-    "address": { "@type": "PostalAddress", "addressLocality": "Berlin", "addressCountry": "DE" },
-    "contactPoint": { "@type": "ContactPoint", "email": "hello@vanyax.io" }
-  }
-  </script>
+    <footer class="footbar">
+      <nav class="footbar__links" aria-label="Social">
+        <a href="#" aria-label="Instagram">Instagram</a>
+        <a href="#" aria-label="LinkedIn">LinkedIn</a>
+        <a href="#" aria-label="X">X</a>
+      </nav>
+      <span class="footbar__copy">© 2026 vanyax</span>
+    </footer>
+  </main>
+
   <script type="module" src="/src/main.js"></script>
 </body>
 </html>
