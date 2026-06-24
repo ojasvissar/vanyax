@@ -5,6 +5,7 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
 /* ── Entrance reveal ─────────────────────────── */
 function reveal() {
   if (reduceMotion) return;
+  document.documentElement.classList.add('js'); // hide reveal items now that we'll animate them
   const items = gsap.utils.toArray('[data-reveal]');
   gsap.to(items, {
     opacity: 1,

@@ -42,15 +42,16 @@ a { color: inherit; text-decoration: none; }
 
 .bg__image {
   position: absolute;
-  inset: -3%;                  /* room for parallax drift */
-  background: url("./assets/bg.jpg") center 38% / cover no-repeat;
-  transform: scale(1.04);
+  inset: -2%;                  /* slight slack for parallax drift */
+  background: url("./assets/bg.jpg") center 45% / cover no-repeat;
+  transform: scale(1);
+  filter: brightness(0.74) saturate(1.04) contrast(1.02);
   will-change: transform;
   animation: bgIn 1.6s var(--ease) both;
 }
 @keyframes bgIn {
-  from { opacity: 0; transform: scale(1.1); }
-  to   { opacity: 1; transform: scale(1.04); }
+  from { opacity: 0; transform: scale(1.05); }
+  to   { opacity: 1; transform: scale(1); }
 }
 
 .bg__rain { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0.5; mix-blend-mode: screen; }
@@ -64,8 +65,14 @@ a { color: inherit; text-decoration: none; }
 .bg__vignette {
   position: absolute; inset: 0; pointer-events: none;
   background:
-    radial-gradient(120% 90% at 50% 42%, transparent 38%, rgba(6, 11, 9, 0.55) 100%),
-    linear-gradient(180deg, rgba(6, 11, 9, 0.55) 0%, transparent 22%, transparent 58%, rgba(6, 11, 9, 0.82) 100%);
+    /* flat scrim — calms the whole image */
+    linear-gradient(rgba(6, 11, 9, 0.30), rgba(6, 11, 9, 0.30)),
+    /* focused dark glow behind the hero so the wordmark reads */
+    radial-gradient(58% 50% at 50% 47%, rgba(5, 9, 8, 0.66) 0%, rgba(5, 9, 8, 0.28) 45%, transparent 72%),
+    /* edge vignette */
+    radial-gradient(130% 100% at 50% 40%, transparent 32%, rgba(6, 11, 9, 0.62) 100%),
+    /* top + bottom gradients for the bars */
+    linear-gradient(180deg, rgba(6, 11, 9, 0.62) 0%, transparent 24%, transparent 56%, rgba(6, 11, 9, 0.9) 100%);
 }
 
 /* ── STAGE ─────────────────────────────────── */
@@ -109,14 +116,23 @@ a { color: inherit; text-decoration: none; }
   font-size: clamp(4.2rem, 16vw, 11rem);
   line-height: 0.92;
   letter-spacing: -0.02em;
-  text-shadow: 0 2px 40px rgba(0, 0, 0, 0.45);
+  /* aesthetic warm cream → soft amber gradient */
+  background: linear-gradient(168deg, #fbf7ee 12%, #f0e3c6 52%, #e3c089 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 34px rgba(0, 0, 0, 0.5));
 }
 
 .hero__sub {
-  font-size: clamp(1rem, 2.4vw, 1.35rem);
+  max-width: 30ch;
+  font-size: clamp(1rem, 2.1vw, 1.22rem);
   font-weight: 300;
+  line-height: 1.5;
   color: var(--ink-soft);
   letter-spacing: 0.01em;
+  text-wrap: balance;
 }
 
 /* ── CAPTURE CARD (Perplexity-style glass) ──── */
@@ -125,6 +141,15 @@ a { color: inherit; text-decoration: none; }
   width: min(520px, 92vw);
   display: flex; flex-direction: column; align-items: center;
   gap: 0.85rem;
+}
+
+.capture__cue {
+  font-size: 0.92rem;
+  font-weight: 300;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+  opacity: 0.9;
+  margin-bottom: 0.1rem;
 }
 
 .capture__field {
@@ -207,8 +232,8 @@ a { color: inherit; text-decoration: none; }
 .footbar__links a:hover::after { transform: scaleX(1); }
 .footbar__copy { color: var(--ink-faint); }
 
-/* ── REVEAL (driven by main.js) ────────────── */
-[data-reveal] {
+/* ── REVEAL (driven by main.js; no-JS shows content) ── */
+html.js [data-reveal] {
   opacity: 0;
   transform: translateY(14px);
 }
