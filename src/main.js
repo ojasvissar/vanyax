@@ -123,21 +123,52 @@ function typewriter() {
   setTimeout(tick, 1500); // start after the entrance reveal
 }
 
+/* ── Google Form destination ──────────────────────
+   Submissions are POSTed to a Google Form, which collects them in its
+   linked Google Sheet (Responses tab). To configure:
+     1. Make a Google Form with one short-answer "Email" question.
+     2. ⋮ menu → "Get pre-filled link", type test@test.com, copy the link.
+        It looks like:
+        .../forms/d/e/FORM_ID/viewform?...&entry.1234567890=test@test.com
+     3. Paste FORM_ID and the entry.NNNN number below.
+   Until both are filled in, the form still confirms locally (no network). */
+const GOOGLE_FORM = {
+  formId: 'REPLACE_WITH_FORM_ID',          // the /d/e/<THIS>/ part of the URL
+  emailEntry: 'entry.REPLACE_WITH_FIELD_ID', // e.g. 'entry.1234567890'
+};
+
+function isFormConfigured() {
+  return !GOOGLE_FORM.formId.includes('REPLACE') && !GOOGLE_FORM.emailEntry.includes('REPLACE');
+}
+
+async function sendToGoogleForm(email) {
+  if (!isFormConfigured()) return; // not wired up yet — local-only
+  const url = `https://docs.google.com/forms/d/e/${GOOGLE_FORM.formId}/formResponse`;
+  const body = new URLSearchParams();
+  body.append(GOOGLE_FORM.emailEntry, email);
+  // Google Forms doesn't send CORS headers; no-cors lets the POST record
+  // the response even though we can't read the (opaque) reply.
+  await fetch(url, { method: 'POST', mode: 'no-cors', body });
+}
+
 /* ── Email capture ───────────────────────────── */
 function capture() {
   const form = document.getElementById('capture');
   const input = document.getElementById('email');
   const note = document.getElementById('note');
   const btn = form?.querySelector('.capture__btn span');
+  const btnEl = form?.querySelector('.capture__btn');
   if (!form) return;
 
   const field = form.querySelector('.capture__field');
   const defaultNote = note.textContent;
   const valid = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
   let done = false;
+  let sending = false;
 
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    if (sending || done) return;
     const v = input.value.trim();
 
     if (!valid(v)) {
@@ -147,14 +178,31 @@ function capture() {
       return;
     }
 
-    // success — note: the field stays fully editable
+    // sending state
+    sending = true;
+    if (btnEl) btnEl.disabled = true;
+    if (btn) btn.textContent = 'Sending…';
+
+    try {
+      await sendToGoogleForm(v);
+    } catch (_) {
+      // network failed — let them retry
+      sending = false;
+      if (btnEl) btnEl.disabled = false;
+      if (btn) btn.textContent = 'Notify me';
+      note.textContent = 'Something went wrong — please try again.';
+      return;
+    }
+
+    // success — the field stays fully editable
+    sending = false;
     done = true;
+    if (btnEl) btnEl.disabled = false;
     form.classList.add('is-done');
     if (btn) btn.textContent = 'Added ✓';
     note.textContent = 'You’re on the list. We’ll be in touch.';
     gsap.fromTo(field, { scale: 1 }, { scale: 1.015, duration: 0.25, yoyo: true, repeat: 1, ease: 'power2.out' });
 
-    // persist locally (no server yet — see note in README)
     try { localStorage.setItem('vanyax:email', v); } catch (_) {}
   });
 
