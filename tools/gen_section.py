@@ -15,11 +15,15 @@ GROUND = 636          # 0 m
 TOP_M  = 45           # metres at y=178
 def m2y(m): return GROUND - (m / TOP_M) * (GROUND - 178)
 
-SKY_1, SKY_2 = "#E4EBE5", "#F2F0E9"
-BACK, MID, FRONT = "#B9CDB4", "#86A98C", "#4F7C61"
-TRUNK_B, TRUNK_F = "#7C9481", "#3B5D4A"
-SOIL, SOIL_2 = "#CBBBA0", "#B0997C"
-INK, LEAD = "#26332B", "#6E7C70"
+# The site's printed-sheet palette: cream ground, the green ramp for the
+# canopy, and the same near-black ink the running text uses.
+# The site's own palette: a warm sheet, near-black ink, greens receding
+# into haze the way the photographs do.
+SKY_1, SKY_2 = "#E7EAE6", "#F4F3EF"
+BACK, MID, FRONT = "#C3D0BC", "#8FA98A", "#4E6E53"
+TRUNK_B, TRUNK_F = "#9AA79A", "#17211F"
+SOIL, SOIL_2 = "#DBD4C5", "#C4BAA6"
+INK, LEAD = "#17211F", "#6B756F"
 
 o = []
 a = o.append
@@ -50,8 +54,8 @@ def ridge(base, amp, seed, fill, op):
     d.append(f"L{W} {H} Z")
     a(f'<path d="{" ".join(d)}" fill="{fill}" opacity="{op}"/>')
 
-ridge(GROUND - 40, 96, 3, "#C9D6C6", 0.85)
-ridge(GROUND - 16, 58, 9, "#B4C8B1", 0.9)
+ridge(GROUND - 40, 96, 3, "#DDE3DA", 0.85)
+ridge(GROUND - 16, 58, 9, "#CFD8CC", 0.9)
 
 # ── trees ──────────────────────────────────────────────────────
 random.seed(21)
