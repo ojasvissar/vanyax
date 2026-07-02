@@ -12,7 +12,7 @@
    ══════════════════════════════════════════════════════════ */
 
 import { gsap } from 'gsap';
-import { reduced } from './motion.js';
+import { reduced, cssVar } from './motion.js';
 
 const SPECIES = 14;
 const INDIVIDUALS = 420;
@@ -125,13 +125,16 @@ export function survey(root) {
 
   function paint(x, y) {
     const g = tctx.createRadialGradient(x, y, 0, x, y, BRUSH);
-    g.addColorStop(0, 'rgba(53, 216, 155, 0.10)');
-    g.addColorStop(0.7, 'rgba(53, 216, 155, 0.06)');
-    g.addColorStop(1, 'rgba(53, 216, 155, 0)');
+    // the walked ground is the page's own green, faded at the edge
+    const walked = cssVar('--green', '#35695e');
+    g.addColorStop(0, walked); g.addColorStop(0.7, walked); g.addColorStop(1, walked);
+    tctx.save();
+    tctx.globalAlpha = 0.16;
     tctx.fillStyle = g;
     tctx.beginPath();
     tctx.arc(x, y, BRUSH, 0, Math.PI * 2);
     tctx.fill();
+    tctx.restore();
   }
 
   function sweep(x, y) {
@@ -208,7 +211,7 @@ export function survey(root) {
       if (!p.hit) continue;
       ctx.beginPath();
       ctx.arc(p.x, p.y, 3.1, 0, Math.PI * 2);
-      ctx.fillStyle = '#9ff5c9';
+      ctx.fillStyle = cssVar('--ink', '#0f2726');
       ctx.fill();
     }
   }

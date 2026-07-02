@@ -19,9 +19,13 @@ const TILES = 'https://api.gbif.org/v2/map/occurrence/density';
 const INAT = 'https://api.inaturalist.org/v1';
 
 /* Categorical slots, fixed order, never cycled. Validated against this
-   page's surface (#0e1411): lightness band, chroma floor, CVD separation,
+   page's surface (#fffcf6): lightness band, chroma floor, CVD separation,
    normal-vision separation and contrast all pass. */
-const SERIES = ['#199e70', '#3987e5', '#c98500', '#d55181', '#9085e9', '#d95926'];
+/* the six categories are named in the stylesheet, so the charts follow
+   whichever theme is loaded rather than carrying their own palette */
+const seriesColour = (i) =>
+  getComputedStyle(document.documentElement).getPropertyValue(`--series-${(i % 6) + 1}`).trim() || '#35695e';
+const SERIES = new Proxy({ length: 6 }, { get: (t, k) => (/^\d+$/.test(k) ? seriesColour(+k) : t[k]) });
 
 const PRESETS = [
   { key: 5133088, name: 'Danaus plexippus', common: 'Monarch butterfly' },
@@ -683,8 +687,15 @@ function sizeInput() {
     q.parentNode.append(mirror);
   }
   mirror.textContent = q.value || q.placeholder;
-  q.style.width = `${Math.min(Math.max(mirror.getBoundingClientRect().width + 14, 120), 620)}px`;
+  // the gap after the name has to scale with the display size, or the "?"
+  // crowds the last letter at 4rem and floats away at 2rem
+  const pad = parseFloat(getComputedStyle(q).fontSize) * 0.14;
+  q.style.width = `${Math.min(Math.max(mirror.getBoundingClientRect().width + pad, 120), 620)}px`;
 }
+
+// the first measurement happens in the fallback face, which is a different
+// width — remeasure once the real one has loaded
+document.fonts?.ready.then(() => { if ($('#q')) sizeInput(); });
 
 function initSearch() {
   const q = $('#q');

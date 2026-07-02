@@ -1,4 +1,5 @@
-import { boot, heroCanvas, intro, revealHeading, reduced } from './motion.js';
+import { boot, intro, revealHeading, reduced } from './motion.js';
+import { heroGlobe } from './globe.js';
 import { survey } from './survey.js';
 import { gsap } from 'gsap';
 
@@ -63,7 +64,7 @@ function capture() {
   });
 }
 
-heroCanvas(document.querySelector('.hero__canvas'));
+document.querySelectorAll('[data-globe]').forEach(heroGlobe);
 survey(document.querySelector('[data-survey]'));
 boot();
 capture();

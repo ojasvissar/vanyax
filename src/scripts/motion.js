@@ -11,10 +11,17 @@
 import Lenis from 'lenis';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { amazonZoom } from './canopy.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* Canvases can't inherit, so anything drawn in one reads its colours out of
+   the stylesheet instead of hard-coding them. One place to change a palette,
+   and the drawings follow the theme. */
+export const cssVar = (name, fallback = '#000') =>
+  getComputedStyle(document.documentElement).getPropertyValue(name).trim() || fallback;
 export let lenis = null;
 
 /* ── smooth scroll ───────────────────────────────────────── */
@@ -36,7 +43,7 @@ export function initScroll() {
       const target = document.querySelector(a.getAttribute('href'));
       if (!target) return;
       e.preventDefault();
-      lenis.scrollTo(target, { offset: -70 });
+      lenis.scrollTo(target, { offset: -56 });
     });
   });
   return lenis;
@@ -63,9 +70,9 @@ export function splitWords(el) {
 export function revealHeading(el, { delay = 0, trigger = null } = {}) {
   const words = splitWords(el);
   if (reduced) return;
-  gsap.set(words, { yPercent: 118, opacity: 0 });
+  gsap.set(words, { yPercent: 118, opacity: 0, rotateX: -55, transformOrigin: '50% 100%' });
   gsap.to(words, {
-    yPercent: 0, opacity: 1, duration: 1.05, ease: 'expo.out', stagger: 0.045, delay,
+    yPercent: 0, opacity: 1, rotateX: 0, duration: 1.05, ease: 'expo.out', stagger: 0.045, delay,
     scrollTrigger: trigger ? { trigger: trigger === true ? el : trigger, start: 'top 88%', once: true } : undefined,
   });
 }
@@ -107,7 +114,7 @@ export function parallax(root = document) {
 /* ── magnetic buttons ────────────────────────────────────── */
 export function magnetic(root = document) {
   if (reduced || matchMedia('(hover: none)').matches) return;
-  root.querySelectorAll('[data-magnet], .btn').forEach((el) => {
+  root.querySelectorAll('[data-magnet], .btn, .icon-btn, .capture__btn').forEach((el) => {
     const strength = +(el.dataset.magnet || 0.28);
     const move = (e) => {
       const r = el.getBoundingClientRect();
@@ -127,12 +134,16 @@ export function counters(root = document) {
   root.querySelectorAll('[data-count]').forEach((el) => {
     const end = +el.dataset.count;
     const suffix = el.dataset.suffix || '';
-    if (reduced) { el.textContent = end.toLocaleString('en-GB') + suffix; return; }
+    const dp = +(el.dataset.decimals || 0);
+    const show = (v) => (dp
+      ? v.toFixed(dp)
+      : Math.round(v).toLocaleString('en-GB')) + suffix;
+    if (reduced) { el.textContent = show(end); return; }
     const obj = { v: 0 };
     gsap.to(obj, {
       v: end, duration: 1.8, ease: 'power2.out',
       scrollTrigger: { trigger: el, start: 'top 92%', once: true },
-      onUpdate: () => { el.textContent = Math.round(obj.v).toLocaleString('en-GB') + suffix; },
+      onUpdate: () => { el.textContent = show(obj.v); },
     });
   });
 }
@@ -143,10 +154,14 @@ export function marquee(root = document) {
     const track = wrap.querySelector('.marquee__track');
     if (!track) return;
     track.innerHTML += track.innerHTML;          // duplicate for a seamless loop
+    let held = false;                            // and hold still while read
+    wrap.addEventListener('pointerenter', () => { held = true; });
+    wrap.addEventListener('pointerleave', () => { held = false; });
     const width = track.scrollWidth / 2;
     if (reduced) return;
     let offset = 0, dir = 1, speed = 0.4;
     const tick = () => {
+      if (held) return;
       offset -= speed * dir;
       if (offset <= -width) offset += width;
       if (offset > 0) offset -= width;
@@ -165,140 +180,25 @@ export function stickyHeader() {
   const head = document.querySelector('.site-head');
   if (!head) return;
   let last = 0;
+  // the mark sits on the media block while that is under it, and flips to ink
+  // once the page has scrolled onto the paper
+  const media = document.querySelector('[data-hero-media], .hero--sub');
   const onScroll = (y) => {
     if (y > 140 && y > last + 4) head.classList.add('is-hidden');
     else if (y < last - 4 || y < 140) head.classList.remove('is-hidden');
+    head.classList.toggle('is-over', !!media && media.getBoundingClientRect().bottom > 90);
     last = y;
   };
+  onScroll(lenis ? 0 : scrollY);        // set the right state on the first frame
   if (lenis) lenis.on('scroll', ({ scroll }) => onScroll(scroll));
   else addEventListener('scroll', () => onScroll(scrollY), { passive: true });
 }
 
 /* ══════════════════════════════════════════════════════════
-   Hero: the biosphere as a lit band on a dark limb.
-
-   The subject drawn as a phenomenon, the way the reference site
-   draws heat. A planet whose centre sits below the fold, one
-   luminous atmosphere along its edge, faint bands above it, and
-   a scatter of points — records, in the only place they occur.
-
-   The expensive parts (gradients) are baked once per resize into
-   an offscreen canvas; each frame only moves cheap things.
-   ══════════════════════════════════════════════════════════ */
-export function heroCanvas(canvas) {
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d', { alpha: false });
-  let w = 0, h = 0, dpr = 1, base = null, R = 0, cx = 0, cy = 0, stars = [];
-  const pointer = { x: 0, y: 0, tx: 0, ty: 0 };
-
-  function bake() {
-    dpr = Math.min(devicePixelRatio || 1, 2);
-    w = canvas.clientWidth; h = canvas.clientHeight;
-    canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-    // Anchor the horizon at 62% of the height whatever the viewport is:
-    // pick the radius first, then push the centre down so the limb lands there.
-    cx = w * 0.5;
-    R = Math.max(h * 1.35, w * 0.85);
-    cy = h * 0.62 + R;
-
-    base = document.createElement('canvas');
-    base.width = canvas.width; base.height = canvas.height;
-    const b = base.getContext('2d');
-    b.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-    b.fillStyle = '#06100c';
-    b.fillRect(0, 0, w, h);
-
-    // atmosphere: the glow that sits above the limb
-    const glow = b.createRadialGradient(cx, cy, R * 0.965, cx, cy, R * 1.24);
-    glow.addColorStop(0.00, 'rgba(206, 255, 231, 0.95)');
-    glow.addColorStop(0.04, 'rgba(53, 216, 155, 0.62)');
-    glow.addColorStop(0.16, 'rgba(18, 138, 106, 0.30)');
-    glow.addColorStop(0.48, 'rgba(11, 59, 51, 0.14)');
-    glow.addColorStop(1.00, 'rgba(6, 16, 12, 0)');
-    b.fillStyle = glow;
-    b.fillRect(0, 0, w, h);
-
-    // the body: darker than the sky, so the limb reads as an edge
-    const body = b.createRadialGradient(cx, cy - R * 0.35, R * 0.1, cx, cy, R);
-    body.addColorStop(0, '#0c1c16');
-    body.addColorStop(0.75, '#081410');
-    body.addColorStop(1, '#050d0a');
-    b.beginPath(); b.arc(cx, cy, R, 0, Math.PI * 2); b.fillStyle = body; b.fill();
-
-    // a bright rim right on the edge
-    b.beginPath(); b.arc(cx, cy, R, 0, Math.PI * 2);
-    b.strokeStyle = 'rgba(214, 255, 235, 0.75)'; b.lineWidth = 1.3; b.stroke();
-
-    stars = Array.from({ length: 140 }, () => {
-      const a = -Math.PI / 2 + (Math.random() - 0.5) * 1.9;
-      const d = R * (1.02 + Math.random() * 0.42);
-      return {
-        x: cx + Math.cos(a) * d, y: cy + Math.sin(a) * d,
-        r: 0.5 + Math.random() * 1.4, p: Math.random() * Math.PI * 2,
-        s: 0.6 + Math.random() * 1.6,
-      };
-    });
-  }
-
-  function frame(t) {
-    if (!base) return;
-    const time = t / 1000;
-    pointer.x += (pointer.tx - pointer.x) * 0.045;
-    pointer.y += (pointer.ty - pointer.y) * 0.045;
-
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    ctx.drawImage(base, 0, 0, w, h);
-
-    ctx.save();
-    ctx.translate(pointer.x * 16, pointer.y * 10);
-
-    // bands above the limb, breathing slowly out of phase
-    ctx.globalCompositeOperation = 'lighter';
-    for (let i = 0; i < 5; i++) {
-      const off = R * (1.012 + i * 0.045) + Math.sin(time * 0.32 + i * 1.1) * (5 + i * 4);
-      ctx.beginPath();
-      ctx.arc(cx, cy, off, Math.PI * 1.06, Math.PI * 1.94);
-      ctx.strokeStyle = `rgba(53, 216, 155, ${0.2 - i * 0.03})`;
-      ctx.lineWidth = 1 + i * 0.35;
-      ctx.stroke();
-    }
-
-    // records, scattered in the sky over the limb
-    for (const s of stars) {
-      const a = 0.25 + Math.sin(time * s.s + s.p) * 0.25;
-      ctx.beginPath();
-      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(201, 242, 77, ${Math.max(0, a) * 0.5})`;
-      ctx.fill();
-    }
-    ctx.restore();
-    ctx.globalCompositeOperation = 'source-over';
-  }
-
-  bake();
-  if (!reduced) gsap.ticker.add(frame);
-  else frame(0);
-
-  addEventListener('pointermove', (e) => {
-    pointer.tx = (e.clientX / innerWidth - 0.5) * 2;
-    pointer.ty = (e.clientY / innerHeight - 0.5) * 2;
-  }, { passive: true });
-
-  let rt;
-  addEventListener('resize', () => {
-    clearTimeout(rt);
-    rt = setTimeout(() => { bake(); if (reduced) frame(0); }, 200);
-  });
-}
-
-/* ══════════════════════════════════════════════════════════
    The descent: pin, drive sideways, and report altitude.
    ══════════════════════════════════════════════════════════ */
-const ALT = [700000, 120, 25, 1.5, 0, -0.3];        // metres, one per panel
-const SKY = ['#050a12', '#071620', '#0a2019', '#0a1712', '#0a120e', '#140f09'];
+const ALT = [25, 120, 700000];                     // metres, one per panel, going up
+const SKY = ['#0e2415', '#20492c', '#05070e'];     // canopy, forest, space
 
 function formatAlt(m) {
   if (m >= 1000) return `${Math.round(m / 1000).toLocaleString('en-GB')} km`;
@@ -316,88 +216,6 @@ function lerpAlt(a, b, t) {
   return gsap.utils.interpolate(a, b, t);
 }
 
-/* The column being fallen through: a tall vertical gradient of the layers,
-   translated by scroll progress, with motes that streak upward as you descend.
-   It runs behind the panels, so the section reads as a descent rather than as
-   a carousel — vertical motion under the horizontal motion. */
-function descentLayers(canvas, state) {
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  const BANDS = [
-    ['#050a12', '#08131f'],   // orbit
-    ['#08131f', '#0b2230'],   // air
-    ['#0b2230', '#0d2a1e'],   // canopy
-    ['#0d2a1e', '#0b1c13'],   // trail
-    ['#0b1c13', '#120f0a'],   // floor
-    ['#120f0a', '#1a1109'],   // soil
-  ];
-  let w = 0, h = 0, dpr = 1, column = null, colH = 0, motes = [];
-
-  function bake() {
-    dpr = Math.min(devicePixelRatio || 1, 2);
-    w = canvas.clientWidth; h = canvas.clientHeight;
-    if (!w || !h) return;
-    canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-    colH = Math.round(h * 2.4);
-    column = document.createElement('canvas');
-    column.width = Math.round(w * dpr); column.height = Math.round(colH * dpr);
-    const c = column.getContext('2d');
-    c.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-    const band = colH / BANDS.length;
-    BANDS.forEach(([from, to], i) => {
-      const g = c.createLinearGradient(0, i * band, 0, (i + 1) * band);
-      g.addColorStop(0, from); g.addColorStop(1, to);
-      c.fillStyle = g;
-      c.fillRect(0, i * band, w, band + 1);
-      if (i) {
-        // a lit seam where one layer gives way to the next
-        c.fillStyle = 'rgba(53, 216, 155, 0.16)';
-        c.fillRect(0, i * band, w, 1);
-      }
-    });
-
-    motes = Array.from({ length: 90 }, () => ({
-      x: Math.random() * w, y: Math.random() * h,
-      r: 0.6 + Math.random() * 1.7, v: 0.15 + Math.random() * 0.5,
-    }));
-  }
-
-  let last = 0;
-  function frame() {
-    if (!column || !w) return;
-    const p = state.progress;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    ctx.clearRect(0, 0, w, h);
-    ctx.drawImage(column, 0, -p * (colH - h), w, colH);
-
-    // scroll speed turns drifting motes into streaks
-    const speed = Math.min(26, Math.abs(p - last) * 4200);
-    last = p;
-    const tint = p < 0.45 ? '201, 242, 77' : '159, 245, 201';
-    for (const m of motes) {
-      m.y += m.v + speed * 0.5;
-      if (m.y > h + 8) { m.y = -8; m.x = Math.random() * w; }
-      ctx.beginPath();
-      if (speed > 2) {
-        ctx.strokeStyle = `rgba(${tint}, 0.3)`;
-        ctx.lineWidth = m.r * 0.9;
-        ctx.moveTo(m.x, m.y); ctx.lineTo(m.x, m.y - speed * 1.4); ctx.stroke();
-      } else {
-        ctx.fillStyle = `rgba(${tint}, 0.34)`;
-        ctx.arc(m.x, m.y, m.r, 0, Math.PI * 2); ctx.fill();
-      }
-    }
-  }
-
-  bake();
-  gsap.ticker.add(frame);
-  let rt;
-  addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(bake, 200); });
-}
-
 export function strata() {
   const section = document.querySelector('.strata');
   if (!section) return;
@@ -412,24 +230,55 @@ export function strata() {
   if (reduced || !panels.length) { section.classList.add('is-static'); return; }
 
   const shared = { progress: 0 };
-  descentLayers(section.querySelector('.strata__layers'), shared);
+  amazonZoom(section.querySelector('.strata__layers'), shared);
 
-  // each panel lifts and brightens as it reaches the middle of the frame
+  // each panel lifts as it reaches the middle of the frame, and the readout
+  // is driven by which panel is actually there rather than by raw scroll
+  // progress — the two disagree, because the rail's padding and gaps are not
+  // distributed evenly across the scroll
   const setters = panels.map((el) => ({
     y: gsap.quickSetter(el, 'y', 'px'),
     o: gsap.quickSetter(el, 'opacity'),
   }));
+
+  /* The rail's padding centres the first and last panels, so its travel is
+     exactly five panel-pitches and scroll progress maps onto panel index with
+     no measuring at all: panel i is dead centre at p = i / 5. Reading rects
+     here instead was the bug — ScrollTrigger reverts transforms while it
+     refreshes, and a refresh outside the range wrote "700 km" back over the
+     readout at the bottom of the section. */
+  function paint(p) {
+    const f = p * (panels.length - 1);
+    const i = Math.min(ALT.length - 2, Math.floor(f));
+    const t = f - i;
+    shared.progress = p;
+    /* the scene follows the altitude rather than the scroll: the readout runs
+       on a log scale between stops, so a linear hand-off would have had the
+       planet on screen while the number still said five kilometres */
+    shared.alt = lerpAlt(ALT[i], ALT[i + 1], t);
+    if (value) value.textContent = formatAlt(shared.alt);
+    if (label) label.textContent = panels[Math.round(f)]?.dataset.layer ?? '';
+    if (bar) bar.style.width = `${p * 100}%`;
+    if (sky) sky.style.background = gsap.utils.interpolate(SKY[i], SKY[i + 1], t);
+  }
+
+  /* rects are still the honest way to do the lift, which is about where a
+     panel actually is on screen rather than where the scroll says it is */
   function settle() {
     const mid = innerWidth / 2;
     panels.forEach((el, i) => {
       const r = el.getBoundingClientRect();
       const d = Math.min(1, Math.abs((r.left + r.width / 2) - mid) / (innerWidth * 0.72));
       setters[i].y(d * 34);
-      setters[i].o(1 - d * 0.68);
+      // the column behind is busy now, so the fade is slight and the lift
+      // does the work — a washed-out card over trunks reads as a glitch
+      setters[i].o(1 - d * 0.22);
     });
   }
 
-  const distance = () => Math.max(0, rail.scrollWidth - innerWidth + 40);
+  // travel is measured against the pinned box, not the window, because the
+  // section is inset by the page gutter
+  const distance = () => Math.max(0, rail.scrollWidth - sticky.clientWidth);
 
   gsap.to(rail, {
     x: () => -distance(),
@@ -437,24 +286,19 @@ export function strata() {
     scrollTrigger: {
       trigger: section,
       start: 'top top',
-      end: () => `+=${distance() + innerHeight * 0.5}`,
+      /* With three panels the rail only has two pitches to travel, which would
+         put the whole pull-back inside half a screen of scrolling. The pin is
+         given a floor of a couple of viewports so the zoom has room; the rail
+         simply moves more slowly across it. */
+      end: () => `+=${Math.max(distance(), innerHeight * 2.6)}`,
       pin: sticky,
       scrub: 0.6,
       invalidateOnRefresh: true,
-      onUpdate: (self) => {
-        const p = self.progress;
-        shared.progress = p;
-        settle();
-        const span = (ALT.length - 1) * p;
-        const i = Math.min(ALT.length - 2, Math.floor(span));
-        const t = span - i;
-        if (value) value.textContent = formatAlt(lerpAlt(ALT[i], ALT[i + 1], t));
-        if (label) label.textContent = panels[Math.round(span)]?.dataset.layer ?? '';
-        if (bar) bar.style.width = `${p * 100}%`;
-        if (sky) sky.style.background = gsap.utils.interpolate(SKY[i], SKY[i + 1], t);
-      },
+      onUpdate: (self) => { settle(); paint(self.progress); },
     },
   });
+  paint(0);
+  settle();
 }
 
 /* ── page intro: a single wipe, then hand over to scroll ──── */
@@ -468,9 +312,223 @@ export function intro() {
   });
 }
 
+/* ── the opening ─────────────────────────────────────────────
+   The hero is one rounded block, so the page opens by unmasking it
+   from the bottom up while the photograph settles out of a slow
+   push-in. Nothing else moves until the block has landed — the
+   sequence reads as one gesture rather than six.
+   ══════════════════════════════════════════════════════════ */
+export function heroIn() {
+  const media = document.querySelector('[data-hero-media], .hero--sub .hero__bg');
+  if (!media || reduced) return;
+  const img = media.querySelector('img');
+  const tl = gsap.timeline({ delay: 0.15 });
+  tl.fromTo(media,
+    { clipPath: 'inset(18% 12% 30% 12% round 40px)' },
+    { clipPath: 'inset(0% 0% 0% 0% round 40px)', duration: 1.5, ease: 'expo.inOut' });
+  if (img) tl.fromTo(img, { scale: 1.22 }, { scale: 1, duration: 2.2, ease: 'expo.out' }, 0);
+  const ghost = document.querySelector('.hero__ghost');
+  if (ghost) tl.from(ghost, { opacity: 0, scale: 1.12, duration: 1.6, ease: 'expo.out' }, 0.3);
+  const cards = document.querySelectorAll('.stat-card');
+  if (cards.length) tl.from(cards, { y: 34, opacity: 0, duration: 0.9, stagger: 0.08, ease: 'expo.out' }, 0.75);
+  return tl;
+}
+
+/* ── media: every picture wipes up into its own frame ────── */
+export function mediaReveals(root = document) {
+  if (reduced) return;
+  root.querySelectorAll('.shot, .figure__plate, .plate, .card__img').forEach((el) => {
+    gsap.fromTo(el,
+      { clipPath: 'inset(100% 0% 0% 0%)' },
+      {
+        clipPath: 'inset(0% 0% 0% 0%)', duration: 1.25, ease: 'expo.out',
+        scrollTrigger: { trigger: el, start: 'top 88%', once: true },
+      });
+  });
+}
+
+/* ══════════════════════════════════════════════════════════
+   THE REST OF THE MOTION
+
+   Everything below is scroll- or pointer-driven decoration. Each
+   piece checks `reduced` first and builds its own markup where it
+   needs any, so the HTML carries no empty divs for effects that
+   may never run.
+   ══════════════════════════════════════════════════════════ */
+
+/* ── the hero leaves as one block ─────────────────────────────
+   The picture drifts and grows while the ghost climbs out of the
+   top, the copy fades back, and the whole block scales down and
+   rounds off — so the hero reads as an object being set down as
+   you scroll past it rather than a background sliding away. */
+export function heroScroll() {
+  const media = document.querySelector('[data-hero-media]');
+  if (!media || reduced) return;
+  const img = media.querySelector('img');
+  const ghost = media.querySelector('.hero__ghost');
+  const inner = media.querySelector('.hero__inner');
+  const tl = gsap.timeline({
+    scrollTrigger: { trigger: media, start: 'top top', end: 'bottom top', scrub: 0.5 },
+  });
+  if (img) tl.to(img, { yPercent: 10, scale: 1.12, ease: 'none' }, 0);
+  if (ghost) tl.to(ghost, { yPercent: -60, opacity: 0, ease: 'none' }, 0);
+  if (inner) tl.to(inner, { y: -70, opacity: 0.15, ease: 'none' }, 0);
+  tl.to(media, { scale: 0.93, borderRadius: 64, ease: 'none' }, 0);
+}
+
+/* ── how far down the page you are ───────────────────────── */
+export function progress() {
+  if (reduced) return;
+  const bar = document.createElement('div');
+  bar.className = 'progress';
+  bar.setAttribute('aria-hidden', 'true');
+  document.body.append(bar);
+  const set = gsap.quickSetter(bar, 'scaleX');
+  const update = (y) => {
+    const max = document.documentElement.scrollHeight - innerHeight;
+    set(max > 0 ? Math.min(1, Math.max(0, y / max)) : 0);
+  };
+  if (lenis) lenis.on('scroll', ({ scroll }) => update(scroll));
+  else addEventListener('scroll', () => update(scrollY), { passive: true });
+  update(0);
+}
+
+/* ── a cursor that names what it is over ──────────────────────
+   A dot that trails the pointer, swells over anything you can
+   press, and turns into a labelled pill over the things whose
+   affordance is not obvious — the globe you can drag, the patch
+   you can survey. The native cursor is left alone: taking it away
+   costs more than this adds. */
+export function cursor() {
+  if (reduced || !matchMedia('(pointer: fine)').matches) return;
+  const root = document.createElement('div');
+  root.className = 'cursor';
+  root.setAttribute('aria-hidden', 'true');
+  const dot = document.createElement('div');
+  dot.className = 'cursor__dot';
+  const label = document.createElement('span');
+  label.className = 'cursor__label';
+  dot.append(label); root.append(dot); document.body.append(root);
+
+  const pos = { x: innerWidth / 2, y: innerHeight / 2 };
+  const to = { ...pos };
+  const setX = gsap.quickSetter(root, 'x', 'px');
+  const setY = gsap.quickSetter(root, 'y', 'px');
+  addEventListener('pointermove', (e) => { to.x = e.clientX; to.y = e.clientY; }, { passive: true });
+  gsap.ticker.add(() => {
+    pos.x += (to.x - pos.x) * 0.2;
+    pos.y += (to.y - pos.y) * 0.2;
+    setX(pos.x); setY(pos.y);
+  });
+
+  const NAMES = [
+    ['.globe__canvas', 'drag'],
+    ['.survey__canvas', 'survey'],
+    ['.shot', 'open'],
+    ['[data-cursor]', null],
+  ];
+  addEventListener('pointerover', (e) => {
+    const t = e.target;
+    let text = null, on = !!t.closest('a, button, input, summary, [role="button"]');
+    for (const [sel, name] of NAMES) {
+      const hit = t.closest(sel);
+      if (hit) { text = hit.dataset?.cursor || name; on = true; break; }
+    }
+    root.classList.toggle('is-on', on && !text);
+    root.classList.toggle('is-label', !!text);
+    label.textContent = text || '';
+  }, { passive: true });
+}
+
+/* ── lists and cards arrive in sequence ──────────────────── */
+export function batchIn(rootEl = document) {
+  if (reduced) return;
+  const sets = ['.card', '.steps li', '.ticks li', '.survey__hud > div', '.caveats .stat', '.legend li'];
+  sets.forEach((sel) => {
+    const items = [...rootEl.querySelectorAll(sel)].filter((el) => !el.hasAttribute('data-anim'));
+    if (!items.length) return;
+    gsap.set(items, { opacity: 0, y: 26 });
+    ScrollTrigger.batch(items, {
+      start: 'top 92%',
+      onEnter: (batch) => gsap.to(batch, { opacity: 1, y: 0, duration: 0.9, stagger: 0.07, ease: 'expo.out', overwrite: true }),
+      once: true,
+    });
+  });
+}
+
+/* ── cards lean toward the pointer ───────────────────────── */
+export function tilt(rootEl = document) {
+  if (reduced || matchMedia('(hover: none)').matches) return;
+  rootEl.querySelectorAll('[data-tilt]').forEach((el) => {
+    const max = +(el.dataset.tilt || 5);
+    const rx = gsap.quickTo(el, 'rotationX', { duration: 0.7, ease: 'power3.out' });
+    const ry = gsap.quickTo(el, 'rotationY', { duration: 0.7, ease: 'power3.out' });
+    el.addEventListener('pointermove', (e) => {
+      const r = el.getBoundingClientRect();
+      rx((0.5 - (e.clientY - r.top) / r.height) * max * 2);
+      ry(((e.clientX - r.left) / r.width - 0.5) * max * 2);
+    });
+    el.addEventListener('pointerleave', () => { rx(0); ry(0); });
+  });
+}
+
+/* ── leaving a page ───────────────────────────────────────────
+   The paper slides up over the page and the next one opens under
+   its own paper wipe, so a navigation reads as one movement
+   across two documents. Anything the browser should handle on its
+   own — new tabs, modified clicks, downloads, in-page anchors —
+   is left alone. */
+export function exitTransition() {
+  if (reduced) return;
+  const veil = document.createElement('div');
+  veil.className = 'leave';
+  veil.setAttribute('aria-hidden', 'true');
+  document.body.append(veil);
+
+  addEventListener('click', (e) => {
+    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    const a = e.target.closest('a[href]');
+    if (!a || a.target === '_blank' || a.hasAttribute('download')) return;
+    let url;
+    try { url = new URL(a.getAttribute('href'), location.href); } catch { return; }
+    if (url.origin !== location.origin) return;
+    if (url.pathname === location.pathname && url.hash) return;   // same page, anchor
+    e.preventDefault();
+    gsap.to(veil, {
+      yPercent: -100, duration: 0.6, ease: 'expo.inOut',
+      onComplete: () => { location.href = url.href; },
+    });
+  });
+
+  // a page restored from the back/forward cache still has the veil up
+  addEventListener('pageshow', (e) => { if (e.persisted) gsap.set(veil, { yPercent: 100 }); });
+}
+
+/* ── the mark at the foot of the page ─────────────────────────
+   A last, large statement of the name, wiped up out of its own
+   line as the footer arrives and drifting slightly as you finish
+   scrolling — the counterweight to the ghost in the hero. */
+export function footMark() {
+  const mark = document.querySelector('.foot-mark');
+  if (!mark || reduced) return;
+  gsap.fromTo(mark,
+    { yPercent: 24, opacity: 0 },
+    {
+      yPercent: 0, opacity: 1, duration: 1.3, ease: 'expo.out',
+      scrollTrigger: { trigger: mark, start: 'top 96%', once: true },
+    });
+  gsap.to(mark, {
+    yPercent: -8, ease: 'none',
+    scrollTrigger: { trigger: mark, start: 'top bottom', end: 'bottom bottom', scrub: 0.5 },
+  });
+}
+
 /* ── boot everything a page shares ───────────────────────── */
 export function boot() {
   initScroll();
+  heroIn();
+  heroScroll();
+  mediaReveals();
   stickyHeader();
   reveals();
   parallax();
@@ -478,6 +536,12 @@ export function boot() {
   counters();
   marquee();
   strata();
+  progress();
+  cursor();
+  batchIn();
+  tilt();
+  exitTransition();
+  footMark();
   document.querySelectorAll('[data-reveal-heading]').forEach((el) => revealHeading(el, { trigger: true }));
 
   const refresh = () => ScrollTrigger.refresh();
