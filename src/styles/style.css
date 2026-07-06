@@ -55,16 +55,15 @@
   --rust:   #d9481c;
 
   /* ── two voices ──────────────────────────────────────────
-     Onest carries everything read — a low-contrast geometric sans
-     that holds up at 6rem with the tracking pulled in. Roboto Mono
-     carries everything measured: labels, counts, statuses, the
-     coordinates under the globe. Instrument Serif appears once per
-     page at most, italic, wherever the writing turns personal. */
-  --sans:    "Onest", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --display: var(--sans);
-  --logo:    var(--sans);
-  --mono:    "Roboto Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-  --serif:   "Instrument Serif", Georgia, serif;
+     Bricolage Grotesque for anything you read at a distance: it has
+     the cut-out irregularity of the collage built into its letters,
+     and its optical sizes keep it light and open at display size.
+     Figtree for everything at reading size — plain, round, quiet. */
+  --display: "Bricolage Grotesque", "Figtree", system-ui, sans-serif;
+  --sans:    "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --logo:    var(--display);
+  --mono:    var(--sans);
+  --serif:   var(--display);
 
   /* ── metrics ─────────────────────────────────────────── */
   /* two curves only: --r-block for anything that spans the page, --r-lg for
