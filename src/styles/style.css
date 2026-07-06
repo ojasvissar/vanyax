@@ -15,44 +15,44 @@
    ════════════════════════════════════════════════════════════ */
 
 :root {
-  /* ── ground: sand, and an ink that is a colour ────────────
-     The photographs are all green, so the page is warm rather than
-     neutral and the ink is a deep teal rather than a black — it
-     gives the dark blocks and the pills depth without adding a
-     second green to compete with the pictures. */
-  --paper:   #f0ece3;
-  --paper-2: #e6ded0;
-  --white:   #fffcf6;             /* the cards are warm ivory, not white */
-  --ink:     #0f2726;
-  --ink-800: #1b3735;
+  /* ── ground: oat paper and a true ink ─────────────────────
+     The page is cut paper laid on a table: an oat-coloured stock,
+     a near-black for the bands and the type, and five flat colours
+     for the pieces cut out and glued on top. The colours are loud
+     on purpose — they carry the collage — so everything else is
+     kept to paper and ink. */
+  --paper:   #ece5d3;
+  --paper-2: #f7f2e6;             /* the white core a tear exposes */
+  --white:   #fffdf7;
+  --ink:     #151515;
+  --ink-800: #2a2a2a;
 
-  /* both of these carry real text — the small mono labels are text too — so
-     they are set at the alpha that clears 4.5:1 on the paper and on the cards.
-     Hierarchy comes from size, case and tracking instead of from fading. */
-  --ink-2: rgba(15, 39, 38, 0.72);
-  --ink-3: rgba(15, 39, 38, 0.64);
-  --line:  rgba(15, 39, 38, 0.14);
-  --line-2:rgba(15, 39, 38, 0.24);
+  --ink-2: rgba(21, 21, 21, 0.76);
+  --ink-3: rgba(21, 21, 21, 0.64);
+  --line:  rgba(21, 21, 21, 0.14);
+  --line-2:rgba(21, 21, 21, 0.26);
 
-  /* on the dark blocks */
-  --on-dark:   #f0ece3;
-  --on-dark-2: rgba(240, 236, 227, 0.68);
-  --on-dark-3: rgba(240, 236, 227, 0.56);
-  --line-dark: rgba(240, 236, 227, 0.18);
+  --on-dark:   #f7f2e6;
+  --on-dark-2: rgba(247, 242, 230, 0.76);
+  --on-dark-3: rgba(247, 242, 230, 0.6);
+  --line-dark: rgba(247, 242, 230, 0.18);
 
-  /* one accent, and it is the complement of everything in the photographs:
-     amber against forest green. It only ever means "press me". */
-  --accent: #f2ab63;
-  --lime:   var(--accent);        /* the old name, kept so nothing breaks */
-  /* the categorical series, named here so the charts follow the theme */
-  --series-1: #35695e; --series-2: #c98b3f; --series-3: #6f8c93;
-  --series-4: #b04f2c; --series-5: #55607f; --series-6: #7f6a8c;
-  /* the two maps need their own pair: on a dark ground the land has to be
-     lifted well clear of the sea, which the card colour alone does not do */
-  --map-sea:  #e6ded0;
-  --map-land: #fffcf6;
-  --green:  #35695e;
-  --rust:   #b04f2c;
+  /* ── the cut-paper colours ───────────────────────────────── */
+  --violet: #6a22e6;
+  --lilac:  #d9c8f7;
+  --pink:   #f38ae0;
+  --orange: #ff6b2c;
+  --yellow: #f0ee4a;
+  --green:  #17b07a;              /* a fill colour; too light to carry text */
+  --green-ink: #0b6e4b;           /* the same green, dark enough to read */
+
+  --accent: var(--violet);
+  --lime:   var(--lilac);         /* the old name, kept so nothing breaks */
+  --series-1: #6a22e6; --series-2: #ff6b2c; --series-3: #17b07a;
+  --series-4: #d94fc0; --series-5: #a89a00; --series-6: #151515;
+  --map-sea:  #ddd5c1;
+  --map-land: #fffdf7;
+  --rust:   #d9481c;
 
   /* ── two voices ──────────────────────────────────────────
      Onest carries everything read — a low-contrast geometric sans
@@ -96,84 +96,6 @@
   --mint: var(--green); --grass: var(--green); --bio-3: var(--green); --bio-4: #6f9a78;
   --rule: 1px; --b: 1px; --off: 0px; --raise: none; --sink: none;
 }
-
-/* ════════════════════════════════════════════════════════════
-   THE DARK TONE
-
-   The same palette turned over: sand becomes a deep teal ground,
-   the cards a step lighter than it, the ink becomes the sand.
-
-   Two pairs have to stay semantic or the whole thing breaks.
-   `--on-dark` means "text on a dark surface" — over a photograph
-   it must stay light in either theme, so it is NOT flipped here.
-   And anything that fills with `--ink` (pills, the closing block)
-   now fills with a light colour, so its label switches to the page
-   colour rather than to `--on-dark`. Rendering the naive inversion
-   first is what surfaced both: the hero headline went dark on the
-   forest and the buttons lost their labels.
-   ════════════════════════════════════════════════════════════ */
-:root[data-theme="dark"] {
-  --paper:   #0b1f1e;
-  --paper-2: #0f2725;
-  --white:   #14302c;             /* the "cards": a step up from the ground */
-  --ink:     #f0ece3;             /* the ink is now the sand */
-  --ink-800: #e2ddd1;
-
-  --ink-2: rgba(240, 236, 227, 0.74);
-  --ink-3: rgba(240, 236, 227, 0.60);
-  --line:  rgba(240, 236, 227, 0.16);
-  --line-2:rgba(240, 236, 227, 0.28);
-
-  /* still means "on a dark surface", so it stays light */
-  --on-dark:   #f0ece3;
-  --on-dark-2: rgba(240, 236, 227, 0.74);
-  --on-dark-3: rgba(240, 236, 227, 0.58);
-  --line-dark: rgba(240, 236, 227, 0.18);
-
-  --accent: #f2ab63;
-  --green:  #74b9a4;              /* lifted, to hold on a dark ground */
-  --rust:   #e07a52;
-
-  --shadow: 0 30px 70px -40px rgba(0, 0, 0, 0.9);
-  --shadow-sm: 0 12px 30px -18px rgba(0, 0, 0, 0.8);
-
-  /* the series the explorer draws its categories with */
-  --series-1: #74b9a4; --series-2: #e0a35c; --series-3: #8fb2bd;
-  --series-4: #e07a52; --series-5: #8f9bc4; --series-6: #b49bd0;
-  --map-sea:  #0a1d1c;
-  --map-land: #21473f;
-}
-
-/* ── what a light fill implies ────────────────────────────────
-   Every surface that fills with --ink is now light, so its label
-   takes the page colour. */
-:root[data-theme="dark"] .btn,
-:root[data-theme="dark"] .btn--solid,
-:root[data-theme="dark"] .capture__btn,
-:root[data-theme="dark"] .shot__badge,
-:root[data-theme="dark"] .band--ink,
-:root[data-theme="dark"] .band--ink h2,
-:root[data-theme="dark"] .band--ink h3,
-:root[data-theme="dark"] .tip,
-:root[data-theme="dark"] .cursor.is-label .cursor__label { color: var(--paper); }
-:root[data-theme="dark"] .band--ink .lede,
-:root[data-theme="dark"] .band--ink p { color: rgba(11, 31, 30, 0.76); }
-:root[data-theme="dark"] .band--ink .eyebrow { color: rgba(11, 31, 30, 0.56); }
-:root[data-theme="dark"] .band--ink .capture__input {
-  background: rgba(11, 31, 30, 0.06); border-color: rgba(11, 31, 30, 0.18); color: var(--paper);
-}
-:root[data-theme="dark"] .band--ink .capture__input::placeholder { color: rgba(11, 31, 30, 0.5); }
-:root[data-theme="dark"] .band--ink .capture__note { color: rgba(11, 31, 30, 0.6); }
-:root[data-theme="dark"] .band--ink .mailto { color: var(--paper); border-bottom-color: rgba(11, 31, 30, 0.4); }
-/* the accent still carries dark text on it */
-:root[data-theme="dark"] .site-nav a[aria-current="page"],
-:root[data-theme="dark"] .icon-btn,
-:root[data-theme="dark"] .btn--lime,
-:root[data-theme="dark"] .lapse__btn.is-playing { color: var(--paper); }
-/* frosted things were tuned against a white page */
-:root[data-theme="dark"] .site-head__pill { background: rgba(20, 48, 44, 0.78); border-color: rgba(240, 236, 227, 0.14); }
-:root[data-theme="dark"] .strata__panel { background: rgba(20, 48, 44, 0.94); }
-:root[data-theme="dark"] .shot::after { border-color: var(--line); }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { overflow-x: clip; }
