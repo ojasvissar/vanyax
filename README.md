@@ -77,47 +77,114 @@ the caveats underneath make in words.
 
 ## Design notes
 
-The visual language takes its cues from [Polpis Systems](http://polpissystems.com)
-and [Solidroad](https://solidroad.com): a dark cinematic ground with one
-luminous phenomenon in it, a hairline frame around the whole page, a large quiet
-grotesque set against wide-tracked mono microcopy, and real product UI floating
-over the hero rather than a drawing of one.
+Two references, one system. [Integrated Biosciences](https://integratedbio.com)
+puts a single rounded media block inside a warm off-white page and reverses a
+huge light grotesque out of it, with mono uppercase labels and a lime circle
+carrying the arrow. Spora sets a cut-out photograph against a quiet ground with
+white stat cards and a black pill. The rules that follow: the page is a sheet;
+content sits in rounded blocks with generous radii; type is one geometric sans
+set large and tracked tight; anything the machine produced is mono, uppercase
+and small; and there is one accent, a lime, used only where you can click.
 
-- **The mark** — the hero is a canvas: a planet whose centre sits below the fold,
-  one lit band along its limb, faint bands above it, and a scatter of points.
-  That band is the biosphere, which is both the subject and the thing this
-  practice exists to measure. Polpis draws heat from the Earth's core the same
-  way; ours is the thin layer on the outside. Gradients are baked once per
-  resize into an offscreen canvas, so each frame only moves cheap things.
-- **Colour** — a green-black ground, one acid (`#c9f24d`) reserved for anything
-  you can click, and a bio-green ramp (`#0b3b33 → #9ff5c9`) for the living band
-  and for data. One light surface, "bone", for the sections that need to breathe.
-- **Type** — four voices, each with one job. The logotype is Instrument Serif,
-  a different face from everything else on the page: the Wealthsimple trick of a
-  refined serif wordmark over a clean sans interface, so the name reads as a
-  mark rather than as a line of UI text. Geist for everything read, Geist Mono
-  for everything the machine produced — labels, statuses, counts, the hero note.
-  Solidroad uses Geist Mono for the same job.
-- **The descent** — Polpis pins a section and drives you sideways while drilling
-  into the earth. The same mechanic here goes the other way through what we
-  actually measure: orbit → air → canopy → trail → floor → soil, one panel per
-  layer, each naming the data that layer produces. The altitude readout and sky
-  colour are driven by scroll position, and altitude is interpolated in log
-  space — linear would sit at "700 km" for most of the section and then drop
-  through everything at the end. Behind the panels a canvas draws the column
-  being fallen through: the layers as one tall gradient translated by progress,
-  a lit seam where each gives way to the next, and motes that stretch into
-  streaks the faster you scroll. Panels lift and brighten as they reach the
-  middle of the frame. Vertical motion under the horizontal motion, so it reads
-  as a descent rather than a carousel. Without motion it degrades to a plain
-  list.
-- **Header** — Yummygum's arrangement: the mark sits bare on the page, the links
-  are centred, and one filled pill carries the action. The links keep a capsule
-  because the page underneath is dark and photographic and they need a surface
-  to stay legible on, but its padding is equal on all four sides so the active
-  pill nests concentrically inside the capsule's curve instead of fighting it.
-  Below 1020px the nav returns to the flow and scrolls. The `van · yax`
-  etymology appears only on About, the page that explains it.
+- **The hero is one block** — a rounded media panel inset from the trim on all
+  four sides, the wordmark ghosted across it, the headline reversed out at the
+  bottom left, and two stat cards at the bottom right. The page opens by
+  unmasking that block from an inset while the photograph settles out of a slow
+  push-in; nothing else moves until it lands. Leaving it, the picture drifts
+  and grows while the block scales down and rounds off. `heroIn` and
+  `heroScroll` in [src/scripts/motion.js](src/scripts/motion.js).
+- **The globe is built out of points** — the world in its own section, and the
+  points are the argument: every pale dot samples the coastline geometry, lit
+  from the upper left, and every amber dot is a real occurrence record fetched
+  from GBIF when the page loads, landing with a ring behind it. When they
+  arrive the globe turns to face them, because a species recorded only in
+  Europe would otherwise sit on the far side of a globe pointed at the Pacific.
+  Drag it; the spin carries momentum.
+  [src/scripts/globe.js](src/scripts/globe.js).
+- **What it costs to draw** — three things keep it at sixty frames. Nothing
+  goes through a projection at draw time: each point is stored once as a unit
+  vector, rotated with two angles, and discarded before projection if it faces
+  away. Brightness is quantised into seven steps, so several thousand dots are
+  filled seven times a frame rather than several thousand. And "is this
+  coordinate on land?" is a lookup in a bitmap of the world drawn once at
+  startup, not a polygon test per point — that alone was seconds of blocked
+  main thread.
+- **When GBIF is slow or down** — the globe draws immediately from a set
+  weighted the way collection effort actually is, captioned *illustrative
+  distribution*, and swaps to the real records when they arrive, captioned with
+  the species name and *live from GBIF*. The page never claims data it does not
+  have. Requests go two pages at a time, staggered, with a generous deadline
+  and one retry on a rate limit — GBIF answers a page in about four seconds and
+  refuses a burst.
+- **Colour** — sand (`#f0ece3`), a deep teal ink (`#0f2726`) rather than a
+  black, ivory cards (`#fffcf6`), and one amber accent (`#f2ab63`) reserved for
+  interactive things: the current nav item, the circular arrows, the send key,
+  the live records on the globe. The reasoning is that every photograph on the
+  site is green, so the page is warm rather than neutral and the accent is the
+  complement of the pictures rather than another green competing with them; the
+  teal ink gives the dark blocks and the pills depth that a flat black loses.
+  Five palettes were rendered on the real page and compared before this one —
+  a lime, a bone-and-ochre, a cool mint, this, and a stone-and-sky.
+  Both muted inks are set at the alpha that clears 4.5:1 on the paper and on
+  the cards, because the small mono labels are text too; hierarchy comes from
+  size, case and tracking rather than from fading them out.
+- **Type** — Onest carries everything read, a low-contrast geometric sans that
+  holds up at 6rem with the tracking pulled to -0.035em. Roboto Mono carries
+  everything measured: labels, counts, statuses, the coordinates under the
+  globe — the same division the reference makes. Instrument Serif appears
+  italic and once per page at most, wherever the writing turns personal: the
+  species name in the explorer, the etymology in the footer.
+- **The globe** — a real orthographic projection of real coastlines, the same
+  land geometry the explorer draws its density map on, but drawn in the world's
+  own colours rather than the page's: a lit ocean, land banded by latitude the
+  way the biomes actually run — ice, taiga, the arid belts, the tropics — the
+  sphere falling into shadow toward the limb, and a rim of atmosphere outside
+  it. The equator tracks the current rotation, so the ice stays on the poles as
+  you drag. Only the records take the page's accent, so the one thing that is
+  data still reads as data. It turns on its own and you can drag it; both
+  readouts are the projection's own state.
+  [src/scripts/globe.js](src/scripts/globe.js).
+- **A dark tone** — built and kept, but not the default:
+  `:root[data-theme="dark"]` holds a deep-teal version of the same palette, and
+  adding `data-theme="dark"` to `<html>` switches the site to it. Two pairs have
+  to stay semantic for that to work, which rendering the naive inversion is what
+  surfaced — the hero headline went dark on the photograph. `--on-dark` means
+  "text on a dark surface", so it stays light in both themes; and anything that
+  fills with `--ink` — the pills, the closing block — takes the page colour for
+  its label rather than `--on-dark`. Anything drawn on a canvas now reads its
+  colours out of the stylesheet through `cssVar`, so the charts, the survey and
+  the explorer's map follow whichever theme is loaded.
+- **Motion** — every picture wipes up into its own frame on approach
+  (`mediaReveals`), headlines split to words and reveal from a mask, counters
+  run on entry (the hero's carries a decimal, so 3.9bn counts as 3.9bn), the
+  marquee leans with scroll velocity, and the descent pins and drives sideways.
+  The mark reverses to white only while a dark media block is under the header
+  and inks up the moment the page scrolls onto the paper.
+
+- **The pull-back** — the pinned section is one continuous zoom out of the
+  Amazon: from close enough to see individual crowns, through the forest and
+  the river meandering across it, to the basin seen from orbit. It is three
+  scenes, each painted once into an offscreen bitmap and composited with a
+  scale and a fade — each starts larger than the frame, shrinks through it,
+  and hands over to the next, which covers a span several times wider. Two
+  details make it hold together: every scene is baked at twice the frame so it
+  can shrink without its own edge sliding into view, and each has a focal
+  point, because magnifying the planet about the middle of the canvas puts you
+  over the Caribbean rather than the Amazon. The scenes are keyed to the
+  altitude readout rather than to scroll position — the readout runs on a log
+  scale between stops, so a linear hand-off had the whole planet on screen
+  while the number still said five kilometres.
+  [src/scripts/canopy.js](src/scripts/canopy.js).
+- **What sits under it** — only three of the six layers can be seen from
+  above, so the canopy, the drone and the satellite ride the zoom while the
+  camera traps, the transects and the soil sit in cards underneath. With three
+  panels the rail has little to travel, so the pin is given a floor of a couple
+  of viewports and the rail simply crosses it more slowly.
+- **Header** — the mark sits bare on the media block; the links and the one
+  action share a single frosted capsule at the right, with the current page
+  marked in lime. Below 900px the links scroll inside that capsule and the edge
+  fades to say so. The `van · yax` etymology appears only on About, the page
+  that explains it.
 - **Motion** — Lenis for scroll and GSAP for everything tied to it, the pairing
   Polpis uses. Headlines split into words and reveal from a mask; anything on
   the first screen animates on load, anything below waits for the scroll;
