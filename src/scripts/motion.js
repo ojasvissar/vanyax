@@ -11,7 +11,6 @@
 import Lenis from 'lenis';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { amazonZoom } from './canopy.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -192,113 +191,6 @@ export function stickyHeader() {
   onScroll(lenis ? 0 : scrollY);        // set the right state on the first frame
   if (lenis) lenis.on('scroll', ({ scroll }) => onScroll(scroll));
   else addEventListener('scroll', () => onScroll(scrollY), { passive: true });
-}
-
-/* ══════════════════════════════════════════════════════════
-   The descent: pin, drive sideways, and report altitude.
-   ══════════════════════════════════════════════════════════ */
-const ALT = [25, 120, 700000];                     // metres, one per panel, going up
-const SKY = ['#0e2415', '#20492c', '#05070e'];     // canopy, forest, space
-
-function formatAlt(m) {
-  if (m >= 1000) return `${Math.round(m / 1000).toLocaleString('en-GB')} km`;
-  if (m >= 10) return `${Math.round(m)} m`;
-  if (m > 0.05) return `${m.toFixed(1)} m`;
-  if (m > -0.005) return '0 m';
-  return `${Math.round(m * 100)} cm`;
-}
-
-/* Altitude spans five orders of magnitude, so the big part of the fall is
-   interpolated in log space — otherwise the readout sits at "700 km" for
-   most of the section and then drops through everything at the end. */
-function lerpAlt(a, b, t) {
-  if (a > 0 && b > 0) return Math.exp(gsap.utils.interpolate(Math.log(a), Math.log(b), t));
-  return gsap.utils.interpolate(a, b, t);
-}
-
-export function strata() {
-  const section = document.querySelector('.strata');
-  if (!section) return;
-  const sticky = section.querySelector('.strata__sticky');
-  const rail = section.querySelector('.strata__rail');
-  const sky = section.querySelector('.strata__sky');
-  const value = section.querySelector('[data-alt]');
-  const label = section.querySelector('[data-layer-name]');
-  const bar = section.querySelector('.strata__bar i');
-  const panels = [...section.querySelectorAll('.strata__panel')];
-
-  if (reduced || !panels.length) { section.classList.add('is-static'); return; }
-
-  const shared = { progress: 0 };
-  amazonZoom(section.querySelector('.strata__layers'), shared);
-
-  // each panel lifts as it reaches the middle of the frame, and the readout
-  // is driven by which panel is actually there rather than by raw scroll
-  // progress — the two disagree, because the rail's padding and gaps are not
-  // distributed evenly across the scroll
-  const setters = panels.map((el) => ({
-    y: gsap.quickSetter(el, 'y', 'px'),
-    o: gsap.quickSetter(el, 'opacity'),
-  }));
-
-  /* The rail's padding centres the first and last panels, so its travel is
-     exactly five panel-pitches and scroll progress maps onto panel index with
-     no measuring at all: panel i is dead centre at p = i / 5. Reading rects
-     here instead was the bug — ScrollTrigger reverts transforms while it
-     refreshes, and a refresh outside the range wrote "700 km" back over the
-     readout at the bottom of the section. */
-  function paint(p) {
-    const f = p * (panels.length - 1);
-    const i = Math.min(ALT.length - 2, Math.floor(f));
-    const t = f - i;
-    shared.progress = p;
-    /* the scene follows the altitude rather than the scroll: the readout runs
-       on a log scale between stops, so a linear hand-off would have had the
-       planet on screen while the number still said five kilometres */
-    shared.alt = lerpAlt(ALT[i], ALT[i + 1], t);
-    if (value) value.textContent = formatAlt(shared.alt);
-    if (label) label.textContent = panels[Math.round(f)]?.dataset.layer ?? '';
-    if (bar) bar.style.width = `${p * 100}%`;
-    if (sky) sky.style.background = gsap.utils.interpolate(SKY[i], SKY[i + 1], t);
-  }
-
-  /* rects are still the honest way to do the lift, which is about where a
-     panel actually is on screen rather than where the scroll says it is */
-  function settle() {
-    const mid = innerWidth / 2;
-    panels.forEach((el, i) => {
-      const r = el.getBoundingClientRect();
-      const d = Math.min(1, Math.abs((r.left + r.width / 2) - mid) / (innerWidth * 0.72));
-      setters[i].y(d * 34);
-      // the column behind is busy now, so the fade is slight and the lift
-      // does the work — a washed-out card over trunks reads as a glitch
-      setters[i].o(1 - d * 0.22);
-    });
-  }
-
-  // travel is measured against the pinned box, not the window, because the
-  // section is inset by the page gutter
-  const distance = () => Math.max(0, rail.scrollWidth - sticky.clientWidth);
-
-  gsap.to(rail, {
-    x: () => -distance(),
-    ease: 'none',
-    scrollTrigger: {
-      trigger: section,
-      start: 'top top',
-      /* With three panels the rail only has two pitches to travel, which would
-         put the whole pull-back inside half a screen of scrolling. The pin is
-         given a floor of a couple of viewports so the zoom has room; the rail
-         simply moves more slowly across it. */
-      end: () => `+=${Math.max(distance(), innerHeight * 2.6)}`,
-      pin: sticky,
-      scrub: 0.6,
-      invalidateOnRefresh: true,
-      onUpdate: (self) => { settle(); paint(self.progress); },
-    },
-  });
-  paint(0);
-  settle();
 }
 
 /* ── page intro: a single wipe, then hand over to scroll ──── */
@@ -535,7 +427,6 @@ export function boot() {
   magnetic();
   counters();
   marquee();
-  strata();
   progress();
   cursor();
   batchIn();
