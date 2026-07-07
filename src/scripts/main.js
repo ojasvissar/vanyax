@@ -1,6 +1,4 @@
 import { boot, intro, revealHeading, reduced } from './motion.js';
-import { heroGlobe } from './globe.js';
-import { survey } from './survey.js';
 import { gsap } from 'gsap';
 
 /* ── Google Form destination ──────────────────────────────
@@ -64,8 +62,6 @@ function capture() {
   });
 }
 
-document.querySelectorAll('[data-globe]').forEach(heroGlobe);
-survey(document.querySelector('[data-survey]'));
 boot();
 capture();
 
