@@ -251,3 +251,20 @@ h4 { font-size: 0.82rem; font-family: var(--sans); font-weight: 600; letter-spac
 @media (max-width: 560px) {
   .site-foot__grid { grid-template-columns: 1fr; }
 }
+
+/* ── torn edges ──────────────────────────────────────────────
+   Drawn by paper.js at the strip's real size. The fill takes the
+   colour of the band it belongs to; the rim behind it is the white
+   core of the paper. */
+.tear {
+  position: absolute; left: 0; right: 0; height: var(--tear); z-index: 3;
+  pointer-events: none; --tear-fill: var(--paper); --tear-rim: var(--paper-2);
+}
+.tear svg { display: block; width: 100%; height: 100%; }
+.tear--down { top: 100%; margin-top: -1px; }
+.tear--up { bottom: 100%; margin-bottom: -1px; }
+.tear__fill { fill: var(--tear-fill); }
+.tear__rim { fill: var(--tear-rim); }
+.band--ink > .tear, .hero > .tear, .site-foot > .tear { --tear-fill: var(--ink); }
+.band--violet > .tear { --tear-fill: var(--violet); }
+.band--paper > .tear { --tear-fill: var(--paper); }
