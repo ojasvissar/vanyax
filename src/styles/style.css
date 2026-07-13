@@ -280,3 +280,18 @@ h4 { font-size: 0.82rem; font-family: var(--sans); font-weight: 600; letter-spac
 .hero h1 { color: var(--on-dark); max-width: 13ch; }
 .hero__sub { color: var(--on-dark-2); max-width: 40ch; font-size: clamp(1.05rem, 1.5vw, 1.25rem); line-height: 1.5; }
 .hero__actions { display: flex; gap: 0.7rem; flex-wrap: wrap; justify-content: center; margin-top: 0.5rem; }
+
+/* ── cut-outs ────────────────────────────────────────────────
+   Every piece is positioned by four custom properties set inline —
+   where it sits, how wide, how far it is turned — so a collage is
+   composed in the markup and the stylesheet only knows what a
+   piece is. The shadow is flat and short: card lying on card, not
+   something floating. */
+.defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+.collage { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+.piece {
+  position: absolute; left: var(--x); top: var(--y); width: var(--w);
+  rotate: var(--r, 0deg);
+  filter: drop-shadow(3px 4px 0 rgba(0, 0, 0, 0.22));
+}
+.piece svg { width: 100%; height: auto; overflow: visible; }
