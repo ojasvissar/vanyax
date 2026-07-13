@@ -268,3 +268,15 @@ h4 { font-size: 0.82rem; font-family: var(--sans); font-weight: 600; letter-spac
 .band--ink > .tear, .hero > .tear, .site-foot > .tear { --tear-fill: var(--ink); }
 .band--violet > .tear { --tear-fill: var(--violet); }
 .band--paper > .tear { --tear-fill: var(--paper); }
+
+/* ── hero: a black sheet, torn across the bottom ────────────── */
+.hero {
+  position: relative; background: var(--ink); color: var(--on-dark);
+  min-height: 94svh; display: grid; place-items: center; text-align: center;
+  padding: calc(var(--bar) + 3rem) var(--pad) clamp(5rem, 13vh, 9rem);
+}
+.hero__in { position: relative; z-index: 2; max-width: 56rem; display: grid; justify-items: center; gap: 1.3rem; }
+.hero__eyebrow { color: var(--lilac); }
+.hero h1 { color: var(--on-dark); max-width: 13ch; }
+.hero__sub { color: var(--on-dark-2); max-width: 40ch; font-size: clamp(1.05rem, 1.5vw, 1.25rem); line-height: 1.5; }
+.hero__actions { display: flex; gap: 0.7rem; flex-wrap: wrap; justify-content: center; margin-top: 0.5rem; }
