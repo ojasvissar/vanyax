@@ -295,3 +295,8 @@ h4 { font-size: 0.82rem; font-family: var(--sans); font-weight: 600; letter-spac
   filter: drop-shadow(3px 4px 0 rgba(0, 0, 0, 0.22));
 }
 .piece svg { width: 100%; height: auto; overflow: visible; }
+
+/* the hero's pieces sit in the margins, never under the headline */
+@media (max-width: 860px) {
+  .hero .piece:nth-child(2n) { display: none; }
+}
