@@ -318,3 +318,18 @@ h4 { font-size: 0.82rem; font-family: var(--sans); font-weight: 600; letter-spac
   .statement__grid { grid-template-columns: 1fr; }
   .statement__art { min-height: 220px; order: 2; }
 }
+
+/* ── marker highlights ───────────────────────────────────────
+   A stroke of flat colour behind a phrase, sitting low like a real
+   highlighter does, cloned across line breaks so a wrapped phrase
+   is marked on both lines. */
+.hl {
+  color: inherit; padding: 0 0.14em; margin: 0 -0.06em;
+  background: linear-gradient(var(--hl), var(--hl)) no-repeat 0 90% / 100% 76%;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+}
+.hl--pink { --hl: var(--pink); }
+.hl--yellow { --hl: var(--yellow); }
+.hl--lilac { --hl: var(--lilac); }
+.hl--green { --hl: var(--green); }
+.hl--orange { --hl: var(--orange); }
