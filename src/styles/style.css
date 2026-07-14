@@ -300,3 +300,7 @@ h4 { font-size: 0.82rem; font-family: var(--sans); font-weight: 600; letter-spac
 @media (max-width: 860px) {
   .hero .piece:nth-child(2n) { display: none; }
 }
+
+/* ── strips: patterned paper tucked under a torn edge ──────── */
+.strips { position: absolute; left: 0; right: 0; bottom: 0; height: clamp(60px, 9vw, 130px); z-index: 2; pointer-events: none; overflow: hidden; }
+.strip { position: absolute; bottom: -4px; left: var(--x); width: var(--w); height: auto; }
