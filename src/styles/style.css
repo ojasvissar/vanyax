@@ -304,3 +304,17 @@ h4 { font-size: 0.82rem; font-family: var(--sans); font-weight: 600; letter-spac
 /* ── strips: patterned paper tucked under a torn edge ──────── */
 .strips { position: absolute; left: 0; right: 0; bottom: 0; height: clamp(60px, 9vw, 130px); z-index: 2; pointer-events: none; overflow: hidden; }
 .strip { position: absolute; bottom: -4px; left: var(--x); width: var(--w); height: auto; }
+
+/* ── the statement: two sentences, and what you keep ──────── */
+.statement { padding-block: clamp(5rem, 14vh, 9rem) clamp(4rem, 11vh, 7rem); }
+.statement__grid { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: clamp(2rem, 6vw, 5rem); align-items: center; }
+.statement__art { position: relative; min-height: clamp(240px, 32vw, 420px); }
+.statement__lead {
+  font-family: var(--display); font-weight: 400; letter-spacing: -0.025em;
+  font-size: clamp(1.6rem, 3vw, 2.5rem); line-height: 1.18; max-width: 22ch;
+}
+.statement__small { margin-top: 1.4rem; color: var(--ink-2); max-width: 44ch; }
+@media (max-width: 860px) {
+  .statement__grid { grid-template-columns: 1fr; }
+  .statement__art { min-height: 220px; order: 2; }
+}
