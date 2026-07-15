@@ -333,3 +333,5 @@ h4 { font-size: 0.82rem; font-family: var(--sans); font-weight: 600; letter-spac
 .hl--lilac { --hl: var(--lilac); }
 .hl--green { --hl: var(--green); }
 .hl--orange { --hl: var(--orange); }
+.hl { transition: background-size 0.85s var(--ease); }
+.js .hl:not(.is-on) { background-size: 0% 76%; }

@@ -52,3 +52,33 @@ export function tears(root = document) {
   let t;
   addEventListener('resize', () => { clearTimeout(t); t = setTimeout(paint, 150); });
 }
+
+/* ── highlights draw themselves in ────────────────────────────
+   Each mark starts empty and fills left to right once its sentence
+   is on screen, one after another within the sentence, the way you
+   would mark a page. The class goes on <html> before anything
+   paints, so without JS the marks are simply there. */
+export function highlights(root = document) {
+  const marks = [...root.querySelectorAll('.hl')];
+  if (!marks.length) return;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    marks.forEach((m) => m.classList.add('is-on'));
+    return;
+  }
+  // stagger within each sentence, not across the page
+  const byParent = new Map();
+  marks.forEach((m) => {
+    const list = byParent.get(m.parentElement) || [];
+    m.style.transitionDelay = `${0.25 + list.length * 0.32}s`;
+    list.push(m);
+    byParent.set(m.parentElement, list);
+  });
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('is-on');
+      io.unobserve(e.target);
+    });
+  }, { rootMargin: '0px 0px -18% 0px' });
+  marks.forEach((m) => io.observe(m));
+}
