@@ -335,3 +335,21 @@ h4 { font-size: 0.82rem; font-family: var(--sans); font-weight: 600; letter-spac
 .hl--orange { --hl: var(--orange); }
 .hl { transition: background-size 0.85s var(--ease); }
 .js .hl:not(.is-on) { background-size: 0% 76%; }
+
+/* ── photo scraps ────────────────────────────────────────────
+   Black and white, pushed in contrast, with the white core of the
+   paper showing all the way round the tear — four one-pixel
+   offsets of the paper colour make the rim, and a short flat
+   shadow lays it on the page. */
+.cutout {
+  position: absolute; left: var(--x); top: var(--y); width: var(--w);
+  rotate: var(--r, 0deg);
+  filter:
+    drop-shadow(2px 0 0 var(--paper-2)) drop-shadow(-2px 0 0 var(--paper-2))
+    drop-shadow(0 2px 0 var(--paper-2)) drop-shadow(0 -2px 0 var(--paper-2))
+    drop-shadow(4px 6px 0 rgba(0, 0, 0, 0.18));
+}
+.cutout img {
+  width: 100%; aspect-ratio: var(--ar, 4 / 3); object-fit: cover;
+  filter: grayscale(1) contrast(1.22) brightness(1.05);
+}

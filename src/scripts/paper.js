@@ -82,3 +82,25 @@ export function highlights(root = document) {
   }, { rootMargin: '0px 0px -18% 0px' });
   marks.forEach((m) => io.observe(m));
 }
+
+/* ── photographs, cut out by hand ────────────────────────────
+   A scrap of photograph in a collage is never a clean rectangle:
+   it is torn around its edges. Walking the perimeter and pulling
+   each point inward by a seeded amount gives every scrap its own
+   ragged outline, applied as a clip-path. Without JS the photo is
+   simply uncut. */
+export function cutouts(root = document) {
+  root.querySelectorAll('.cutout').forEach((el, i) => {
+    const img = el.querySelector('img');
+    if (!img) return;
+    const rand = seeded(500 + i + (Number(el.dataset.seed) || 0) * 31);
+    const bite = 4.5;                                // how deep a tear can reach, in %
+    const step = () => 2.5 + rand() * 6;
+    const pts = [];
+    for (let x = 0; x < 100; x += step()) pts.push([x, rand() * bite]);
+    for (let y = 0; y < 100; y += step()) pts.push([100 - rand() * bite, y]);
+    for (let x = 100; x > 0; x -= step()) pts.push([x, 100 - rand() * bite]);
+    for (let y = 100; y > 0; y -= step()) pts.push([rand() * bite, y]);
+    img.style.clipPath = `polygon(${pts.map(([x, y]) => `${x.toFixed(1)}% ${y.toFixed(1)}%`).join(',')})`;
+  });
+}
