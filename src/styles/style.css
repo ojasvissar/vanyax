@@ -353,3 +353,5 @@ h4 { font-size: 0.82rem; font-family: var(--sans); font-weight: 600; letter-spac
   width: 100%; aspect-ratio: var(--ar, 4 / 3); object-fit: cover;
   filter: grayscale(1) contrast(1.22) brightness(1.05);
 }
+.collage-host { position: relative; }
+.collage-host .piece, .collage-host .cutout { z-index: 1; }
