@@ -355,3 +355,24 @@ h4 { font-size: 0.82rem; font-family: var(--sans); font-weight: 600; letter-spac
 }
 .collage-host { position: relative; }
 .collage-host .piece, .collage-host .cutout { z-index: 1; }
+
+/* ── what we do: a stack of coloured paper rows ──────────────
+   Each row is its own sheet of colour, set by --row inline, with
+   an ink rule between them. They are the loudest thing on the
+   page on purpose: this is the part a visitor came for. */
+.acc__item { background: var(--row, var(--paper-2)); color: var(--ink); }
+.acc__item + .acc__item { border-top: 2px solid var(--ink); }
+.acc__head { font: inherit; }
+.acc__btn {
+  width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  padding: clamp(0.9rem, 1.7vw, 1.35rem) var(--pad); text-align: left;
+  font-family: var(--display); font-size: clamp(1.35rem, 2.6vw, 2.15rem); font-weight: 400; letter-spacing: -0.025em; line-height: 1.1;
+}
+.acc__panel { padding: 0 var(--pad) clamp(1.1rem, 2vw, 1.6rem); }
+.acc__panel p { max-width: 62ch; font-size: 1.04rem; line-height: 1.55; }
+.acc__plus { position: relative; flex: 0 0 auto; width: 24px; height: 24px; }
+.acc__plus::before, .acc__plus::after {
+  content: ""; position: absolute; left: 50%; top: 50%; width: 22px; height: 2.5px;
+  background: currentColor; translate: -50% -50%; border-radius: 2px;
+}
+.acc__plus::after { rotate: 90deg; }
