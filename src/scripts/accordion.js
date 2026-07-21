@@ -44,5 +44,17 @@ export function accordions(root = document) {
       const btn = item.querySelector('.acc__btn');
       btn.addEventListener('click', () => setOpen(item, btn.getAttribute('aria-expanded') !== 'true'));
     });
+
+    // the arrow keys move between rows, Home and End to either end — the
+    // pattern a screen-reader user expects of a list of disclosure headings
+    const buttons = items.map((i) => i.querySelector('.acc__btn'));
+    acc.addEventListener('keydown', (e) => {
+      const i = buttons.indexOf(document.activeElement);
+      if (i < 0) return;
+      const to = { ArrowDown: i + 1, ArrowUp: i - 1, Home: 0, End: buttons.length - 1 }[e.key];
+      if (to === undefined) return;
+      e.preventDefault();
+      buttons[(to + buttons.length) % buttons.length].focus();
+    });
   });
 }
