@@ -368,8 +368,8 @@ h4 { font-size: 0.82rem; font-family: var(--sans); font-weight: 600; letter-spac
   padding: clamp(0.9rem, 1.7vw, 1.35rem) var(--pad); text-align: left;
   font-family: var(--display); font-size: clamp(1.35rem, 2.6vw, 2.15rem); font-weight: 400; letter-spacing: -0.025em; line-height: 1.1;
 }
-.acc__panel { padding: 0 var(--pad) clamp(1.1rem, 2vw, 1.6rem); }
-.acc__panel p { max-width: 62ch; font-size: 1.04rem; line-height: 1.55; }
+.acc__panel { overflow: hidden; }
+.acc__panel p { max-width: 62ch; font-size: 1.04rem; line-height: 1.55; padding: 0 var(--pad) clamp(1.1rem, 2vw, 1.6rem); }
 .acc__plus { position: relative; flex: 0 0 auto; width: 24px; height: 24px; }
 .acc__plus::before, .acc__plus::after {
   content: ""; position: absolute; left: 50%; top: 50%; width: 22px; height: 2.5px;
