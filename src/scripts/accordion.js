@@ -8,6 +8,9 @@
    ══════════════════════════════════════════════════════════ */
 
 import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -55,6 +58,20 @@ export function accordions(root = document) {
       if (to === undefined) return;
       e.preventDefault();
       buttons[(to + buttons.length) % buttons.length].focus();
+    });
+  });
+}
+
+/* ── the rows arrive one after another ────────────────────────
+   Each strip of colour slides in from the spine, the way you would
+   lay coloured paper down one sheet at a time. */
+export function rowsIn(root = document) {
+  if (reduced) return;
+  root.querySelectorAll('[data-accordion]').forEach((acc) => {
+    const items = acc.querySelectorAll('.acc__item');
+    gsap.from(items, {
+      xPercent: -12, opacity: 0, duration: 0.9, ease: 'expo.out', stagger: 0.09,
+      scrollTrigger: { trigger: acc, start: 'top 82%', once: true },
     });
   });
 }

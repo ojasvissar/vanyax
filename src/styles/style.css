@@ -388,3 +388,8 @@ h4 { font-size: 0.82rem; font-family: var(--sans); font-weight: 600; letter-spac
   padding-block: 1.5rem;
 }
 .what .acc { border-left: 2px solid var(--ink); }
+.acc { overflow: hidden; }
+.acc__btn span { transition: translate 0.45s var(--spring); }
+.acc__btn:hover span, .acc__btn:focus-visible span { translate: 12px 0; }
+.acc__item { transition: filter 0.35s var(--ease); }
+.acc__item:hover { filter: saturate(1.12) brightness(0.97); }
