@@ -1,7 +1,7 @@
 import { boot, intro, revealHeading, reduced } from './motion.js';
 import { gsap } from 'gsap';
 import { tears, highlights, cutouts } from './paper.js';
-import { accordions } from './accordion.js';
+import { accordions, rowsIn } from './accordion.js';
 
 /* ── Google Form destination ──────────────────────────────
    Submissions POST to a Google Form, which collects them in its linked
@@ -66,6 +66,7 @@ function capture() {
 
 tears();
 accordions();
+rowsIn();
 cutouts();
 highlights();
 boot();
