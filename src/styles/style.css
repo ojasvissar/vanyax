@@ -393,3 +393,5 @@ h4 { font-size: 0.82rem; font-family: var(--sans); font-weight: 600; letter-spac
 .acc__btn:hover span, .acc__btn:focus-visible span { translate: 12px 0; }
 .acc__item { transition: filter 0.35s var(--ease); }
 .acc__item:hover { filter: saturate(1.12) brightness(0.97); }
+.acc__plus { transition: rotate 0.5s var(--spring); }
+.is-open .acc__plus { rotate: 135deg; }
