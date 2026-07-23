@@ -45,7 +45,15 @@ export function accordions(root = document) {
     items.forEach((item) => {
       setOpen(item, false, true);
       const btn = item.querySelector('.acc__btn');
-      btn.addEventListener('click', () => setOpen(item, btn.getAttribute('aria-expanded') !== 'true'));
+      btn.addEventListener('click', () => {
+        const open = btn.getAttribute('aria-expanded') !== 'true';
+        // a single-open list closes the rest, so the page never becomes the
+        // wall of text the accordion was there to avoid
+        if (open && acc.dataset.accordion === 'single') {
+          items.forEach((other) => other !== item && other.classList.contains('is-open') && setOpen(other, false));
+        }
+        setOpen(item, open);
+      });
     });
 
     // the arrow keys move between rows, Home and End to either end — the
