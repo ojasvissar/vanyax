@@ -395,3 +395,24 @@ h4 { font-size: 0.82rem; font-family: var(--sans); font-weight: 600; letter-spac
 .acc__item:hover { filter: saturate(1.12) brightness(0.97); }
 .acc__plus { transition: rotate 0.5s var(--spring); }
 .is-open .acc__plus { rotate: 135deg; }
+
+/* ── questions: lilac rows, a pink dot behind the title ────── */
+.faq { padding-block: clamp(5rem, 13vh, 8rem); }
+.faq__grid { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: clamp(2rem, 6vw, 5rem); align-items: center; }
+.faq__title { position: relative; isolation: isolate; margin-bottom: clamp(1.4rem, 3vh, 2rem); }
+.faq__title::before {
+  content: ""; position: absolute; z-index: -1; left: -0.28em; top: -0.12em;
+  width: 1.05em; height: 1.05em; border-radius: 50%; background: var(--pink);
+}
+.acc--faq { display: grid; gap: 8px; overflow: visible; }
+.acc--faq .acc__item { --row: var(--lilac); border: 2px solid var(--ink); border-radius: var(--r-xs); }
+.acc--faq .acc__item + .acc__item { border-top: 2px solid var(--ink); }
+.acc--faq .acc__btn { font-family: var(--sans); font-size: clamp(1rem, 1.3vw, 1.12rem); font-weight: 600; letter-spacing: 0; padding: 0.95rem 1.2rem; }
+.acc--faq .acc__panel p { padding: 0 1.2rem 1.15rem; font-size: 0.98rem; }
+.acc--faq .acc__plus { width: 18px; height: 18px; }
+.acc--faq .acc__plus::before, .acc--faq .acc__plus::after { width: 16px; height: 2px; }
+.acc--faq .acc__item.is-open { --row: var(--paper-2); }
+@media (max-width: 860px) {
+  .faq__grid { grid-template-columns: 1fr; }
+  .faq__art { min-height: 200px; order: 2; }
+}
