@@ -104,3 +104,23 @@ export function cutouts(root = document) {
     img.style.clipPath = `polygon(${pts.map(([x, y]) => `${x.toFixed(1)}% ${y.toFixed(1)}%`).join(',')})`;
   });
 }
+
+/* ── the collage has depth ────────────────────────────────────
+   Every piece and scrap carries a data-depth between 0 and 1, and
+   drifts upward by that much of its section's travel as you scroll
+   past — so the pieces nearest you slide over the ones beneath.
+   It moves transform only; the pieces' own turn is set with the
+   separate rotate property, so the two never fight. */
+export function depth(root = document) {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  import('gsap').then(({ gsap }) => import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
+    gsap.registerPlugin(ScrollTrigger);
+    root.querySelectorAll('[data-depth]').forEach((el) => {
+      const d = Number(el.dataset.depth) || 0;
+      gsap.to(el, {
+        y: () => -d * Math.min(220, innerHeight * 0.26), ease: 'none',
+        scrollTrigger: { trigger: el.closest('section') || el, start: 'top bottom', end: 'bottom top', scrub: 0.6, invalidateOnRefresh: true },
+      });
+    });
+  }));
+}
