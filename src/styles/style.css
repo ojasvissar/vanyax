@@ -417,3 +417,12 @@ h4 { font-size: 0.82rem; font-family: var(--sans); font-weight: 600; letter-spac
   .faq__grid { grid-template-columns: 1fr; }
   .faq__art { min-height: 200px; order: 2; }
 }
+
+/* ── the ask: a violet sheet, torn at both ends ──────────── */
+.cta { padding-block: clamp(5.5rem, 15vh, 9rem) clamp(7rem, 18vh, 11rem); text-align: center; }
+.cta h2 { color: var(--on-dark); font-size: clamp(2.2rem, 5.4vw, 4.4rem); max-width: 16ch; margin-inline: auto; }
+.cta .lede { color: var(--on-dark-2); margin-inline: auto; }
+.cta .capture { margin-inline: auto; }
+.cta .capture__note { color: var(--on-dark-2); }
+.cta .mailto:hover { color: var(--yellow); }
+.cta .contact { position: relative; z-index: 2; }
