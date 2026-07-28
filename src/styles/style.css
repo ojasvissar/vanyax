@@ -426,3 +426,4 @@ h4 { font-size: 0.82rem; font-family: var(--sans); font-weight: 600; letter-spac
 .cta .capture__note { color: var(--on-dark-2); }
 .cta .mailto:hover { color: var(--yellow); }
 .cta .contact { position: relative; z-index: 2; }
+.strips--tall { height: clamp(80px, 11vw, 160px); }
