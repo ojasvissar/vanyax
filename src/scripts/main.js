@@ -1,6 +1,6 @@
 import { boot, intro, revealHeading, reduced } from './motion.js';
 import { gsap } from 'gsap';
-import { tears, highlights, cutouts, depth } from './paper.js';
+import { tears, highlights, cutouts, depth, stripsIn } from './paper.js';
 import { accordions, rowsIn } from './accordion.js';
 
 /* ── Google Form destination ──────────────────────────────
@@ -69,6 +69,7 @@ accordions();
 rowsIn();
 cutouts();
 depth();
+stripsIn();
 highlights();
 boot();
 capture();
