@@ -77,3 +77,6 @@ capture();
 const h1 = document.querySelector('[data-reveal-hero]');
 if (h1) revealHeading(h1, { delay: 0.5 });   // lands as the intro veil clears
 intro();
+
+const year = document.querySelector('[data-year]');
+if (year) year.textContent = new Date().getFullYear();
