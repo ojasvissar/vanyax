@@ -178,19 +178,19 @@ export function marquee(root = document) {
 export function stickyHeader() {
   const head = document.querySelector('.site-head');
   if (!head) return;
+  /* Over the black hero the header is just type on the page; past it, it
+     becomes a strip of black with a scalloped edge, so the links stay
+     readable over paper and colour. It hides going down and returns going up. */
   let last = 0;
-  // the mark sits on the media block while that is under it, and flips to ink
-  // once the page has scrolled onto the paper
-  const media = document.querySelector('[data-hero-media], .hero--sub');
   const onScroll = (y) => {
-    if (y > 140 && y > last + 4) head.classList.add('is-hidden');
-    else if (y < last - 4 || y < 140) head.classList.remove('is-hidden');
-    head.classList.toggle('is-over', !!media && media.getBoundingClientRect().bottom > 90);
+    head.classList.toggle('is-solid', y > innerHeight * 0.6);
+    if (y > last + 6 && y > 300) head.classList.add('is-hidden');
+    else if (y < last - 6 || y < 200) head.classList.remove('is-hidden');
     last = y;
   };
-  onScroll(lenis ? 0 : scrollY);        // set the right state on the first frame
   if (lenis) lenis.on('scroll', ({ scroll }) => onScroll(scroll));
   else addEventListener('scroll', () => onScroll(scrollY), { passive: true });
+  onScroll(scrollY);
 }
 
 /* ── page intro: a single wipe, then hand over to scroll ──── */
