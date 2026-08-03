@@ -403,15 +403,25 @@ export function exitTransition() {
 export function footMark() {
   const mark = document.querySelector('.foot-mark');
   if (!mark || reduced) return;
-  gsap.fromTo(mark,
-    { yPercent: 24, opacity: 0 },
-    {
-      yPercent: 0, opacity: 1, duration: 1.3, ease: 'expo.out',
-      scrollTrigger: { trigger: mark, start: 'top 96%', once: true },
-    });
-  gsap.to(mark, {
-    yPercent: -8, ease: 'none',
-    scrollTrigger: { trigger: mark, start: 'top bottom', end: 'bottom bottom', scrub: 0.5 },
+  /* The wordmark is split into its letters and each is dropped in like a
+     cut-out letter laid down on the page: from above, turned a little, in a
+     random order, settling with a small bounce. Hovering one picks it up. */
+  const word = mark.textContent.trim();
+  const span = mark.querySelector('span');
+  span.textContent = '';
+  const COLOURS = ['--pink', '--yellow', '--lilac', '--orange', '--green', '--violet'];
+  const letters = [...word].map((ch, i) => {
+    const l = document.createElement('i');
+    l.className = 'foot-mark__l';
+    l.textContent = ch;
+    l.style.setProperty('--c', `var(${COLOURS[i % COLOURS.length]})`);
+    span.append(l);
+    return l;
+  });
+  gsap.from(letters, {
+    yPercent: -120, rotation: () => gsap.utils.random(-28, 28), opacity: 0,
+    duration: 1.1, ease: 'bounce.out', stagger: { each: 0.09, from: 'random' },
+    scrollTrigger: { trigger: mark, start: 'top 92%', once: true },
   });
 }
 
