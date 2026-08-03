@@ -439,3 +439,6 @@ h4 { font-size: 0.82rem; font-family: var(--sans); font-weight: 600; letter-spac
 .stamp__vein { stroke: var(--ink); stroke-width: 3; }
 @keyframes spin { to { rotate: 360deg; } }
 @media (max-width: 860px) { .stamp { position: static; margin-top: 2rem; } }
+.foot-mark__l { display: inline-block; font-style: normal; transition: color 0.3s var(--ease), translate 0.45s var(--spring), rotate 0.45s var(--spring); }
+.foot-mark { pointer-events: auto; }
+.foot-mark__l:hover { color: var(--c); translate: 0 -0.08em; rotate: -6deg; }
