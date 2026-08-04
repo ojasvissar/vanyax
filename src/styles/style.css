@@ -132,3 +132,14 @@ h4 { font-family: var(--sans); font-size: 0.78rem; font-weight: 600; letter-spac
 .site-nav a { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding-block: 0.35rem; border-bottom: 2px solid transparent; transition: border-color 0.3s var(--ease); }
 .site-nav a:hover, .site-nav a[aria-current] { border-bottom-color: var(--lime); }
 .site-head__cta { padding: 0.6rem 1.15rem; }
+
+/* ── bands, and the grass between them ───────────────────── */
+.band { position: relative; padding-block: clamp(4.5rem, 12vh, 8rem); }
+.band--forest { background: var(--forest); color: var(--on-dark); }
+.band--cream { background: var(--cream); }
+.band--lime { background: var(--lime-lt); }
+.edge {
+  position: absolute; z-index: 3; left: 0; top: calc(-1 * var(--edge) + 2px); width: 100%; height: var(--edge);
+  object-fit: cover; object-position: center bottom; pointer-events: none;
+}
+.sec-head { display: grid; gap: 0.7rem; max-width: 40rem; margin-bottom: clamp(2rem, 5vh, 3.2rem); }
