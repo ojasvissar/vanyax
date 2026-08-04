@@ -1,552 +1,91 @@
 /* ════════════════════════════════════════════════════════════
-   vanyax — design system  ·  CUT PAPER, FOREST AND MOUNTAIN
+   vanyax — design system  ·  FIELD PRINT
 
-   The page is a collage on a table. Black bands and oat bands are
-   sheets of paper torn across and laid edge to edge; the colour
-   comes from pieces cut out of five loud papers and glued on top —
-   striped, zigzagged, or plain — and from scraps of photograph
-   cut out in black and white.
+   Modelled on illustrated agricultural-research sites: a landscape
+   printed in a few flat inks, a soft serif for anything you read at
+   a distance, deep forest-green bands on cream paper, lime for the
+   one thing to press, and small rust labels over each section. The
+   joins between bands are grass, not lines.
 
-   Two rules keep it from becoming noise. The colour only ever lives
-   in the pieces and in the rows that tell you what we do; type and
-   ground stay ink and paper. And the copy says one thing per
-   section, so the loudness belongs to the page and never to the
-   sentence.
+   It should read as calm, practical and outdoors — a field station,
+   not a studio.
    ════════════════════════════════════════════════════════════ */
 
 :root {
-  /* ── ground: the forest at dusk ───────────────────────────
-     Oat paper for the page, and an ink that is the darkest green of a
-     forest after sunset rather than a black. The colour comes from the
-     landscape: pine and moss, sage lichen, ochre light low on a ridge,
-     clay soil and the slate of distant mountains. Nothing is bright
-     for its own sake. */
-  --paper:   #e8e3d4;
-  --paper-2: #f5f2e8;             /* the white core a tear exposes */
-  --white:   #fbf9f2;
-  --ink:     #101a15;
-  --ink-800: #23302a;
+  /* ── inks ─────────────────────────────────────────────── */
+  --cream:   #f3eee2;
+  --cream-2: #faf7ef;
+  --forest:  #1f3b27;
+  --forest-2:#2a4a31;
+  --ink:     #1b281e;
+  --lime:    #c8d46a;
+  --lime-lt: #e4eab2;
+  --sky:     #b6d8de;
+  --sky-2:   #d9edf0;
+  --sand:    #d9b98f;
+  --tan:     #b98a5c;
+  --rust:    #b6552c;
+  --rust-lt: #e39a6f;             /* rust that holds on forest green */
+  --rust-ink:#963f1d;             /* rust dark enough to read as text on cream, lime and sky */
+  --brown:   #6f4b32;
+  --grass:   #87a94a;
+  --grass-dk:#557f34;
 
-  --ink-2: rgba(16, 26, 21, 0.78);
-  --ink-3: rgba(16, 26, 21, 0.66);
-  --line:  rgba(16, 26, 21, 0.14);
-  --line-2:rgba(16, 26, 21, 0.26);
+  --ink-2: rgba(27, 40, 30, 0.78);
+  --ink-3: rgba(27, 40, 30, 0.66);
+  --line:  rgba(27, 40, 30, 0.14);
+  --line-2:rgba(27, 40, 30, 0.28);
+  --on-dark:   #f3eee2;
+  --on-dark-2: rgba(243, 238, 226, 0.82);
+  --on-dark-3: rgba(243, 238, 226, 0.64);
+  --line-dark: rgba(243, 238, 226, 0.18);
 
-  --on-dark:   #f5f2e8;
-  --on-dark-2: rgba(245, 242, 232, 0.8);
-  --on-dark-3: rgba(245, 242, 232, 0.62);
-  --line-dark: rgba(245, 242, 232, 0.18);
-
-  /* ── the landscape ───────────────────────────────────────── */
-  --pine:   #1f3d2b;
-  --sage:   #c6d2b1;
-  --moss:   #7f9f6b;              /* a fill colour; too light to carry text */
-  --moss-ink: #3f5e33;
-  --ochre:  #e0c372;
-  --amber:  #cf9445;
-  --clay:   #c48a64;
-  --slate:  #56675f;
-  --stone:  #b7bfb1;              /* lichen on granite */
-  --mist:   #dfe2d4;
-
-  --accent: var(--pine);
-  --lime:   var(--sage);
-  --rust:   #b5532c;
-  --series-1: #1f3d2b; --series-2: #cf9445; --series-3: #56675f;
-  --series-4: #c48a64; --series-5: #7f9f6b; --series-6: #101a15;
-  --map-sea:  #d8d3c3;
-  --map-land: #fbf9f2;
-
-  /* ── two voices ──────────────────────────────────────────────
-     Bricolage Grotesque for anything read at a distance: it has the
-     irregularity of a cut-out built into its letters, and its optical
-     sizes keep it light and open at display size. Figtree for reading
-     size — plain, round, quiet. */
-  --display: "Bricolage Grotesque", "Figtree", system-ui, sans-serif;
-  --sans:    "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --logo:    var(--display);
-  --mono:    var(--sans);
+  /* ── two voices ──────────────────────────────────────────
+     Fraunces with its soft axis turned up: a bookish serif with
+     rounded terminals, friendly at display size. Work Sans for
+     everything at reading size and for the small labels. */
+  --display: "Fraunces", Georgia, serif;
+  --sans:    "Work Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --serif:   var(--display);
+  --mono:    var(--sans);
+  --logo:    var(--display);
 
-  /* ── metrics ─────────────────────────────────────────────── */
-  --r-xs: 6px; --r-sm: 10px; --r: 16px; --r-lg: 24px; --r-block: 32px; --r-xl: var(--r-block); --pill: 999px;
-  --gutter: 14px;
+  /* ── metrics ─────────────────────────────────────────── */
+  --r-xs: 8px; --r-sm: 10px; --r: 14px; --r-lg: 20px; --pill: 999px;
   --pad:  clamp(1.1rem, 4vw, 3rem);
-  --wrap: 1240px;
-  --bar: 76px;
-  --tear: 34px;                    /* how tall a torn edge is */
+  --wrap: 1200px;
+  --bar: 90px;
+  --edge: 58px;                    /* how far a grass edge reaches up */
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-io: cubic-bezier(0.76, 0, 0.24, 1);
-  --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-  --shadow: 0 24px 50px -30px rgba(21, 21, 21, 0.5);
-  --shadow-sm: 0 10px 24px -16px rgba(21, 21, 21, 0.45);
+  --ease-io: cubic-bezier(0.65, 0, 0.35, 1);
+  --shadow: 0 18px 40px -26px rgba(27, 40, 30, 0.45);
+
+  /* the names the explorer's stylesheet reads, on this palette */
+  --paper: var(--cream); --paper-2: var(--cream-2); --white: #fbf8f0;
+  --accent: var(--forest); --pine: var(--forest); --sage: var(--lime-lt); --moss: var(--grass);
+  --ochre: var(--lime); --amber: var(--tan);
+  --series-1: #1f3b27; --series-2: #b6552c; --series-3: #5f8f99;
+  --series-4: #b98a5c; --series-5: #87a94a; --series-6: #1b281e;
+  --map-sea: #dbe7e3; --map-land: #fbf8f0;
 }
 
-/* ── base ────────────────────────────────────────────────── */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { overflow-x: clip; }
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
-
 body {
-  background: var(--paper);
-  color: var(--ink);
-  font-family: var(--sans);
-  font-size: 17px;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-  overflow-x: clip;
+  background: var(--cream); color: var(--ink);
+  font-family: var(--sans); font-size: 17px; line-height: 1.65;
+  -webkit-font-smoothing: antialiased; overflow-x: clip;
+}
+/* a fine grain over everything, so flat colour reads as printed */
+body::after {
+  content: ""; position: fixed; inset: 0; z-index: 500; pointer-events: none; opacity: 0.09; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.9 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 a { color: inherit; text-decoration: none; }
-img, svg, canvas { display: block; max-width: 100%; }
+img, svg { display: block; max-width: 100%; }
 button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
-::selection { background: var(--ochre); color: var(--ink); }
-:focus-visible { outline: 3px solid var(--pine); outline-offset: 3px; border-radius: 4px; }
-
+::selection { background: var(--lime); color: var(--ink); }
+:focus-visible { outline: 3px solid var(--rust); outline-offset: 3px; border-radius: 4px; }
 .wrap { width: min(var(--wrap), 100%); margin-inline: auto; padding-inline: var(--pad); }
-.frame { display: none; }
-
-/* ── type ────────────────────────────────────────────────── */
-h1, h2, h3, h4 { font-family: var(--display); font-weight: 400; letter-spacing: -0.03em; line-height: 1.02; }
-h1 { font-size: clamp(2.8rem, 7.6vw, 6.6rem); font-weight: 300; line-height: 0.96; }
-h2 { font-size: clamp(2rem, 4.6vw, 3.8rem); font-weight: 300; }
-h3 { font-size: clamp(1.15rem, 1.7vw, 1.4rem); font-weight: 500; letter-spacing: -0.015em; }
-h4 { font-size: 0.82rem; font-family: var(--sans); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
-
-.eyebrow, .mono {
-  font-family: var(--sans); font-weight: 600;
-  font-size: 0.74rem; letter-spacing: 0.12em; text-transform: uppercase;
-}
-.eyebrow { color: var(--ink-3); display: inline-block; }
-.lede { font-size: clamp(1.05rem, 1.4vw, 1.2rem); line-height: 1.55; color: var(--ink-2); max-width: 48ch; }
-.muted { color: var(--ink-2); }
-.small { font-size: 0.92rem; }
-
-.line { display: block; overflow: hidden; }
-.word { display: inline-block; will-change: transform; }
-
-/* ── buttons ─────────────────────────────────────────────────
-   Flat paper pills: no gradient, no glow. They lift a little on
-   hover the way a piece of card does when you pick at its edge. */
-.btn {
-  position: relative; display: inline-flex; align-items: center; gap: 0.55rem;
-  font-family: var(--sans); font-size: 0.86rem; font-weight: 700;
-  letter-spacing: 0.06em; text-transform: uppercase;
-  padding: 0.85rem 1.4rem; border-radius: var(--pill);
-  background: var(--ink); color: var(--on-dark); border: 2px solid var(--ink);
-  will-change: transform;
-  transition: background 0.3s var(--ease), color 0.3s var(--ease), border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
-}
-.btn:hover { box-shadow: 0 6px 0 -1px rgba(21, 21, 21, 0.2); }
-.btn--solid { background: var(--ink); color: var(--on-dark); }
-.btn--sage { background: var(--sage); color: var(--ink); border-color: var(--sage); }
-.btn--sage:hover { background: var(--ochre); border-color: var(--ochre); }
-.btn--moss { background: var(--moss); color: var(--ink); border-color: var(--moss); }
-.btn--moss:hover { background: var(--ochre); border-color: var(--ochre); }
-.btn--ghost { background: transparent; color: currentColor; border-color: currentColor; }
-.btn--ghost:hover { background: var(--on-dark); color: var(--ink); border-color: var(--on-dark); }
-.btn--quiet { background: transparent; color: var(--ink); border-color: var(--line-2); }
-.btn--quiet:hover { background: var(--ink); color: var(--on-dark); border-color: var(--ink); }
-.btn__arrow { font-style: normal; transition: transform 0.4s var(--ease); }
-.btn:hover .btn__arrow { transform: translate(3px, -3px); }
-
-/* ── header ──────────────────────────────────────────────── */
-.site-head {
-  position: fixed; z-index: 100; top: 0; left: 0; right: 0; height: var(--bar);
-  transition: transform 0.55s var(--ease), background 0.4s var(--ease);
-}
-.site-head.is-hidden { transform: translateY(-100%); }
-.site-head__in {
-  height: 100%; display: flex; align-items: center; gap: 1rem;
-  width: min(var(--wrap), 100%); margin-inline: auto; padding-inline: var(--pad);
-}
-.wordmark {
-  font-family: var(--display); font-size: 1.55rem; font-weight: 600; letter-spacing: -0.045em;
-  color: var(--on-dark); mix-blend-mode: difference;
-}
-.site-head__pill { margin-left: auto; display: flex; align-items: center; gap: 0.4rem; }
-.site-nav { display: flex; gap: 0.2rem; }
-.site-nav a {
-  font-size: 0.84rem; font-weight: 600; color: var(--on-dark);
-  padding: 0.5rem 0.85rem; border-radius: var(--pill);
-  transition: background 0.3s var(--ease), color 0.3s var(--ease);
-}
-.site-nav a:hover { background: rgba(247, 242, 230, 0.12); }
-/* where you are is marked in yellow, so it never reads as a second lilac button */
-.site-nav a[aria-current="page"], .site-nav a[aria-current="location"] { background: var(--ochre); color: var(--ink); }
-.site-head .btn { padding: 0.6rem 1.1rem; font-size: 0.76rem; }
-
-/* ── bands: sheets of paper laid edge to edge ─────────────── */
-.band { position: relative; padding-block: clamp(4rem, 11vh, 8rem); }
-.band--ink { background: var(--ink); color: var(--on-dark); }
-.band--paper { background: var(--paper); color: var(--ink); }
-.band--pine { background: var(--pine); color: var(--on-dark); }
-.band--ink .eyebrow, .band--pine .eyebrow { color: var(--on-dark-3); }
-.band--ink .lede, .band--pine .lede { color: var(--on-dark-2); }
-
-/* ── the contact form ────────────────────────────────────── */
-.contact { display: grid; gap: 1.3rem; justify-items: center; text-align: center; max-width: 44rem; margin-inline: auto; }
-.capture { display: grid; gap: 0.8rem; width: 100%; max-width: 32rem; }
-.capture__field { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-.capture__input {
-  flex: 1 1 15rem; min-width: 0; font: inherit; font-size: 1rem;
-  padding: 0.85rem 1.3rem; border-radius: var(--pill);
-  background: var(--paper-2); color: var(--ink); border: 2px solid transparent;
-  transition: border-color 0.3s var(--ease);
-}
-.capture__input::placeholder { color: var(--ink-3); }
-.capture__input:focus { outline: 0; border-color: var(--ochre); }
-.capture__btn {
-  font-size: 0.86rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
-  padding: 0.85rem 1.5rem; border-radius: var(--pill);
-  background: var(--moss); color: var(--ink);
-  transition: background 0.3s var(--ease), transform 0.3s var(--spring);
-}
-.capture__btn:hover { background: var(--ochre); }
-.capture__btn:disabled { opacity: 0.55; cursor: default; }
-.capture__note { font-size: 0.86rem; color: inherit; opacity: 0.8; }
-.mailto { border-bottom: 2px solid currentColor; }
-.mailto:hover { color: var(--ochre); }
-
-/* ── footer ──────────────────────────────────────────────── */
-.site-foot { background: var(--ink); color: var(--on-dark); padding-block: clamp(3.5rem, 9vh, 6rem) 1.6rem; }
-.site-foot__grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: clamp(1.5rem, 5vw, 4rem); }
-.site-foot h4 { color: var(--on-dark-3); margin-bottom: 0.9rem; }
-.site-foot a { display: block; color: var(--on-dark-2); padding-block: 0.2rem; transition: color 0.3s var(--ease); }
-.site-foot a:hover { color: var(--ochre); }
-.site-foot__etym { font-family: var(--display); font-size: clamp(1.3rem, 2.2vw, 1.8rem); font-weight: 300; line-height: 1.3; letter-spacing: -0.02em; }
-.site-foot__etym b { font-weight: 600; }
-.site-foot__who { margin-top: 1rem; max-width: 36ch; color: var(--on-dark-2); font-size: 0.95rem; }
-.site-foot__bottom {
-  display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
-  margin-top: clamp(2rem, 5vh, 3rem); padding-top: 1.2rem; border-top: 1px solid var(--line-dark);
-  font-size: 0.82rem; color: var(--on-dark-3);
-}
-.foot-mark {
-  margin-top: clamp(2rem, 6vh, 4rem); overflow: hidden;
-  font-family: var(--display); font-weight: 600; letter-spacing: -0.07em; line-height: 0.78;
-  font-size: clamp(5rem, 24vw, 22rem); color: var(--on-dark);
-}
-.foot-mark span { display: block; }
-
-/* ── the cover, the veil, and the furniture motion adds ───── */
-.intro { position: fixed; inset: 0; z-index: 200; background: var(--pine); display: grid; place-content: center; }
-.intro__boot { text-align: center; color: var(--on-dark); }
-.intro__boot b { display: block; font-family: var(--display); font-size: clamp(2.6rem, 8vw, 5rem); font-weight: 600; letter-spacing: -0.05em; }
-.intro__boot i { font-style: normal; font-size: 0.9rem; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.8; }
-
-.progress { position: fixed; top: 0; left: 0; right: 0; height: 4px; z-index: 300; background: var(--clay); transform: scaleX(0); transform-origin: 0 50%; pointer-events: none; }
-.leave { position: fixed; inset: 0; z-index: 250; background: var(--pine); transform: translateY(100%); pointer-events: none; }
-.cursor { position: fixed; top: 0; left: 0; z-index: 400; pointer-events: none; will-change: transform; }
-.cursor__dot {
-  display: grid; place-items: center; width: 12px; height: 12px; margin: -6px 0 0 -6px;
-  border-radius: var(--pill); background: var(--clay); mix-blend-mode: multiply;
-  transition: width 0.35s var(--ease), height 0.35s var(--ease), margin 0.35s var(--ease), background 0.35s var(--ease);
-}
-.cursor.is-on .cursor__dot { width: 46px; height: 46px; margin: -23px 0 0 -23px; background: var(--ochre); }
-.cursor.is-label .cursor__dot { width: auto; height: auto; padding: 0.45rem 0.8rem; margin: -16px 0 0 -16px; background: var(--ink); mix-blend-mode: normal; }
-.cursor__label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--on-dark); opacity: 0; white-space: nowrap; }
-.cursor.is-label .cursor__label { opacity: 1; }
-
-@media (prefers-reduced-motion: reduce) {
-  /* one iteration, not infinite: an endless 0.01ms loop shows a random phase
-     every frame, which is jitter — the opposite of what was asked for */
-  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
-  [data-anim], .word { opacity: 1 !important; transform: none !important; }
-  .progress, .cursor, .leave { display: none !important; }
-}
-
-@media (max-width: 860px) {
-  .site-nav { display: none; }
-  .site-foot__grid { grid-template-columns: 1fr 1fr; }
-}
-@media (max-width: 560px) {
-  .site-foot__grid { grid-template-columns: 1fr; }
-}
-
-/* ── torn edges ──────────────────────────────────────────────
-   Drawn by paper.js at the strip's real size. The fill takes the
-   colour of the band it belongs to; the rim behind it is the white
-   core of the paper. */
-.tear {
-  position: absolute; left: 0; right: 0; height: var(--tear); z-index: 3;
-  pointer-events: none; --tear-fill: var(--paper); --tear-rim: var(--paper-2);
-}
-.tear svg { display: block; width: 100%; height: 100%; }
-.tear--down { top: 100%; margin-top: -1px; }
-.tear--up { bottom: 100%; margin-bottom: -1px; }
-.tear__fill { fill: var(--tear-fill); }
-.tear__rim { fill: var(--tear-rim); }
-.band--ink > .tear, .hero > .tear, .site-foot > .tear { --tear-fill: var(--ink); }
-.band--pine > .tear { --tear-fill: var(--pine); }
-.band--paper > .tear { --tear-fill: var(--paper); }
-
-/* ── hero: a mountain range at dusk ───────────────────────────
-   Four ridges cut from paper, palest and furthest at the back, with
-   mist lying between them, a low moon and a few birds. The ridges
-   dip in the middle, so the headline sits in the valley rather than
-   over a peak; the front one is the ink itself, so the forest runs
-   straight into the torn edge below. */
-.hero {
-  position: relative; min-height: 100svh;
-  display: grid; place-items: start center; text-align: center;
-  padding: calc(var(--bar) + clamp(3rem, 11vh, 7.5rem)) var(--pad) clamp(5rem, 13vh, 9rem);
-  background-color: #12201a;
-  background-image: linear-gradient(180deg, #0c1611 0%, #142419 46%, #22382a 74%, #2e4433 100%);
-  color: var(--on-dark);
-}
-.landscape { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
-.ridge { position: absolute; left: 0; bottom: 0; width: 100%; height: var(--h); object-fit: cover; object-position: center bottom; }
-.ridge--far   { --h: 60%; }
-.ridge--mid   { --h: 47%; }
-.ridge--near  { --h: 36%; }
-.ridge--front { --h: 24%; }
-.moon {
-  position: absolute; right: 15%; top: 15%; width: clamp(56px, 6vw, 96px); aspect-ratio: 1; border-radius: 50%;
-  background: #efe5c2; box-shadow: 0 0 80px 10px rgba(239, 229, 194, 0.16);
-}
-.birds { position: absolute; left: 0; top: 24%; width: clamp(70px, 7vw, 110px); color: rgba(245, 242, 232, 0.7); }
-.mist {
-  position: absolute; left: -20%; width: 140%; height: 12%;
-  background: radial-gradient(50% 50% at 50% 50%, rgba(223, 226, 212, 0.2), transparent 70%);
-}
-.mist--a { bottom: 36%; }
-.mist--b { bottom: 24%; height: 9%; }
-.hero__in { position: relative; z-index: 2; max-width: 56rem; display: grid; justify-items: center; gap: 1.3rem; }
-.hero__eyebrow { color: var(--ochre); }
-.hero h1 { color: var(--on-dark); max-width: 13ch; }
-.hero__sub { color: var(--on-dark-2); max-width: 40ch; font-size: clamp(1.05rem, 1.5vw, 1.25rem); line-height: 1.5; }
-.hero__actions { display: flex; gap: 0.7rem; flex-wrap: wrap; justify-content: center; margin-top: 0.5rem; }
-@media (max-width: 860px) {
-  .ridge--far { --h: 44%; } .ridge--mid { --h: 35%; } .ridge--near { --h: 27%; } .ridge--front { --h: 18%; }
-  .moon { right: 8%; top: 11%; }
-}
-
-/* ── cut-outs ────────────────────────────────────────────────
-   Every piece is positioned by four custom properties set inline —
-   where it sits, how wide, how far it is turned — so a collage is
-   composed in the markup and the stylesheet only knows what a
-   piece is. The shadow is flat and short: card lying on card, not
-   something floating. */
-.collage { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
-.piece {
-  transform-origin: 50% 100%;
-  position: absolute; left: var(--x); top: var(--y); width: var(--w);
-  rotate: var(--r, 0deg);
-  filter: drop-shadow(3px 4px 0 rgba(0, 0, 0, 0.22));
-}
-.piece svg, .piece img { width: 100%; height: auto; overflow: visible; }
-.piece--line { filter: none; }
-
-/* between phone and wide desktop the margins narrow, so the pieces nearest
-   the headline step outward to keep clear of its lines */
-
-
-/* ── the statement: two sentences, and what you keep ──────── */
-.statement { padding-block: clamp(5rem, 14vh, 9rem) clamp(4rem, 11vh, 7rem); }
-.statement__grid { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: clamp(2rem, 6vw, 5rem); align-items: center; }
-.statement__art { position: relative; min-height: clamp(240px, 32vw, 420px); }
-.statement__lead {
-  font-family: var(--display); font-weight: 400; letter-spacing: -0.025em;
-  font-size: clamp(1.6rem, 3vw, 2.5rem); line-height: 1.18; max-width: 22ch;
-}
-.statement__small { margin-top: 1.4rem; color: var(--ink-2); max-width: 44ch; }
-@media (max-width: 860px) {
-  .statement__grid { grid-template-columns: 1fr; }
-  .statement__art { min-height: 220px; order: 2; }
-}
-
-/* ── marker highlights ───────────────────────────────────────
-   A stroke of flat colour behind a phrase, sitting low like a real
-   highlighter does, cloned across line breaks so a wrapped phrase
-   is marked on both lines. */
-.hl {
-  color: inherit; padding: 0 0.14em; margin: 0 -0.06em;
-  background: linear-gradient(var(--hl), var(--hl)) no-repeat 0 90% / 100% 76%;
-  -webkit-box-decoration-break: clone; box-decoration-break: clone;
-}
-.hl--clay { --hl: var(--clay); }
-.hl--ochre { --hl: var(--ochre); }
-.hl--sage { --hl: var(--sage); }
-.hl--moss { --hl: var(--moss); }
-.hl--amber { --hl: var(--amber); }
-.hl { transition: background-size 0.85s var(--ease); }
-.js .hl:not(.is-on) { background-size: 0% 76%; }
-
-/* ── photo scraps ────────────────────────────────────────────
-   Black and white, pushed in contrast, with the white core of the
-   paper showing all the way round the tear — four one-pixel
-   offsets of the paper colour make the rim, and a short flat
-   shadow lays it on the page. */
-.cutout {
-  position: absolute; left: var(--x); top: var(--y); width: var(--w);
-  rotate: var(--r, 0deg);
-  filter:
-    drop-shadow(2px 0 0 var(--paper-2)) drop-shadow(-2px 0 0 var(--paper-2))
-    drop-shadow(0 2px 0 var(--paper-2)) drop-shadow(0 -2px 0 var(--paper-2))
-    drop-shadow(4px 6px 0 rgba(0, 0, 0, 0.18));
-}
-.cutout img {
-  width: 100%; aspect-ratio: var(--ar, 4 / 3); object-fit: cover;
-  filter: grayscale(1) contrast(1.22) brightness(1.05);
-}
-.collage-host { position: relative; }
-.collage-host .piece, .collage-host .cutout { z-index: 1; }
-
-/* ── what we do: a stack of coloured paper rows ──────────────
-   Each row is its own sheet of colour, set by --row inline, with
-   an ink rule between them. They are the loudest thing on the
-   page on purpose: this is the part a visitor came for. */
-.acc__item { background: var(--row, var(--paper-2)); color: var(--ink); }
-.acc__item + .acc__item { border-top: 2px solid var(--ink); }
-.acc__head { font: inherit; }
-.acc__btn {
-  width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1rem;
-  padding: clamp(0.9rem, 1.7vw, 1.35rem) var(--pad); text-align: left;
-  font-family: var(--display); font-size: clamp(1.35rem, 2.6vw, 2.15rem); font-weight: 400; letter-spacing: -0.025em; line-height: 1.1;
-}
-.acc__panel { overflow: hidden; }
-.acc__panel p { max-width: 62ch; font-size: 1.04rem; line-height: 1.55; padding: 0 var(--pad) clamp(1.1rem, 2vw, 1.6rem); }
-.acc__plus { position: relative; flex: 0 0 auto; width: 24px; height: 24px; }
-.acc__plus::before, .acc__plus::after {
-  content: ""; position: absolute; left: 50%; top: 50%; width: 22px; height: 2.5px;
-  background: currentColor; translate: -50% -50%; border-radius: 2px;
-}
-.acc__plus::after { rotate: 90deg; }
-
-/* the violet spine, with the label set up its length */
-.what {
-  position: relative; display: grid; grid-template-columns: clamp(70px, 11vw, 168px) minmax(0, 1fr);
-  background: var(--pine); border-block: 2px solid var(--ink);
-}
-.what__label {
-  writing-mode: vertical-rl; rotate: 180deg; place-self: center;
-  color: var(--on-dark); font-weight: 400; font-size: clamp(2rem, 4.4vw, 3.6rem); letter-spacing: -0.03em;
-  /* in vertical writing the inline axis runs down the page, so this is the
-     space above and below the label — padding-block would have widened it */
-  padding-inline: 1.5rem;
-}
-.what .acc { border-left: 2px solid var(--ink); }
-.acc { overflow: hidden; }
-.acc__btn span { transition: translate 0.5s var(--ease); }
-.acc__btn:hover span, .acc__btn:focus-visible span { translate: 12px 0; }
-.acc__item { transition: filter 0.35s var(--ease); }
-.acc__item:hover { filter: saturate(1.12) brightness(0.97); }
-.acc__plus { transition: rotate 0.55s var(--ease); }
-.is-open .acc__plus { rotate: 135deg; }
-
-/* ── questions: lilac rows, a pink dot behind the title ────── */
-.faq { padding-block: clamp(5rem, 13vh, 8rem); }
-.faq__art { min-height: clamp(280px, 34vw, 460px); }
-.faq__grid { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: clamp(2rem, 6vw, 5rem); align-items: center; }
-.faq__title { position: relative; isolation: isolate; margin-bottom: clamp(1.4rem, 3vh, 2rem); }
-.faq__title::before {
-  content: ""; position: absolute; z-index: -1; left: -0.28em; top: -0.12em;
-  width: 1.05em; height: 1.05em; border-radius: 50%; background: var(--ochre);
-}
-.acc--faq { display: grid; gap: 8px; overflow: visible; }
-.acc--faq .acc__item { --row: var(--sage); border: 2px solid var(--ink); border-radius: var(--r-xs); }
-.acc--faq .acc__item + .acc__item { border-top: 2px solid var(--ink); }
-.acc--faq .acc__btn { font-family: var(--sans); font-size: clamp(1rem, 1.3vw, 1.12rem); font-weight: 600; letter-spacing: 0; padding: 0.95rem 1.2rem; }
-.acc--faq .acc__panel p { padding: 0 1.2rem 1.15rem; font-size: 0.98rem; }
-.acc--faq .acc__plus { width: 18px; height: 18px; }
-.acc--faq .acc__plus::before, .acc--faq .acc__plus::after { width: 16px; height: 2px; }
-.acc--faq .acc__item.is-open { --row: var(--paper-2); }
-@media (max-width: 860px) {
-  .faq__grid { grid-template-columns: 1fr; }
-  .faq__art { min-height: 200px; order: 2; }
-}
-
-/* ── the ask: a violet sheet, torn at both ends ──────────── */
-.cta { padding-block: clamp(5.5rem, 15vh, 9rem) clamp(9rem, 22vh, 14rem); text-align: center; overflow: hidden; }
-/* the band ends in a treeline the colour of the footer, so the forest grows
-   straight up out of it — no tear needed where the trees are the edge */
-.cta__forest { position: absolute; left: 0; bottom: -1px; width: 100%; height: clamp(110px, 16vw, 230px); object-fit: cover; object-position: center bottom; pointer-events: none; }
-.cta h2 { color: var(--on-dark); font-size: clamp(2.2rem, 5.4vw, 4.4rem); max-width: 16ch; margin-inline: auto; }
-.cta .lede { color: var(--on-dark-2); margin-inline: auto; }
-.cta .capture { margin-inline: auto; }
-.cta .capture__note { color: var(--on-dark-2); }
-.cta .mailto:hover { color: var(--ochre); }
-.cta .contact { position: relative; z-index: 2; }
-
-/* ── the stamp: a disc of type turning slowly, a leaf at its centre */
-.site-foot .wrap { position: relative; }
-.stamp { position: absolute; right: var(--pad); top: clamp(10rem, 24vh, 15rem); width: clamp(110px, 12vw, 170px); height: auto; }
-.stamp__disc { fill: var(--sage); }
-.stamp__text { font-family: var(--sans); font-size: 13.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; fill: var(--ink); }
-.stamp__text, .stamp defs { transform-origin: 100px 100px; animation: spin 22s linear infinite; }
-.stamp__peak { fill: var(--slate); }
-.stamp__snow { fill: var(--paper-2); }
-.stamp__pine { fill: var(--pine); }
-@keyframes spin { to { rotate: 360deg; } }
-@media (max-width: 860px) { .stamp { position: static; margin-top: 2rem; } }
-.foot-mark__l { display: inline-block; font-style: normal; transition: color 0.3s var(--ease), translate 0.45s var(--spring), rotate 0.45s var(--spring); }
-.foot-mark { pointer-events: auto; }
-.foot-mark__l:hover { color: var(--c); translate: 0 -0.05em; }
-
-/* ── header: a black strip that only appears once you leave the hero ─ */
-.site-head.is-solid { background: var(--ink); }
-.site-head.is-solid::after {
-  content: ""; position: absolute; left: 0; right: 0; top: 100%; height: 10px;
-  background: var(--ink);
-  -webkit-mask: radial-gradient(6px 5px at 50% 0, #000 98%, transparent) 0 0 / 14px 10px repeat-x;
-          mask: radial-gradient(6px 5px at 50% 0, #000 98%, transparent) 0 0 / 14px 10px repeat-x;
-}
-
-/* ── pieces never quite sit still ─────────────────────────────
-   A slow bob and a few degrees of sway, on the translate and rotate
-   properties rather than on transform — transform belongs to the
-   scroll parallax and the entrance, and the three compose instead
-   of overwriting each other. Periods differ so nothing moves in step. */
-@keyframes bob {
-  0%, 100% { translate: 0 0; rotate: var(--r, 0deg); }
-  50% { translate: 0 -5px; rotate: calc(var(--r, 0deg) + 1deg); }
-}
-.piece { animation: bob 6s var(--ease-io) infinite; }
-.piece:nth-child(3n)   { animation-duration: 7.4s; animation-delay: -2.1s; }
-.piece:nth-child(3n+1) { animation-duration: 5.3s; animation-delay: -3.7s; }
-.piece:nth-child(4n)   { animation-duration: 8.2s; animation-delay: -1.2s; }
-.cutout { animation: bob 9s var(--ease-io) infinite; animation-delay: -4s; }
-.js .squiggle { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.8s var(--ease) 0.4s; }
-.js .squiggle.is-drawn { stroke-dashoffset: 0; }
-
-/* ── the ticker: a strip of yellow paper laid across the seam ─ */
-.ticker {
-  position: relative; z-index: 4; margin-top: -0.6rem; rotate: -1.6deg; width: 104%; margin-left: -2%;
-  background: var(--ochre); border-block: 2px solid var(--ink); overflow: hidden;
-  box-shadow: 0 5px 0 rgba(21, 21, 21, 0.18);
-}
-.ticker__track {
-  display: flex; align-items: center; gap: 1.4rem; width: max-content; padding-block: 0.7rem;
-  font-family: var(--display); font-size: clamp(1.1rem, 2vw, 1.6rem); font-weight: 500; letter-spacing: -0.02em;
-  animation: ticker 32s linear infinite;
-}
-.ticker__track i { font-style: normal; font-size: 0.7em; color: var(--pine); }
-.ticker:hover .ticker__track { animation-play-state: paused; }
-@keyframes ticker { to { translate: -50% 0; } }
-
-/* ── accessibility on the coloured sheets ─────────────────────
-   Secondary text on violet at 78% cream measured 4.35:1, under the
-   4.5 it needs; solid cream is 6.8:1. And the focus ring, violet by
-   default, disappears on the violet band and barely registers on
-   black — on the dark sheets it is yellow. */
-.cta .lede, .cta .capture__note, .cta .mailto { color: var(--on-dark); }
-.hero :focus-visible, .band--ink :focus-visible, .band--pine :focus-visible,
-.site-head :focus-visible, .site-foot :focus-visible, .ask :focus-visible { outline-color: var(--ochre); }
-
-/* ── collage frames keep their pieces ─────────────────────────
-   A piece is sized as a share of its frame's width and placed as a
-   share of its height, so the frame has to keep its proportions or,
-   on a narrow single column, the pieces hang out of it into the next
-   band. A fixed aspect ratio holds them at every width. */
-.statement__art, .faq__art { min-height: 0; aspect-ratio: 5 / 4; }
-@media (max-width: 860px) {
-  .statement__art, .faq__art { min-height: 0; width: min(100%, 30rem); margin-inline: auto; }
-}
-
-/* mist drifts along the valleys; birds cross the sky about once a minute */
-@keyframes drift { from { translate: -6% 0; } to { translate: 6% 0; } }
-@keyframes glide { from { translate: -15vw 0; } to { translate: 115vw -5vh; } }
-.mist--a { animation: drift 38s ease-in-out infinite alternate; }
-.mist--b { animation: drift 52s ease-in-out infinite alternate-reverse; }
-.birds { animation: glide 70s linear infinite; }
