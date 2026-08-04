@@ -1,4 +1,4 @@
-import { boot, intro, revealHeading, reduced } from './motion.js';
+import { boot, intro, revealHeading, reduced, sectionNav } from './motion.js';
 import { gsap } from 'gsap';
 import { tears, highlights, cutouts, depth, stripsIn } from './paper.js';
 import { accordions, rowsIn } from './accordion.js';
@@ -72,6 +72,7 @@ depth();
 stripsIn();
 highlights();
 boot();
+sectionNav();
 capture();
 
 const h1 = document.querySelector('[data-reveal-hero]');

@@ -467,3 +467,20 @@ export function boot() {
     if (target) requestAnimationFrame(() => target.scrollIntoView());
   });
 }
+
+/* ── the nav knows where you are ──────────────────────────────
+   Whichever section owns the middle of the screen marks its link
+   as current, so the header doubles as a map of a short page. */
+export function sectionNav() {
+  const links = [...document.querySelectorAll('.site-nav a[href^="#"]')];
+  if (!links.length) return;
+  const targets = links.map((a) => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      links.forEach((a) => a.toggleAttribute('aria-current', a.getAttribute('href') === `#${e.target.id}`));
+      links.forEach((a) => { if (a.hasAttribute('aria-current')) a.setAttribute('aria-current', 'location'); });
+    });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  targets.forEach((t) => io.observe(t));
+}
