@@ -1,3 +1,12 @@
+/* ════════════════════════════════════════════════════════
+   Species explorer — the instrument.
+
+   Same cut-paper system as the home page: the question is asked on
+   a black sheet torn across the bottom, and the answers come back
+   as cards of paper with an ink edge. Denser than the home page,
+   because this one is a tool.
+   ════════════════════════════════════════════════════════ */
+
 /* ── the question ───────────────────────────────────────── */
 .ask {
   position: relative; overflow: hidden; isolation: isolate;
@@ -153,6 +162,62 @@
 .caveats { margin-top: clamp(2.5rem, 6vh, 4rem); }
 .caveats__title { font-size: clamp(1.8rem, 3.6vw, 2.8rem); font-weight: 400; letter-spacing: -0.035em; margin-bottom: 1.6rem; }
 .caveats__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 10px; }
-.stat { background: var(--white); border: 2px solid var(--ink); border-radius: var(--r-xs); box-shadow: 4px 5px 0 rgba(21, 21, 21, 0.14); padding: 1.5rem; display: grid; gap: 0.5rem; align-content: start; }
+.stat { background: var(--white); border: 1.5px solid var(--forest); border-radius: var(--r-lg); padding: 1.5rem; display: grid; gap: 0.5rem; align-content: start; }
 .stat__n { font-size: 2.6rem; font-weight: 400; letter-spacing: -0.045em; line-height: 1; }
 .stat__label { font-size: 0.98rem; color: var(--ink); }
+.stat__why { font-size: 0.88rem; color: var(--ink-2); line-height: 1.55; }
+
+/* ── method ─────────────────────────────────────────────── */
+.method { margin-top: clamp(2rem, 5vh, 3rem); padding-top: 1.6rem; border-top: 1px solid var(--line); max-width: 70ch; }
+.method__title { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 0.9rem; }
+.method p { color: var(--ink-2); font-size: 0.94rem; margin-bottom: 0.8rem; }
+.method__q {
+  display: block; font-family: var(--mono); font-size: 0.72rem; color: var(--ink-2);
+  word-break: break-all; line-height: 1.75;
+  border-left: 2px solid var(--lime); padding-left: 1rem; margin-bottom: 1rem;
+}
+.method__q:hover { color: var(--ink); border-left-color: var(--ink); }
+.method__cite { font-size: 0.86rem; color: var(--ink-3); }
+.method__cite a { border-bottom: 1px solid var(--line); }
+.method__cite a:hover { color: var(--ink); }
+.error { color: var(--rust); max-width: 60ch; padding: 2rem 0; }
+
+/* ── tooltip ────────────────────────────────────────────── */
+.tip {
+  position: fixed; top: 0; left: 0; z-index: 60; pointer-events: none;
+  background: var(--ink); color: var(--on-dark); border-radius: var(--r-sm);
+  padding: 0.5rem 0.75rem; min-width: 7rem;
+  font-family: var(--mono); font-size: 0.72rem; box-shadow: var(--shadow);
+}
+.tip b { display: block; font-weight: 500; }
+.tip span { color: var(--on-dark-3); }
+
+@media (max-width: 900px) {
+  .rpt__grid { grid-template-columns: 1fr; }
+  .rpt__count { text-align: left; }
+}
+
+/* ── time-lapse ─────────────────────────────────────────── */
+.map__frame { position: relative; }
+.lapse__badge {
+  position: absolute; left: 1rem; top: 1rem; z-index: 3;
+  display: grid; gap: 0.15rem;
+  background: rgba(255, 255, 255, 0.86); border-radius: var(--r-sm); padding: 0.6rem 0.9rem;
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+}
+.lapse__badge b { font-size: 1.5rem; font-weight: 400; letter-spacing: -0.035em; line-height: 1; font-variant-numeric: tabular-nums; }
+.lapse__badge span { font-family: var(--mono); font-size: 0.66rem; color: var(--ink-3); }
+.lapse__btn {
+  display: inline-flex; align-items: center; gap: 0.5rem; cursor: pointer;
+  background: var(--white); border: 1px solid var(--line); border-radius: var(--pill);
+  color: var(--ink-2); font-family: var(--mono); font-size: 0.66rem;
+  letter-spacing: 0.08em; text-transform: uppercase; padding: 0.45rem 0.9rem;
+  transition: background 0.25s var(--ease), color 0.25s var(--ease), border-color 0.25s var(--ease);
+}
+.lapse__btn:hover { background: var(--ink); border-color: var(--ink); color: var(--on-dark); }
+.lapse__btn.is-playing { background: var(--lime); border-color: var(--lime); color: var(--ink); }
+.lapse__icon {
+  width: 0; height: 0; border-style: solid;
+  border-width: 4.5px 0 4.5px 7px; border-color: transparent transparent transparent currentColor;
+}
+.lapse__btn.is-playing .lapse__icon { width: 8px; height: 8px; border: 0; background: currentColor; border-radius: 1px; }
