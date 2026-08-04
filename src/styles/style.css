@@ -89,3 +89,15 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 ::selection { background: var(--lime); color: var(--ink); }
 :focus-visible { outline: 3px solid var(--rust); outline-offset: 3px; border-radius: 4px; }
 .wrap { width: min(var(--wrap), 100%); margin-inline: auto; padding-inline: var(--pad); }
+
+/* ── type ────────────────────────────────────────────────── */
+h1, h2, h3, h4 { font-family: var(--display); font-weight: 600; letter-spacing: -0.015em; line-height: 1.08; font-variation-settings: "SOFT" 100; }
+h1 { font-size: clamp(2.5rem, 5.6vw, 4.8rem); }
+h2 { font-size: clamp(1.9rem, 3.6vw, 3rem); }
+h3 { font-size: clamp(1.15rem, 1.6vw, 1.35rem); }
+h4 { font-family: var(--sans); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; }
+.eyebrow { font-family: var(--sans); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--rust-ink); display: inline-block; }
+.band--forest .eyebrow, .site-foot .eyebrow { color: var(--rust-lt); }
+.lede { font-size: clamp(1.05rem, 1.35vw, 1.18rem); color: var(--ink-2); max-width: 46ch; }
+.line { display: block; overflow: hidden; }
+.word { display: inline-block; will-change: transform; }
