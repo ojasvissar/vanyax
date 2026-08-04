@@ -101,3 +101,18 @@ h4 { font-family: var(--sans); font-size: 0.78rem; font-weight: 600; letter-spac
 .lede { font-size: clamp(1.05rem, 1.35vw, 1.18rem); color: var(--ink-2); max-width: 46ch; }
 .line { display: block; overflow: hidden; }
 .word { display: inline-block; will-change: transform; }
+
+/* ── buttons ─────────────────────────────────────────────── */
+.btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-family: var(--sans); font-size: 0.82rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 0.78rem 1.35rem; border-radius: var(--pill); border: 2px solid transparent;
+  transition: background 0.3s var(--ease), color 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+.btn--lime { background: var(--lime); color: var(--ink); border-color: var(--lime); }
+.btn--lime:hover { background: var(--cream-2); border-color: var(--cream-2); }
+.btn--outline { border-color: currentColor; color: var(--forest); background: rgba(250, 247, 239, 0.6); }
+.btn--outline:hover { background: var(--forest); border-color: var(--forest); color: var(--cream); }
+.btn--solid { background: var(--forest); color: var(--cream); border-color: var(--forest); }
+.btn__arrow { font-style: normal; transition: transform 0.35s var(--ease); }
+.btn:hover .btn__arrow { transform: translateX(3px); }
