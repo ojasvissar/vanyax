@@ -143,3 +143,22 @@ h4 { font-family: var(--sans); font-size: 0.78rem; font-weight: 600; letter-spac
   object-fit: cover; object-position: center bottom; pointer-events: none;
 }
 .sec-head { display: grid; gap: 0.7rem; max-width: 40rem; margin-bottom: clamp(2rem, 5vh, 3.2rem); }
+
+/* ── hero: a printed landscape under an open sky ──────────── */
+.hero {
+  position: relative; overflow: hidden; isolation: isolate;
+  min-height: calc(100svh - var(--bar)); display: grid; place-items: start center; text-align: center;
+  padding: clamp(3.5rem, 11vh, 7rem) var(--pad) 0;
+  background: linear-gradient(180deg, var(--sky) 0%, var(--sky-2) 62%, #e6efe0 100%);
+}
+.hero__art { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.layer { position: absolute; left: 0; bottom: 0; width: 100%; height: var(--h); object-fit: cover; object-position: center bottom; }
+.layer--clouds { top: 4%; bottom: auto; --h: 30%; object-position: center top; }
+.layer--far  { --h: 60%; }
+.layer--mid  { --h: 56%; }
+.layer--near { --h: 44%; }
+.layer--birds { left: 14%; top: 24%; bottom: auto; width: clamp(70px, 7vw, 110px); height: auto; }
+.hero__in { position: relative; z-index: 2; max-width: 52rem; display: grid; justify-items: center; gap: 1.2rem; }
+.hero h1 { color: var(--forest); }
+.hero__sub { color: var(--ink-2); max-width: 42ch; font-size: clamp(1.05rem, 1.4vw, 1.22rem); }
+.hero__actions { display: flex; gap: 0.7rem; flex-wrap: wrap; justify-content: center; margin-top: 0.4rem; }
