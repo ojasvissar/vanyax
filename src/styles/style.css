@@ -172,3 +172,11 @@ h4 { font-family: var(--sans); font-size: 0.78rem; font-weight: 600; letter-spac
 .more span { display: inline-block; transition: transform 0.35s var(--ease); }
 .more:hover { border-bottom-color: var(--lime); }
 .more:hover span { transform: translateX(4px); }
+
+/* ── what we do: five printed scenes ─────────────────────── */
+.services { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: clamp(1.2rem, 2.4vw, 2rem); }
+.service { display: grid; gap: 0.6rem; align-content: start; }
+.service__art { width: 100%; border-radius: var(--r); transition: transform 0.5s var(--ease); }
+.service:hover .service__art { transform: translateY(-4px); }
+.service h3 { color: var(--forest); margin-top: 0.4rem; }
+.service p { color: var(--ink-2); font-size: 0.96rem; }
