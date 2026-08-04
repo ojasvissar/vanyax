@@ -180,3 +180,22 @@ h4 { font-family: var(--sans); font-size: 0.78rem; font-weight: 600; letter-spac
 .service:hover .service__art { transform: translateY(-4px); }
 .service h3 { color: var(--forest); margin-top: 0.4rem; }
 .service p { color: var(--ink-2); font-size: 0.96rem; }
+
+/* ── questions ───────────────────────────────────────────── */
+.faq__grid { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); }
+.faq h2 { color: var(--forest); margin: 0.6rem 0 1.4rem; }
+.acc { display: grid; gap: 10px; }
+.acc__item { background: var(--cream-2); border: 2px solid var(--forest); border-radius: var(--r); overflow: hidden; }
+.acc__head { font: inherit; }
+.acc__btn {
+  width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1rem; text-align: left;
+  padding: 1rem 1.2rem; font-family: var(--display); font-size: 1.12rem; font-weight: 600; color: var(--forest);
+  font-variation-settings: "SOFT" 100;
+}
+.acc__panel { overflow: hidden; }
+.acc__panel p { padding: 0 1.2rem 1.1rem; color: var(--ink-2); max-width: 62ch; }
+.acc__plus { position: relative; flex: 0 0 auto; width: 20px; height: 20px; transition: rotate 0.45s var(--ease); }
+.acc__plus::before, .acc__plus::after { content: ""; position: absolute; left: 50%; top: 50%; width: 16px; height: 2.5px; background: currentColor; translate: -50% -50%; border-radius: 2px; }
+.acc__plus::after { rotate: 90deg; }
+.is-open .acc__plus { rotate: 45deg; }
+.acc__item.is-open { background: var(--white); }
