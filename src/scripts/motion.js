@@ -211,19 +211,18 @@ export function intro() {
    sequence reads as one gesture rather than six.
    ══════════════════════════════════════════════════════════ */
 export function heroIn() {
-  const media = document.querySelector('[data-hero-media], .hero--sub .hero__bg');
-  if (!media || reduced) return;
-  const img = media.querySelector('img');
-  const tl = gsap.timeline({ delay: 0.15 });
-  tl.fromTo(media,
-    { clipPath: 'inset(18% 12% 30% 12% round 40px)' },
-    { clipPath: 'inset(0% 0% 0% 0% round 40px)', duration: 1.5, ease: 'expo.inOut' });
-  if (img) tl.fromTo(img, { scale: 1.22 }, { scale: 1, duration: 2.2, ease: 'expo.out' }, 0);
-  const ghost = document.querySelector('.hero__ghost');
-  if (ghost) tl.from(ghost, { opacity: 0, scale: 1.12, duration: 1.6, ease: 'expo.out' }, 0.3);
-  const cards = document.querySelectorAll('.stat-card');
-  if (cards.length) tl.from(cards, { y: 34, opacity: 0, duration: 0.9, stagger: 0.08, ease: 'expo.out' }, 0.75);
-  return tl;
+  const hero = document.querySelector('.hero');
+  if (!hero || reduced) return;
+  /* The collage assembles itself: every piece is thrown onto the table from
+     somewhere off its final spot, turning as it lands, and settles with a
+     little overshoot, in random order, while the headline rises out of its
+     mask in the middle. */
+  const pieces = hero.querySelectorAll('.collage .piece');
+  gsap.from(pieces, {
+    x: () => gsap.utils.random(-220, 220), y: () => gsap.utils.random(-160, 200),
+    rotation: () => gsap.utils.random(-90, 90), scale: 0.4, opacity: 0,
+    duration: 1.25, ease: 'back.out(1.5)', stagger: { each: 0.07, from: 'random' }, delay: 0.55,
+  });
 }
 
 /* ── media: every picture wipes up into its own frame ────── */
