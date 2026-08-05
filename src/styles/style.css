@@ -451,3 +451,18 @@ h4 { font-size: 0.82rem; font-family: var(--sans); font-weight: 600; letter-spac
   -webkit-mask: radial-gradient(6px 5px at 50% 0, #000 98%, transparent) 0 0 / 14px 10px repeat-x;
           mask: radial-gradient(6px 5px at 50% 0, #000 98%, transparent) 0 0 / 14px 10px repeat-x;
 }
+
+/* ── pieces never quite sit still ─────────────────────────────
+   A slow bob and a few degrees of sway, on the translate and rotate
+   properties rather than on transform — transform belongs to the
+   scroll parallax and the entrance, and the three compose instead
+   of overwriting each other. Periods differ so nothing moves in step. */
+@keyframes bob {
+  0%, 100% { translate: 0 0; rotate: var(--r, 0deg); }
+  50% { translate: 0 -9px; rotate: calc(var(--r, 0deg) + 3deg); }
+}
+.piece { animation: bob 6s var(--ease-io) infinite; }
+.piece:nth-child(3n)   { animation-duration: 7.4s; animation-delay: -2.1s; }
+.piece:nth-child(3n+1) { animation-duration: 5.3s; animation-delay: -3.7s; }
+.piece:nth-child(4n)   { animation-duration: 8.2s; animation-delay: -1.2s; }
+.cutout { animation: bob 9s var(--ease-io) infinite; animation-delay: -4s; }
