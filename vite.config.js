@@ -17,7 +17,6 @@ export default defineConfig({
     rollupOptions: {
       input: {
         home: resolve(src, 'index.html'),
-        collaborate: resolve(src, 'collaborate/index.html'),
         openSource: resolve(src, 'open-source/index.html'),
         projects: resolve(src, 'projects/index.html'),
         about: resolve(src, 'about/index.html'),
