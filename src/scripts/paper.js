@@ -143,3 +143,17 @@ export function stripsIn(root = document) {
     });
   }));
 }
+
+/* ── the squiggles draw themselves ────────────────────────────
+   Every squiggle is given a pathLength of 1, so one dash the length
+   of the line, offset by its whole length, hides it — and sliding
+   the offset to zero draws it in, from the end it starts at. */
+export function squiggles(root = document) {
+  const lines = [...root.querySelectorAll('.squiggle')];
+  if (!lines.length) return;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) { lines.forEach((l) => l.classList.add('is-drawn')); return; }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-drawn'); io.unobserve(e.target); } });
+  }, { rootMargin: '0px 0px -10% 0px' });
+  lines.forEach((l) => io.observe(l));
+}

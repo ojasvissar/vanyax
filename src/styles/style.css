@@ -466,3 +466,5 @@ h4 { font-size: 0.82rem; font-family: var(--sans); font-weight: 600; letter-spac
 .piece:nth-child(3n+1) { animation-duration: 5.3s; animation-delay: -3.7s; }
 .piece:nth-child(4n)   { animation-duration: 8.2s; animation-delay: -1.2s; }
 .cutout { animation: bob 9s var(--ease-io) infinite; animation-delay: -4s; }
+.js .squiggle { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.8s var(--ease) 0.4s; }
+.js .squiggle.is-drawn { stroke-dashoffset: 0; }
