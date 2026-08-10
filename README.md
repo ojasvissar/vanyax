@@ -192,9 +192,6 @@ and small; and there is one accent, a lime, used only where you can click.
   going down and returns coming up. Every animated element starts visible in the
   markup and is hidden by JS on the first frame, so a blocked script leaves a
   readable page. `prefers-reduced-motion` turns all of it off.
-- **Graphics** — generated, and captioned as illustrative:
-  [tools/gen_section.py](tools/gen_section.py) (forest cross-section, numbered
-  where data is collected). Regenerate with `python3 tools/gen_section.py`.
 
 ## Photographs
 
