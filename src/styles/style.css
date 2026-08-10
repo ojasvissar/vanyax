@@ -235,3 +235,33 @@ h4 { font-family: var(--sans); font-size: 0.78rem; font-weight: 600; letter-spac
 .site-foot__etym b { font-weight: 700; }
 .site-foot__who { margin-top: 0.8rem; max-width: 36ch; color: var(--on-dark-2); font-size: 0.95rem; }
 .site-foot__bottom { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-top: clamp(2.4rem, 6vh, 3.4rem); padding-top: 1.2rem; border-top: 1px solid var(--line-dark); font-size: 0.82rem; color: var(--on-dark-3); }
+
+/* ── cover, progress, veil ───────────────────────────────── */
+.intro { position: fixed; inset: 0; z-index: 200; background: var(--forest); display: grid; place-content: center; text-align: center; color: var(--cream); }
+.intro__boot b { display: block; font-family: var(--display); font-size: clamp(2.6rem, 8vw, 4.6rem); font-weight: 700; font-variation-settings: "SOFT" 100; }
+.intro__boot i { font-style: normal; font-size: 0.82rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--lime); }
+.progress { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 300; background: var(--rust); transform: scaleX(0); transform-origin: 0 50%; pointer-events: none; }
+.leave { position: fixed; inset: 0; z-index: 250; background: var(--forest); transform: translateY(100%); pointer-events: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  [data-anim], [data-rise], .word { opacity: 1 !important; transform: none !important; }
+  .progress, .leave { display: none !important; }
+}
+@media (max-width: 900px) {
+  .site-nav { display: none; }
+  .approach__grid, .faq__grid { grid-template-columns: 1fr; }
+  .faq__grid .vignette { order: 2; }
+  .site-foot__grid { grid-template-columns: 1fr 1fr; }
+  .layer--far { --h: 46%; } .layer--mid { --h: 42%; } .layer--near { --h: 32%; }
+}
+@media (max-width: 560px) {
+  .site-head__strip { text-align: center; }
+  .site-foot__grid { grid-template-columns: 1fr; }
+}
+
+/* clouds drift, birds cross about once a minute */
+@keyframes drift { from { translate: -3% 0; } to { translate: 3% 0; } }
+@keyframes glide { from { translate: -30vw 0; } to { translate: 110vw -4vh; } }
+.layer--clouds { animation: drift 40s ease-in-out infinite alternate; }
+.layer--birds { animation: glide 65s linear infinite; }
