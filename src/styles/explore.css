@@ -1,18 +1,21 @@
 /* ════════════════════════════════════════════════════════
    Species explorer — the instrument.
 
-   Same system as the rest of the site: a warm off-white sheet,
-   white cards with generous radii, one geometric sans set large,
-   and mono uppercase for everything the machine produced. Denser
-   than the marketing pages, because this one is a tool.
+   Same cut-paper system as the home page: the question is asked on
+   a black sheet torn across the bottom, and the answers come back
+   as cards of paper with an ink edge. Denser than the home page,
+   because this one is a tool.
    ════════════════════════════════════════════════════════ */
 
 /* ── the question ───────────────────────────────────────── */
 .ask {
   position: relative;
-  padding-block: calc(var(--bar) + clamp(2rem, 6vh, 4rem)) clamp(2rem, 5vh, 3rem);
-  background: var(--paper);
+  padding-block: calc(var(--bar) + clamp(2rem, 6vh, 4rem)) clamp(3.4rem, 8vh, 5rem);
+  background: var(--ink); color: var(--on-dark);
 }
+.ask > .tear { --tear-fill: var(--ink); }
+.ask .eyebrow { color: var(--lilac); }
+.ask .ask__note { color: var(--on-dark-2); }
 .ask__line {
   font-size: clamp(2rem, 5vw, 4.2rem); font-weight: 400;
   line-height: 1.02; letter-spacing: -0.04em; max-width: 20ch; margin-top: 0.9rem;
@@ -22,18 +25,18 @@
   /* the UA sheet forces letter-spacing:normal on inputs, so without this the
      field renders wider than the mirror measures and the "?" crowds the name */
   font: inherit; letter-spacing: inherit; color: var(--ink);
-  background: transparent; border: 0; border-bottom: 2px solid var(--lime);
+  background: var(--yellow); border: 0; border-radius: 4px;
   padding: 0 0.06em 0.04em; outline: 0; min-width: 9ch; box-sizing: content-box;
-  caret-color: var(--green);
+  caret-color: var(--violet);
 }
 #q::placeholder { color: var(--ink-3); }
 /* invisible twin of the field, used to measure the text so the "?" sits
    right after the name at any length */
 .ask__mirror {
   position: absolute; left: 0; top: 0; visibility: hidden; pointer-events: none;
-  white-space: pre; font: inherit; letter-spacing: inherit; padding: 0 0.06em;
+  white-space: pre; font: inherit; letter-spacing: inherit; padding: 0 0.06em 0.04em;
 }
-#q:focus { border-bottom-color: var(--ink); }
+#q:focus { background: var(--lilac); }
 
 .ask__list {
   position: absolute; z-index: 30; top: calc(100% + 0.6rem); left: 0;
