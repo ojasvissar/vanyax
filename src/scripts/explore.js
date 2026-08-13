@@ -1,16 +1,5 @@
-/* ══════════════════════════════════════════════════════════
-   Species explorer — live GBIF, no backend, no keys.
-
-   Everything on the page is fetched when you ask for it. Nothing
-   is cached on a server, nothing is precomputed, and no number is
-   written by hand: if GBIF doesn't have it, the page says so.
-
-   Data  api.gbif.org/v1  (facets, taxonomy, IUCN category)
-         api.gbif.org/v2  (occurrence density raster, EPSG:4326)
-   ══════════════════════════════════════════════════════════ */
 
 import { boot as bootMotion, intro } from './motion.js';
-import { tears, squiggles } from './paper.js';
 import { geoEquirectangular, geoPath, geoGraticule10 } from 'd3-geo';
 import { feature } from 'topojson-client';
 import land110 from 'world-atlas/land-110m.json';
@@ -783,14 +772,3 @@ tears();
 squiggles();
 bootMotion();
 initSearch();
-initPresets();
-document.fonts?.ready.then(sizeInput);
-globalCount();
-addEventListener('hashchange', () => load(fromHash()));
-load(fromHash());
-
-let rt;
-addEventListener('resize', () => {
-  clearTimeout(rt);
-  rt = setTimeout(() => { if (state.meta) paint(); }, 220);
-});
