@@ -12,12 +12,7 @@ The home page says what the practice does and asks for one thing.
 
 `explore/` is the second page: the species explorer, a working tool.
 
-The old collaborate, about, open-source and projects pages were folded into
-those sections and removed; their content is in the git history.
-
-Nothing on the site claims work that hasn't happened. The four answers are
-condensed from what the old pages already committed to, and eDNA is marked as in
-development because it was planned, not built. Keep it that way.
+Nothing on the site claims work that hasn't happened. Keep it that way.
 
 ## The explorer
 
