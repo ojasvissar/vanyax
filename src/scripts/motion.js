@@ -149,15 +149,13 @@ export function intro() {
 export function heroIn() {
   const hero = document.querySelector('.hero');
   if (!hero || reduced) return;
-  /* The range comes up out of the dark one ridge at a time, from the back,
-     the way a landscape appears as your eyes adjust at dusk, and the moon
-     rises last. Slow, and in order — nothing is thrown. yPercent is used so
-     it composes with the scroll parallax, which owns y. */
-  gsap.from(hero.querySelectorAll('.ridge'), {
-    yPercent: 14, opacity: 0, duration: 1.9, ease: 'expo.out', stagger: 0.17, delay: 0.3,
+  /* The printed landscape comes up from the back, one layer at a time, and
+     the clouds drift in last — the way a print is built up ink by ink.
+     yPercent, so it composes with the scroll parallax, which owns y. */
+  gsap.from(hero.querySelectorAll('.layer--far, .layer--mid, .layer--near'), {
+    yPercent: 12, opacity: 0, duration: 1.7, ease: 'expo.out', stagger: 0.15, delay: 0.3,
   });
-  const moon = hero.querySelector('.moon');
-  if (moon) gsap.from(moon, { yPercent: 70, opacity: 0, duration: 2.6, ease: 'power2.out', delay: 1 });
+  gsap.from(hero.querySelector('.layer--clouds'), { yPercent: -20, opacity: 0, duration: 2.2, ease: 'power2.out', delay: 0.8 });
 }
 
 /* ══════════════════════════════════════════════════════════
@@ -184,52 +182,6 @@ export function progress() {
   if (lenis) lenis.on('scroll', ({ scroll }) => update(scroll));
   else addEventListener('scroll', () => update(scrollY), { passive: true });
   update(0);
-}
-
-/* ── a cursor that names what it is over ──────────────────────
-   A dot that trails the pointer, swells over anything you can
-   press, and turns into a labelled pill over the things whose
-   affordance is not obvious — the globe you can drag, the patch
-   you can survey. The native cursor is left alone: taking it away
-   costs more than this adds. */
-export function cursor() {
-  if (reduced || !matchMedia('(pointer: fine)').matches) return;
-  const root = document.createElement('div');
-  root.className = 'cursor';
-  root.setAttribute('aria-hidden', 'true');
-  const dot = document.createElement('div');
-  dot.className = 'cursor__dot';
-  const label = document.createElement('span');
-  label.className = 'cursor__label';
-  dot.append(label); root.append(dot); document.body.append(root);
-
-  const pos = { x: innerWidth / 2, y: innerHeight / 2 };
-  const to = { ...pos };
-  const setX = gsap.quickSetter(root, 'x', 'px');
-  const setY = gsap.quickSetter(root, 'y', 'px');
-  addEventListener('pointermove', (e) => { to.x = e.clientX; to.y = e.clientY; }, { passive: true });
-  gsap.ticker.add(() => {
-    pos.x += (to.x - pos.x) * 0.2;
-    pos.y += (to.y - pos.y) * 0.2;
-    setX(pos.x); setY(pos.y);
-  });
-
-  const NAMES = [
-    ['.acc__btn', 'open'],
-    ['.ticker', 'pause'],
-    ['[data-cursor]', null],
-  ];
-  addEventListener('pointerover', (e) => {
-    const t = e.target;
-    let text = null, on = !!t.closest('a, button, input, summary, [role="button"]');
-    for (const [sel, name] of NAMES) {
-      const hit = t.closest(sel);
-      if (hit) { text = hit.dataset?.cursor || name; on = true; break; }
-    }
-    root.classList.toggle('is-on', on && !text);
-    root.classList.toggle('is-label', !!text);
-    label.textContent = text || '';
-  }, { passive: true });
 }
 
 /* ── leaving a page ───────────────────────────────────────────
@@ -264,34 +216,6 @@ export function exitTransition() {
   addEventListener('pageshow', (e) => { if (e.persisted) gsap.set(veil, { yPercent: 100 }); });
 }
 
-/* ── the mark at the foot of the page ─────────────────────────
-   A last, large statement of the name, wiped up out of its own
-   line as the footer arrives and drifting slightly as you finish
-   scrolling — the counterweight to the ghost in the hero. */
-export function footMark() {
-  const mark = document.querySelector('.foot-mark');
-  if (!mark || reduced) return;
-  /* The wordmark is split into its letters, which rise into place one after
-     another, left to right, like a ridge line coming up. Hovering a letter
-     lifts it slightly and tints it with one of the landscape's colours. */
-  const word = mark.textContent.trim();
-  const span = mark.querySelector('span');
-  span.textContent = '';
-  const COLOURS = ['--clay', '--ochre', '--sage', '--amber', '--moss', '--pine'];
-  const letters = [...word].map((ch, i) => {
-    const l = document.createElement('i');
-    l.className = 'foot-mark__l';
-    l.textContent = ch;
-    l.style.setProperty('--c', `var(${COLOURS[i % COLOURS.length]})`);
-    span.append(l);
-    return l;
-  });
-  gsap.from(letters, {
-    yPercent: 70, opacity: 0, duration: 1.4, ease: 'expo.out', stagger: 0.07,
-    scrollTrigger: { trigger: mark, start: 'top 92%', once: true },
-  });
-}
-
 /* ── boot everything a page shares ───────────────────────── */
 export function boot() {
   initScroll();
@@ -300,9 +224,7 @@ export function boot() {
   reveals();
   magnetic();
   progress();
-  cursor();
   exitTransition();
-  footMark();
   document.querySelectorAll('[data-reveal-heading]').forEach((el) => revealHeading(el, { trigger: true }));
 
   const refresh = () => ScrollTrigger.refresh();
@@ -343,4 +265,35 @@ export function sectionNav() {
     });
   }, { rootMargin: '-45% 0px -50% 0px' });
   targets.forEach((t) => io.observe(t));
+}
+
+/* ── depth: layers drift at their own rate ────────────────────
+   data-depth sets how far an element moves across its section's
+   scroll. Negative values move down, so in the hero the clouds and
+   far hills lag behind the page — distance, as seen from a moving
+   window. The hero measures from the top of the page, so at rest
+   every layer sits exactly where it was drawn. */
+export function depth(root = document) {
+  if (reduced) return;
+  root.querySelectorAll('[data-depth]').forEach((el) => {
+    const d = Number(el.dataset.depth) || 0;
+    const hero = el.closest('.hero');
+    gsap.to(el, {
+      y: () => -d * Math.min(220, innerHeight * 0.26), ease: 'none',
+      scrollTrigger: hero
+        ? { trigger: hero, start: 'top top', end: 'bottom top', scrub: 0.6, invalidateOnRefresh: true }
+        : { trigger: el.closest('section') || el, start: 'top bottom', end: 'bottom top', scrub: 0.6, invalidateOnRefresh: true },
+    });
+  });
+}
+
+/* ── rise: things that arrive in a row arrive one after another ── */
+export function rise(root = document) {
+  const items = [...root.querySelectorAll('[data-rise]')];
+  if (!items.length || reduced) return;
+  gsap.set(items, { opacity: 0, y: 30 });
+  ScrollTrigger.batch(items, {
+    start: 'top 90%', once: true,
+    onEnter: (batch) => gsap.to(batch, { opacity: 1, y: 0, duration: 1, ease: 'expo.out', stagger: 0.1 }),
+  });
 }
