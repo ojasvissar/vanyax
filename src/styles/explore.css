@@ -69,7 +69,7 @@
 /* IUCN category, coloured only where the category itself is a warning */
 .chip--vulnerable, .chip--endangered, .chip--critically_endangered,
 .chip--extinct, .chip--extinct_in_the_wild { border-color: var(--rust); color: var(--rust); }
-.chip--near_threatened { border-color: #b8854a; color: #b8854a; }
+.chip--near_threatened { border-color: var(--orange); color: #b8430f; }
 .chip--least_concern { border-color: var(--line); color: var(--ink-2); }
 
 /* ── report ─────────────────────────────────────────────── */
@@ -107,15 +107,15 @@
 
 /* ── chart primitives ───────────────────────────────────── */
 .chart { width: 100%; height: auto; overflow: visible; }
-.bar { fill: var(--green); transition: fill 0.15s var(--ease); }
+.bar { fill: var(--violet); transition: fill 0.15s var(--ease); }
 .bar:hover { fill: var(--ink); }
-.bar--out { fill: rgba(53, 105, 94, 0.2); }
+.bar--out { fill: rgba(106, 34, 230, 0.18); }
 .grid { stroke: var(--line); stroke-width: 1; }
 .tick { font-family: var(--mono); font-size: 10px; fill: var(--ink-3); }
 .rowlabel { font-family: var(--mono); font-size: 11px; fill: var(--ink-2); }
 .rowvalue { font-family: var(--mono); font-size: 11px; fill: var(--ink-3); }
 .crosshair { stroke: var(--ink); stroke-width: 1; stroke-dasharray: 3 3; }
-.brush { fill: rgba(242, 171, 99, 0.32); stroke: var(--accent); stroke-width: 1; }
+.brush { fill: rgba(240, 238, 74, 0.45); stroke: var(--ink); stroke-width: 1.5; }
 .seg { transition: opacity 0.15s var(--ease); }
 .seg:hover { opacity: 0.8; }
 .empty { color: var(--ink-3); font-size: 0.92rem; padding: 1rem 0; }
@@ -133,7 +133,8 @@
 .map__land { fill: var(--map-land); stroke: var(--line-2); stroke-width: 0.6; }
 .map__foot { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; align-items: center; margin-top: 0.9rem; }
 .ramp { display: flex; align-items: center; gap: 0.6rem; }
-.ramp__bar { width: 130px; height: 6px; border-radius: var(--pill); background: linear-gradient(90deg, #eaefe2, #b9d0b4, #7fae94, #47837a, #1f4a48); }
+/* sampled from GBIF's purpleYellow tiles, so the legend is the ramp the map actually draws */
+.ramp__bar { width: 130px; height: 8px; border-radius: var(--pill); border: 1.5px solid var(--ink); background: linear-gradient(90deg, #66005f, #a42f5c, #d4625a, #eda36c, #feeaa5); }
 .ramp__label { font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); }
 .map__readout { font-family: var(--mono); font-size: 0.68rem; color: var(--ink-3); }
 

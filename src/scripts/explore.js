@@ -193,7 +193,7 @@ function numbersTable(rows, headers) {
 let lapse = null;
 
 function tileURL(x, from, to) {
-  const q = new URLSearchParams({ taxonKey: state.key, srs: 'EPSG:4326', style: 'green.poly', bin: 'hex', hexPerTile: '55' });
+  const q = new URLSearchParams({ taxonKey: state.key, srs: 'EPSG:4326', style: 'purpleYellow.poly', bin: 'hex', hexPerTile: '55' });
   if (from != null) q.set('year', `${from},${to}`);
   return `${TILES}/0/${x}/0@2x.png?${q}`;
 }
