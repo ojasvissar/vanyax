@@ -1,22 +1,12 @@
-# vanyax
-
-*van* — the forest. *yax* — the spirits that keep it.
-
-Site for **vanyax**, a data science and machine learning practice for
-biodiversity and ecosystems. Two pages, statically built, no tracking.
-
-Live: [ojasvissar.github.io/vanyax](https://ojasvissar.github.io/vanyax/)
-
 ## What is on it
 
-The home page says what the practice does and asks for one thing — and nothing
-else, because everything else was in the way.
+The home page says what the practice does and asks for one thing.
 
 | Section | What it does |
 | --- | --- |
-| Hero | One line: *We turn field data into answers.* Who it is for, two ways in |
-| Statement | Two sentences: what we do, and what you keep |
-| What we do | Five services as a row each — bioacoustics, camera traps, surveys and counts, satellite and drone, eDNA (in development) |
+| Hero | *Turning field data into answers*, who it is for, two ways in |
+| The approach | Why the practice exists, beside a printed vignette |
+| What we do | Five services, each with a small printed scene — bioacoustics, camera traps, surveys and counts, satellite and drone, eDNA (in development) |
 | Questions | Who we work with, what data we take, how a project runs, what happens to your data |
 | The ask | *Ready to put your data to work?* — one form, one address |
 
@@ -189,23 +179,3 @@ src/
 tools/        gen_landscape.py
 ```
 
-`src/` is the Vite root, so a page's path inside it is its URL: the file
-`src/explore/index.html` is served at `/explore/`.
-
-## Develop
-
-```bash
-npm install
-npm run dev      # http://localhost:3000/vanyax/
-npm run build    # → dist/
-npm run preview
-```
-
-Pushing to `main` deploys to GitHub Pages via `.github/workflows/deploy.yml`.
-
-## Before this goes public
-
-- Replace `hello@vanyax.org` (the ask and the footer) with a real address.
-- Wire the email form: set `GOOGLE_FORM.formId` and `GOOGLE_FORM.emailEntry` in
-  [src/scripts/main.js](src/scripts/main.js). Until then it confirms locally
-  without sending.
