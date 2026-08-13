@@ -14,6 +14,8 @@
   background: var(--ink); color: var(--on-dark);
 }
 .ask > .tear { --tear-fill: var(--ink); }
+.ask .wrap { position: relative; z-index: 2; }
+@media (max-width: 860px) { .ask .collage { display: none; } }
 .ask .eyebrow { color: var(--lilac); }
 .ask .ask__note { color: var(--on-dark-2); }
 .ask__line {
