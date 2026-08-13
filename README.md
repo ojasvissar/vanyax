@@ -119,7 +119,7 @@ ring is rust. The service and question lists are buttons inside headings with
 - [Vite](https://vitejs.dev/) — two-page build, rooted at `src/`
 - [GSAP](https://gsap.com/) + ScrollTrigger, [Lenis](https://lenis.darkroom.engineering/)
 - d3-geo, topojson-client and world-atlas — the explorer's map
-- Bricolage Grotesque and Figtree via Google Fonts
+- Fraunces and Work Sans via Google Fonts
 
 ## Layout
 
