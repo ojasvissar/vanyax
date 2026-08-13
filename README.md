@@ -55,106 +55,64 @@ preloaded before it is shown so the map never blinks. Watching a species fill
 in from 1878 onward is mostly a history of who was looking, which is the point
 the caveats underneath make in words.
 
-## Design: cut paper, forest and mountain
+## Design: field print
 
-The structure came from a collage-built studio site — bands torn across and
-laid edge to edge, cut-out pieces, scraps of black-and-white photograph,
-services as rows of flat colour. Its candy palette and toy shapes read as too
-playful for this work, so the pieces are cut from the landscape instead:
-ridges, snowcaps, pine forests, contour lines and a low sun, in the colours of
-a forest at dusk.
-
-Two rules keep it quiet:
-
-- **Colour comes from the landscape and stays in it.** Type and ground are ink
-  and paper; the earth colours live in the ridges, the pieces and the service
-  rows.
-- **One thing per section.** The copy says what we do, once.
+Modelled on illustrated agricultural-research sites: a landscape printed in a
+few flat inks, a soft serif for anything read at a distance, deep forest-green
+bands on cream paper, lime for the one thing to press, small rust labels over
+each section, and grass where one band meets the next. It should read as a
+field station — calm, practical, outdoors.
 
 | Token | Value | Used for |
 | --- | --- | --- |
-| `--paper` | `#e8e3d4` | the oat ground |
-| `--ink` | `#101a15` | type, the night sky, the front treeline |
-| `--pine` | `#1f3d2b` | the services spine, the ask, the page veil |
-| `--sage` `--moss` `--ochre` `--stone` `--clay` | | the service rows, highlights and pieces |
-| `--slate` | `#56675f` | the far ridge |
+| `--cream` | `#f3eee2` | the page |
+| `--forest` | `#1f3b27` | header, bands, headings |
+| `--lime` | `#c8d46a` | buttons, the header strip |
+| `--sky` | `#b6d8de` | the hero and explorer sky |
+| `--rust-ink` | `#963f1d` | section labels (the brighter `--rust` is for artwork only) |
 
-Type is **Bricolage Grotesque** for anything read at a distance and
-**Figtree** for reading size.
+Type is **Fraunces** with its soft axis turned up for headings and **Work Sans**
+for text and labels.
 
-### The landscape
+### The illustrations
 
-[tools/gen_landscape.py](tools/gen_landscape.py) draws everything in
-[src/assets/land/](src/assets/land/): four hero ridges, the treeline under the
-ask, and the small cut-outs (a snow-capped peak, two pines, a ridge strip, a
-hill as contour lines). Skylines are midpoint-displacement profiles — rough at
-every scale, as real ones are — dipped in the middle so the headline sits in a
-valley between peaks. Snow is torn paper on the highest peaks. Pines are one
-stacked-fir silhouette in the ridge's own colour, sunk into the ground by their
-lowest tier so no sky shows between trunks. The generator is seeded; run it
-again and you get the same range:
+[tools/gen_illustration.py](tools/gen_illustration.py) draws everything in
+[src/assets/illo/](src/assets/illo/): the hero in parallax layers (clouds, far
+hills, near hills with trees, a meadow with a recording post and a
+camera-trapped tree), the grass edges between bands, two circular vignettes,
+the five service scenes and the emblem. Hills are hatched along their own
+contours like a linocut; grass is drawn blade by blade. Seeded, so a rerun
+gives the same pictures:
 
 ```bash
-python3 tools/gen_landscape.py
+python3 tools/gen_illustration.py
 ```
 
-### The rest of the system
+### Accordion
 
-In [src/scripts/paper.js](src/scripts/paper.js) unless noted:
-
-- **Torn edges** — `tears()` draws each `[data-tear]` at its real width as two
-  ragged lines, the band's colour and the paper's white core behind it, from a
-  seeded generator. Where a treeline is the edge — under the ask — there is no
-  tear; the forest is the colour of the footer and grows out of it.
-- **Cut-outs** — a `.piece` is placed by four custom properties set inline
-  (`--x`, `--y`, `--w`, `--r`). Photo scraps (`.cutout`) get a torn clip-path
-  and a white paper rim. Their frames keep a 5:4 ratio, because pieces are sized
-  by width and placed by height and would otherwise hang out on narrow screens.
-- **Accordion** — [src/scripts/accordion.js](src/scripts/accordion.js). Rows
-  ship open and are closed by the script, so without JS every answer is visible.
-  One open at a time; arrow keys, Home and End move between rows.
+[src/scripts/accordion.js](src/scripts/accordion.js). Rows ship open and are
+closed by the script, so without JS every answer is visible. One open at a time;
+arrow keys, Home and End move between rows.
 
 ## Motion
 
-Lenis for the scroll, GSAP for everything hung off it — kept slow and in order.
+Lenis for the scroll, GSAP for everything hung off it, kept slow:
 
-- The hero's ridges **rise from the back** one at a time, the way a landscape
-  appears as your eyes adjust at dusk; the moon comes up last.
-- Scrolling, the **far ridges and the moon lag** behind the page (a negative
-  depth), so distance reads as it does from a moving window. Mist drifts along
-  the valleys and a few birds cross about once a minute.
-- Collage pieces drift at their own depth and **barely bob**, on the `translate`
-  and `rotate` properties so the idle motion composes with the parallax.
-- Marker highlights fill in, contour lines **draw themselves**, service rows
-  slide in from the spine, the footer's letters rise in order, the stamp turns,
-  and a ticker of the five services runs across the seam under the hero.
-- The header becomes a scalloped strip past the hero and marks the section you
-  are in; a pine-green veil covers the page on the way out.
+- The hero's layers come up from the back one at a time, the clouds last.
+- Scrolling, the clouds and far hills lag behind the page, so distance reads
+  as it does from a moving window. Clouds drift; birds cross about once a minute.
+- Vignettes and service scenes rise into place in order; headings reveal word
+  by word; the header hides going down and returns going up, and marks the
+  section you are in.
 
-`prefers-reduced-motion` stills all of it and shows everything in its finished
-state — verified under emulation.
+`prefers-reduced-motion` stills all of it and shows everything finished —
+verified under emulation.
 
 ## Accessibility
 
 Every line of text on both pages clears WCAG AA, checked by script. The focus
-ring is pine on paper and ochre on the dark sheets, where pine cannot be seen. The service and question lists are buttons inside headings with
+ring is rust. The service and question lists are buttons inside headings with
 `aria-expanded` and labelled regions.
-
-## Photographs
-
-Three, from [Unsplash](https://unsplash.com), whose licence allows commercial
-use without permission or attribution. They appear as torn black-and-white
-scraps; files are in [src/assets/photos/](src/assets/photos/).
-
-| File | Unsplash photo ID |
-| --- | --- |
-| `card-aerial.jpg` | `1476231682828-37e571bc172f` |
-| `conifers-fog.jpg` | `1418065460487-3e41a6c84dc5` |
-| `valley-mist.jpg` | `1542273917363-3b1817f69a2d` |
-
-Don't swap these for images off Pinterest or an image search — those are almost
-always someone else's copyrighted work, and a public site is exactly where that
-gets noticed. Unsplash, Pexels and Wikimedia Commons are all safe sources.
 
 ## Stack
 
