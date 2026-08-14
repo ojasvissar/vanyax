@@ -16,11 +16,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 export const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* Canvases can't inherit, so anything drawn in one reads its colours out of
-   the stylesheet instead of hard-coding them. One place to change a palette,
-   and the drawings follow the theme. */
-export const cssVar = (name, fallback = '#000') =>
-  getComputedStyle(document.documentElement).getPropertyValue(name).trim() || fallback;
 export let lenis = null;
 
 /* ── smooth scroll ───────────────────────────────────────── */
@@ -97,19 +92,6 @@ export function reveals(root = document) {
   });
 }
 
-/* ── parallax ────────────────────────────────────────────── */
-export function parallax(root = document) {
-  if (reduced) return;
-  root.querySelectorAll('[data-parallax]').forEach((el) => {
-    const amount = +(el.dataset.parallax || 12);
-    gsap.to(el, {
-      yPercent: amount,
-      ease: 'none',
-      scrollTrigger: { trigger: el.closest('section') || el, start: 'top bottom', end: 'bottom top', scrub: true },
-    });
-  });
-}
-
 /* ── magnetic buttons ────────────────────────────────────── */
 export function magnetic(root = document) {
   if (reduced || matchMedia('(hover: none)').matches) return;
@@ -125,52 +107,6 @@ export function magnetic(root = document) {
     };
     el.addEventListener('pointermove', move);
     el.addEventListener('pointerleave', () => gsap.to(el, { x: 0, y: 0, duration: 0.7, ease: 'elastic.out(1, 0.4)' }));
-  });
-}
-
-/* ── counters ────────────────────────────────────────────── */
-export function counters(root = document) {
-  root.querySelectorAll('[data-count]').forEach((el) => {
-    const end = +el.dataset.count;
-    const suffix = el.dataset.suffix || '';
-    const dp = +(el.dataset.decimals || 0);
-    const show = (v) => (dp
-      ? v.toFixed(dp)
-      : Math.round(v).toLocaleString('en-GB')) + suffix;
-    if (reduced) { el.textContent = show(end); return; }
-    const obj = { v: 0 };
-    gsap.to(obj, {
-      v: end, duration: 1.8, ease: 'power2.out',
-      scrollTrigger: { trigger: el, start: 'top 92%', once: true },
-      onUpdate: () => { el.textContent = show(obj.v); },
-    });
-  });
-}
-
-/* ── marquee: drifts on its own, leans with scroll ───────── */
-export function marquee(root = document) {
-  root.querySelectorAll('.marquee').forEach((wrap) => {
-    const track = wrap.querySelector('.marquee__track');
-    if (!track) return;
-    track.innerHTML += track.innerHTML;          // duplicate for a seamless loop
-    let held = false;                            // and hold still while read
-    wrap.addEventListener('pointerenter', () => { held = true; });
-    wrap.addEventListener('pointerleave', () => { held = false; });
-    const width = track.scrollWidth / 2;
-    if (reduced) return;
-    let offset = 0, dir = 1, speed = 0.4;
-    const tick = () => {
-      if (held) return;
-      offset -= speed * dir;
-      if (offset <= -width) offset += width;
-      if (offset > 0) offset -= width;
-      track.style.transform = `translate3d(${offset}px,0,0)`;
-    };
-    gsap.ticker.add(tick);
-    if (lenis) lenis.on('scroll', ({ velocity }) => {
-      dir = velocity < -0.1 ? -1 : 1;
-      speed = Math.min(6, 0.4 + Math.abs(velocity) * 0.22);
-    });
   });
 }
 
@@ -225,19 +161,6 @@ export function heroIn() {
   });
 }
 
-/* ── media: every picture wipes up into its own frame ────── */
-export function mediaReveals(root = document) {
-  if (reduced) return;
-  root.querySelectorAll('.shot, .figure__plate, .plate, .card__img').forEach((el) => {
-    gsap.fromTo(el,
-      { clipPath: 'inset(100% 0% 0% 0%)' },
-      {
-        clipPath: 'inset(0% 0% 0% 0%)', duration: 1.25, ease: 'expo.out',
-        scrollTrigger: { trigger: el, start: 'top 88%', once: true },
-      });
-  });
-}
-
 /* ══════════════════════════════════════════════════════════
    THE REST OF THE MOTION
 
@@ -246,26 +169,6 @@ export function mediaReveals(root = document) {
    needs any, so the HTML carries no empty divs for effects that
    may never run.
    ══════════════════════════════════════════════════════════ */
-
-/* ── the hero leaves as one block ─────────────────────────────
-   The picture drifts and grows while the ghost climbs out of the
-   top, the copy fades back, and the whole block scales down and
-   rounds off — so the hero reads as an object being set down as
-   you scroll past it rather than a background sliding away. */
-export function heroScroll() {
-  const media = document.querySelector('[data-hero-media]');
-  if (!media || reduced) return;
-  const img = media.querySelector('img');
-  const ghost = media.querySelector('.hero__ghost');
-  const inner = media.querySelector('.hero__inner');
-  const tl = gsap.timeline({
-    scrollTrigger: { trigger: media, start: 'top top', end: 'bottom top', scrub: 0.5 },
-  });
-  if (img) tl.to(img, { yPercent: 10, scale: 1.12, ease: 'none' }, 0);
-  if (ghost) tl.to(ghost, { yPercent: -60, opacity: 0, ease: 'none' }, 0);
-  if (inner) tl.to(inner, { y: -70, opacity: 0.15, ease: 'none' }, 0);
-  tl.to(media, { scale: 0.93, borderRadius: 64, ease: 'none' }, 0);
-}
 
 /* ── how far down the page you are ───────────────────────── */
 export function progress() {
@@ -313,9 +216,8 @@ export function cursor() {
   });
 
   const NAMES = [
-    ['.globe__canvas', 'drag'],
-    ['.survey__canvas', 'survey'],
-    ['.shot', 'open'],
+    ['.acc__btn', 'open'],
+    ['.ticker', 'pause'],
     ['[data-cursor]', null],
   ];
   addEventListener('pointerover', (e) => {
@@ -329,38 +231,6 @@ export function cursor() {
     root.classList.toggle('is-label', !!text);
     label.textContent = text || '';
   }, { passive: true });
-}
-
-/* ── lists and cards arrive in sequence ──────────────────── */
-export function batchIn(rootEl = document) {
-  if (reduced) return;
-  const sets = ['.card', '.steps li', '.ticks li', '.survey__hud > div', '.caveats .stat', '.legend li'];
-  sets.forEach((sel) => {
-    const items = [...rootEl.querySelectorAll(sel)].filter((el) => !el.hasAttribute('data-anim'));
-    if (!items.length) return;
-    gsap.set(items, { opacity: 0, y: 26 });
-    ScrollTrigger.batch(items, {
-      start: 'top 92%',
-      onEnter: (batch) => gsap.to(batch, { opacity: 1, y: 0, duration: 0.9, stagger: 0.07, ease: 'expo.out', overwrite: true }),
-      once: true,
-    });
-  });
-}
-
-/* ── cards lean toward the pointer ───────────────────────── */
-export function tilt(rootEl = document) {
-  if (reduced || matchMedia('(hover: none)').matches) return;
-  rootEl.querySelectorAll('[data-tilt]').forEach((el) => {
-    const max = +(el.dataset.tilt || 5);
-    const rx = gsap.quickTo(el, 'rotationX', { duration: 0.7, ease: 'power3.out' });
-    const ry = gsap.quickTo(el, 'rotationY', { duration: 0.7, ease: 'power3.out' });
-    el.addEventListener('pointermove', (e) => {
-      const r = el.getBoundingClientRect();
-      rx((0.5 - (e.clientY - r.top) / r.height) * max * 2);
-      ry(((e.clientX - r.left) / r.width - 0.5) * max * 2);
-    });
-    el.addEventListener('pointerleave', () => { rx(0); ry(0); });
-  });
 }
 
 /* ── leaving a page ───────────────────────────────────────────
@@ -428,18 +298,11 @@ export function footMark() {
 export function boot() {
   initScroll();
   heroIn();
-  heroScroll();
-  mediaReveals();
   stickyHeader();
   reveals();
-  parallax();
   magnetic();
-  counters();
-  marquee();
   progress();
   cursor();
-  batchIn();
-  tilt();
   exitTransition();
   footMark();
   document.querySelectorAll('[data-reveal-heading]').forEach((el) => revealHeading(el, { trigger: true }));
