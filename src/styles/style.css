@@ -241,7 +241,9 @@ h4 { font-size: 0.82rem; font-family: var(--sans); font-weight: 600; letter-spac
 .cursor.is-label .cursor__label { opacity: 1; }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  /* one iteration, not infinite: an endless 0.01ms loop shows a random phase
+     every frame, which is jitter — the opposite of what was asked for */
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
   [data-anim], .word { opacity: 1 !important; transform: none !important; }
   .progress, .cursor, .leave { display: none !important; }
 }
