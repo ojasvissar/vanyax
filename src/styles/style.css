@@ -307,8 +307,8 @@ h4 { font-size: 0.82rem; font-family: var(--sans); font-weight: 600; letter-spac
   .hero .piece { display: none; }
   .hero .piece:nth-child(1) { display: block; --x: 5% !important; --y: 9% !important; --w: 64px !important; }
   .hero .piece:nth-child(7) { display: block; --x: 66% !important; --y: 8% !important; --w: 104px !important; }
-  .hero .piece:nth-child(5) { display: block; --x: 6% !important; --y: 76% !important; --w: 44px !important; }
-  .hero .piece:nth-child(9) { display: block; --x: 80% !important; --y: 74% !important; --w: 54px !important; }
+  .hero .piece:nth-child(5) { display: block; --x: 6% !important; --y: 83% !important; --w: 40px !important; }
+  .hero .piece:nth-child(9) { display: block; --x: 82% !important; --y: 81% !important; --w: 48px !important; }
   .hero { padding-top: calc(var(--bar) + 6rem); }
 }
 
