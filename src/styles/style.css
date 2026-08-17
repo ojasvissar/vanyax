@@ -504,3 +504,13 @@ h4 { font-size: 0.82rem; font-family: var(--sans); font-weight: 600; letter-spac
 .cta .lede, .cta .capture__note, .cta .mailto { color: var(--on-dark); }
 .hero :focus-visible, .band--ink :focus-visible, .band--violet :focus-visible,
 .site-head :focus-visible, .site-foot :focus-visible, .ask :focus-visible { outline-color: var(--yellow); }
+
+/* ── collage frames keep their pieces ─────────────────────────
+   A piece is sized as a share of its frame's width and placed as a
+   share of its height, so the frame has to keep its proportions or,
+   on a narrow single column, the pieces hang out of it into the next
+   band. A fixed aspect ratio holds them at every width. */
+.statement__art, .faq__art { min-height: 0; aspect-ratio: 5 / 4; }
+@media (max-width: 860px) {
+  .statement__art, .faq__art { min-height: 0; width: min(100%, 30rem); margin-inline: auto; }
+}
