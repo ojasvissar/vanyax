@@ -1,5 +1,5 @@
 /* ════════════════════════════════════════════════════════════
-   vanyax — design system  ·  CUT PAPER
+   vanyax — design system  ·  CUT PAPER, FOREST AND MOUNTAIN
 
    The page is a collage on a table. Black bands and oat bands are
    sheets of paper torn across and laid edge to edge; the colour
@@ -15,39 +15,46 @@
    ════════════════════════════════════════════════════════════ */
 
 :root {
-  /* ── ground ──────────────────────────────────────────────── */
-  --paper:   #ece5d3;
-  --paper-2: #f7f2e6;             /* the white core a tear exposes */
-  --white:   #fffdf7;
-  --ink:     #151515;
-  --ink-800: #2a2a2a;
+  /* ── ground: the forest at dusk ───────────────────────────
+     Oat paper for the page, and an ink that is the darkest green of a
+     forest after sunset rather than a black. The colour comes from the
+     landscape: pine and moss, sage lichen, ochre light low on a ridge,
+     clay soil and the slate of distant mountains. Nothing is bright
+     for its own sake. */
+  --paper:   #e8e3d4;
+  --paper-2: #f5f2e8;             /* the white core a tear exposes */
+  --white:   #fbf9f2;
+  --ink:     #101a15;
+  --ink-800: #23302a;
 
-  --ink-2: rgba(21, 21, 21, 0.76);
-  --ink-3: rgba(21, 21, 21, 0.64);
-  --line:  rgba(21, 21, 21, 0.14);
-  --line-2:rgba(21, 21, 21, 0.26);
+  --ink-2: rgba(16, 26, 21, 0.78);
+  --ink-3: rgba(16, 26, 21, 0.66);
+  --line:  rgba(16, 26, 21, 0.14);
+  --line-2:rgba(16, 26, 21, 0.26);
 
-  --on-dark:   #f7f2e6;
-  --on-dark-2: rgba(247, 242, 230, 0.78);
-  --on-dark-3: rgba(247, 242, 230, 0.6);
-  --line-dark: rgba(247, 242, 230, 0.18);
+  --on-dark:   #f5f2e8;
+  --on-dark-2: rgba(245, 242, 232, 0.8);
+  --on-dark-3: rgba(245, 242, 232, 0.62);
+  --line-dark: rgba(245, 242, 232, 0.18);
 
-  /* ── the cut-paper colours ───────────────────────────────── */
-  --violet: #6a22e6;
-  --lilac:  #d9c8f7;
-  --pink:   #f38ae0;
-  --orange: #ff6b2c;
-  --yellow: #f0ee4a;
-  --green:  #17b07a;              /* a fill colour; too light to carry text */
-  --green-ink: #0b6e4b;
+  /* ── the landscape ───────────────────────────────────────── */
+  --pine:   #1f3d2b;
+  --sage:   #c6d2b1;
+  --moss:   #7f9f6b;              /* a fill colour; too light to carry text */
+  --moss-ink: #3f5e33;
+  --ochre:  #e0c372;
+  --amber:  #cf9445;
+  --clay:   #c48a64;
+  --slate:  #56675f;
+  --mist:   #dfe2d4;
 
-  --accent: var(--violet);
-  --lime:   var(--lilac);
-  --rust:   #d9481c;
-  --series-1: #6a22e6; --series-2: #ff6b2c; --series-3: #17b07a;
-  --series-4: #d94fc0; --series-5: #a89a00; --series-6: #151515;
-  --map-sea:  #ddd5c1;
-  --map-land: #fffdf7;
+  --accent: var(--pine);
+  --lime:   var(--sage);
+  --rust:   #b5532c;
+  --series-1: #1f3d2b; --series-2: #cf9445; --series-3: #56675f;
+  --series-4: #c48a64; --series-5: #7f9f6b; --series-6: #101a15;
+  --map-sea:  #d8d3c3;
+  --map-land: #fbf9f2;
 
   /* ── two voices ──────────────────────────────────────────────
      Bricolage Grotesque for anything read at a distance: it has the
@@ -92,8 +99,8 @@ body {
 a { color: inherit; text-decoration: none; }
 img, svg, canvas { display: block; max-width: 100%; }
 button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
-::selection { background: var(--yellow); color: var(--ink); }
-:focus-visible { outline: 3px solid var(--violet); outline-offset: 3px; border-radius: 4px; }
+::selection { background: var(--ochre); color: var(--ink); }
+:focus-visible { outline: 3px solid var(--pine); outline-offset: 3px; border-radius: 4px; }
 
 .wrap { width: min(var(--wrap), 100%); margin-inline: auto; padding-inline: var(--pad); }
 .frame { display: none; }
@@ -131,10 +138,10 @@ h4 { font-size: 0.82rem; font-family: var(--sans); font-weight: 600; letter-spac
 }
 .btn:hover { box-shadow: 0 6px 0 -1px rgba(21, 21, 21, 0.2); }
 .btn--solid { background: var(--ink); color: var(--on-dark); }
-.btn--lilac { background: var(--lilac); color: var(--ink); border-color: var(--lilac); }
-.btn--lilac:hover { background: var(--yellow); border-color: var(--yellow); }
-.btn--green { background: var(--green); color: var(--ink); border-color: var(--green); }
-.btn--green:hover { background: var(--yellow); border-color: var(--yellow); }
+.btn--sage { background: var(--sage); color: var(--ink); border-color: var(--sage); }
+.btn--sage:hover { background: var(--ochre); border-color: var(--ochre); }
+.btn--moss { background: var(--moss); color: var(--ink); border-color: var(--moss); }
+.btn--moss:hover { background: var(--ochre); border-color: var(--ochre); }
 .btn--ghost { background: transparent; color: currentColor; border-color: currentColor; }
 .btn--ghost:hover { background: var(--on-dark); color: var(--ink); border-color: var(--on-dark); }
 .btn--quiet { background: transparent; color: var(--ink); border-color: var(--line-2); }
@@ -165,16 +172,16 @@ h4 { font-size: 0.82rem; font-family: var(--sans); font-weight: 600; letter-spac
 }
 .site-nav a:hover { background: rgba(247, 242, 230, 0.12); }
 /* where you are is marked in yellow, so it never reads as a second lilac button */
-.site-nav a[aria-current="page"], .site-nav a[aria-current="location"] { background: var(--yellow); color: var(--ink); }
+.site-nav a[aria-current="page"], .site-nav a[aria-current="location"] { background: var(--ochre); color: var(--ink); }
 .site-head .btn { padding: 0.6rem 1.1rem; font-size: 0.76rem; }
 
 /* ── bands: sheets of paper laid edge to edge ─────────────── */
 .band { position: relative; padding-block: clamp(4rem, 11vh, 8rem); }
 .band--ink { background: var(--ink); color: var(--on-dark); }
 .band--paper { background: var(--paper); color: var(--ink); }
-.band--violet { background: var(--violet); color: var(--on-dark); }
-.band--ink .eyebrow, .band--violet .eyebrow { color: var(--on-dark-3); }
-.band--ink .lede, .band--violet .lede { color: var(--on-dark-2); }
+.band--pine { background: var(--pine); color: var(--on-dark); }
+.band--ink .eyebrow, .band--pine .eyebrow { color: var(--on-dark-3); }
+.band--ink .lede, .band--pine .lede { color: var(--on-dark-2); }
 
 /* ── the contact form ────────────────────────────────────── */
 .contact { display: grid; gap: 1.3rem; justify-items: center; text-align: center; max-width: 44rem; margin-inline: auto; }
@@ -187,25 +194,25 @@ h4 { font-size: 0.82rem; font-family: var(--sans); font-weight: 600; letter-spac
   transition: border-color 0.3s var(--ease);
 }
 .capture__input::placeholder { color: var(--ink-3); }
-.capture__input:focus { outline: 0; border-color: var(--yellow); }
+.capture__input:focus { outline: 0; border-color: var(--ochre); }
 .capture__btn {
   font-size: 0.86rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
   padding: 0.85rem 1.5rem; border-radius: var(--pill);
-  background: var(--green); color: var(--ink);
+  background: var(--moss); color: var(--ink);
   transition: background 0.3s var(--ease), transform 0.3s var(--spring);
 }
-.capture__btn:hover { background: var(--yellow); transform: rotate(-2deg) scale(1.03); }
+.capture__btn:hover { background: var(--ochre); transform: rotate(-2deg) scale(1.03); }
 .capture__btn:disabled { opacity: 0.55; cursor: default; }
 .capture__note { font-size: 0.86rem; color: inherit; opacity: 0.8; }
 .mailto { border-bottom: 2px solid currentColor; }
-.mailto:hover { color: var(--yellow); }
+.mailto:hover { color: var(--ochre); }
 
 /* ── footer ──────────────────────────────────────────────── */
 .site-foot { background: var(--ink); color: var(--on-dark); padding-block: clamp(3.5rem, 9vh, 6rem) 1.6rem; }
 .site-foot__grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: clamp(1.5rem, 5vw, 4rem); }
 .site-foot h4 { color: var(--on-dark-3); margin-bottom: 0.9rem; }
 .site-foot a { display: block; color: var(--on-dark-2); padding-block: 0.2rem; transition: color 0.3s var(--ease); }
-.site-foot a:hover { color: var(--yellow); }
+.site-foot a:hover { color: var(--ochre); }
 .site-foot__etym { font-family: var(--display); font-size: clamp(1.3rem, 2.2vw, 1.8rem); font-weight: 300; line-height: 1.3; letter-spacing: -0.02em; }
 .site-foot__etym b { font-weight: 600; }
 .site-foot__who { margin-top: 1rem; max-width: 36ch; color: var(--on-dark-2); font-size: 0.95rem; }
@@ -222,20 +229,20 @@ h4 { font-size: 0.82rem; font-family: var(--sans); font-weight: 600; letter-spac
 .foot-mark span { display: block; }
 
 /* ── the cover, the veil, and the furniture motion adds ───── */
-.intro { position: fixed; inset: 0; z-index: 200; background: var(--violet); display: grid; place-content: center; }
+.intro { position: fixed; inset: 0; z-index: 200; background: var(--pine); display: grid; place-content: center; }
 .intro__boot { text-align: center; color: var(--on-dark); }
 .intro__boot b { display: block; font-family: var(--display); font-size: clamp(2.6rem, 8vw, 5rem); font-weight: 600; letter-spacing: -0.05em; }
 .intro__boot i { font-style: normal; font-size: 0.9rem; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.8; }
 
-.progress { position: fixed; top: 0; left: 0; right: 0; height: 4px; z-index: 300; background: var(--pink); transform: scaleX(0); transform-origin: 0 50%; pointer-events: none; }
-.leave { position: fixed; inset: 0; z-index: 250; background: var(--violet); transform: translateY(100%); pointer-events: none; }
+.progress { position: fixed; top: 0; left: 0; right: 0; height: 4px; z-index: 300; background: var(--clay); transform: scaleX(0); transform-origin: 0 50%; pointer-events: none; }
+.leave { position: fixed; inset: 0; z-index: 250; background: var(--pine); transform: translateY(100%); pointer-events: none; }
 .cursor { position: fixed; top: 0; left: 0; z-index: 400; pointer-events: none; will-change: transform; }
 .cursor__dot {
   display: grid; place-items: center; width: 12px; height: 12px; margin: -6px 0 0 -6px;
-  border-radius: var(--pill); background: var(--pink); mix-blend-mode: multiply;
+  border-radius: var(--pill); background: var(--clay); mix-blend-mode: multiply;
   transition: width 0.35s var(--ease), height 0.35s var(--ease), margin 0.35s var(--ease), background 0.35s var(--ease);
 }
-.cursor.is-on .cursor__dot { width: 46px; height: 46px; margin: -23px 0 0 -23px; background: var(--yellow); }
+.cursor.is-on .cursor__dot { width: 46px; height: 46px; margin: -23px 0 0 -23px; background: var(--ochre); }
 .cursor.is-label .cursor__dot { width: auto; height: auto; padding: 0.45rem 0.8rem; margin: -16px 0 0 -16px; background: var(--ink); mix-blend-mode: normal; }
 .cursor__label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--on-dark); opacity: 0; white-space: nowrap; }
 .cursor.is-label .cursor__label { opacity: 1; }
@@ -270,7 +277,7 @@ h4 { font-size: 0.82rem; font-family: var(--sans); font-weight: 600; letter-spac
 .tear__fill { fill: var(--tear-fill); }
 .tear__rim { fill: var(--tear-rim); }
 .band--ink > .tear, .hero > .tear, .site-foot > .tear { --tear-fill: var(--ink); }
-.band--violet > .tear { --tear-fill: var(--violet); }
+.band--pine > .tear { --tear-fill: var(--pine); }
 .band--paper > .tear { --tear-fill: var(--paper); }
 
 /* ── hero: a black sheet, torn across the bottom ────────────── */
@@ -280,7 +287,7 @@ h4 { font-size: 0.82rem; font-family: var(--sans); font-weight: 600; letter-spac
   padding: calc(var(--bar) + 3rem) var(--pad) clamp(5rem, 13vh, 9rem);
 }
 .hero__in { position: relative; z-index: 2; max-width: 56rem; display: grid; justify-items: center; gap: 1.3rem; }
-.hero__eyebrow { color: var(--lilac); }
+.hero__eyebrow { color: var(--sage); }
 .hero h1 { color: var(--on-dark); max-width: 13ch; }
 .hero__sub { color: var(--on-dark-2); max-width: 40ch; font-size: clamp(1.05rem, 1.5vw, 1.25rem); line-height: 1.5; }
 .hero__actions { display: flex; gap: 0.7rem; flex-wrap: wrap; justify-content: center; margin-top: 0.5rem; }
@@ -346,11 +353,11 @@ h4 { font-size: 0.82rem; font-family: var(--sans); font-weight: 600; letter-spac
   background: linear-gradient(var(--hl), var(--hl)) no-repeat 0 90% / 100% 76%;
   -webkit-box-decoration-break: clone; box-decoration-break: clone;
 }
-.hl--pink { --hl: var(--pink); }
-.hl--yellow { --hl: var(--yellow); }
-.hl--lilac { --hl: var(--lilac); }
-.hl--green { --hl: var(--green); }
-.hl--orange { --hl: var(--orange); }
+.hl--clay { --hl: var(--clay); }
+.hl--ochre { --hl: var(--ochre); }
+.hl--sage { --hl: var(--sage); }
+.hl--moss { --hl: var(--moss); }
+.hl--amber { --hl: var(--amber); }
 .hl { transition: background-size 0.85s var(--ease); }
 .js .hl:not(.is-on) { background-size: 0% 76%; }
 
@@ -398,7 +405,7 @@ h4 { font-size: 0.82rem; font-family: var(--sans); font-weight: 600; letter-spac
 /* the violet spine, with the label set up its length */
 .what {
   position: relative; display: grid; grid-template-columns: clamp(70px, 11vw, 168px) minmax(0, 1fr);
-  background: var(--violet); border-block: 2px solid var(--ink);
+  background: var(--pine); border-block: 2px solid var(--ink);
 }
 .what__label {
   writing-mode: vertical-rl; rotate: 180deg; place-self: center;
@@ -423,10 +430,10 @@ h4 { font-size: 0.82rem; font-family: var(--sans); font-weight: 600; letter-spac
 .faq__title { position: relative; isolation: isolate; margin-bottom: clamp(1.4rem, 3vh, 2rem); }
 .faq__title::before {
   content: ""; position: absolute; z-index: -1; left: -0.28em; top: -0.12em;
-  width: 1.05em; height: 1.05em; border-radius: 50%; background: var(--pink);
+  width: 1.05em; height: 1.05em; border-radius: 50%; background: var(--clay);
 }
 .acc--faq { display: grid; gap: 8px; overflow: visible; }
-.acc--faq .acc__item { --row: var(--lilac); border: 2px solid var(--ink); border-radius: var(--r-xs); }
+.acc--faq .acc__item { --row: var(--sage); border: 2px solid var(--ink); border-radius: var(--r-xs); }
 .acc--faq .acc__item + .acc__item { border-top: 2px solid var(--ink); }
 .acc--faq .acc__btn { font-family: var(--sans); font-size: clamp(1rem, 1.3vw, 1.12rem); font-weight: 600; letter-spacing: 0; padding: 0.95rem 1.2rem; }
 .acc--faq .acc__panel p { padding: 0 1.2rem 1.15rem; font-size: 0.98rem; }
@@ -444,17 +451,17 @@ h4 { font-size: 0.82rem; font-family: var(--sans); font-weight: 600; letter-spac
 .cta .lede { color: var(--on-dark-2); margin-inline: auto; }
 .cta .capture { margin-inline: auto; }
 .cta .capture__note { color: var(--on-dark-2); }
-.cta .mailto:hover { color: var(--yellow); }
+.cta .mailto:hover { color: var(--ochre); }
 .cta .contact { position: relative; z-index: 2; }
 .strips--tall { height: clamp(80px, 11vw, 160px); }
 
 /* ── the stamp: a disc of type turning slowly, a leaf at its centre */
 .site-foot .wrap { position: relative; }
 .stamp { position: absolute; right: var(--pad); top: clamp(10rem, 24vh, 15rem); width: clamp(110px, 12vw, 170px); height: auto; }
-.stamp__disc { fill: var(--pink); }
+.stamp__disc { fill: var(--clay); }
 .stamp__text { font-family: var(--sans); font-size: 13.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; fill: var(--ink); }
 .stamp__text, .stamp defs { transform-origin: 100px 100px; animation: spin 22s linear infinite; }
-.stamp__leaf { fill: var(--green); stroke: var(--ink); stroke-width: 3; }
+.stamp__leaf { fill: var(--moss); stroke: var(--ink); stroke-width: 3; }
 .stamp__vein { stroke: var(--ink); stroke-width: 3; }
 @keyframes spin { to { rotate: 360deg; } }
 @media (max-width: 860px) { .stamp { position: static; margin-top: 2rem; } }
@@ -491,7 +498,7 @@ h4 { font-size: 0.82rem; font-family: var(--sans); font-weight: 600; letter-spac
 /* ── the ticker: a strip of yellow paper laid across the seam ─ */
 .ticker {
   position: relative; z-index: 4; margin-top: -0.6rem; rotate: -1.6deg; width: 104%; margin-left: -2%;
-  background: var(--yellow); border-block: 2px solid var(--ink); overflow: hidden;
+  background: var(--ochre); border-block: 2px solid var(--ink); overflow: hidden;
   box-shadow: 0 5px 0 rgba(21, 21, 21, 0.18);
 }
 .ticker__track {
@@ -499,7 +506,7 @@ h4 { font-size: 0.82rem; font-family: var(--sans); font-weight: 600; letter-spac
   font-family: var(--display); font-size: clamp(1.1rem, 2vw, 1.6rem); font-weight: 500; letter-spacing: -0.02em;
   animation: ticker 32s linear infinite;
 }
-.ticker__track i { font-style: normal; color: var(--violet); }
+.ticker__track i { font-style: normal; color: var(--pine); }
 .ticker:hover .ticker__track { animation-play-state: paused; }
 @keyframes ticker { to { translate: -50% 0; } }
 
@@ -509,8 +516,8 @@ h4 { font-size: 0.82rem; font-family: var(--sans); font-weight: 600; letter-spac
    default, disappears on the violet band and barely registers on
    black — on the dark sheets it is yellow. */
 .cta .lede, .cta .capture__note, .cta .mailto { color: var(--on-dark); }
-.hero :focus-visible, .band--ink :focus-visible, .band--violet :focus-visible,
-.site-head :focus-visible, .site-foot :focus-visible, .ask :focus-visible { outline-color: var(--yellow); }
+.hero :focus-visible, .band--ink :focus-visible, .band--pine :focus-visible,
+.site-head :focus-visible, .site-foot :focus-visible, .ask :focus-visible { outline-color: var(--ochre); }
 
 /* ── collage frames keep their pieces ─────────────────────────
    A piece is sized as a share of its frame's width and placed as a

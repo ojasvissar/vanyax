@@ -16,7 +16,7 @@
 .ask > .tear { --tear-fill: var(--ink); }
 .ask .wrap { position: relative; z-index: 2; }
 @media (max-width: 860px) { .ask .collage { display: none; } }
-.ask .eyebrow { color: var(--lilac); }
+.ask .eyebrow { color: var(--sage); }
 .ask .ask__note { color: var(--on-dark-2); }
 .ask__line {
   font-size: clamp(2rem, 5vw, 4.2rem); font-weight: 400;
@@ -27,9 +27,9 @@
   /* the UA sheet forces letter-spacing:normal on inputs, so without this the
      field renders wider than the mirror measures and the "?" crowds the name */
   font: inherit; letter-spacing: inherit; color: var(--ink);
-  background: var(--yellow); border: 0; border-radius: 4px;
+  background: var(--ochre); border: 0; border-radius: 4px;
   padding: 0 0.06em 0.04em; outline: 0; min-width: 9ch; box-sizing: content-box;
-  caret-color: var(--violet);
+  caret-color: var(--pine);
 }
 #q::placeholder { color: var(--ink-3); }
 /* invisible twin of the field, used to measure the text so the "?" sits
@@ -38,7 +38,7 @@
   position: absolute; left: 0; top: 0; visibility: hidden; pointer-events: none;
   white-space: pre; font: inherit; letter-spacing: inherit; padding: 0 0.06em 0.04em;
 }
-#q:focus { background: var(--lilac); }
+#q:focus { background: var(--sage); }
 
 .ask__list {
   position: absolute; z-index: 30; top: calc(100% + 0.6rem); left: 0;
@@ -71,7 +71,7 @@
 /* IUCN category, coloured only where the category itself is a warning */
 .chip--vulnerable, .chip--endangered, .chip--critically_endangered,
 .chip--extinct, .chip--extinct_in_the_wild { border-color: var(--rust); color: var(--rust); }
-.chip--near_threatened { border-color: var(--orange); color: #b8430f; }
+.chip--near_threatened { border-color: var(--amber); color: #b8430f; }
 .chip--least_concern { border-color: var(--line); color: var(--ink-2); }
 
 /* ── report ─────────────────────────────────────────────── */
@@ -109,15 +109,15 @@
 
 /* ── chart primitives ───────────────────────────────────── */
 .chart { width: 100%; height: auto; overflow: visible; }
-.bar { fill: var(--violet); transition: fill 0.15s var(--ease); }
+.bar { fill: var(--pine); transition: fill 0.15s var(--ease); }
 .bar:hover { fill: var(--ink); }
-.bar--out { fill: rgba(106, 34, 230, 0.18); }
+.bar--out { fill: rgba(31, 61, 43, 0.18); }
 .grid { stroke: var(--line); stroke-width: 1; }
 .tick { font-family: var(--mono); font-size: 10px; fill: var(--ink-3); }
 .rowlabel { font-family: var(--mono); font-size: 11px; fill: var(--ink-2); }
 .rowvalue { font-family: var(--mono); font-size: 11px; fill: var(--ink-3); }
 .crosshair { stroke: var(--ink); stroke-width: 1; stroke-dasharray: 3 3; }
-.brush { fill: rgba(240, 238, 74, 0.45); stroke: var(--ink); stroke-width: 1.5; }
+.brush { fill: rgba(224, 195, 114, 0.5); stroke: var(--ink); stroke-width: 1.5; }
 .seg { transition: opacity 0.15s var(--ease); }
 .seg:hover { opacity: 0.8; }
 .empty { color: var(--ink-3); font-size: 0.92rem; padding: 1rem 0; }
@@ -146,7 +146,7 @@
   text-transform: uppercase; color: var(--ink-3); list-style: none;
 }
 .numbers summary::-webkit-details-marker { display: none; }
-.numbers summary::before { content: "+ "; color: var(--green); }
+.numbers summary::before { content: "+ "; color: var(--moss); }
 .numbers[open] summary::before { content: "− "; }
 .numbers summary:hover { color: var(--ink); }
 .numbers__scroll { max-height: 16rem; overflow: auto; margin-top: 0.8rem; }
