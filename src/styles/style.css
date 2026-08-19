@@ -300,6 +300,13 @@ h4 { font-size: 0.82rem; font-family: var(--sans); font-weight: 600; letter-spac
 }
 .piece svg { width: 100%; height: auto; overflow: visible; }
 
+/* between phone and wide desktop the margins narrow, so the pieces nearest
+   the headline step outward to keep clear of its lines */
+@media (min-width: 861px) and (max-width: 1240px) {
+  .hero .piece:nth-child(2) { --x: 9% !important; }
+  .hero .piece:nth-child(4) { --x: 3% !important; --y: 66% !important; }
+  .hero .piece:nth-child(7) { --x: 81% !important; --w: clamp(110px, 12vw, 160px) !important; }
+}
 /* the hero's pieces sit in the margins, never under the headline — on a
    phone there are no margins, so four of them move into the corners and the
    rest are put away */
