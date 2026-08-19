@@ -1,25 +1,33 @@
 # vanyax
 
-*van* — the forest. *yax* — the guardian spirits of it.
+*van* — the forest. *yax* — the spirits that keep it.
 
 Site for **vanyax**, a data science and machine learning practice for
-biodiversity and ecosystems. Five pages, statically built, no tracking.
+biodiversity and ecosystems. Two pages, statically built, no tracking.
 
 Live: [ojasvissar.github.io/vanyax](https://ojasvissar.github.io/vanyax/)
 
-## Pages
+## What is on it
 
-| Page | Source | What it says |
-| --- | --- | --- |
-| `/` | `src/index.html` | What vanyax does: analysis for people with data, models for people with a question, open publication, own projects |
-| `/collaborate/` | `src/collaborate/index.html` | What to send, what happens, and how data is handled |
-| `/open-source/` | `src/open-source/index.html` | What will be published and on what terms — honest that nothing is out yet |
-| `/projects/` | `src/projects/index.html` | Own work with real statuses (building / exploring / planned) and what each one needs |
-| `/about/` | `src/about/index.html` | The name, why the practice exists, how it works, who runs it |
-| `/explore/` | `src/explore/index.html` | **The species explorer** — a working tool, not a description of one |
+The home page says what the practice does and asks for one thing — and nothing
+else, because everything else was in the way.
 
-Nothing on the site claims work that hasn't happened. Keep it that way: add
-case studies and numbers when they exist, not before.
+| Section | What it does |
+| --- | --- |
+| Hero | One line: *We turn field data into answers.* Who it is for, two ways in |
+| Statement | Two sentences: what we do, and what you keep |
+| What we do | Five services as a row each — bioacoustics, camera traps, surveys and counts, satellite and drone, eDNA (in development) |
+| Questions | Who we work with, what data we take, how a project runs, what happens to your data |
+| The ask | *Ready to put your data to work?* — one form, one address |
+
+`explore/` is the second page: the species explorer, a working tool.
+
+The old collaborate, about, open-source and projects pages were folded into
+those sections and removed; their content is in the git history.
+
+Nothing on the site claims work that hasn't happened. The four answers are
+condensed from what the old pages already committed to, and eDNA is marked as in
+development because it was planned, not built. Keep it that way.
 
 ## The explorer
 
@@ -44,29 +52,17 @@ public APIs from the browser, so it deploys to GitHub Pages unchanged.
   computed from the same response as the charts. Occurrence data maps observers,
   not organisms, and a tool that draws the map without saying so is misleading
   people. Every number on the page is live; none is written by hand.
-- **Charts** — hand-rolled SVG. Single-hue for one series, a validated
-  categorical palette for the six record types, a table view behind every chart,
-  and a hover layer on every mark. The categorical hues pass lightness, chroma,
-  colour-blind separation, normal-vision separation and contrast against this
-  page's surface.
+- **Charts** — hand-rolled SVG with a table view behind every chart and a hover
+  layer on every mark. The six categorical colours are named in the stylesheet
+  (`--series-1` … `--series-6`) and read by the script, so the charts follow the
+  design rather than carrying a palette of their own.
+- **Map colour** — the density tiles use GBIF's `purpleYellow` ramp, which runs
+  from deep purple through coral to pale yellow — the collage palette — and the
+  legend under the map is sampled from the tiles themselves.
 
 Adding a preset species: find its key with
 `api.gbif.org/v1/species/match?name=Genus+species` and add it to `PRESETS` in
 [src/scripts/explore.js](src/scripts/explore.js).
-
-## Two interactive pieces
-
-**Survey it yourself** (home page). The claim the whole site rests on — that
-occurrence data maps observers, not organisms — is easy to assert and hard to
-feel. So it is also something you do: a patch of forest with a generated
-population hidden in it, which you have to walk. Species abundance follows a
-decaying series, because real communities are a few common species and a long
-tail of rare ones, and the tail is what surveys miss. Detection is a chance
-rolled on every pass, not a certainty, which is the reason occupancy models
-exist at all. A typical transect covers about a quarter of the ground, finds
-five to seven of the fourteen species, and walks within a couple of metres of a
-hundred individuals without seeing them. The population is generated with a
-fixed seed and the page says so.
 
 **Play the archive** (explorer). The year facet is already loaded, so the map
 can walk forward through time and report a real cumulative count at every step
@@ -75,140 +71,87 @@ preloaded before it is shown so the map never blinks. Watching a species fill
 in from 1878 onward is mostly a history of who was looking, which is the point
 the caveats underneath make in words.
 
-## Design notes
+## Design: cut paper
 
-Two references, one system. [Integrated Biosciences](https://integratedbio.com)
-puts a single rounded media block inside a warm off-white page and reverses a
-huge light grotesque out of it, with mono uppercase labels and a lime circle
-carrying the arrow. Spora sets a cut-out photograph against a quiet ground with
-white stat cards and a black pill. The rules that follow: the page is a sheet;
-content sits in rounded blocks with generous radii; type is one geometric sans
-set large and tracked tight; anything the machine produced is mono, uppercase
-and small; and there is one accent, a lime, used only where you can click.
+The inspiration was a studio site built as a collage: black and oat bands torn
+across and laid edge to edge, pieces cut from loud patterned papers, scraps of
+black-and-white photograph, and services as rows of flat colour.
 
-- **The hero is one block** — a rounded media panel inset from the trim on all
-  four sides, the wordmark ghosted across it, the headline reversed out at the
-  bottom left, and two stat cards at the bottom right. The page opens by
-  unmasking that block from an inset while the photograph settles out of a slow
-  push-in; nothing else moves until it lands. Leaving it, the picture drifts
-  and grows while the block scales down and rounds off. `heroIn` and
-  `heroScroll` in [src/scripts/motion.js](src/scripts/motion.js).
-- **The globe is built out of points** — the world in its own section, and the
-  points are the argument: every pale dot samples the coastline geometry, lit
-  from the upper left, and every amber dot is a real occurrence record fetched
-  from GBIF when the page loads, landing with a ring behind it. When they
-  arrive the globe turns to face them, because a species recorded only in
-  Europe would otherwise sit on the far side of a globe pointed at the Pacific.
-  Drag it; the spin carries momentum.
-  [src/scripts/globe.js](src/scripts/globe.js).
-- **What it costs to draw** — three things keep it at sixty frames. Nothing
-  goes through a projection at draw time: each point is stored once as a unit
-  vector, rotated with two angles, and discarded before projection if it faces
-  away. Brightness is quantised into seven steps, so several thousand dots are
-  filled seven times a frame rather than several thousand. And "is this
-  coordinate on land?" is a lookup in a bitmap of the world drawn once at
-  startup, not a polygon test per point — that alone was seconds of blocked
-  main thread.
-- **When GBIF is slow or down** — the globe draws immediately from a set
-  weighted the way collection effort actually is, captioned *illustrative
-  distribution*, and swaps to the real records when they arrive, captioned with
-  the species name and *live from GBIF*. The page never claims data it does not
-  have. Requests go two pages at a time, staggered, with a generous deadline
-  and one retry on a rate limit — GBIF answers a page in about four seconds and
-  refuses a burst.
-- **Colour** — sand (`#f0ece3`), a deep teal ink (`#0f2726`) rather than a
-  black, ivory cards (`#fffcf6`), and one amber accent (`#f2ab63`) reserved for
-  interactive things: the current nav item, the circular arrows, the send key,
-  the live records on the globe. The reasoning is that every photograph on the
-  site is green, so the page is warm rather than neutral and the accent is the
-  complement of the pictures rather than another green competing with them; the
-  teal ink gives the dark blocks and the pills depth that a flat black loses.
-  Five palettes were rendered on the real page and compared before this one —
-  a lime, a bone-and-ochre, a cool mint, this, and a stone-and-sky.
-  Both muted inks are set at the alpha that clears 4.5:1 on the paper and on
-  the cards, because the small mono labels are text too; hierarchy comes from
-  size, case and tracking rather than from fading them out.
-- **Type** — Onest carries everything read, a low-contrast geometric sans that
-  holds up at 6rem with the tracking pulled to -0.035em. Roboto Mono carries
-  everything measured: labels, counts, statuses, the coordinates under the
-  globe — the same division the reference makes. Instrument Serif appears
-  italic and once per page at most, wherever the writing turns personal: the
-  species name in the explorer, the etymology in the footer.
-- **The globe** — a real orthographic projection of real coastlines, the same
-  land geometry the explorer draws its density map on, but drawn in the world's
-  own colours rather than the page's: a lit ocean, land banded by latitude the
-  way the biomes actually run — ice, taiga, the arid belts, the tropics — the
-  sphere falling into shadow toward the limb, and a rim of atmosphere outside
-  it. The equator tracks the current rotation, so the ice stays on the poles as
-  you drag. Only the records take the page's accent, so the one thing that is
-  data still reads as data. It turns on its own and you can drag it; both
-  readouts are the projection's own state.
-  [src/scripts/globe.js](src/scripts/globe.js).
-- **A dark tone** — built and kept, but not the default:
-  `:root[data-theme="dark"]` holds a deep-teal version of the same palette, and
-  adding `data-theme="dark"` to `<html>` switches the site to it. Two pairs have
-  to stay semantic for that to work, which rendering the naive inversion is what
-  surfaced — the hero headline went dark on the photograph. `--on-dark` means
-  "text on a dark surface", so it stays light in both themes; and anything that
-  fills with `--ink` — the pills, the closing block — takes the page colour for
-  its label rather than `--on-dark`. Anything drawn on a canvas now reads its
-  colours out of the stylesheet through `cssVar`, so the charts, the survey and
-  the explorer's map follow whichever theme is loaded.
-- **Motion** — every picture wipes up into its own frame on approach
-  (`mediaReveals`), headlines split to words and reveal from a mask, counters
-  run on entry (the hero's carries a decimal, so 3.9bn counts as 3.9bn), the
-  marquee leans with scroll velocity, and the descent pins and drives sideways.
-  The mark reverses to white only while a dark media block is under the header
-  and inks up the moment the page scrolls onto the paper.
+Two rules keep it from becoming noise:
 
-- **The pull-back** — the pinned section is one continuous zoom out of the
-  Amazon: from close enough to see individual crowns, through the forest and
-  the river meandering across it, to the basin seen from orbit. It is three
-  scenes, each painted once into an offscreen bitmap and composited with a
-  scale and a fade — each starts larger than the frame, shrinks through it,
-  and hands over to the next, which covers a span several times wider. Two
-  details make it hold together: every scene is baked at twice the frame so it
-  can shrink without its own edge sliding into view, and each has a focal
-  point, because magnifying the planet about the middle of the canvas puts you
-  over the Caribbean rather than the Amazon. The scenes are keyed to the
-  altitude readout rather than to scroll position — the readout runs on a log
-  scale between stops, so a linear hand-off had the whole planet on screen
-  while the number still said five kilometres.
-  [src/scripts/canopy.js](src/scripts/canopy.js).
-- **What sits under it** — only three of the six layers can be seen from
-  above, so the canopy, the drone and the satellite ride the zoom while the
-  camera traps, the transects and the soil sit in cards underneath. With three
-  panels the rail has little to travel, so the pin is given a floor of a couple
-  of viewports and the rail simply crosses it more slowly.
-- **Header** — the mark sits bare on the media block; the links and the one
-  action share a single frosted capsule at the right, with the current page
-  marked in lime. Below 900px the links scroll inside that capsule and the edge
-  fades to say so. The `van · yax` etymology appears only on About, the page
-  that explains it.
-- **Motion** — Lenis for scroll and GSAP for everything tied to it, the pairing
-  Polpis uses. Headlines split into words and reveal from a mask; anything on
-  the first screen animates on load, anything below waits for the scroll;
-  buttons are magnetic; the marquee leans with scroll velocity; the header hides
-  going down and returns coming up. Every animated element starts visible in the
-  markup and is hidden by JS on the first frame, so a blocked script leaves a
-  readable page. `prefers-reduced-motion` turns all of it off.
+- **Colour lives only in the pieces and the service rows.** Type and ground stay
+  ink and paper, so the loudness belongs to the page, never to a sentence.
+- **One thing per section.** The copy says what we do, once.
+
+| Token | Value | Used for |
+| --- | --- | --- |
+| `--paper` | `#ece5d3` | the oat ground |
+| `--ink` | `#151515` | type, black sheets |
+| `--violet` | `#6a22e6` | the services spine, the ask, the page veil |
+| `--lilac` `--pink` `--orange` `--yellow` `--green` | | the five cut-paper colours |
+
+Type is **Bricolage Grotesque** for anything read at a distance — the
+irregularity of a cut-out is in its letters — and **Figtree** for reading size.
+
+The pieces of the system, in [src/scripts/paper.js](src/scripts/paper.js) unless
+noted:
+
+- **Torn edges** — `tears()` draws each `[data-tear]` at its real width as two
+  ragged lines, the band's colour and the paper's white core behind it, from a
+  seeded generator, so a tear never stretches and never changes between loads.
+- **Patterned papers** — six pattern fills (stripes, zigzag, waves, dots) defined
+  once in an inline `<svg class="defs">` and used by `url(#id)`.
+- **Cut-outs** — a `.piece` is placed by four custom properties set inline
+  (`--x`, `--y`, `--w`, `--r`), so a collage is composed in the markup. Photo
+  scraps (`.cutout`) get a torn clip-path from `cutouts()` and a white paper rim.
+  Their frames keep a 5:4 ratio, because pieces are sized by width and placed by
+  height and would otherwise hang out on narrow screens.
+- **Accordion** — [src/scripts/accordion.js](src/scripts/accordion.js). Rows
+  ship open and are closed by the script, so without JS every answer is visible.
+  One open at a time; arrow keys, Home and End move between rows.
+
+## Motion
+
+Lenis for the scroll, GSAP for everything hung off it.
+
+- The hero's collage **assembles itself** on load — each piece thrown onto the
+  table, turning as it lands.
+- Pieces **bob and sway** on the `translate` and `rotate` properties, not
+  `transform`, so the idle motion composes with the scroll parallax instead of
+  overwriting it.
+- Every piece has a **depth** and drifts at its own rate as you scroll.
+- Patterned strips **pop up** from behind their torn edge; marker highlights
+  **fill in**; squiggles **draw themselves**; service rows **slide in** from the
+  spine and the plus **spins** into a cross.
+- A yellow **ticker** of the five services is laid across the seam under the
+  hero; the footer's **stamp** turns; the wordmark's letters **drop in** like
+  cut-outs and lift on hover.
+- The header becomes a **scalloped black strip** past the hero and marks the
+  section you are in; the cursor names what it is over; a violet **veil** covers
+  the page on the way out.
+
+`prefers-reduced-motion` stills all of it and shows everything in its finished
+state — verified under emulation, including that the idle animations stop rather
+than loop at a 0.01ms period (which jitters).
+
+## Accessibility
+
+Every line of text on both pages clears WCAG AA, checked by script. The focus
+ring is violet on paper and yellow on the black and violet sheets, where violet
+cannot be seen. The service and question lists are buttons inside headings with
+`aria-expanded` and labelled regions.
 
 ## Photographs
 
-From [Unsplash](https://unsplash.com), whose licence allows commercial use
-without permission or attribution. Files live in
-[src/assets/photos/](src/assets/photos/) and are named for what they show, so
-swapping one is a file replacement. Source IDs, if you want the originals or
-larger crops:
+Three, from [Unsplash](https://unsplash.com), whose licence allows commercial
+use without permission or attribution. They appear as torn black-and-white
+scraps; files are in [src/assets/photos/](src/assets/photos/).
 
 | File | Unsplash photo ID |
 | --- | --- |
 | `card-aerial.jpg` | `1476231682828-37e571bc172f` |
-| `forest-mist.jpg`, `card-mist.jpg` | `1448375240586-882707db888b` |
-| `ridges.jpg` | `1500534314209-a25ddb2bd429` |
 | `conifers-fog.jpg` | `1418065460487-3e41a6c84dc5` |
 | `valley-mist.jpg` | `1542273917363-3b1817f69a2d` |
-| `forest-light.jpg`, `plate-light.jpg` | `1441974231531-c6227db76b6e` |
 
 Don't swap these for images off Pinterest or an image search — those are almost
 always someone else's copyrighted work, and a public site is exactly where that
@@ -216,24 +159,23 @@ gets noticed. Unsplash, Pexels and Wikimedia Commons are all safe sources.
 
 ## Stack
 
-- [Vite](https://vitejs.dev/) — multi-page build, rooted at `src/` (`vite.config.js` lists each entry)
-- [GSAP](https://gsap.com/) + ScrollTrigger — reveals and the plot draw-in
-- Newsreader / Inter / DM Mono via Google Fonts
+- [Vite](https://vitejs.dev/) — two-page build, rooted at `src/`
+- [GSAP](https://gsap.com/) + ScrollTrigger, [Lenis](https://lenis.darkroom.engineering/)
+- d3-geo, topojson-client and world-atlas — the explorer's map
+- Bricolage Grotesque and Figtree via Google Fonts
 
 ## Layout
 
 ```
 src/
-  index.html  about/  collaborate/  explore/  open-source/  projects/
-  scripts/    main.js, motion.js, survey.js, explore.js
+  index.html  explore/
+  scripts/    main.js, motion.js, paper.js, accordion.js, explore.js
   styles/     style.css, explore.css
-  assets/     photos/ (Unsplash), generated/ (tool output), screenshots/
-tools/        gen_section.py
+  assets/     photos/
 ```
 
 `src/` is the Vite root, so a page's path inside it is its URL: the file
-`src/about/index.html` is served at `/about/`. Moving a page directory moves
-the live URL with it.
+`src/explore/index.html` is served at `/explore/`.
 
 ## Develop
 
@@ -248,8 +190,7 @@ Pushing to `main` deploys to GitHub Pages via `.github/workflows/deploy.yml`.
 
 ## Before this goes public
 
-- Replace `hello@vanyax.org` (footer and every contact section) with a real address.
-- Fill in the GitHub and LinkedIn links in the footer.
-- Replace the placeholder bio on `about/` (marked with a `TODO` comment).
+- Replace `hello@vanyax.org` (the ask and the footer) with a real address.
 - Wire the email form: set `GOOGLE_FORM.formId` and `GOOGLE_FORM.emailEntry` in
-  [src/scripts/main.js](src/scripts/main.js). Until then it confirms locally without sending.
+  [src/scripts/main.js](src/scripts/main.js). Until then it confirms locally
+  without sending.
