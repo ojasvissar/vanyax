@@ -278,7 +278,7 @@ export function footMark() {
   const word = mark.textContent.trim();
   const span = mark.querySelector('span');
   span.textContent = '';
-  const COLOURS = ['--pink', '--yellow', '--lilac', '--orange', '--green', '--violet'];
+  const COLOURS = ['--clay', '--ochre', '--sage', '--amber', '--moss', '--pine'];
   const letters = [...word].map((ch, i) => {
     const l = document.createElement('i');
     l.className = 'foot-mark__l';
