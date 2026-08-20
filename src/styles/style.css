@@ -280,17 +280,46 @@ h4 { font-size: 0.82rem; font-family: var(--sans); font-weight: 600; letter-spac
 .band--pine > .tear { --tear-fill: var(--pine); }
 .band--paper > .tear { --tear-fill: var(--paper); }
 
-/* ── hero: a black sheet, torn across the bottom ────────────── */
+/* ── hero: a mountain range at dusk ───────────────────────────
+   Four ridges cut from paper, palest and furthest at the back, with
+   mist lying between them, a low moon and a few birds. The ridges
+   dip in the middle, so the headline sits in the valley rather than
+   over a peak; the front one is the ink itself, so the forest runs
+   straight into the torn edge below. */
 .hero {
-  position: relative; background: var(--ink); color: var(--on-dark);
-  min-height: 94svh; display: grid; place-items: center; text-align: center;
-  padding: calc(var(--bar) + 3rem) var(--pad) clamp(5rem, 13vh, 9rem);
+  position: relative; min-height: 100svh;
+  display: grid; place-items: start center; text-align: center;
+  padding: calc(var(--bar) + clamp(3rem, 11vh, 7.5rem)) var(--pad) clamp(5rem, 13vh, 9rem);
+  background-color: #12201a;
+  background-image: linear-gradient(180deg, #0c1611 0%, #142419 46%, #22382a 74%, #2e4433 100%);
+  color: var(--on-dark);
 }
+.landscape { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+.ridge { position: absolute; left: 0; bottom: 0; width: 100%; height: var(--h); object-fit: cover; object-position: center bottom; }
+.ridge--far   { --h: 60%; }
+.ridge--mid   { --h: 47%; }
+.ridge--near  { --h: 36%; }
+.ridge--front { --h: 24%; }
+.moon {
+  position: absolute; right: 15%; top: 15%; width: clamp(56px, 6vw, 96px); aspect-ratio: 1; border-radius: 50%;
+  background: #efe5c2; box-shadow: 0 0 80px 10px rgba(239, 229, 194, 0.16);
+}
+.birds { position: absolute; left: 0; top: 24%; width: clamp(70px, 7vw, 110px); color: rgba(245, 242, 232, 0.7); }
+.mist {
+  position: absolute; left: -20%; width: 140%; height: 12%;
+  background: radial-gradient(50% 50% at 50% 50%, rgba(223, 226, 212, 0.2), transparent 70%);
+}
+.mist--a { bottom: 36%; }
+.mist--b { bottom: 24%; height: 9%; }
 .hero__in { position: relative; z-index: 2; max-width: 56rem; display: grid; justify-items: center; gap: 1.3rem; }
-.hero__eyebrow { color: var(--sage); }
+.hero__eyebrow { color: var(--ochre); }
 .hero h1 { color: var(--on-dark); max-width: 13ch; }
 .hero__sub { color: var(--on-dark-2); max-width: 40ch; font-size: clamp(1.05rem, 1.5vw, 1.25rem); line-height: 1.5; }
 .hero__actions { display: flex; gap: 0.7rem; flex-wrap: wrap; justify-content: center; margin-top: 0.5rem; }
+@media (max-width: 860px) {
+  .ridge--far { --h: 44%; } .ridge--mid { --h: 35%; } .ridge--near { --h: 27%; } .ridge--front { --h: 18%; }
+  .moon { right: 8%; top: 11%; }
+}
 
 /* ── cut-outs ────────────────────────────────────────────────
    Every piece is positioned by four custom properties set inline —
@@ -309,22 +338,6 @@ h4 { font-size: 0.82rem; font-family: var(--sans); font-weight: 600; letter-spac
 
 /* between phone and wide desktop the margins narrow, so the pieces nearest
    the headline step outward to keep clear of its lines */
-@media (min-width: 861px) and (max-width: 1240px) {
-  .hero .piece:nth-child(2) { --x: 9% !important; }
-  .hero .piece:nth-child(4) { --x: 3% !important; --y: 66% !important; }
-  .hero .piece:nth-child(7) { --x: 81% !important; --w: clamp(110px, 12vw, 160px) !important; }
-}
-/* the hero's pieces sit in the margins, never under the headline — on a
-   phone there are no margins, so four of them move into the corners and the
-   rest are put away */
-@media (max-width: 860px) {
-  .hero .piece { display: none; }
-  .hero .piece:nth-child(1) { display: block; --x: 5% !important; --y: 9% !important; --w: 64px !important; }
-  .hero .piece:nth-child(7) { display: block; --x: 66% !important; --y: 8% !important; --w: 104px !important; }
-  .hero .piece:nth-child(5) { display: block; --x: 6% !important; --y: 83% !important; --w: 40px !important; }
-  .hero .piece:nth-child(9) { display: block; --x: 82% !important; --y: 81% !important; --w: 48px !important; }
-  .hero { padding-top: calc(var(--bar) + 6rem); }
-}
 
 /* ── strips: patterned paper tucked under a torn edge ──────── */
 .strips { position: absolute; left: 0; right: 0; bottom: 0; height: clamp(60px, 9vw, 130px); z-index: 2; pointer-events: none; overflow: hidden; }
