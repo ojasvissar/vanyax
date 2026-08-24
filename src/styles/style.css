@@ -541,3 +541,10 @@ h4 { font-size: 0.82rem; font-family: var(--sans); font-weight: 600; letter-spac
 @media (max-width: 860px) {
   .statement__art, .faq__art { min-height: 0; width: min(100%, 30rem); margin-inline: auto; }
 }
+
+/* mist drifts along the valleys; birds cross the sky about once a minute */
+@keyframes drift { from { translate: -6% 0; } to { translate: 6% 0; } }
+@keyframes glide { from { translate: -15vw 0; } to { translate: 115vw -5vh; } }
+.mist--a { animation: drift 38s ease-in-out infinite alternate; }
+.mist--b { animation: drift 52s ease-in-out infinite alternate-reverse; }
+.birds { animation: glide 70s linear infinite; }

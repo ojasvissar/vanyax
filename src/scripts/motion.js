@@ -149,16 +149,15 @@ export function intro() {
 export function heroIn() {
   const hero = document.querySelector('.hero');
   if (!hero || reduced) return;
-  /* The collage assembles itself: every piece is thrown onto the table from
-     somewhere off its final spot, turning as it lands, and settles with a
-     little overshoot, in random order, while the headline rises out of its
-     mask in the middle. */
-  const pieces = hero.querySelectorAll('.collage .piece');
-  gsap.from(pieces, {
-    x: () => gsap.utils.random(-220, 220), y: () => gsap.utils.random(-160, 200),
-    rotation: () => gsap.utils.random(-90, 90), scale: 0.4, opacity: 0,
-    duration: 1.25, ease: 'back.out(1.5)', stagger: { each: 0.07, from: 'random' }, delay: 0.55,
+  /* The range comes up out of the dark one ridge at a time, from the back,
+     the way a landscape appears as your eyes adjust at dusk, and the moon
+     rises last. Slow, and in order — nothing is thrown. yPercent is used so
+     it composes with the scroll parallax, which owns y. */
+  gsap.from(hero.querySelectorAll('.ridge'), {
+    yPercent: 14, opacity: 0, duration: 1.9, ease: 'expo.out', stagger: 0.17, delay: 0.3,
   });
+  const moon = hero.querySelector('.moon');
+  if (moon) gsap.from(moon, { yPercent: 70, opacity: 0, duration: 2.6, ease: 'power2.out', delay: 1 });
 }
 
 /* ══════════════════════════════════════════════════════════
