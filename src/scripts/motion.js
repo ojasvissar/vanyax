@@ -271,9 +271,9 @@ export function exitTransition() {
 export function footMark() {
   const mark = document.querySelector('.foot-mark');
   if (!mark || reduced) return;
-  /* The wordmark is split into its letters and each is dropped in like a
-     cut-out letter laid down on the page: from above, turned a little, in a
-     random order, settling with a small bounce. Hovering one picks it up. */
+  /* The wordmark is split into its letters, which rise into place one after
+     another, left to right, like a ridge line coming up. Hovering a letter
+     lifts it slightly and tints it with one of the landscape's colours. */
   const word = mark.textContent.trim();
   const span = mark.querySelector('span');
   span.textContent = '';
@@ -287,8 +287,7 @@ export function footMark() {
     return l;
   });
   gsap.from(letters, {
-    yPercent: -120, rotation: () => gsap.utils.random(-28, 28), opacity: 0,
-    duration: 1.1, ease: 'bounce.out', stagger: { each: 0.09, from: 'random' },
+    yPercent: 70, opacity: 0, duration: 1.4, ease: 'expo.out', stagger: 0.07,
     scrollTrigger: { trigger: mark, start: 'top 92%', once: true },
   });
 }

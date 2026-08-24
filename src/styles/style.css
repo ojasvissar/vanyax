@@ -201,7 +201,7 @@ h4 { font-size: 0.82rem; font-family: var(--sans); font-weight: 600; letter-spac
   background: var(--moss); color: var(--ink);
   transition: background 0.3s var(--ease), transform 0.3s var(--spring);
 }
-.capture__btn:hover { background: var(--ochre); transform: rotate(-2deg) scale(1.03); }
+.capture__btn:hover { background: var(--ochre); }
 .capture__btn:disabled { opacity: 0.55; cursor: default; }
 .capture__note { font-size: 0.86rem; color: inherit; opacity: 0.8; }
 .mailto { border-bottom: 2px solid currentColor; }
@@ -330,6 +330,7 @@ h4 { font-size: 0.82rem; font-family: var(--sans); font-weight: 600; letter-spac
 .defs { position: absolute; width: 0; height: 0; overflow: hidden; }
 .collage { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
 .piece {
+  transform-origin: 50% 100%;
   position: absolute; left: var(--x); top: var(--y); width: var(--w);
   rotate: var(--r, 0deg);
   filter: drop-shadow(3px 4px 0 rgba(0, 0, 0, 0.22));
@@ -429,11 +430,11 @@ h4 { font-size: 0.82rem; font-family: var(--sans); font-weight: 600; letter-spac
 }
 .what .acc { border-left: 2px solid var(--ink); }
 .acc { overflow: hidden; }
-.acc__btn span { transition: translate 0.45s var(--spring); }
+.acc__btn span { transition: translate 0.5s var(--ease); }
 .acc__btn:hover span, .acc__btn:focus-visible span { translate: 12px 0; }
 .acc__item { transition: filter 0.35s var(--ease); }
 .acc__item:hover { filter: saturate(1.12) brightness(0.97); }
-.acc__plus { transition: rotate 0.5s var(--spring); }
+.acc__plus { transition: rotate 0.55s var(--ease); }
 .is-open .acc__plus { rotate: 135deg; }
 
 /* ── questions: lilac rows, a pink dot behind the title ────── */
@@ -471,16 +472,17 @@ h4 { font-size: 0.82rem; font-family: var(--sans); font-weight: 600; letter-spac
 /* ── the stamp: a disc of type turning slowly, a leaf at its centre */
 .site-foot .wrap { position: relative; }
 .stamp { position: absolute; right: var(--pad); top: clamp(10rem, 24vh, 15rem); width: clamp(110px, 12vw, 170px); height: auto; }
-.stamp__disc { fill: var(--clay); }
+.stamp__disc { fill: var(--sage); }
 .stamp__text { font-family: var(--sans); font-size: 13.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; fill: var(--ink); }
 .stamp__text, .stamp defs { transform-origin: 100px 100px; animation: spin 22s linear infinite; }
-.stamp__leaf { fill: var(--moss); stroke: var(--ink); stroke-width: 3; }
-.stamp__vein { stroke: var(--ink); stroke-width: 3; }
+.stamp__peak { fill: var(--slate); }
+.stamp__snow { fill: var(--paper-2); }
+.stamp__pine { fill: var(--pine); }
 @keyframes spin { to { rotate: 360deg; } }
 @media (max-width: 860px) { .stamp { position: static; margin-top: 2rem; } }
 .foot-mark__l { display: inline-block; font-style: normal; transition: color 0.3s var(--ease), translate 0.45s var(--spring), rotate 0.45s var(--spring); }
 .foot-mark { pointer-events: auto; }
-.foot-mark__l:hover { color: var(--c); translate: 0 -0.08em; rotate: -6deg; }
+.foot-mark__l:hover { color: var(--c); translate: 0 -0.05em; }
 
 /* ── header: a black strip that only appears once you leave the hero ─ */
 .site-head.is-solid { background: var(--ink); }
@@ -498,7 +500,7 @@ h4 { font-size: 0.82rem; font-family: var(--sans); font-weight: 600; letter-spac
    of overwriting each other. Periods differ so nothing moves in step. */
 @keyframes bob {
   0%, 100% { translate: 0 0; rotate: var(--r, 0deg); }
-  50% { translate: 0 -9px; rotate: calc(var(--r, 0deg) + 3deg); }
+  50% { translate: 0 -5px; rotate: calc(var(--r, 0deg) + 1deg); }
 }
 .piece { animation: bob 6s var(--ease-io) infinite; }
 .piece:nth-child(3n)   { animation-duration: 7.4s; animation-delay: -2.1s; }
@@ -519,7 +521,7 @@ h4 { font-size: 0.82rem; font-family: var(--sans); font-weight: 600; letter-spac
   font-family: var(--display); font-size: clamp(1.1rem, 2vw, 1.6rem); font-weight: 500; letter-spacing: -0.02em;
   animation: ticker 32s linear infinite;
 }
-.ticker__track i { font-style: normal; color: var(--pine); }
+.ticker__track i { font-style: normal; font-size: 0.7em; color: var(--pine); }
 .ticker:hover .ticker__track { animation-play-state: paused; }
 @keyframes ticker { to { translate: -50% 0; } }
 
