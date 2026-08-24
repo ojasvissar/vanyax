@@ -106,9 +106,11 @@ export function cutouts(root = document) {
 }
 
 /* ── the collage has depth ────────────────────────────────────
-   Every piece and scrap carries a data-depth between 0 and 1, and
-   drifts upward by that much of its section's travel as you scroll
-   past — so the pieces nearest you slide over the ones beneath.
+   Every piece and scrap carries a data-depth, and drifts upward by
+   that much of its section's travel as you scroll past — so the
+   pieces nearest you slide over the ones beneath. A negative depth
+   drifts down instead: the hero's far ridges and moon lag behind the
+   page, which is how distance looks from a moving window.
    It moves transform only; the pieces' own turn is set with the
    separate rotate property, so the two never fight. */
 export function depth(root = document) {
@@ -119,7 +121,11 @@ export function depth(root = document) {
       const d = Number(el.dataset.depth) || 0;
       gsap.to(el, {
         y: () => -d * Math.min(220, innerHeight * 0.26), ease: 'none',
-        scrollTrigger: { trigger: el.closest('section') || el, start: 'top bottom', end: 'bottom top', scrub: 0.6, invalidateOnRefresh: true },
+        // the hero is on screen from the first frame, so its layers measure
+        // from the top of the page — at rest they sit exactly where drawn
+        scrollTrigger: el.closest('.hero')
+          ? { trigger: el.closest('.hero'), start: 'top top', end: 'bottom top', scrub: 0.6, invalidateOnRefresh: true }
+          : { trigger: el.closest('section') || el, start: 'top bottom', end: 'bottom top', scrub: 0.6, invalidateOnRefresh: true },
       });
     });
   }));
