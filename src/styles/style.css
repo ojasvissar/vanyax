@@ -336,7 +336,8 @@ h4 { font-size: 0.82rem; font-family: var(--sans); font-weight: 600; letter-spac
   rotate: var(--r, 0deg);
   filter: drop-shadow(3px 4px 0 rgba(0, 0, 0, 0.22));
 }
-.piece svg { width: 100%; height: auto; overflow: visible; }
+.piece svg, .piece img { width: 100%; height: auto; overflow: visible; }
+.piece--line { filter: none; }
 
 /* between phone and wide desktop the margins narrow, so the pieces nearest
    the headline step outward to keep clear of its lines */
@@ -445,7 +446,7 @@ h4 { font-size: 0.82rem; font-family: var(--sans); font-weight: 600; letter-spac
 .faq__title { position: relative; isolation: isolate; margin-bottom: clamp(1.4rem, 3vh, 2rem); }
 .faq__title::before {
   content: ""; position: absolute; z-index: -1; left: -0.28em; top: -0.12em;
-  width: 1.05em; height: 1.05em; border-radius: 50%; background: var(--clay);
+  width: 1.05em; height: 1.05em; border-radius: 50%; background: var(--ochre);
 }
 .acc--faq { display: grid; gap: 8px; overflow: visible; }
 .acc--faq .acc__item { --row: var(--sage); border: 2px solid var(--ink); border-radius: var(--r-xs); }
