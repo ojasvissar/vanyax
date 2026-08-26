@@ -328,7 +328,6 @@ h4 { font-size: 0.82rem; font-family: var(--sans); font-weight: 600; letter-spac
    composed in the markup and the stylesheet only knows what a
    piece is. The shadow is flat and short: card lying on card, not
    something floating. */
-.defs { position: absolute; width: 0; height: 0; overflow: hidden; }
 .collage { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
 .piece {
   transform-origin: 50% 100%;
@@ -342,9 +341,6 @@ h4 { font-size: 0.82rem; font-family: var(--sans); font-weight: 600; letter-spac
 /* between phone and wide desktop the margins narrow, so the pieces nearest
    the headline step outward to keep clear of its lines */
 
-/* ── strips: patterned paper tucked under a torn edge ──────── */
-.strips { position: absolute; left: 0; right: 0; bottom: 0; height: clamp(60px, 9vw, 130px); z-index: 2; pointer-events: none; overflow: hidden; }
-.strip { position: absolute; bottom: -4px; left: var(--x); width: var(--w); height: auto; }
 
 /* ── the statement: two sentences, and what you keep ──────── */
 .statement { padding-block: clamp(5rem, 14vh, 9rem) clamp(4rem, 11vh, 7rem); }
@@ -462,14 +458,16 @@ h4 { font-size: 0.82rem; font-family: var(--sans); font-weight: 600; letter-spac
 }
 
 /* ── the ask: a violet sheet, torn at both ends ──────────── */
-.cta { padding-block: clamp(5.5rem, 15vh, 9rem) clamp(7rem, 18vh, 11rem); text-align: center; }
+.cta { padding-block: clamp(5.5rem, 15vh, 9rem) clamp(9rem, 22vh, 14rem); text-align: center; overflow: hidden; }
+/* the band ends in a treeline the colour of the footer, so the forest grows
+   straight up out of it — no tear needed where the trees are the edge */
+.cta__forest { position: absolute; left: 0; bottom: -1px; width: 100%; height: clamp(110px, 16vw, 230px); object-fit: cover; object-position: center bottom; pointer-events: none; }
 .cta h2 { color: var(--on-dark); font-size: clamp(2.2rem, 5.4vw, 4.4rem); max-width: 16ch; margin-inline: auto; }
 .cta .lede { color: var(--on-dark-2); margin-inline: auto; }
 .cta .capture { margin-inline: auto; }
 .cta .capture__note { color: var(--on-dark-2); }
 .cta .mailto:hover { color: var(--ochre); }
 .cta .contact { position: relative; z-index: 2; }
-.strips--tall { height: clamp(80px, 11vw, 160px); }
 
 /* ── the stamp: a disc of type turning slowly, a leaf at its centre */
 .site-foot .wrap { position: relative; }
