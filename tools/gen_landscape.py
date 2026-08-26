@@ -71,6 +71,12 @@ def y_at(pts, x):
     return pts[-1][1]
 
 
+def sunk(pts, x, h):
+    """Where a tree's base goes: below the ground line by the height of its
+    lowest tier, so the tier meets the ground and no sky shows between trunks."""
+    return y_at(pts, x) + h * 0.08 + 2
+
+
 def snowcaps(rng, pts, line):
     """Paper snow on every peak above the line, with a torn lower edge."""
     caps, run = [], []
@@ -91,7 +97,8 @@ def snowcaps(rng, pts, line):
 def forest(rng, pts, every, tall, colour):
     trees, x = [], rng.uniform(0, every[0])
     while x < W:
-        trees.append(fir(x, y_at(pts, x) + 3, rng.uniform(*tall)))
+        h = rng.uniform(*tall)
+        trees.append(fir(x, sunk(pts, x, h), h))
         x += rng.uniform(*every)
     return f'<path d="{area(pts)}" fill="{colour}"/>' + ''.join(f'<path d="{t}" fill="{colour}"/>' for t in trees)
 
@@ -128,7 +135,8 @@ def main():
     edge = profile(rng, 16, 30, 0.7, width=W, height=260)
     trees, x = [], 0.0
     while x < W:
-        trees.append(fir(x, y_at(edge, x) + 3, rng.uniform(60, 170)))
+        h = rng.uniform(60, 170)
+        trees.append(fir(x, sunk(edge, x, h), h))
         x += rng.uniform(10, 26)
     write('cta-forest.svg', svg(f'<path d="{area(edge, 260)}" fill="{FRONT}"/>'
                                 + ''.join(f'<path d="{t}" fill="{FRONT}"/>' for t in trees), h=260))
