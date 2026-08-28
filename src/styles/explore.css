@@ -10,9 +10,14 @@
 /* ── the question ───────────────────────────────────────── */
 .ask {
   position: relative;
-  padding-block: calc(var(--bar) + clamp(2rem, 6vh, 4rem)) clamp(3.4rem, 8vh, 5rem);
-  background: var(--ink); color: var(--on-dark);
+  padding-block: calc(var(--bar) + clamp(2rem, 6vh, 4rem)) clamp(8rem, 20vh, 12rem);
+  background-color: #12201a;
+  background-image: linear-gradient(180deg, #0c1611 0%, #142419 55%, #22382a 100%);
+  color: var(--on-dark);
 }
+/* the home page's treeline, low along the bottom of the question — a short,
+   wide band crops a ridge to its solid base, so only the forest comes along */
+.ask .ridge--front { --h: 18%; }
 .ask > .tear { --tear-fill: var(--ink); }
 .ask .wrap { position: relative; z-index: 2; }
 @media (max-width: 860px) { .ask .collage { display: none; } }
@@ -135,8 +140,8 @@
 .map__land { fill: var(--map-land); stroke: var(--line-2); stroke-width: 0.6; }
 .map__foot { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; align-items: center; margin-top: 0.9rem; }
 .ramp { display: flex; align-items: center; gap: 0.6rem; }
-/* sampled from GBIF's purpleYellow tiles, so the legend is the ramp the map actually draws */
-.ramp__bar { width: 130px; height: 8px; border-radius: var(--pill); border: 1.5px solid var(--ink); background: linear-gradient(90deg, #66005f, #a42f5c, #d4625a, #eda36c, #feeaa5); }
+/* sampled from GBIF's green tiles, so the legend is the ramp the map actually draws */
+.ramp__bar { width: 130px; height: 8px; border-radius: var(--pill); border: 1.5px solid var(--ink); background: linear-gradient(90deg, #efe6c4, #95ad7c, #70955e, #4d7c40); }
 .ramp__label { font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); }
 .map__readout { font-family: var(--mono); font-size: 0.68rem; color: var(--ink-3); }
 
