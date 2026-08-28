@@ -131,24 +131,6 @@ export function depth(root = document) {
   }));
 }
 
-/* ── the strips pop up from behind their tear ─────────────────
-   Each run of patterned paper starts tucked down out of sight and
-   springs up, one piece after another, when its edge reaches the
-   screen — the hero's on load, the rest as you arrive. */
-export function stripsIn(root = document) {
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  import('gsap').then(({ gsap }) => import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
-    gsap.registerPlugin(ScrollTrigger);
-    root.querySelectorAll('.strips').forEach((run) => {
-      const pieces = run.querySelectorAll('.strip');
-      gsap.from(pieces, {
-        yPercent: 105, duration: 0.95, ease: 'back.out(1.6)', stagger: { each: 0.08, from: 'random' },
-        scrollTrigger: { trigger: run, start: 'top 96%', once: true },
-        delay: run.closest('.hero') ? 0.9 : 0,
-      });
-    });
-  }));
-}
 
 /* ── the squiggles draw themselves ────────────────────────────
    Every squiggle is given a pathLength of 1, so one dash the length
