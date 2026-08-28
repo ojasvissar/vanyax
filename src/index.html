@@ -17,29 +17,6 @@
   <script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
-  <!-- the patterned papers every cut-out is made from; defined once, used by url(#id) -->
-  <svg class="defs" width="0" height="0" aria-hidden="true" focusable="false">
-    <defs>
-      <pattern id="p-stripe-pink" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(35)">
-        <rect width="14" height="14" fill="#f38ae0"/><rect width="6" height="14" fill="#fffdf7"/>
-      </pattern>
-      <pattern id="p-stripe-green" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(-30)">
-        <rect width="12" height="12" fill="#17b07a"/><rect width="4" height="12" fill="#d9c8f7"/>
-      </pattern>
-      <pattern id="p-stripe-orange" width="16" height="16" patternUnits="userSpaceOnUse" patternTransform="rotate(70)">
-        <rect width="16" height="16" fill="#ff6b2c"/><rect width="7" height="16" fill="#d9c8f7"/>
-      </pattern>
-      <pattern id="p-zig" width="24" height="16" patternUnits="userSpaceOnUse">
-        <rect width="24" height="16" fill="#f38ae0"/><path d="M0 12 L6 4 L12 12 L18 4 L24 12" fill="none" stroke="#ff6b2c" stroke-width="4"/>
-      </pattern>
-      <pattern id="p-wave" width="40" height="14" patternUnits="userSpaceOnUse">
-        <rect width="40" height="14" fill="#d9c8f7"/><path d="M0 7 Q10 0 20 7 T40 7" fill="none" stroke="#6a22e6" stroke-width="3"/>
-      </pattern>
-      <pattern id="p-dot" width="12" height="12" patternUnits="userSpaceOnUse">
-        <rect width="12" height="12" fill="#f0ee4a"/><circle cx="6" cy="6" r="2.2" fill="#151515"/>
-      </pattern>
-    </defs>
-  </svg>
   <div class="intro" aria-hidden="true"><p class="intro__boot"><b>vanyax</b><i>data science for the living world</i></p></div>
   <div class="frame" aria-hidden="true"></div>
   <header class="site-head">
@@ -249,14 +226,7 @@
             <p class="capture__note" id="note">We reply to everything, and only write when there’s something to say.</p>
           </form></div>
       </div>
-      <div class="strips strips--tall" aria-hidden="true">
-        <svg class="strip" style="--x:-1%;--w:24%" viewBox="0 0 320 120"><path d="M0 120 L0 70 C50 30 110 60 170 22 S290 30 320 80 L320 120 Z" fill="url(#p-stripe-pink)"/></svg>
-        <svg class="strip" style="--x:20%;--w:13%" viewBox="0 0 160 120"><path d="M0 120 L36 40 L80 72 L124 10 L160 120 Z" fill="#f0ee4a"/></svg>
-        <svg class="strip" style="--x:58%;--w:17%" viewBox="0 0 220 130"><path d="M0 130 C0 58 48 8 110 8 S220 58 220 130 Z" fill="url(#p-stripe-orange)"/></svg>
-        <svg class="strip" style="--x:73%;--w:13%" viewBox="0 0 160 110"><path d="M0 110 L50 20 L96 64 L160 6 L160 110 Z" fill="#f0ee4a"/></svg>
-        <svg class="strip" style="--x:84%;--w:18%" viewBox="0 0 240 100"><path d="M0 100 C30 40 90 30 130 46 S210 20 240 60 L240 100 Z" fill="url(#p-zig)"/></svg>
-      </div>
-      <div class="tear tear--down" data-tear="down" data-seed="9" aria-hidden="true"></div>
+      <img class="cta__forest" src="/assets/land/cta-forest.svg" alt="" aria-hidden="true" />
     </section>
 
   </main>
