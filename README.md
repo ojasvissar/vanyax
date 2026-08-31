@@ -56,9 +56,8 @@ public APIs from the browser, so it deploys to GitHub Pages unchanged.
   layer on every mark. The six categorical colours are named in the stylesheet
   (`--series-1` … `--series-6`) and read by the script, so the charts follow the
   design rather than carrying a palette of their own.
-- **Map colour** — the density tiles use GBIF's `purpleYellow` ramp, which runs
-  from deep purple through coral to pale yellow — the collage palette — and the
-  legend under the map is sampled from the tiles themselves.
+- **Map colour** — the density tiles use GBIF's `green` ramp, and the legend
+  under the map is sampled from a real tile, so it is the ramp the map draws.
 
 Adding a preset species: find its key with
 `api.gbif.org/v1/species/match?name=Genus+species` and add it to `PRESETS` in
@@ -71,74 +70,89 @@ preloaded before it is shown so the map never blinks. Watching a species fill
 in from 1878 onward is mostly a history of who was looking, which is the point
 the caveats underneath make in words.
 
-## Design: cut paper
+## Design: cut paper, forest and mountain
 
-The inspiration was a studio site built as a collage: black and oat bands torn
-across and laid edge to edge, pieces cut from loud patterned papers, scraps of
-black-and-white photograph, and services as rows of flat colour.
+The structure came from a collage-built studio site — bands torn across and
+laid edge to edge, cut-out pieces, scraps of black-and-white photograph,
+services as rows of flat colour. Its candy palette and toy shapes read as too
+playful for this work, so the pieces are cut from the landscape instead:
+ridges, snowcaps, pine forests, contour lines and a low sun, in the colours of
+a forest at dusk.
 
-Two rules keep it from becoming noise:
+Two rules keep it quiet:
 
-- **Colour lives only in the pieces and the service rows.** Type and ground stay
-  ink and paper, so the loudness belongs to the page, never to a sentence.
+- **Colour comes from the landscape and stays in it.** Type and ground are ink
+  and paper; the earth colours live in the ridges, the pieces and the service
+  rows.
 - **One thing per section.** The copy says what we do, once.
 
 | Token | Value | Used for |
 | --- | --- | --- |
-| `--paper` | `#ece5d3` | the oat ground |
-| `--ink` | `#151515` | type, black sheets |
-| `--violet` | `#6a22e6` | the services spine, the ask, the page veil |
-| `--lilac` `--pink` `--orange` `--yellow` `--green` | | the five cut-paper colours |
+| `--paper` | `#e8e3d4` | the oat ground |
+| `--ink` | `#101a15` | type, the night sky, the front treeline |
+| `--pine` | `#1f3d2b` | the services spine, the ask, the page veil |
+| `--sage` `--moss` `--ochre` `--stone` `--clay` | | the service rows, highlights and pieces |
+| `--slate` | `#56675f` | the far ridge |
 
-Type is **Bricolage Grotesque** for anything read at a distance — the
-irregularity of a cut-out is in its letters — and **Figtree** for reading size.
+Type is **Bricolage Grotesque** for anything read at a distance and
+**Figtree** for reading size.
 
-The pieces of the system, in [src/scripts/paper.js](src/scripts/paper.js) unless
-noted:
+### The landscape
+
+[tools/gen_landscape.py](tools/gen_landscape.py) draws everything in
+[src/assets/land/](src/assets/land/): four hero ridges, the treeline under the
+ask, and the small cut-outs (a snow-capped peak, two pines, a ridge strip, a
+hill as contour lines). Skylines are midpoint-displacement profiles — rough at
+every scale, as real ones are — dipped in the middle so the headline sits in a
+valley between peaks. Snow is torn paper on the highest peaks. Pines are one
+stacked-fir silhouette in the ridge's own colour, sunk into the ground by their
+lowest tier so no sky shows between trunks. The generator is seeded; run it
+again and you get the same range:
+
+```bash
+python3 tools/gen_landscape.py
+```
+
+### The rest of the system
+
+In [src/scripts/paper.js](src/scripts/paper.js) unless noted:
 
 - **Torn edges** — `tears()` draws each `[data-tear]` at its real width as two
   ragged lines, the band's colour and the paper's white core behind it, from a
-  seeded generator, so a tear never stretches and never changes between loads.
-- **Patterned papers** — six pattern fills (stripes, zigzag, waves, dots) defined
-  once in an inline `<svg class="defs">` and used by `url(#id)`.
+  seeded generator. Where a treeline is the edge — under the ask — there is no
+  tear; the forest is the colour of the footer and grows out of it.
 - **Cut-outs** — a `.piece` is placed by four custom properties set inline
-  (`--x`, `--y`, `--w`, `--r`), so a collage is composed in the markup. Photo
-  scraps (`.cutout`) get a torn clip-path from `cutouts()` and a white paper rim.
-  Their frames keep a 5:4 ratio, because pieces are sized by width and placed by
-  height and would otherwise hang out on narrow screens.
+  (`--x`, `--y`, `--w`, `--r`). Photo scraps (`.cutout`) get a torn clip-path
+  and a white paper rim. Their frames keep a 5:4 ratio, because pieces are sized
+  by width and placed by height and would otherwise hang out on narrow screens.
 - **Accordion** — [src/scripts/accordion.js](src/scripts/accordion.js). Rows
   ship open and are closed by the script, so without JS every answer is visible.
   One open at a time; arrow keys, Home and End move between rows.
 
 ## Motion
 
-Lenis for the scroll, GSAP for everything hung off it.
+Lenis for the scroll, GSAP for everything hung off it — kept slow and in order.
 
-- The hero's collage **assembles itself** on load — each piece thrown onto the
-  table, turning as it lands.
-- Pieces **bob and sway** on the `translate` and `rotate` properties, not
-  `transform`, so the idle motion composes with the scroll parallax instead of
-  overwriting it.
-- Every piece has a **depth** and drifts at its own rate as you scroll.
-- Patterned strips **pop up** from behind their torn edge; marker highlights
-  **fill in**; squiggles **draw themselves**; service rows **slide in** from the
-  spine and the plus **spins** into a cross.
-- A yellow **ticker** of the five services is laid across the seam under the
-  hero; the footer's **stamp** turns; the wordmark's letters **drop in** like
-  cut-outs and lift on hover.
-- The header becomes a **scalloped black strip** past the hero and marks the
-  section you are in; the cursor names what it is over; a violet **veil** covers
-  the page on the way out.
+- The hero's ridges **rise from the back** one at a time, the way a landscape
+  appears as your eyes adjust at dusk; the moon comes up last.
+- Scrolling, the **far ridges and the moon lag** behind the page (a negative
+  depth), so distance reads as it does from a moving window. Mist drifts along
+  the valleys and a few birds cross about once a minute.
+- Collage pieces drift at their own depth and **barely bob**, on the `translate`
+  and `rotate` properties so the idle motion composes with the parallax.
+- Marker highlights fill in, contour lines **draw themselves**, service rows
+  slide in from the spine, the footer's letters rise in order, the stamp turns,
+  and a ticker of the five services runs across the seam under the hero.
+- The header becomes a scalloped strip past the hero and marks the section you
+  are in; a pine-green veil covers the page on the way out.
 
 `prefers-reduced-motion` stills all of it and shows everything in its finished
-state — verified under emulation, including that the idle animations stop rather
-than loop at a 0.01ms period (which jitters).
+state — verified under emulation.
 
 ## Accessibility
 
 Every line of text on both pages clears WCAG AA, checked by script. The focus
-ring is violet on paper and yellow on the black and violet sheets, where violet
-cannot be seen. The service and question lists are buttons inside headings with
+ring is pine on paper and ochre on the dark sheets, where pine cannot be seen. The service and question lists are buttons inside headings with
 `aria-expanded` and labelled regions.
 
 ## Photographs
@@ -171,7 +185,8 @@ src/
   index.html  explore/
   scripts/    main.js, motion.js, paper.js, accordion.js, explore.js
   styles/     style.css, explore.css
-  assets/     photos/
+  assets/     photos/, land/ (generated)
+tools/        gen_landscape.py
 ```
 
 `src/` is the Vite root, so a page's path inside it is its URL: the file
