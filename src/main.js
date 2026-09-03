@@ -20,12 +20,13 @@ function inlineArt() {
 /* ── Reveals ─────────────────────────────────── */
 function reveals() {
   if (reduceMotion) return;
-  document.documentElement.classList.add('js');
+  const all = gsap.utils.toArray('[data-reveal]');
+  gsap.set(all, { opacity: 0, y: 20 });
 
   const hero = gsap.utils.toArray('.hero [data-reveal]');
   gsap.to(hero, { opacity: 1, y: 0, duration: 1, ease: 'power3.out', stagger: 0.1, delay: 0.15 });
 
-  gsap.utils.toArray('[data-reveal]').forEach((el) => {
+  all.forEach((el) => {
     if (hero.includes(el)) return;
     gsap.to(el, {
       opacity: 1, y: 0, duration: 0.9, ease: 'power3.out',

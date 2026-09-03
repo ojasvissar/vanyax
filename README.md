@@ -2,19 +2,20 @@
 
 *van* — the forest. *yax* — the guardian spirits of it.
 
-A single-page site for **vanyax**, a platform for biodiversity and ecosystem
-data science and ML. Designed as a field archive: black slug and nav bands, a
-forest-green colour block holding layered paper documents (a survey sheet with
-file tabs, a clay excerpt card, a torn field record), an index of active model
-lines, a photographic plate, and an email capture framed as a request of entry.
+A single-page site for **vanyax**, data science and machine learning for
+biodiversity and ecosystems. Flat colour blocks, heavy grotesque type and an
+original vector forest: a full-viewport hero over a layered panorama, a neon
+ticker, hand-drawn emblem badges, three case studies with real visuals (canopy
+time series, spectrogram with detections, species interaction network), a
+numbers band and a contact block.
 
 Live: [ojasvissar.github.io/vanyax](https://ojasvissar.github.io/vanyax/)
 
 ## Stack
 
 - [Vite](https://vitejs.dev/) — dev server & build
-- [GSAP](https://gsap.com/) + ScrollTrigger — reveals, paper drift, micro-interactions
-- Instrument Serif / EB Garamond / DM Mono via Google Fonts
+- [GSAP](https://gsap.com/) + ScrollTrigger — reveals, depth parallax, ticker, counters
+- Archivo + DM Mono via Google Fonts
 
 ## Develop
 
@@ -35,11 +36,21 @@ Pushing to `main` deploys to GitHub Pages via `.github/workflows/deploy.yml`.
 ## Structure
 
 ```
-index.html           markup — slug, nav, masthead, dossier, index, plate, request
-src/style.css        styles
-src/main.js          motion + email capture (Google Form POST)
-src/assets/bg.jpg    pixel-art jungle, used as Plate 01
+index.html              markup — nav, hero, ticker, mission, work, numbers, contact, footer
+src/style.css           design system + sections
+src/main.js             art inlining, motion, visuals, email capture
+src/assets/forest.svg   hero panorama, grouped into parallax layers
+src/assets/badges.svg   emblem sprite, referenced with <use href="#badge-…">
 ```
+
+### The artwork
+
+Both SVGs are generated, not drawn by hand or licensed from stock. The
+generators live outside the repo; the committed SVGs are the source of truth —
+edit them directly, or regenerate if you keep the scripts. The panorama's
+`<g data-scene-layer>` groups each carry a `data-depth`, which
+[src/main.js](src/main.js) uses to move them at different rates against the
+pointer and the scroll.
 
 ## Email capture
 
