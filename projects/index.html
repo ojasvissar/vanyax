@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Projects — vanyax</title>
+  <meta name="description" content="What vanyax is building on its own time, with honest statuses: exploring, building, or planned." />
+  <meta name="theme-color" content="#0e1411" />
+  <meta property="og:title" content="Projects — vanyax" />
+  <meta property="og:description" content="What vanyax is building on its own time, with honest statuses: exploring, building, or planned." />
+  <meta property="og:type" content="website" />
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='38' fill='none' stroke='%2383b898' stroke-width='8'/><circle cx='50' cy='50' r='10' fill='%23d9b65a'/></svg>" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..500;1,6..72,300..400&family=Inter:wght@400;500;600&family=DM+Mono:wght@400&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <header class="site-head">
+    <div class="wrap site-head__in">
+      <a class="wordmark" href="/vanyax/">vanyax <span>van · yax</span></a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="/vanyax/">Home</a>
+        <a href="/vanyax/collaborate/">Collaborate</a>
+        <a href="/vanyax/open-source/">Open source</a>
+        <a href="/vanyax/projects/" aria-current="page">Projects</a>
+        <a href="/vanyax/about/">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="band band--first">
+      <div class="wrap">
+        <div class="sec-head">
+          <p class="eyebrow" data-reveal>Projects</p>
+          <h1 data-reveal>What we're actually working on.</h1>
+          <p class="lede" data-reveal>
+            Not a portfolio — we haven't earned one. This is the work in front of us right now,
+            with its real status attached. Where a project needs data we don't have, that's
+            written down too, and it's an open invitation.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="band band--paper">
+      <div class="wrap">
+        <div class="cards">
+          <article class="card" data-reveal>
+            <span class="tag tag--building">Building</span>
+            <h3>A tidy pipeline for camera-trap data</h3>
+            <p>The unglamorous part everyone rebuilds: read the images, keep the timestamps and
+            station metadata straight, deduplicate bursts, and produce a table an ecologist can
+            work with. Open from the start.</p>
+            <p class="card__need">Needs: a couple of real, messy folders to test against</p>
+          </article>
+          <article class="card" data-reveal>
+            <span class="tag tag--exploring">Exploring</span>
+            <h3>Bioacoustic identification where coverage is thin</h3>
+            <p>Existing classifiers are strong for well-recorded regions and weak elsewhere.
+            We're reading the literature and the open datasets to find where a small,
+            carefully-trained model would help most.</p>
+            <p class="card__need">Needs: recordings and local knowledge from an under-covered region</p>
+          </article>
+          <article class="card" data-reveal>
+            <span class="tag tag--planned">Planned</span>
+            <h3>Canopy change from open satellite imagery</h3>
+            <p>Sentinel and Landsat archives are free; turning them into a dated record of loss
+            and regrowth for one chosen watershed is a well-defined problem and a good first
+            public artefact.</p>
+            <p class="card__need">Needs: a watershed worth watching, and someone who knows it on the ground</p>
+          </article>
+        </div>
+        <p class="small muted" style="margin-top:1.6rem" data-reveal>
+          Statuses are updated as things move. If one of these is your area and the description
+          is wrong, tell us — that's useful.
+        </p>
+      </div>
+    </section>
+
+    <section class="band" id="contact">
+      <div class="wrap contact">
+        <p class="eyebrow" data-reveal>Work on one with us</p>
+        <h2 data-reveal>These get better with someone who knows the ground.</h2>
+        <p class="lede" data-reveal>
+          If you have data, a site, or an opinion about which of these matters most, write to
+          <a class="mailto" href="mailto:hello@vanyax.org">hello@vanyax.org</a>.
+        </p>
+        <div data-reveal><form class="capture" id="capture" novalidate>
+            <div class="capture__field">
+              <input class="capture__input" type="email" id="email" name="email" inputmode="email"
+                     autocomplete="email" placeholder="you@organisation.org" aria-label="Email address" required />
+              <button class="capture__btn" type="submit"><span>Send</span></button>
+            </div>
+            <p class="capture__note" id="note">We reply to everything. No list, no newsletter cadence — we only write when there's something to say.</p>
+          </form></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-foot">
+    <div class="wrap">
+      <div class="site-foot__grid">
+        <div>
+          <p class="site-foot__etym"><b>van</b> — the forest.<br /><b>yax</b> — the guardian spirits of it.</p>
+          <p class="small muted" style="margin-top:0.9rem;max-width:34ch">Data science and machine learning for biodiversity and ecosystems. Built with the people doing the fieldwork.</p>
+        </div>
+        <div>
+          <h4>Pages</h4>
+          <a href="/vanyax/collaborate/">Collaborate</a>
+          <a href="/vanyax/open-source/">Open source</a>
+          <a href="/vanyax/projects/">Projects</a>
+          <a href="/vanyax/about/">About</a>
+        </div>
+        <div>
+          <h4>Elsewhere</h4>
+          <!-- TODO: replace these with your real accounts -->
+          <a href="#">GitHub</a>
+          <a href="#">LinkedIn</a>
+          <a href="mailto:hello@vanyax.org">hello@vanyax.org</a>
+        </div>
+      </div>
+      <div class="site-foot__bottom">
+        <span>© 2026 vanyax</span>
+        <span>No trackers on this site.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
