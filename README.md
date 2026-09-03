@@ -45,9 +45,15 @@ src/assets/badges.svg   emblem sprite, referenced with <use href="#badge-…">
 
 ### The artwork
 
-Both SVGs are generated, not drawn by hand or licensed from stock. The
-generators live outside the repo; the committed SVGs are the source of truth —
-edit them directly, or regenerate if you keep the scripts. The panorama's
+Both SVGs are generated, not licensed from stock. The generators live in
+[tools/](tools/) — run them from the repo root to redraw the art:
+
+```bash
+python3 tools/gen_forest.py    # → src/assets/forest.svg
+python3 tools/gen_badges.py    # → src/assets/badges.svg
+```
+
+The panorama's
 `<g data-scene-layer>` groups each carry a `data-depth`, which
 [src/main.js](src/main.js) uses to move them at different rates against the
 pointer and the scroll.
