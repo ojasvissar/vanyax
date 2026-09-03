@@ -3,74 +3,235 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>vanyax</title>
-  <meta name="description" content="vanyax — intelligence for the living world. Join the list for early access." />
-  <meta name="theme-color" content="#0a120f" />
+  <title>vanyax — field archive</title>
+  <meta name="description" content="vanyax — van, the forest; yax, the guardian spirits of it. Data science and machine learning for biodiversity and ecosystems." />
+  <meta name="theme-color" content="#0c0d0b" />
   <meta property="og:title" content="vanyax" />
-  <meta property="og:description" content="Intelligence for the living world." />
+  <meta property="og:description" content="Data science and machine learning for biodiversity and ecosystems." />
   <meta property="og:type" content="website" />
 
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐘</text></svg>" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="/src/style.css" />
 </head>
 <body>
-  <!-- Background -->
-  <div class="bg" aria-hidden="true">
-    <div class="bg__image"></div>
-    <div class="bg__grain"></div>
-    <canvas class="bg__rain"></canvas>
-    <div class="bg__vignette"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- ── SLUG STRIP ─────────────────────────── -->
+  <div class="slug" aria-hidden="true">
+    <span class="slug__l">V_1</span>
+    <span class="slug__c">01749</span>
+    <span class="slug__r">VNX 3<br />C0<br />A3<br />p.04–19</span>
   </div>
 
-  <!-- Page -->
-  <main class="stage">
-    <header class="topbar">
-      <span class="topbar__mark">vanyax</span>
-      <span class="topbar__loc" data-reveal>Based in Canada</span>
+  <!-- ── NAV ────────────────────────────────── -->
+  <nav class="nav" aria-label="Primary">
+    <div class="nav__group nav__group--l">
+      <a href="#dossier">Dossier</a>
+      <a href="#ledger">Index</a>
+      <a href="#plate">Plates</a>
+      <a href="#request">Access</a>
+    </div>
+    <a class="nav__mark" href="#top" aria-label="vanyax, home">vanyax</a>
+    <div class="nav__group nav__group--r">
+      <span class="nav__meta">Est. 2026</span>
+      <a class="nav__cta" href="#request">Request entry</a>
+    </div>
+  </nav>
+
+  <main id="top">
+    <!-- ── MASTHEAD ─────────────────────────── -->
+    <header class="masthead">
+      <p class="crumb" data-reveal>Living Systems / Unfiled Observations / Entry 04</p>
+
+      <div class="masthead__row">
+        <h1 class="masthead__title" data-reveal>vanyax</h1>
+
+        <aside class="masthead__note" data-reveal>
+          <p><em>van</em> — the forest.<br /><em>yax</em> — the guardian spirits of it.</p>
+          <p>Data science and machine learning<br />for biodiversity and ecosystems.<br />Built with the people in the field.</p>
+          <p class="masthead__date">Filed 02 Sep 2026</p>
+        </aside>
+      </div>
+
+      <p class="masthead__lede" data-reveal>
+        A working archive of models, measurements and field records — kept for the
+        people counting what is still out there.
+      </p>
     </header>
 
-    <section class="hero">
-      <p class="hero__eyebrow" data-reveal>Early access · 2026</p>
-      <h1 class="hero__title" data-reveal>vanyax</h1>
-      <p class="hero__sub" data-reveal>Intelligence for the living world.</p>
+    <!-- ── DOSSIER (colour block + layered paper) ─ -->
+    <section class="dossier" id="dossier">
+      <div class="dossier__stack" data-parallax-scene>
 
-      <form class="capture" id="capture" novalidate data-reveal>
-        <div class="capture__field">
-          <input
-            class="capture__input"
-            type="email"
-            id="email"
-            name="email"
-            inputmode="email"
-            autocomplete="email"
-            placeholder="Enter your email"
-            aria-label="Email address"
-            required
-          />
-          <button class="capture__btn" type="submit">
-            <span>Notify me</span>
-          </button>
-        </div>
-        <p class="capture__note" id="note">No noise — just the occasional meaningful update.</p>
-      </form>
+        <!-- main sheet -->
+        <article class="sheet" data-layer="0.5" data-reveal>
+          <div class="sheet__punch" aria-hidden="true"><span></span><span></span><span></span></div>
 
-      <p class="hero__about" data-reveal data-typewriter>vanyax builds AI for biodiversity — helping teams see, understand, and protect the living world. Interested in working together? Drop your email above and we’ll be in touch.</p>
+          <div class="sheet__tabs" aria-hidden="true">
+            <span class="tab tab--rust">Canopy Collection</span>
+            <span class="tab tab--slate">Peripheral Entry</span>
+          </div>
+
+          <span class="sheet__stamp-no" aria-hidden="true">File №04</span>
+          <span class="sheet__spine" aria-hidden="true">0 4 9 2 6 1 8 2 7 3 9 1</span>
+
+          <h2 class="sheet__title">Unverified</h2>
+
+          <div class="sheet__body">
+            <p class="sheet__marginal">
+              Not dated. Referent<br />unknown. Possible<br />correlation to Entry<br />9D, though this remains<br />speculative.
+            </p>
+
+            <div class="sheet__cols">
+              <p>
+                Most of what lives here has never been counted. The record is thin by
+                accident — a canopy surveyed once in 1974, a river reach sampled the
+                season the funding held, a species described from four specimens and
+                never seen again. Absence in the data is read as absence in the world,
+                and decisions follow from it.
+              </p>
+              <p>
+                vanyax works the other way around. We take what field teams already
+                gather — acoustic recorders, camera traps, water samples, satellite
+                passes — and build the models that turn it into something a steward
+                can act on: where the forest is thinning, which calls belong to whom,
+                what the count would have been had anyone been listening.
+              </p>
+              <p>
+                Nothing here is finished. Every model is an argument about a living
+                system, held open to the next observation that contradicts it.
+              </p>
+            </div>
+          </div>
+
+          <span class="sheet__foot-l" aria-hidden="true">V_1</span>
+          <span class="sheet__foot-c" aria-hidden="true">01749</span>
+          <span class="sheet__foot-r" aria-hidden="true">04</span>
+        </article>
+
+        <!-- pink card -->
+        <article class="card" data-layer="1.4" data-reveal>
+          <h3 class="card__title">Excerpt A</h3>
+          <p>
+            The forest arrives already altered — shaped more by how it was measured
+            than by what it is. Sensors offer no certainty, only suggestion. A
+            transect, if ever walked, appears broken; but each break insists on
+            continuity. There are signs of use: bite marks, burn scars, the pressure
+            of someone else's harvest. No conclusion is evident, but the canopy
+            resists being closed. It remains — held in transit, not as an answer but
+            as evidence of asking.
+          </p>
+        </article>
+
+        <!-- torn receipt -->
+        <article class="receipt" data-layer="2.2" data-reveal aria-label="Field record">
+          <span class="receipt__clip" aria-hidden="true"></span>
+          <h4 class="receipt__title">RECORD</h4>
+          <dl class="receipt__meta">
+            <div><dt>PLOT:</dt><dd>Vanyax T-07</dd><dd class="r">Apr 11, 1966</dd></div>
+            <div><dt>WHERE:</dt><dd>14 Obscura Lane, Sector 3,<br />Nea Cartenia, 0027-A</dd></div>
+          </dl>
+          <div class="receipt__sign" aria-hidden="true">
+            <svg viewBox="0 0 120 34" preserveAspectRatio="none" role="presentation">
+              <path d="M4 26c8-14 12 2 18-6s7-14 12-4 6 16 12 6 8-16 14-6 6 12 12 6 10-12 16-6 12 6 24 2" />
+            </svg>
+          </div>
+          <p class="receipt__note">Last known revision</p>
+          <span class="seal seal--sm" aria-hidden="true">
+            <svg viewBox="0 0 100 100" role="presentation">
+              <defs><path id="sealArcSm" d="M50,50 m-34,0 a34,34 0 1,1 68,0 a34,34 0 1,1 -68,0" /></defs>
+              <circle cx="50" cy="50" r="45" />
+              <circle cx="50" cy="50" r="39" />
+              <text><textPath href="#sealArcSm" startOffset="0%">VANYAX · FIELD ARCHIVE · VANYAX · FIELD ARCHIVE ·</textPath></text>
+              <text class="seal__mid" x="50" y="56">vx</text>
+            </svg>
+          </span>
+        </article>
+      </div>
     </section>
 
-    <footer class="footbar">
-      <nav class="footbar__links" aria-label="Social">
-        <a href="#" aria-label="Instagram">Instagram</a>
-        <a href="#" aria-label="LinkedIn">LinkedIn</a>
-        <a href="#" aria-label="X">X</a>
-      </nav>
-      <span class="footbar__copy">© 2026 vanyax</span>
-    </footer>
+    <!-- ── LEDGER ───────────────────────────── -->
+    <section class="ledger" id="ledger">
+      <div class="ledger__head">
+        <h2 data-reveal>Index of works</h2>
+        <p class="ledger__note" data-reveal>Six active lines. Status as of last field return.</p>
+      </div>
+
+      <ol class="ledger__list">
+        <li data-row><span class="n">01</span><span class="t">Canopy cover &amp; loss</span><span class="m">Sentinel-2 time series · segmentation</span><span class="s">In field</span></li>
+        <li data-row><span class="n">02</span><span class="t">Bioacoustic species ID</span><span class="m">Passive recorders · spectrogram CNNs</span><span class="s">Modelling</span></li>
+        <li data-row><span class="n">03</span><span class="t">eDNA read assignment</span><span class="m">Metabarcoding · k-mer classifiers</span><span class="s">Draft</span></li>
+        <li data-row><span class="n">04</span><span class="t">Pollinator networks</span><span class="m">Camera traps · graph inference</span><span class="s">In field</span></li>
+        <li data-row><span class="n">05</span><span class="t">Fragmentation index</span><span class="m">Landsat archive · spatial statistics</span><span class="s">Review</span></li>
+        <li data-row><span class="n">06</span><span class="t">Range-shift forecasts</span><span class="m">Occurrence records · SDM ensembles</span><span class="s">Draft</span></li>
+      </ol>
+    </section>
+
+    <!-- ── PLATE ────────────────────────────── -->
+    <section class="plate" id="plate">
+      <figure class="plate__fig" data-reveal>
+        <div class="plate__img" role="img" aria-label="Understory, low light, after rain"></div>
+        <figcaption>
+          <span>Plate 01</span>
+          <span>Understory, low light, after rain. Reference frame for canopy-gap labelling.</span>
+          <span>neg. 12938</span>
+        </figcaption>
+      </figure>
+    </section>
+
+    <!-- ── REQUEST ──────────────────────────── -->
+    <section class="request" id="request">
+      <div class="request__paper" data-reveal>
+        <p class="request__kicker">Form 02 — Request of entry</p>
+        <h2 class="request__title">Ask to be <em>let in</em></h2>
+        <p class="request__lede">
+          vanyax opens in cohorts. Leave an address and we write when the next set of
+          records, models or roles is unsealed.
+        </p>
+
+        <form class="capture" id="capture" novalidate>
+          <div class="capture__field">
+            <label class="capture__label" for="email">Correspondent</label>
+            <input
+              class="capture__input"
+              type="email"
+              id="email"
+              name="email"
+              inputmode="email"
+              autocomplete="email"
+              placeholder="name@institution.org"
+              aria-label="Email address"
+              required
+            />
+            <button class="capture__btn" type="submit"><span>File it</span></button>
+          </div>
+          <p class="capture__note" id="note">No noise — only the occasional meaningful update.</p>
+        </form>
+      </div>
+    </section>
   </main>
+
+  <!-- ── FOOTER ─────────────────────────────── -->
+  <footer class="foot">
+    <span class="foot__l">Vanyax. Field Archive — van, the forest; yax, its guardians.</span>
+    <nav class="foot__links" aria-label="Social">
+      <a href="#">Instagram</a><a href="#">LinkedIn</a><a href="#">X</a>
+    </nav>
+    <span class="seal seal--lg" aria-hidden="true">
+      <svg viewBox="0 0 100 100" role="presentation">
+        <defs><path id="sealArcLg" d="M50,50 m-34,0 a34,34 0 1,1 68,0 a34,34 0 1,1 -68,0" /></defs>
+        <circle cx="50" cy="50" r="45" />
+        <circle cx="50" cy="50" r="39" />
+        <text><textPath href="#sealArcLg" startOffset="0%">VANYAX · FIELD ARCHIVE · VANYAX · FIELD ARCHIVE ·</textPath></text>
+        <text class="seal__mid" x="50" y="56">vx</text>
+      </svg>
+    </span>
+  </footer>
 
   <script type="module" src="/src/main.js"></script>
 </body>

@@ -1,126 +1,92 @@
 import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* ── Entrance reveal ─────────────────────────── */
-function reveal() {
+/* ── Reveals ─────────────────────────────────
+   Masthead items animate on load; everything below
+   the fold waits for its section to scroll in.      */
+function reveals() {
   if (reduceMotion) return;
-  document.documentElement.classList.add('js'); // hide reveal items now that we'll animate them
-  const items = gsap.utils.toArray('[data-reveal]');
-  gsap.to(items, {
+  document.documentElement.classList.add('js');
+
+  const above = gsap.utils.toArray('.masthead [data-reveal]');
+  gsap.to(above, {
     opacity: 1,
     y: 0,
     duration: 1.1,
     ease: 'power3.out',
     stagger: 0.12,
-    delay: 0.35,
+    delay: 0.25,
+  });
+
+  gsap.utils.toArray('[data-reveal]').forEach((el) => {
+    if (above.includes(el)) return;
+    gsap.to(el, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      scrollTrigger: { trigger: el, start: 'top 88%', once: true },
+    });
   });
 }
 
-/* ── Mouse / device parallax on the background ── */
-function parallax() {
-  if (reduceMotion) return;
-  const layer = document.querySelector('.bg__image');
-  if (!layer) return;
+/* ── Layered paper drift ─────────────────────
+   Each document in the dossier stack carries a
+   data-layer weight; the stack answers the pointer
+   and the scroll position with different amounts.   */
+function stack() {
+  const scene = document.querySelector('[data-parallax-scene]');
+  if (!scene || reduceMotion) return;
 
-  const move = (px, py) => {
-    gsap.to(layer, {
-      x: px * 26,
-      y: py * 18,
-      duration: 1.2,
-      ease: 'power2.out',
-    });
-  };
+  const layers = gsap.utils.toArray('[data-layer]', scene);
+  const setters = layers.map((el) => ({
+    el,
+    weight: parseFloat(el.dataset.layer) || 1,
+    x: gsap.quickTo(el, 'x', { duration: 0.9, ease: 'power3.out' }),
+    y: gsap.quickTo(el, 'y', { duration: 0.9, ease: 'power3.out' }),
+  }));
 
   window.addEventListener('pointermove', (e) => {
-    move((e.clientX / window.innerWidth - 0.5) * -1, (e.clientY / window.innerHeight - 0.5) * -1);
+    const px = e.clientX / window.innerWidth - 0.5;
+    const py = e.clientY / window.innerHeight - 0.5;
+    for (const l of setters) {
+      l.x(px * 14 * l.weight);
+      l.y(py * 10 * l.weight);
+    }
+  });
+
+  // slow vertical spread as the block passes through the viewport
+  layers.forEach((el) => {
+    const weight = parseFloat(el.dataset.layer) || 1;
+    gsap.fromTo(
+      el,
+      { yPercent: 2.5 * weight },
+      {
+        yPercent: -2.5 * weight,
+        ease: 'none',
+        scrollTrigger: { trigger: scene, start: 'top bottom', end: 'bottom top', scrub: 0.6 },
+      }
+    );
   });
 }
 
-/* ── Canvas rain (matches the scene) ─────────── */
-function rain() {
-  const canvas = document.querySelector('.bg__rain');
-  if (!canvas || reduceMotion) return;
-  const ctx = canvas.getContext('2d');
-  let w, h, drops, raf;
-
-  const DPR = Math.min(window.devicePixelRatio || 1, 2);
-
-  function size() {
-    w = canvas.width = innerWidth * DPR;
-    h = canvas.height = innerHeight * DPR;
-    canvas.style.width = innerWidth + 'px';
-    canvas.style.height = innerHeight + 'px';
-    const count = Math.floor((innerWidth * innerHeight) / 9000);
-    drops = Array.from({ length: count }, () => spawn());
-  }
-
-  function spawn() {
-    return {
-      x: Math.random() * w,
-      y: Math.random() * h,
-      len: (8 + Math.random() * 16) * DPR,
-      vy: (6 + Math.random() * 7) * DPR,
-      a: 0.06 + Math.random() * 0.18,
-    };
-  }
-
-  function frame() {
-    ctx.clearRect(0, 0, w, h);
-    ctx.lineCap = 'round';
-    for (const d of drops) {
-      ctx.strokeStyle = `rgba(200, 220, 230, ${d.a})`;
-      ctx.lineWidth = DPR * 0.8;
-      ctx.beginPath();
-      ctx.moveTo(d.x, d.y);
-      ctx.lineTo(d.x - DPR, d.y + d.len);
-      ctx.stroke();
-      d.y += d.vy;
-      d.x -= DPR * 0.4;
-      if (d.y > h) { d.y = -d.len; d.x = Math.random() * w; }
-    }
-    raf = requestAnimationFrame(frame);
-  }
-
-  size();
-  addEventListener('resize', size);
-  frame();
-
-  // pause when tab hidden
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) cancelAnimationFrame(raf);
-    else frame();
+/* ── Ledger rows rule in one at a time ───────── */
+function ledger() {
+  if (reduceMotion) return;
+  const rows = gsap.utils.toArray('[data-row]');
+  if (!rows.length) return;
+  gsap.from(rows, {
+    opacity: 0,
+    y: 14,
+    duration: 0.7,
+    ease: 'power2.out',
+    stagger: 0.07,
+    scrollTrigger: { trigger: rows[0].parentElement, start: 'top 85%', once: true },
   });
-}
-
-/* ── Typewriter 'about' line ──────────────────── */
-function typewriter() {
-  const el = document.querySelector('[data-typewriter]');
-  if (!el) return;
-  const full = el.textContent.trim();
-
-  if (reduceMotion) { el.textContent = full; return; }
-
-  el.textContent = '';
-  el.classList.add('is-typing');
-
-  let i = 0;
-  const base = 16; // ms per character
-
-  const tick = () => {
-    el.textContent = full.slice(0, i);
-    i += 1;
-    if (i <= full.length) {
-      const prev = full[i - 2];
-      const pause = /[.,—]/.test(prev) ? 180 : base + Math.random() * 24;
-      setTimeout(tick, pause);
-    } else {
-      // keep caret blinking a moment, then settle
-      setTimeout(() => el.classList.remove('is-typing'), 2600);
-    }
-  };
-
-  setTimeout(tick, 1500); // start after the entrance reveal
 }
 
 /* ── Google Form destination ──────────────────────
@@ -156,8 +122,8 @@ function capture() {
   const form = document.getElementById('capture');
   const input = document.getElementById('email');
   const note = document.getElementById('note');
-  const btn = form?.querySelector('.capture__btn span');
   const btnEl = form?.querySelector('.capture__btn');
+  const btn = btnEl?.querySelector('span');
   if (!form) return;
 
   const field = form.querySelector('.capture__field');
@@ -172,7 +138,7 @@ function capture() {
     const v = input.value.trim();
 
     if (!valid(v)) {
-      note.textContent = 'Hmm — that email doesn’t look right.';
+      note.textContent = 'Hmm — that address doesn’t look right.';
       gsap.fromTo(field, { x: -6 }, { x: 0, duration: 0.5, ease: 'elastic.out(1, 0.4)' });
       input.focus();
       return;
@@ -180,16 +146,16 @@ function capture() {
 
     // sending state
     sending = true;
-    if (btnEl) btnEl.disabled = true;
-    if (btn) btn.textContent = 'Sending…';
+    btnEl.disabled = true;
+    if (btn) btn.textContent = 'Filing…';
 
     try {
       await sendToGoogleForm(v);
     } catch (_) {
       // network failed — let them retry
       sending = false;
-      if (btnEl) btnEl.disabled = false;
-      if (btn) btn.textContent = 'Notify me';
+      btnEl.disabled = false;
+      if (btn) btn.textContent = 'File it';
       note.textContent = 'Something went wrong — please try again.';
       return;
     }
@@ -197,11 +163,11 @@ function capture() {
     // success — the field stays fully editable
     sending = false;
     done = true;
-    if (btnEl) btnEl.disabled = false;
+    btnEl.disabled = false;
     form.classList.add('is-done');
-    if (btn) btn.textContent = 'Added ✓';
-    note.textContent = 'You’re on the list. We’ll be in touch.';
-    gsap.fromTo(field, { scale: 1 }, { scale: 1.015, duration: 0.25, yoyo: true, repeat: 1, ease: 'power2.out' });
+    if (btn) btn.textContent = 'Filed ✓';
+    note.textContent = 'Entered into the record. We’ll be in touch.';
+    gsap.fromTo(field, { scale: 1 }, { scale: 1.012, duration: 0.25, yoyo: true, repeat: 1, ease: 'power2.out' });
 
     try { localStorage.setItem('vanyax:email', v); } catch (_) {}
   });
@@ -211,15 +177,14 @@ function capture() {
     if (done) {
       done = false;
       form.classList.remove('is-done');
-      if (btn) btn.textContent = 'Notify me';
+      if (btn) btn.textContent = 'File it';
     }
     if (note.textContent !== defaultNote) note.textContent = defaultNote;
   });
 }
 
 /* ── boot ────────────────────────────────────── */
-reveal();
-parallax();
-rain();
-typewriter();
+reveals();
+stack();
+ledger();
 capture();
