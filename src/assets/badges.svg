@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+<defs>
+  <path id="badgeArc" d="M100,100 m-82,0 a82,82 0 1,1 164,0 a82,82 0 1,1 -164,0"/>
+  <clipPath id="badgeClip"><circle cx="100" cy="100" r="70"/></clipPath>
+</defs>
+<symbol id="badge-field-first" viewBox="0 0 200 200">
+  <circle cx="100" cy="100" r="94" fill="#35e05f" stroke="#06180f" stroke-width="4"/>
+  <circle cx="100" cy="100" r="70" fill="#0d2b1c" stroke="#06180f" stroke-width="4"/>
+  <text class="badge__text" fill="#06180f">
+    <textPath href="#badgeArc" startOffset="50%" text-anchor="middle">FIELD FIRST · FIELD FIRST ·</textPath>
+  </text>
+  <g clip-path="url(#badgeClip)"><path d="M30 138 L64 86 L92 138 Z" fill="#2f7f6b" stroke="#06180f" stroke-width="3.5" stroke-linejoin="round"/><path d="M64 86 L74 102 L64 98 L54 102 Z" fill="#f6efe4" stroke="#06180f" stroke-width="2.5"/><path d="M78 138 L112 78 L146 138 Z" fill="#1d6350" stroke="#06180f" stroke-width="3.5" stroke-linejoin="round"/><path d="M112 78 L124 98 L112 93 L100 98 Z" fill="#f6efe4" stroke="#06180f" stroke-width="2.5"/><circle cx="132" cy="72" r="15" fill="#f2c94c" stroke="#06180f" stroke-width="3.5"/><path d="M30 138 h140" stroke="#06180f" stroke-width="3.5"/></g>
+  <circle cx="100" cy="100" r="70" fill="none" stroke="#06180f" stroke-width="4"/>
+  </symbol>
+<symbol id="badge-count" viewBox="0 0 200 200">
+  <circle cx="100" cy="100" r="94" fill="#f2c94c" stroke="#06180f" stroke-width="4"/>
+  <circle cx="100" cy="100" r="70" fill="#0d2b1c" stroke="#06180f" stroke-width="4"/>
+  <text class="badge__text" fill="#06180f">
+    <textPath href="#badgeArc" startOffset="50%" text-anchor="middle">COUNT WHAT MATTERS ·</textPath>
+  </text>
+  <g clip-path="url(#badgeClip)"><circle cx="72" cy="82" r="11" fill="#35e05f" stroke="#06180f" stroke-width="3.5"/><circle cx="132" cy="72" r="9" fill="#ef7a56" stroke="#06180f" stroke-width="3.5"/><circle cx="142" cy="126" r="11" fill="#8fd3e8" stroke="#06180f" stroke-width="3.5"/><circle cx="86" cy="140" r="9" fill="#f2c94c" stroke="#06180f" stroke-width="3.5"/><circle cx="104" cy="104" r="14" fill="#f6efe4" stroke="#06180f" stroke-width="3.5"/><path d="M83 88 L94 98 M124 79 L116 94 M132 120 L117 111 M93 133 L99 117" stroke="#06180f" stroke-width="3"/></g>
+  <circle cx="100" cy="100" r="70" fill="none" stroke="#06180f" stroke-width="4"/>
+  </symbol>
+<symbol id="badge-listen" viewBox="0 0 200 200">
+  <circle cx="100" cy="100" r="94" fill="#8fd3e8" stroke="#06180f" stroke-width="4"/>
+  <circle cx="100" cy="100" r="70" fill="#18703c" stroke="#06180f" stroke-width="4"/>
+  <text class="badge__text" fill="#06180f">
+    <textPath href="#badgeArc" startOffset="50%" text-anchor="middle">MODELS THAT LISTEN ·</textPath>
+  </text>
+  <g clip-path="url(#badgeClip)"><path d="M62 148 v-34 h14 v34 Z" fill="#f6efe4" stroke="#06180f" stroke-width="3.5"/><circle cx="69" cy="106" r="7" fill="#35e05f" stroke="#06180f" stroke-width="3"/><path d="M92 78 q22 32 0 64" fill="none" stroke="#35e05f" stroke-width="4" stroke-linecap="round"/><path d="M110 66 q32 44 0 88" fill="none" stroke="#35e05f" stroke-width="3.5" stroke-linecap="round"/><path d="M128 56 q42 54 0 108" fill="none" stroke="#f6efe4" stroke-width="3" stroke-linecap="round"/></g>
+  <circle cx="100" cy="100" r="70" fill="none" stroke="#06180f" stroke-width="4"/>
+  </symbol>
+<symbol id="badge-regrow" viewBox="0 0 200 200">
+  <circle cx="100" cy="100" r="94" fill="#35e05f" stroke="#06180f" stroke-width="4"/>
+  <circle cx="100" cy="100" r="70" fill="#f6efe4" stroke="#06180f" stroke-width="4"/>
+  <text class="badge__text" fill="#06180f">
+    <textPath href="#badgeArc" startOffset="50%" text-anchor="middle">LEAVE IT GROWING ·</textPath>
+  </text>
+  <g clip-path="url(#badgeClip)"><path d="M74 150 h52 v-40 h-52 Z" fill="#a4552f" stroke="#06180f" stroke-width="3.5"/><ellipse cx="100" cy="110" rx="26" ry="10" fill="#c1703f" stroke="#06180f" stroke-width="3.5"/><ellipse cx="100" cy="110" rx="12" ry="4.5" fill="none" stroke="#06180f" stroke-width="2.5"/><path d="M100 106 q-4 -26 -24 -34 q10 24 20 34" fill="#35e05f" stroke="#06180f" stroke-width="3"/><path d="M104 104 q6 -22 26 -26 q-12 20 -22 28" fill="#35e05f" stroke="#06180f" stroke-width="3"/></g>
+  <circle cx="100" cy="100" r="70" fill="none" stroke="#06180f" stroke-width="4"/>
+  </symbol>
+<symbol id="badge-open" viewBox="0 0 200 200">
+  <circle cx="100" cy="100" r="94" fill="#ef7a56" stroke="#06180f" stroke-width="4"/>
+  <circle cx="100" cy="100" r="70" fill="#18703c" stroke="#06180f" stroke-width="4"/>
+  <text class="badge__text" fill="#06180f">
+    <textPath href="#badgeArc" startOffset="50%" text-anchor="middle">OPEN BY DEFAULT ·</textPath>
+  </text>
+  <g clip-path="url(#badgeClip)"><circle cx="100" cy="126" r="24" fill="#f6efe4" stroke="#06180f" stroke-width="3.5"/><circle cx="70" cy="98" r="10" fill="#f6efe4" stroke="#06180f" stroke-width="3.5"/><circle cx="90" cy="80" r="10" fill="#f6efe4" stroke="#06180f" stroke-width="3.5"/><circle cx="112" cy="80" r="10" fill="#f6efe4" stroke="#06180f" stroke-width="3.5"/><circle cx="132" cy="98" r="10" fill="#f6efe4" stroke="#06180f" stroke-width="3.5"/></g>
+  <circle cx="100" cy="100" r="70" fill="none" stroke="#06180f" stroke-width="4"/>
+  </symbol>
+</svg>
