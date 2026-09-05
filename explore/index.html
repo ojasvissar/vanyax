@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Explorer — vanyax</title>
+  <meta name="description" content="Look up any species and see what the world's occurrence data actually says about it — and what it cannot say. Live GBIF data, no backend." />
+  <meta name="theme-color" content="#0e1411" />
+  <meta property="og:title" content="Explorer — vanyax" />
+  <meta property="og:description" content="Look up any species and see what the world's occurrence data actually says about it — and what it cannot say. Live GBIF data, no backend." />
+  <meta property="og:type" content="website" />
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='38' fill='none' stroke='%2383b898' stroke-width='8'/><circle cx='50' cy='50' r='10' fill='%23d9b65a'/></svg>" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,wght@1,400&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/src/style.css" />
+  <link rel="stylesheet" href="/src/explore.css" />
+</head>
+<body>
+  <header class="site-head">
+    <div class="wrap site-head__in">
+      <a class="wordmark" href="/vanyax/">vanyax <span>van · yax</span></a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="/vanyax/">Home</a>
+        <a href="/vanyax/explore/" aria-current="page">Explorer</a>
+        <a href="/vanyax/collaborate/">Collaborate</a>
+        <a href="/vanyax/open-source/">Open source</a>
+        <a href="/vanyax/projects/">Projects</a>
+        <a href="/vanyax/about/">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="ask">
+      <div class="wrap">
+        <p class="eyebrow">Live query · GBIF</p>
+        <h1 class="ask__line">What do we actually know about
+          <span class="ask__field"><input id="q" type="text" placeholder="a species"
+            autocomplete="off" autocapitalize="off" spellcheck="false"
+            role="combobox" aria-expanded="false" aria-controls="suggest"
+            aria-autocomplete="list" aria-label="Species name" /></span>?</h1>
+        <ul class="ask__list" id="suggest" role="listbox" aria-label="Species suggestions" hidden></ul>
+        <div class="chips" id="presets"></div>
+        <p class="ask__note">
+          Nothing here is stored or precomputed. Each panel is a query sent to GBIF the moment you
+          ask for it — <span id="globalCount">…</span> published by museums, surveys, agencies and
+          people with phones. Drag across the years to filter the whole page.
+        </p>
+      </div>
+    </section>
+
+    <section class="report" id="report" aria-live="polite" aria-busy="false">
+      <div class="wrap">
+        <header class="rpt__head" id="head"></header>
+        <div class="rpt__grid">
+          <figure class="panel panel--wide" id="p-map">
+            <figcaption class="panel__head">
+              <h3 class="panel__title">Where the records are</h3>
+              <p class="panel__sub">All georeferenced records, binned</p>
+            </figcaption>
+            <div class="panel__body"></div><div class="panel__extra"></div>
+          </figure>
+          <figure class="panel panel--wide" id="p-year">
+            <figcaption class="panel__head">
+              <h3 class="panel__title">Records per year</h3>
+              <p class="panel__sub">Recording effort as much as occurrence — drag to filter</p>
+            </figcaption>
+            <div class="panel__body"></div><div class="panel__extra"></div>
+          </figure>
+          <figure class="panel" id="p-month">
+            <figcaption class="panel__head">
+              <h3 class="panel__title">Month of year</h3>
+              <p class="panel__sub">Every year pooled</p>
+            </figcaption>
+            <div class="panel__body"></div><div class="panel__extra"></div>
+          </figure>
+          <figure class="panel" id="p-country">
+            <figcaption class="panel__head">
+              <h3 class="panel__title">Where they were published from</h3>
+              <p class="panel__sub">Top countries by record count</p>
+            </figcaption>
+            <div class="panel__body"></div><div class="panel__extra"></div>
+          </figure>
+          <figure class="panel" id="p-basis">
+            <figcaption class="panel__head">
+              <h3 class="panel__title">How the record was made</h3>
+              <p class="panel__sub">Each kind carries its own bias</p>
+            </figcaption>
+            <div class="panel__body"></div><div class="panel__extra"></div>
+          </figure>
+        </div>
+        <section class="caveats" id="caveats"></section>
+        <section class="method" id="method"></section>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-foot">
+    <div class="wrap">
+      <div class="site-foot__grid">
+        <div>
+          <p class="site-foot__etym"><b>van</b> — the forest.<br /><b>yax</b> — the guardian spirits of it.</p>
+          <p class="small muted" style="margin-top:0.9rem;max-width:34ch">Data science and machine learning for biodiversity and ecosystems. Built with the people doing the fieldwork.</p>
+        </div>
+        <div>
+          <h4>Pages</h4>
+          <a href="/vanyax/collaborate/">Collaborate</a>
+          <a href="/vanyax/open-source/">Open source</a>
+          <a href="/vanyax/projects/">Projects</a>
+          <a href="/vanyax/about/">About</a>
+        </div>
+        <div>
+          <h4>Elsewhere</h4>
+          <!-- TODO: replace these with your real accounts -->
+          <a href="#">GitHub</a>
+          <a href="#">LinkedIn</a>
+          <a href="mailto:hello@vanyax.org">hello@vanyax.org</a>
+        </div>
+      </div>
+      <div class="site-foot__bottom">
+        <span>© 2026 vanyax</span>
+        <span>No trackers on this site.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="/src/explore.js"></script>
+</body>
+</html>

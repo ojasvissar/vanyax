@@ -14,6 +14,7 @@ export default defineConfig({
         openSource: resolve(__dirname, 'open-source/index.html'),
         projects: resolve(__dirname, 'projects/index.html'),
         about: resolve(__dirname, 'about/index.html'),
+        explore: resolve(__dirname, 'explore/index.html'),
       },
     },
   },

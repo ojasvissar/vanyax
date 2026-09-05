@@ -16,9 +16,43 @@ Live: [ojasvissar.github.io/vanyax](https://ojasvissar.github.io/vanyax/)
 | `open-source/` | What will be published and on what terms — honest that nothing is out yet |
 | `projects/` | Own work with real statuses (building / exploring / planned) and what each one needs |
 | `about/` | The name, why the practice exists, how it works, who runs it |
+| `explore/` | **The species explorer** — a working tool, not a description of one |
 
 Nothing on the site claims work that hasn't happened. Keep it that way: add
 case studies and numbers when they exist, not before.
+
+## The explorer
+
+`explore/` is the part of this site that does the thing the rest of it talks
+about. Type any species and it queries [GBIF](https://www.gbif.org) live and
+renders what the world's occurrence data actually says: a hex-binned density map
+of every georeferenced record, records per year, month-of-year, publishing
+countries, and how each record was made. Drag across the years and every panel —
+including the map raster — refetches for that range.
+
+No backend, no API keys, nothing precomputed. It is a static page that talks to
+public APIs from the browser, so it deploys to GitHub Pages unchanged.
+
+- **Sources** — `api.gbif.org/v1` for facets, taxonomy and IUCN Red List
+  category; `api.gbif.org/v2` for the EPSG:4326 density raster;
+  `api.inaturalist.org/v1` for one curated common name (GBIF returns every name
+  every source ever used — its first English entry for the monarch is
+  "Milkweed").
+- **Projection** — equirectangular, cropped to 84°N–58°S. Chosen so GBIF's plate
+  carrée raster lands on the coastlines pixel for pixel with no resampling.
+- **"What this data cannot tell you"** — the four figures at the bottom are
+  computed from the same response as the charts. Occurrence data maps observers,
+  not organisms, and a tool that draws the map without saying so is misleading
+  people. Every number on the page is live; none is written by hand.
+- **Charts** — hand-rolled SVG. Single-hue for one series, a validated
+  categorical palette for the six record types, a table view behind every chart,
+  and a hover layer on every mark. The categorical hues pass lightness, chroma,
+  colour-blind separation, normal-vision separation and contrast against this
+  page's surface.
+
+Adding a preset species: find its key with
+`api.gbif.org/v1/species/match?name=Genus+species` and add it to `PRESETS` in
+[src/explore.js](src/explore.js).
 
 ## Design notes
 
