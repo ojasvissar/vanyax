@@ -468,6 +468,99 @@ export function intro() {
   });
 }
 
+/* ── scroll progress, on the frame itself ────────────────── */
+export function progress() {
+  const bar = document.querySelector('.progress i');
+  if (!bar) return;
+  const set = gsap.quickSetter(bar, 'width', '%');
+  const update = (y) => {
+    const max = document.documentElement.scrollHeight - innerHeight;
+    set(max > 0 ? Math.min(100, (y / max) * 100) : 0);
+  };
+  if (lenis) lenis.on('scroll', ({ scroll }) => update(scroll));
+  else addEventListener('scroll', () => update(scrollY), { passive: true });
+}
+
+/* ── a light that follows the pointer ────────────────────────
+   The ground is dark and the subject is a lit band, so the cursor
+   carries a small version of the same light. It warms to the acid
+   over anything clickable. */
+export function cursorLight() {
+  if (reduced || matchMedia('(hover: none)').matches) return;
+  const dot = document.createElement('div');
+  dot.className = 'cursor';
+  dot.setAttribute('aria-hidden', 'true');
+  document.body.append(dot);
+  const x = gsap.quickTo(dot, 'x', { duration: 0.5, ease: 'power3' });
+  const y = gsap.quickTo(dot, 'y', { duration: 0.5, ease: 'power3' });
+  addEventListener('pointermove', (e) => {
+    dot.classList.add('is-on');
+    x(e.clientX); y(e.clientY);
+    const over = e.target instanceof Element && e.target.closest('a, button, input, .card, .shot');
+    dot.classList.toggle('is-hot', !!over);
+  }, { passive: true });
+  addEventListener('pointerleave', () => dot.classList.remove('is-on'));
+}
+
+/* ── labels decode as they arrive ────────────────────────────
+   The mono voice belongs to instruments, so its labels resolve the
+   way a readout settles rather than fading in. */
+const GLYPHS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789·/';
+export function decode(root = document) {
+  const items = [...root.querySelectorAll('.eyebrow, .strata__alt, .card__label, .live__label')];
+  if (!items.length || reduced) return;
+  items.forEach((el) => {
+    const text = el.textContent;
+    ScrollTrigger.create({
+      trigger: el, start: 'top 92%', once: true,
+      onEnter: () => {
+        const total = Math.min(28, text.length);
+        let frame = 0;
+        const tick = () => {
+          frame += 1;
+          const solid = Math.floor(frame / 1.6);
+          el.textContent = text
+            .split('')
+            .map((ch, i) => (i < solid || ch === ' ' ? ch : GLYPHS[(Math.random() * GLYPHS.length) | 0]))
+            .join('');
+          if (solid <= total) requestAnimationFrame(tick);
+          else el.textContent = text;
+        };
+        tick();
+      },
+    });
+  });
+}
+
+/* ── page transitions ────────────────────────────────────────
+   The site is six separate documents; without this, following a link
+   is a white flash. The veil covers the gap, and the arriving page
+   clears its own. */
+export function transitions() {
+  if (reduced) return;
+  const veil = document.createElement('div');
+  veil.className = 'leave';
+  veil.setAttribute('aria-hidden', 'true');
+  document.body.append(veil);
+
+  document.addEventListener('click', (e) => {
+    const a = e.target instanceof Element && e.target.closest('a');
+    if (!a) return;
+    const href = a.getAttribute('href') || '';
+    const external = a.target === '_blank' || a.hasAttribute('download') ||
+      href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('#');
+    if (external || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+    e.preventDefault();
+    gsap.to(veil, {
+      yPercent: -100, duration: 0.55, ease: 'expo.inOut',
+      onComplete: () => { location.href = href; },
+    });
+  });
+
+  // coming back through history should not land on a raised veil
+  addEventListener('pageshow', (ev) => { if (ev.persisted) gsap.set(veil, { yPercent: 101 }); });
+}
+
 /* ── boot everything a page shares ───────────────────────── */
 export function boot() {
   initScroll();
@@ -478,6 +571,10 @@ export function boot() {
   counters();
   marquee();
   strata();
+  progress();
+  cursorLight();
+  decode();
+  transitions();
   document.querySelectorAll('[data-reveal-heading]').forEach((el) => revealHeading(el, { trigger: true }));
 
   const refresh = () => ScrollTrigger.refresh();

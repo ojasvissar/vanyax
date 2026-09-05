@@ -62,7 +62,30 @@ function capture() {
   });
 }
 
+/* One real number, fetched when the page loads. GBIF's total is the size of
+   the problem this practice exists for, and it is the only figure on the site
+   that is not written by hand. */
+async function liveCount() {
+  const el = document.querySelector('[data-live-count]');
+  if (!el) return;
+  try {
+    const res = await fetch('https://api.gbif.org/v1/occurrence/search?limit=0');
+    const { count } = await res.json();
+    if (!count) throw new Error('no count');
+    if (reduced) { el.textContent = count.toLocaleString('en-GB'); return; }
+    const obj = { v: count * 0.86 };
+    gsap.to(obj, {
+      v: count, duration: 2.4, ease: 'power3.out',
+      onUpdate: () => { el.textContent = Math.round(obj.v).toLocaleString('en-GB'); },
+    });
+  } catch {
+    el.textContent = 'billions of';
+    el.closest('.live')?.classList.add('is-offline');
+  }
+}
+
 heroCanvas(document.querySelector('.hero__canvas'));
+liveCount();
 boot();
 capture();
 
