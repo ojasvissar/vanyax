@@ -54,6 +54,27 @@ Adding a preset species: find its key with
 `api.gbif.org/v1/species/match?name=Genus+species` and add it to `PRESETS` in
 [src/explore.js](src/explore.js).
 
+## Two interactive pieces
+
+**Survey it yourself** (home page). The claim the whole site rests on — that
+occurrence data maps observers, not organisms — is easy to assert and hard to
+feel. So it is also something you do: a patch of forest with a generated
+population hidden in it, which you have to walk. Species abundance follows a
+decaying series, because real communities are a few common species and a long
+tail of rare ones, and the tail is what surveys miss. Detection is a chance
+rolled on every pass, not a certainty, which is the reason occupancy models
+exist at all. A typical transect covers about a quarter of the ground, finds
+five to seven of the fourteen species, and walks within a couple of metres of a
+hundred individuals without seeing them. The population is generated with a
+fixed seed and the page says so.
+
+**Play the archive** (explorer). The year facet is already loaded, so the map
+can walk forward through time and report a real cumulative count at every step
+without one extra request — only the raster is refetched, and each frame is
+preloaded before it is shown so the map never blinks. Watching a species fill
+in from 1878 onward is mostly a history of who was looking, which is the point
+the caveats underneath make in words.
+
 ## Design notes
 
 The visual language takes its cues from [Polpis Systems](http://polpissystems.com)

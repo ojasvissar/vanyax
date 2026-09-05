@@ -152,6 +152,41 @@
       </div>
     </section>
 
+
+    <section class="band" id="survey">
+      <div class="wrap">
+        <div class="sec-head">
+          <p class="eyebrow" data-anim>Try it</p>
+          <h2 data-reveal-heading>A blank map is not an empty forest.</h2>
+          <p class="lede" data-anim>
+            Below is a patch of forest with a population hidden in it: fourteen species, four
+            hundred and twenty individuals, clumped the way real ones are. Drag across it to
+            survey. You will only ever see what you walked over — which is the single most
+            misread property of every occurrence map ever published.
+          </p>
+        </div>
+
+        <div class="survey__stage" data-survey data-anim>
+          <div class="survey__frame">
+            <canvas class="survey__canvas" aria-label="An interactive survey of a generated forest patch. Use the survey everything button for the same result without dragging."></canvas>
+            <p class="survey__hint">Drag to survey</p>
+          </div>
+          <div class="survey__hud">
+            <div><span class="mono">Ground surveyed</span><b data-area>0%</b></div>
+            <div><span class="mono">Species found</span><b data-species>0 of 14</b></div>
+            <div><span class="mono">Individuals seen</span><b data-seen>0 of 420</b></div>
+          </div>
+          <div class="survey__legend" data-legend aria-hidden="true"></div>
+          <p class="survey__verdict" data-verdict>Nothing surveyed yet. On a map this patch is blank — and blank is exactly what an unvisited place looks like.</p>
+          <div class="survey__actions">
+            <button class="btn btn--quiet" type="button" data-all>Survey everything</button>
+            <button class="btn btn--quiet" type="button" data-reset>Reset</button>
+          </div>
+          <p class="survey__note">Generated population, fixed seed — the same patch for everyone. Detection is chance, as it is in the field. Not real data.</p>
+        </div>
+      </div>
+    </section>
+
     <section class="band band--bone">
       <div class="wrap">
         <div class="sec-head">

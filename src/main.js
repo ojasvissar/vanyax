@@ -1,4 +1,5 @@
 import { boot, heroCanvas, intro, revealHeading, reduced } from './motion.js';
+import { survey } from './survey.js';
 import { gsap } from 'gsap';
 
 /* ── Google Form destination ──────────────────────────────
@@ -63,6 +64,7 @@ function capture() {
 }
 
 heroCanvas(document.querySelector('.hero__canvas'));
+survey(document.querySelector('[data-survey]'));
 boot();
 capture();
 

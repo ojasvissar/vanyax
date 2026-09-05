@@ -492,7 +492,13 @@ export function boot() {
     refresh();
     // ScrollTrigger.refresh() restores the scroll position it had before
     // measuring, so the re-seat has to come last or it is immediately undone.
-    const target = location.hash && document.querySelector(location.hash);
+    // The explorer puts a GBIF key in the hash (#5133088), which is a valid
+    // fragment and an invalid CSS selector — querySelector throws on it and
+    // takes the rest of this handler with it.
+    let target = null;
+    try {
+      if (/^#[A-Za-z][\w-]*$/.test(location.hash)) target = document.querySelector(location.hash);
+    } catch { target = null; }
     if (target) requestAnimationFrame(() => target.scrollIntoView());
   });
 }

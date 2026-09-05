@@ -178,6 +178,67 @@ function numbersTable(rows, headers) {
   return d;
 }
 
+/* ── time-lapse ──────────────────────────────────────────────
+   The year facet is already in hand, so a play button can walk the
+   archive forward and report a real cumulative count at every step
+   without a single extra request. Only the raster is refetched, and
+   each frame is preloaded before it is shown so the map never blinks.
+   What you are watching is the archive filling in, which is mostly a
+   history of who was looking — the caveats below the map say so. */
+let lapse = null;
+
+function tileURL(x, from, to) {
+  const q = new URLSearchParams({ taxonKey: state.key, srs: 'EPSG:4326', style: 'green.poly', bin: 'hex', hexPerTile: '55' });
+  if (from != null) q.set('year', `${from},${to}`);
+  return `${TILES}/0/${x}/0@2x.png?${q}`;
+}
+
+const preload = (url) => new Promise((done) => {
+  const img = new Image();
+  img.onload = img.onerror = done;
+  img.src = url;
+});
+
+function stopLapse() {
+  if (!lapse) return;
+  lapse.cancelled = true;
+  lapse = null;
+}
+
+async function playLapse(images, badge, btn) {
+  const years = state.years;
+  if (years.length < 4) return;
+  const first = years[0].year, last = years[years.length - 1].year;
+  const stride = Math.max(1, Math.ceil((last - first) / 26));
+  const run = { cancelled: false };
+  lapse = run;
+  btn.classList.add('is-playing');
+  btn.querySelector('span').textContent = 'Stop';
+  badge.hidden = false;
+
+  let running = 0;
+  let cursor = 0;
+  for (let y = first; y <= last + stride; y += stride) {
+    const end = Math.min(y, last);
+    while (cursor < years.length && years[cursor].year <= end) running += years[cursor++].count;
+    const urls = [tileURL(0, first, end), tileURL(1, first, end)];
+    await Promise.all(urls.map(preload));
+    if (run.cancelled) break;
+    images.forEach((img, i) => img.setAttribute('href', urls[i]));
+    badge.innerHTML = `<b>${end}</b><span>${full(running)} records</span>`;
+    await new Promise((r) => setTimeout(r, 460));
+    if (run.cancelled) break;
+  }
+
+  if (!run.cancelled) {
+    images.forEach((img, i) => img.setAttribute('href', tileURL(i, state.range?.[0], state.range?.[1])));
+    badge.hidden = true;
+  }
+  btn.classList.remove('is-playing');
+  btn.querySelector('span').textContent = 'Play the archive';
+  if (lapse === run) lapse = null;
+}
+
 /* ── map: land, graticule, and GBIF's density raster on top ── */
 function renderMap(host) {
   host.textContent = '';
@@ -200,15 +261,15 @@ function renderMap(host) {
   svg.append(s('path', { class: 'map__land', d: path(LAND) }));
 
   // two tiles cover the world at zoom 0 in EPSG:4326
-  const q = new URLSearchParams({ taxonKey: state.key, srs: 'EPSG:4326', style: 'green.poly', bin: 'hex', hexPerTile: '55' });
-  if (state.range) q.set('year', state.range.join(','));
-  for (const x of [0, 1]) {
-    svg.append(s('image', {
-      href: `${TILES}/0/${x}/0@2x.png?${q}`,
+  const images = [0, 1].map((x) => {
+    const img = s('image', {
+      href: tileURL(x, state.range?.[0], state.range?.[1]),
       x: x * (W / 2), y: 0, width: W / 2, height: H,
       class: 'map__density', preserveAspectRatio: 'none',
-    }));
-  }
+    });
+    svg.append(img);
+    return img;
+  });
 
   const readout = h('p', { class: 'map__readout mono' }, 'Move over the map for coordinates');
   svg.addEventListener('pointermove', (e) => {
@@ -220,11 +281,25 @@ function renderMap(host) {
   });
   svg.addEventListener('pointerleave', () => { readout.textContent = 'Move over the map for coordinates'; });
 
-  host.append(svg, h('div', { class: 'map__foot' },
+  const badge = h('div', { class: 'lapse__badge', hidden: 'hidden' });
+  const btn = h('button', { class: 'lapse__btn', type: 'button' },
+    h('i', { class: 'lapse__icon' }), h('span', {}, 'Play the archive'));
+  btn.addEventListener('click', () => {
+    if (lapse) { stopLapse(); btn.classList.remove('is-playing'); btn.querySelector('span').textContent = 'Play the archive'; badge.hidden = true;
+      images.forEach((img, i) => img.setAttribute('href', tileURL(i, state.range?.[0], state.range?.[1])));
+      return; }
+    playLapse(images, badge, btn);
+  });
+
+  const frame = h('div', { class: 'map__frame' });
+  frame.append(svg, badge);
+
+  host.append(frame, h('div', { class: 'map__foot' },
     h('div', { class: 'ramp' },
       h('span', { class: 'ramp__label mono' }, 'fewer'),
       h('span', { class: 'ramp__bar' }),
       h('span', { class: 'ramp__label mono' }, 'more records per cell')),
+    btn,
     readout));
 }
 
@@ -515,6 +590,7 @@ function setBusy(on) {
 }
 
 async function load(key) {
+  stopLapse();
   if (inflight) inflight.abort();
   inflight = new AbortController();
   const { signal } = inflight;
@@ -563,6 +639,7 @@ async function load(key) {
 
 /* re-run only what a year filter changes */
 async function setRange(range) {
+  stopLapse();
   state.range = range;
   setBusy(true);
   try {

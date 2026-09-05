@@ -184,3 +184,31 @@
   .rpt__grid { grid-template-columns: 1fr; }
   .rpt__count { text-align: left; }
 }
+
+/* ── time-lapse ─────────────────────────────────────────── */
+.map__frame { position: relative; }
+.lapse__badge {
+  position: absolute; left: 1rem; top: 1rem; z-index: 3;
+  display: grid; gap: 0.15rem;
+  background: rgba(6, 16, 12, 0.72); border: 1px solid var(--line);
+  border-radius: var(--r); padding: 0.5rem 0.8rem;
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+}
+.lapse__badge b { font-family: var(--display); font-weight: 500; font-size: 1.5rem; letter-spacing: -0.03em; line-height: 1; font-variant-numeric: tabular-nums; }
+.lapse__badge span { font-family: var(--mono); font-size: 0.66rem; color: var(--text-3); }
+.lapse__btn {
+  display: inline-flex; align-items: center; gap: 0.5rem; cursor: pointer;
+  background: transparent; border: 1px solid var(--line); border-radius: var(--pill);
+  color: var(--text-2); font-family: var(--mono); font-size: 0.66rem;
+  letter-spacing: 0.12em; text-transform: uppercase; padding: 0.36rem 0.8rem;
+  transition: border-color 0.3s var(--ease), color 0.3s var(--ease);
+}
+.lapse__btn:hover { border-color: var(--acid); color: var(--acid); }
+.lapse__icon {
+  width: 0; height: 0; border-style: solid;
+  border-width: 4.5px 0 4.5px 7px; border-color: transparent transparent transparent currentColor;
+}
+.lapse__btn.is-playing { border-color: var(--acid); color: var(--acid); }
+.lapse__btn.is-playing .lapse__icon {
+  width: 8px; height: 8px; border: 0; background: currentColor; border-radius: 1px;
+}
