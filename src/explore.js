@@ -9,6 +9,7 @@
          api.gbif.org/v2  (occurrence density raster, EPSG:4326)
    ══════════════════════════════════════════════════════════ */
 
+import { boot as bootMotion, intro } from './motion.js';
 import { geoEquirectangular, geoPath, geoGraticule10 } from 'd3-geo';
 import { feature } from 'topojson-client';
 import land110 from 'world-atlas/land-110m.json';
@@ -688,6 +689,8 @@ function fromHash() {
   return Number.isFinite(key) && key > 0 ? key : PRESETS[0].key;
 }
 
+intro();
+bootMotion();
 initSearch();
 initPresets();
 document.fonts?.ready.then(sizeInput);

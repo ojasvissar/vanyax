@@ -1,149 +1,71 @@
+import { boot, heroCanvas, intro, revealHeading, reduced } from './motion.js';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import fieldMap from './assets/field-map.svg?raw';
 
-gsap.registerPlugin(ScrollTrigger);
-
-const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-/* ── Hero map ─────────────────────────────────
-   Inlined rather than <img> so the records can be
-   drawn in one by one — the map fills the way a
-   survey does — and so it inherits the palette.    */
-function heroMap() {
-  const host = document.getElementById('map');
-  if (!host) return;
-  host.innerHTML = fieldMap;
-  if (reduceMotion) return;
-
-  const dots = host.querySelectorAll('.map__records circle');
-  gsap.from(dots, {
-    opacity: 0,
-    scale: 0.4,
-    transformOrigin: 'center',
-    duration: 0.5,
-    ease: 'power2.out',
-    stagger: { each: 0.0035, from: 'random' },
-    delay: 0.25,
-  });
-  gsap.from(host.querySelectorAll('.map__transect, .map__cap, .map__pill, .map__ring, .map__leader, .map__label'), {
-    opacity: 0,
-    duration: 0.9,
-    ease: 'power2.out',
-    stagger: 0.06,
-    delay: 0.9,
-  });
-}
-
-/* ── Reveals ──────────────────────────────────
-   Hidden from JS, never from CSS, so a blocked or
-   broken script can't leave a blank page.          */
-function reveals() {
-  if (reduceMotion) return;
-  const all = gsap.utils.toArray('[data-reveal]');
-  if (!all.length) return;
-  gsap.set(all, { opacity: 0, y: 16 });
-
-  const first = all.filter((el) => el.getBoundingClientRect().top < window.innerHeight);
-  gsap.to(first, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', stagger: 0.07, delay: 0.1 });
-
-  all.forEach((el) => {
-    if (first.includes(el)) return;
-    gsap.to(el, {
-      opacity: 1, y: 0, duration: 0.7, ease: 'power2.out',
-      scrollTrigger: { trigger: el, start: 'top 90%', once: true },
-    });
-  });
-}
-
-/* ── Google Form destination ──────────────────────
-   Submissions are POSTed to a Google Form, which collects them in its
-   linked Google Sheet (Responses tab). To configure:
-     1. Make a Google Form with one short-answer "Email" question.
-     2. ⋮ menu → "Get pre-filled link", type test@test.com, copy the link.
-        It looks like:
-        .../forms/d/e/FORM_ID/viewform?...&entry.1234567890=test@test.com
-     3. Paste FORM_ID and the entry.NNNN number below.
-   Until both are filled in, the form still confirms locally (no network). */
+/* ── Google Form destination ──────────────────────────────
+   Submissions POST to a Google Form, which collects them in its linked
+   Sheet. To configure: make a Form with one short-answer Email question,
+   ⋮ → "Get pre-filled link", and copy the two ids out of the URL.
+   Until both are set the form confirms locally and sends nothing. */
 const GOOGLE_FORM = {
-  formId: 'REPLACE_WITH_FORM_ID',            // the /d/e/<THIS>/ part of the URL
-  emailEntry: 'entry.REPLACE_WITH_FIELD_ID', // e.g. 'entry.1234567890'
+  formId: 'REPLACE_WITH_FORM_ID',
+  emailEntry: 'entry.REPLACE_WITH_FIELD_ID',
 };
+const configured = () => !GOOGLE_FORM.formId.includes('REPLACE') && !GOOGLE_FORM.emailEntry.includes('REPLACE');
 
-function isFormConfigured() {
-  return !GOOGLE_FORM.formId.includes('REPLACE') && !GOOGLE_FORM.emailEntry.includes('REPLACE');
-}
-
-async function sendToGoogleForm(email) {
-  if (!isFormConfigured()) return; // not wired up yet — local-only
-  const url = `https://docs.google.com/forms/d/e/${GOOGLE_FORM.formId}/formResponse`;
+async function send(email) {
+  if (!configured()) return;
   const body = new URLSearchParams();
   body.append(GOOGLE_FORM.emailEntry, email);
-  // Google Forms doesn't send CORS headers; no-cors lets the POST record
-  // the response even though we can't read the (opaque) reply.
-  await fetch(url, { method: 'POST', mode: 'no-cors', body });
+  // Google Forms sends no CORS headers; no-cors still records the response
+  await fetch(`https://docs.google.com/forms/d/e/${GOOGLE_FORM.formId}/formResponse`,
+    { method: 'POST', mode: 'no-cors', body });
 }
 
-/* ── Email capture ───────────────────────────── */
 function capture() {
   const form = document.getElementById('capture');
   if (!form) return;
   const input = document.getElementById('email');
   const note = document.getElementById('note');
-  const btnEl = form.querySelector('.capture__btn');
-  const btn = btnEl?.querySelector('span');
-
-  const defaultNote = note.textContent;
+  const btn = form.querySelector('.capture__btn');
+  const label = btn?.querySelector('span') ?? btn;
+  const original = note.textContent;
   const valid = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
-  let done = false;
-  let sending = false;
+  let done = false, sending = false;
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (sending || done) return;
-    const v = input.value.trim();
-
-    if (!valid(v)) {
+    const value = input.value.trim();
+    if (!valid(value)) {
       note.textContent = 'That address doesn’t look right — check it?';
       input.focus();
       return;
     }
-
-    sending = true;
-    btnEl.disabled = true;
-    if (btn) btn.textContent = 'Sending…';
-
+    sending = true; btn.disabled = true; label.textContent = 'Sending…';
     try {
-      await sendToGoogleForm(v);
-    } catch (_) {
-      sending = false;
-      btnEl.disabled = false;
-      if (btn) btn.textContent = 'Send';
-      note.textContent = 'Something went wrong — please try again, or email us directly.';
+      await send(value);
+    } catch {
+      sending = false; btn.disabled = false; label.textContent = 'Send';
+      note.textContent = 'Something went wrong — try again, or email us directly.';
       return;
     }
-
-    sending = false;
-    done = true;
-    btnEl.disabled = false;
+    sending = false; done = true; btn.disabled = false;
     form.classList.add('is-done');
-    if (btn) btn.textContent = 'Sent';
+    label.textContent = 'Sent';
     note.textContent = 'Got it. We’ll write back.';
-
-    try { localStorage.setItem('vanyax:email', v); } catch (_) {}
+    if (!reduced) gsap.fromTo(form, { scale: 0.995 }, { scale: 1, duration: 0.5, ease: 'expo.out' });
   });
 
   input.addEventListener('input', () => {
-    if (done) {
-      done = false;
-      form.classList.remove('is-done');
-      if (btn) btn.textContent = 'Send';
-    }
-    if (note.textContent !== defaultNote) note.textContent = defaultNote;
+    if (done) { done = false; form.classList.remove('is-done'); label.textContent = 'Send'; }
+    if (note.textContent !== original) note.textContent = original;
   });
 }
 
-/* ── boot ────────────────────────────────────── */
-heroMap();
-reveals();
+heroCanvas(document.querySelector('.hero__canvas'));
+boot();
 capture();
+
+const h1 = document.querySelector('[data-reveal-hero]');
+if (h1) revealHeading(h1, { delay: 0.5 });   // lands as the intro veil clears
+intro();

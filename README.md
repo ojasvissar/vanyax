@@ -56,35 +56,35 @@ Adding a preset species: find its key with
 
 ## Design notes
 
-Every choice here should be defensible in a sentence.
+The visual language takes its cues from [Polpis Systems](http://polpissystems.com)
+and [Solidroad](https://solidroad.com): a dark cinematic ground with one
+luminous phenomenon in it, a hairline frame around the whole page, a large quiet
+grotesque set against wide-tracked mono microcopy, and real product UI floating
+over the hero rather than a drawing of one.
 
-- **Colour** — ink is near-black shifted green (night forest, not void); paper
-  is a warm off-white (field notebook). One structural accent, moss green — a
-  plant colour, not a neon one. Sand and sky appear only inside data graphics,
-  where a second and third category need telling apart.
-- **Type** — Bricolage Grotesque, set large and tight, carries the pages; a
-  neutral UI face at the same sizes reads as a template. Inter for reading,
-  JetBrains Mono for anything an instrument would have printed: labels,
-  statuses, metadata. Newsreader italic survives in one role only — the
-  naturalist note: the name, the etymology in the footer.
-- **Photography** — every page opens on a real place, because the subject is
-  one. All frames get the same grade (darkened, desaturated, tinted toward the
-  moss green) so a set of stock images still reads as one publication, and the
-  scrim is built into the component so text never lands on an untreated photo.
-- **Surface** — a fine grain over everything, pale washes bleeding in from the
-  margins of the paper bands, and torn edges between bands instead of ruled
-  lines. No boundary in this subject — coast, canopy, catchment — is straight.
-- **Graphics** — all generated, all captioned as illustrative:
-  - [tools/gen_map.py](tools/gen_map.py) — the hero survey map: halftone sea,
-    study boundary with contours, clustered records, a transect, three stations.
-    Inlined (not an `<img>`) so it inherits the palette and the records can be
-    drawn in one at a time.
-  - [tools/gen_section.py](tools/gen_section.py) — the forest cross-section,
-    numbered where data is collected. It answers the question people arrive
-    with: *is what I collect the kind of thing you work with?*
-  - [tools/gen_edge.py](tools/gen_edge.py) — the torn band edges.
-
-  Regenerate any of them with `python3 tools/gen_*.py` from the repo root.
+- **The mark** — the hero is a canvas: a planet whose centre sits below the fold,
+  one lit band along its limb, faint bands above it, and a scatter of points.
+  That band is the biosphere, which is both the subject and the thing this
+  practice exists to measure. Polpis draws heat from the Earth's core the same
+  way; ours is the thin layer on the outside. Gradients are baked once per
+  resize into an offscreen canvas, so each frame only moves cheap things.
+- **Colour** — a green-black ground, one acid (`#c9f24d`) reserved for anything
+  you can click, and a bio-green ramp (`#0b3b33 → #9ff5c9`) for the living band
+  and for data. One light surface, "bone", for the sections that need to breathe.
+- **Type** — Geist for everything read, Geist Mono for everything the machine
+  produced: labels, statuses, counts, the hero note. Solidroad uses Geist Mono
+  for the same job.
+- **Motion** — Lenis for scroll and GSAP for everything tied to it, the pairing
+  Polpis uses. Headlines split into words and reveal from a mask; anything on
+  the first screen animates on load, anything below waits for the scroll;
+  buttons are magnetic; the marquee leans with scroll velocity; the header hides
+  going down and returns coming up. Every animated element starts visible in the
+  markup and is hidden by JS on the first frame, so a blocked script leaves a
+  readable page. `prefers-reduced-motion` turns all of it off.
+- **Graphics** — generated, and captioned as illustrative:
+  [tools/gen_map.py](tools/gen_map.py) (survey map),
+  [tools/gen_section.py](tools/gen_section.py) (forest cross-section, numbered
+  where data is collected). Regenerate with `python3 tools/gen_*.py`.
 
 ## Photographs
 

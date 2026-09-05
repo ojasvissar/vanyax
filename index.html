@@ -3,24 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>vanyax — data science for biodiversity</title>
+  <title>vanyax — data science for the living world</title>
   <meta name="description" content="vanyax pairs machine learning with field biology: we analyse the ecological data you already collect, build the models you need, and publish what we can openly." />
-  <meta name="theme-color" content="#0e1411" />
-  <meta property="og:title" content="vanyax — data science for biodiversity" />
+  <meta name="theme-color" content="#06100c" />
+  <meta property="og:title" content="vanyax — data science for the living world" />
   <meta property="og:description" content="vanyax pairs machine learning with field biology: we analyse the ecological data you already collect, build the models you need, and publish what we can openly." />
   <meta property="og:type" content="website" />
-
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='38' fill='none' stroke='%2383b898' stroke-width='8'/><circle cx='50' cy='50' r='10' fill='%23d9b65a'/></svg>" />
-
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='96' r='62' fill='none' stroke='%2335d89b' stroke-width='6'/><circle cx='50' cy='22' r='6' fill='%23c9f24d'/></svg>" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,wght@1,400&display=swap" rel="stylesheet" />
-
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/src/style.css" />
 </head>
 <body>
+  <div class="intro" aria-hidden="true"></div>
+  <div class="frame" aria-hidden="true"></div>
   <header class="site-head">
-    <div class="wrap site-head__in">
+    <div class="site-head__in">
       <a class="wordmark" href="/vanyax/">vanyax <span>van · yax</span></a>
       <nav class="site-nav" aria-label="Primary">
         <a href="/vanyax/" aria-current="page">Home</a>
@@ -30,148 +29,145 @@
         <a href="/vanyax/projects/">Projects</a>
         <a href="/vanyax/about/">About</a>
       </nav>
+      <a class="btn btn--solid" href="/vanyax/collaborate/">Bring us data <span class="btn__arrow">→</span></a>
     </div>
   </header>
 
   <main>
-    <section class="hero band--first" data-reveal-root>
-      <div class="hero__bg" aria-hidden="true">
-        <img src="/src/assets/photos/canopy-aerial.jpg" alt="Aerial view of dense forest canopy cut by a single road" fetchpriority="high" />
-      </div>
+    <section class="hero">
+      <canvas class="hero__canvas" aria-hidden="true"></canvas>
+      <div class="hero__veil" aria-hidden="true"></div>
       <div class="wrap">
-        <div class="hero__in">
-          <p class="eyebrow" data-reveal>Data science &amp; machine learning for biodiversity</p>
-          <h1 data-reveal>Most ecological data never gets analysed.</h1>
-          <p class="lede" data-reveal>
-            Field teams collect far more than they can read: recordings, camera-trap images,
-            transects, samples, rasters. vanyax exists for the other half of that work —
-            the analysis, the models, and the plain answer at the end of it.
-          </p>
-          <div class="hero__actions" data-reveal>
-            <a class="btn btn--solid" href="/vanyax/collaborate/">Bring us your data <span class="btn__arrow">→</span></a>
-            <a class="btn btn--quiet" href="/vanyax/projects/">What we're working on</a>
+        <div class="hero__grid">
+          <div>
+            <p class="eyebrow hero__eyebrow" data-anim>Biodiversity · data science · open models</p>
+            <h1 data-reveal-hero>Data science for the living world</h1>
+          </div>
+          <div class="hero__aside">
+            <p class="hero__note" data-anim data-delay="0.15">
+              vanyax is a new practice for the half of conservation nobody funds: the analysis.
+              Field teams collect far more than they can read — recordings, camera-trap images,
+              transects, samples. We turn it into models, and publish what isn't yours.
+            </p>
+            <div class="hero__actions" data-anim data-delay="0.25">
+              <a class="btn btn--solid" href="/vanyax/explore/">Open the explorer <span class="btn__arrow">→</span></a>
+              <a class="btn btn--quiet" href="/vanyax/collaborate/">Bring us your data</a>
+            </div>
           </div>
         </div>
-        <div class="hero__map" id="map"></div>
-        <p class="hero__note">Figure: illustrative survey map. Not real data.</p>
       </div>
-      <div class="bleed bleed--paper" aria-hidden="true"><svg class="bleed__svg" viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M0 120 L0 87.4 Q0.0 87.4 8.0 88.2 Q16.0 89.0 24.0 89.3 Q32.0 89.6 40.0 87.9 Q48.0 86.2 56.0 84.5 Q64.0 82.8 72.0 80.3 Q80.0 77.8 88.0 77.7 Q96.0 77.7 104.0 77.2 Q112.0 76.6 120.0 76.9 Q128.0 77.3 136.0 77.8 Q144.0 78.4 152.0 79.1 Q160.0 79.8 168.0 81.2 Q176.0 82.6 184.0 81.5 Q192.0 80.4 200.0 78.9 Q208.0 77.4 216.0 75.7 Q224.0 73.9 232.0 71.0 Q240.0 68.0 248.0 66.9 Q256.0 65.8 264.0 65.5 Q272.0 65.1 280.0 64.5 Q288.0 63.9 296.0 63.2 Q304.0 62.5 312.0 61.3 Q320.0 60.0 328.0 56.6 Q336.0 53.2 344.0 52.4 Q352.0 51.6 360.0 50.0 Q368.0 48.3 376.0 46.7 Q384.0 45.2 392.0 44.2 Q400.0 43.1 408.0 44.6 Q416.0 46.0 424.0 46.7 Q432.0 47.5 440.0 51.5 Q448.0 55.4 456.0 57.3 Q464.0 59.2 472.0 60.0 Q480.0 60.8 488.0 61.1 Q496.0 61.3 504.0 62.7 Q512.0 64.1 520.0 63.0 Q528.0 61.9 536.0 62.1 Q544.0 62.3 552.0 61.9 Q560.0 61.6 568.0 60.9 Q576.0 60.2 584.0 60.3 Q592.0 60.3 600.0 61.0 Q608.0 61.7 616.0 61.3 Q624.0 60.9 632.0 59.8 Q640.0 58.7 648.0 58.2 Q656.0 57.6 664.0 57.7 Q672.0 57.7 680.0 55.2 Q688.0 52.7 696.0 52.5 Q704.0 52.3 712.0 54.1 Q720.0 55.8 728.0 56.3 Q736.0 56.7 744.0 58.8 Q752.0 60.9 760.0 62.2 Q768.0 63.5 776.0 64.0 Q784.0 64.6 792.0 66.1 Q800.0 67.6 808.0 65.2 Q816.0 62.7 824.0 62.1 Q832.0 61.4 840.0 59.7 Q848.0 58.1 856.0 58.2 Q864.0 58.4 872.0 57.5 Q880.0 56.5 888.0 57.3 Q896.0 58.0 904.0 59.8 Q912.0 61.7 920.0 62.0 Q928.0 62.2 936.0 63.8 Q944.0 65.4 952.0 67.0 Q960.0 68.6 968.0 67.5 Q976.0 66.5 984.0 67.2 Q992.0 68.0 1000.0 69.5 Q1008.0 71.1 1016.0 74.1 Q1024.0 77.0 1032.0 79.0 Q1040.0 80.9 1048.0 82.6 Q1056.0 84.2 1064.0 86.6 Q1072.0 89.0 1080.0 90.2 Q1088.0 91.3 1096.0 92.4 Q1104.0 93.4 1112.0 91.9 Q1120.0 90.4 1128.0 90.4 Q1136.0 90.4 1144.0 89.0 Q1152.0 87.6 1160.0 86.0 Q1168.0 84.4 1176.0 82.7 Q1184.0 80.9 1192.0 80.7 Q1200.0 80.5 1208.0 78.2 Q1216.0 75.9 1224.0 76.3 Q1232.0 76.8 1240.0 77.9 Q1248.0 79.1 1256.0 77.9 Q1264.0 76.8 1272.0 74.8 Q1280.0 72.9 1288.0 72.8 Q1296.0 72.6 1304.0 70.7 Q1312.0 68.8 1320.0 68.5 Q1328.0 68.1 1336.0 66.6 Q1344.0 65.1 1352.0 64.9 Q1360.0 64.7 1368.0 65.4 Q1376.0 66.0 1384.0 65.0 Q1392.0 64.0 1400.0 63.7 Q1408.0 63.3 1416.0 63.0 Q1424.0 62.6 1432.0 59.2 L1440 55.8 L1440 120 Z"/><circle cx="13.5" cy="94.6" r="1.3"/><circle cx="1128.6" cy="106.5" r="1.6"/><circle cx="139.8" cy="110.8" r="2.0"/><circle cx="299.4" cy="71.6" r="1.0"/><circle cx="242.9" cy="92.9" r="1.3"/><circle cx="58.9" cy="106.0" r="1.5"/><circle cx="1436.6" cy="72.1" r="2.2"/><circle cx="1114.3" cy="110.9" r="3.4"/><circle cx="688.0" cy="70.5" r="1.9"/><circle cx="53.1" cy="104.0" r="1.5"/><circle cx="1280.6" cy="102.2" r="2.1"/><circle cx="45.6" cy="102.7" r="1.5"/><circle cx="299.6" cy="76.4" r="3.1"/><circle cx="204.1" cy="87.9" r="3.2"/><circle cx="814.1" cy="101.4" r="1.9"/><circle cx="1297.4" cy="96.9" r="2.9"/><circle cx="1072.4" cy="108.9" r="1.1"/><circle cx="303.7" cy="94.4" r="3.1"/><circle cx="1331.4" cy="83.5" r="2.5"/><circle cx="1151.3" cy="114.4" r="2.9"/><circle cx="760.4" cy="85.2" r="2.6"/><circle cx="386.4" cy="77.0" r="3.3"/><circle cx="107.1" cy="110.9" r="3.3"/><circle cx="962.4" cy="75.8" r="3.1"/><circle cx="183.8" cy="115.7" r="2.6"/><circle cx="87.1" cy="88.4" r="2.5"/></svg></div>
     </section>
 
-    <section class="band band--paper">
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span class="marquee__item">Passive acoustic recordings</span>
+        <span class="marquee__item">Camera-trap images</span>
+        <span class="marquee__item">Transect counts</span>
+        <span class="marquee__item">eDNA reads</span>
+        <span class="marquee__item">Telemetry</span>
+        <span class="marquee__item">Sentinel &amp; Landsat rasters</span>
+        <span class="marquee__item">Ringing records</span>
+        <span class="marquee__item">Season spreadsheets</span>
+      </div>
+    </div>
+
+    <section class="band" id="tool">
       <div class="wrap">
         <div class="sec-head">
-          <p class="eyebrow" data-reveal>What we do</p>
-          <h2 data-reveal>Four things, and nothing else yet.</h2>
+          <p class="eyebrow" data-anim>The tool is the argument</p>
+          <h2 data-reveal-heading>We would rather show you than tell you.</h2>
+          <p class="lede" data-anim data-delay="0.1">
+            The explorer is live on this site. Type any species and it queries GBIF in front of
+            you — every record ever published, where they are, when they were made, and what
+            that data still cannot tell you.
+          </p>
+        </div>
+        <a class="shot" href="/vanyax/explore/" data-anim="scale" aria-label="Open the species explorer">
+          <img src="/src/assets/explorer-shot.jpg" alt="The vanyax species explorer: a world density map of occurrence records with charts of records per year, month of year, publishing countries and record type" loading="lazy" />
+          <span class="shot__badge mono">Live · GBIF <span class="btn__arrow">→</span></span>
+        </a>
+      </div>
+    </section>
+
+    <section class="band band--bone">
+      <div class="wrap">
+        <div class="sec-head">
+          <p class="eyebrow" data-anim>What we do</p>
+          <h2 data-reveal-heading>Four things, and nothing else yet.</h2>
         </div>
         <div class="cards cards--2">
-          <article class="card" data-reveal>
+          <article class="card" data-anim>
             <p class="card__label">01 — For people with data</p>
             <h3>We analyse what you've already collected</h3>
             <p>You know the ecology and the site. We handle the cleaning, the statistics and the modelling, and give the result back in language you can put in a report.</p>
           </article>
-          <article class="card" data-reveal>
+          <article class="card" data-anim data-delay="0.06">
             <p class="card__label">02 — For people with a question</p>
             <h3>We build the model the question needs</h3>
             <p>Species identification from audio or images, occupancy and abundance, change detection, forecasting. Scoped small, and handed over as something you can run without us.</p>
           </article>
-          <article class="card" data-reveal>
+          <article class="card" data-anim data-delay="0.12">
             <p class="card__label">03 — For everyone</p>
             <h3>We publish what isn't yours</h3>
             <p>Anything general — model weights, pipelines, notebooks — goes out under a permissive licence with the training details written down. Your data and your sites stay yours.</p>
           </article>
-          <article class="card" data-reveal>
+          <article class="card" data-anim data-delay="0.18">
             <p class="card__label">04 — On our own time</p>
             <h3>We run our own projects</h3>
             <p>Where the data is already open, we build things nobody has asked for yet, and say honestly how far along each one is.</p>
           </article>
         </div>
-        <figure class="figure" data-reveal>
-          <div class="figure__plate">
-            <img src="/src/assets/cross-section.svg" width="1400" height="760"
-                 alt="Cross-section of a forest showing where ecological data is collected: satellite imagery and drone survey above the canopy, an acoustic recorder at 25 metres, a camera trap near the ground, a transect walked along the floor, and soil or eDNA samples below it" />
-          </div>
-          <figcaption class="figure__cap">
-            <p class="eyebrow">Figure 01 — where the data comes from</p>
-            <p>Everything on this diagram is data we can work with. Most of it is already being collected by someone who has no time to read it: recorders left in the canopy, traps on a trail, a transect walked twice a season, imagery that is free to anyone who asks. Illustrative — heights and instruments are typical, not measured.</p>
-            <ol class="legend"><li><b>01</b> Satellite imagery</li><li><b>02</b> Drone survey</li><li><b>03</b> Acoustic recorder, 25 m</li><li><b>04</b> Camera trap</li><li><b>05</b> Transect count</li><li><b>06</b> Soil &amp; eDNA sample</li></ol>
-          </figcaption>
-        </figure>
       </div>
     </section>
-
-      <div class="bleed bleed--ink" aria-hidden="true"><svg class="bleed__svg" viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M0 120 L0 45.2 Q0.0 45.2 8.0 44.8 Q16.0 44.4 24.0 41.8 Q32.0 39.3 40.0 39.0 Q48.0 38.7 56.0 39.9 Q64.0 41.1 72.0 42.8 Q80.0 44.5 88.0 46.7 Q96.0 48.9 104.0 50.6 Q112.0 52.4 120.0 53.5 Q128.0 54.7 136.0 56.2 Q144.0 57.8 152.0 58.5 Q160.0 59.3 168.0 60.6 Q176.0 61.9 184.0 62.1 Q192.0 62.2 200.0 63.2 Q208.0 64.1 216.0 65.7 Q224.0 67.2 232.0 69.0 Q240.0 70.8 248.0 71.0 Q256.0 71.2 264.0 71.6 Q272.0 72.1 280.0 71.2 Q288.0 70.4 296.0 68.0 Q304.0 65.7 312.0 63.5 Q320.0 61.2 328.0 61.6 Q336.0 61.9 344.0 61.7 Q352.0 61.5 360.0 61.3 Q368.0 61.1 376.0 63.0 Q384.0 64.8 392.0 65.5 Q400.0 66.2 408.0 68.9 Q416.0 71.5 424.0 72.1 Q432.0 72.7 440.0 72.7 Q448.0 72.8 456.0 72.8 Q464.0 72.9 472.0 70.8 Q480.0 68.8 488.0 69.2 Q496.0 69.6 504.0 70.1 Q512.0 70.6 520.0 71.2 Q528.0 71.9 536.0 71.6 Q544.0 71.4 552.0 71.4 Q560.0 71.4 568.0 72.7 Q576.0 74.0 584.0 72.6 Q592.0 71.2 600.0 72.0 Q608.0 72.8 616.0 70.8 Q624.0 68.8 632.0 69.8 Q640.0 70.8 648.0 71.6 Q656.0 72.4 664.0 73.1 Q672.0 73.9 680.0 76.8 Q688.0 79.8 696.0 82.1 Q704.0 84.4 712.0 86.0 Q720.0 87.6 728.0 89.9 Q736.0 92.1 744.0 92.1 Q752.0 92.2 760.0 91.4 Q768.0 90.6 776.0 87.8 Q784.0 84.9 792.0 82.8 Q800.0 80.7 808.0 80.0 Q816.0 79.3 824.0 77.5 Q832.0 75.7 840.0 75.9 Q848.0 76.2 856.0 74.2 Q864.0 72.2 872.0 70.6 Q880.0 68.9 888.0 67.5 Q896.0 66.2 904.0 64.4 Q912.0 62.6 920.0 61.2 Q928.0 59.9 936.0 57.5 Q944.0 55.1 952.0 53.7 Q960.0 52.3 968.0 52.8 Q976.0 53.4 984.0 52.5 Q992.0 51.6 1000.0 52.7 Q1008.0 53.9 1016.0 55.7 Q1024.0 57.5 1032.0 57.9 Q1040.0 58.3 1048.0 56.3 Q1056.0 54.4 1064.0 53.2 Q1072.0 51.9 1080.0 51.4 Q1088.0 50.8 1096.0 49.7 Q1104.0 48.6 1112.0 46.3 Q1120.0 44.0 1128.0 44.7 Q1136.0 45.4 1144.0 45.6 Q1152.0 45.7 1160.0 46.3 Q1168.0 46.8 1176.0 48.1 Q1184.0 49.4 1192.0 50.6 Q1200.0 51.8 1208.0 52.9 Q1216.0 54.0 1224.0 53.7 Q1232.0 53.4 1240.0 55.1 Q1248.0 56.8 1256.0 58.2 Q1264.0 59.7 1272.0 60.6 Q1280.0 61.5 1288.0 62.0 Q1296.0 62.4 1304.0 65.6 Q1312.0 68.7 1320.0 70.3 Q1328.0 71.8 1336.0 71.3 Q1344.0 70.8 1352.0 71.5 Q1360.0 72.2 1368.0 71.7 Q1376.0 71.3 1384.0 70.2 Q1392.0 69.1 1400.0 67.2 Q1408.0 65.3 1416.0 63.0 Q1424.0 60.7 1432.0 59.9 L1440 59.1 L1440 120 Z"/><circle cx="1380.2" cy="83.1" r="2.2"/><circle cx="88.6" cy="72.2" r="2.5"/><circle cx="303.2" cy="81.9" r="2.2"/><circle cx="1082.5" cy="61.7" r="1.7"/><circle cx="738.4" cy="105.4" r="3.1"/><circle cx="1044.1" cy="91.0" r="2.5"/><circle cx="981.0" cy="67.4" r="2.2"/><circle cx="618.1" cy="92.2" r="1.1"/><circle cx="1223.5" cy="64.3" r="2.0"/><circle cx="1339.3" cy="92.2" r="3.1"/><circle cx="375.1" cy="80.2" r="1.8"/><circle cx="467.0" cy="89.2" r="2.0"/><circle cx="1212.1" cy="85.0" r="1.1"/><circle cx="961.5" cy="73.1" r="1.9"/><circle cx="58.7" cy="54.8" r="1.7"/><circle cx="528.6" cy="94.5" r="1.8"/><circle cx="425.9" cy="85.2" r="3.3"/><circle cx="564.3" cy="104.6" r="1.3"/><circle cx="956.0" cy="76.6" r="2.7"/><circle cx="740.8" cy="122.6" r="2.4"/><circle cx="67.2" cy="66.2" r="2.4"/><circle cx="353.2" cy="88.0" r="3.0"/><circle cx="399.1" cy="75.0" r="1.6"/><circle cx="848.9" cy="94.7" r="1.1"/><circle cx="647.5" cy="92.1" r="2.3"/><circle cx="509.5" cy="97.6" r="2.6"/></svg></div>
 
     <section class="band">
       <div class="wrap split">
         <div class="split__side">
-          <p class="eyebrow" data-reveal>How a collaboration goes</p>
-          <p class="small muted" data-reveal>Four steps, usually a few weeks. If a model isn't the right answer, we say so at step two and you've lost nothing.</p>
-          <a class="btn btn--quiet" href="/vanyax/collaborate/" data-reveal>Start one <span class="btn__arrow">→</span></a>
+          <p class="eyebrow" data-anim>How a collaboration goes</p>
+          <p class="small muted" data-anim>Four steps, usually a few weeks. If a model isn't the right answer, we say so at step two and you've lost nothing.</p>
+          <a class="btn btn--quiet" href="/vanyax/collaborate/" data-anim>Start one <span class="btn__arrow">→</span></a>
         </div>
         <ol class="steps">
-          <li data-reveal>
-            <div><h3>You tell us what you have</h3>
-            <p>A description is enough to begin — what was collected, how, over what period, and what you wish you knew.</p></div>
-          </li>
-          <li data-reveal>
-            <div><h3>We write back with an honest read</h3>
-            <p>What your data can support, what it can't, and the smallest useful thing to try first. Sometimes that's a spreadsheet and a chart rather than a model.</p></div>
-          </li>
-          <li data-reveal>
-            <div><h3>We build the first version</h3>
-            <p>Working code and a result, with the limitations stated. You see the messy version, not a polished demo.</p></div>
-          </li>
-          <li data-reveal>
-            <div><h3>You keep it</h3>
-            <p>Code, weights, documentation and the data you gave us — yours. We publish only the general parts, and only with your agreement.</p></div>
-          </li>
+          <li data-anim><div><h3>You tell us what you have</h3>
+            <p>A description is enough to begin — what was collected, how, over what period, and what you wish you knew.</p></div></li>
+          <li data-anim><div><h3>We write back with an honest read</h3>
+            <p>What your data can support, what it can't, and the smallest useful thing to try first. Sometimes that's a spreadsheet and a chart rather than a model.</p></div></li>
+          <li data-anim><div><h3>We build the first version</h3>
+            <p>Working code and a result, with the limitations stated. You see the messy version, not a polished demo.</p></div></li>
+          <li data-anim><div><h3>You keep it</h3>
+            <p>Code, weights, documentation and the data you gave us — yours. We publish only the general parts, and only with your agreement.</p></div></li>
         </ol>
       </div>
     </section>
 
     <section class="plate">
-      <img src="/src/assets/photos/plate-light.jpg" alt="Sunlight through the trunks of a tall forest" loading="lazy" />
+      <img src="/src/assets/photos/plate-light.jpg" alt="Sunlight through the trunks of a tall forest" loading="lazy" data-parallax="8" />
       <div class="plate__in">
         <div class="wrap">
-          <p class="plate__quote">A recorder left in a canopy for one season captures more sound than a person could listen to in a year.</p>
+          <p class="plate__quote" data-anim>A recorder left in a canopy for one season captures more sound than a person could listen to in a year.</p>
           <p class="plate__cred">Which is the whole problem, and the whole opportunity</p>
         </div>
       </div>
-      <div class="bleed bleed--paper" style="position:absolute;left:0;right:0;bottom:-1px" aria-hidden="true"><svg class="bleed__svg" viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M0 120 L0 87.4 Q0.0 87.4 8.0 88.2 Q16.0 89.0 24.0 89.3 Q32.0 89.6 40.0 87.9 Q48.0 86.2 56.0 84.5 Q64.0 82.8 72.0 80.3 Q80.0 77.8 88.0 77.7 Q96.0 77.7 104.0 77.2 Q112.0 76.6 120.0 76.9 Q128.0 77.3 136.0 77.8 Q144.0 78.4 152.0 79.1 Q160.0 79.8 168.0 81.2 Q176.0 82.6 184.0 81.5 Q192.0 80.4 200.0 78.9 Q208.0 77.4 216.0 75.7 Q224.0 73.9 232.0 71.0 Q240.0 68.0 248.0 66.9 Q256.0 65.8 264.0 65.5 Q272.0 65.1 280.0 64.5 Q288.0 63.9 296.0 63.2 Q304.0 62.5 312.0 61.3 Q320.0 60.0 328.0 56.6 Q336.0 53.2 344.0 52.4 Q352.0 51.6 360.0 50.0 Q368.0 48.3 376.0 46.7 Q384.0 45.2 392.0 44.2 Q400.0 43.1 408.0 44.6 Q416.0 46.0 424.0 46.7 Q432.0 47.5 440.0 51.5 Q448.0 55.4 456.0 57.3 Q464.0 59.2 472.0 60.0 Q480.0 60.8 488.0 61.1 Q496.0 61.3 504.0 62.7 Q512.0 64.1 520.0 63.0 Q528.0 61.9 536.0 62.1 Q544.0 62.3 552.0 61.9 Q560.0 61.6 568.0 60.9 Q576.0 60.2 584.0 60.3 Q592.0 60.3 600.0 61.0 Q608.0 61.7 616.0 61.3 Q624.0 60.9 632.0 59.8 Q640.0 58.7 648.0 58.2 Q656.0 57.6 664.0 57.7 Q672.0 57.7 680.0 55.2 Q688.0 52.7 696.0 52.5 Q704.0 52.3 712.0 54.1 Q720.0 55.8 728.0 56.3 Q736.0 56.7 744.0 58.8 Q752.0 60.9 760.0 62.2 Q768.0 63.5 776.0 64.0 Q784.0 64.6 792.0 66.1 Q800.0 67.6 808.0 65.2 Q816.0 62.7 824.0 62.1 Q832.0 61.4 840.0 59.7 Q848.0 58.1 856.0 58.2 Q864.0 58.4 872.0 57.5 Q880.0 56.5 888.0 57.3 Q896.0 58.0 904.0 59.8 Q912.0 61.7 920.0 62.0 Q928.0 62.2 936.0 63.8 Q944.0 65.4 952.0 67.0 Q960.0 68.6 968.0 67.5 Q976.0 66.5 984.0 67.2 Q992.0 68.0 1000.0 69.5 Q1008.0 71.1 1016.0 74.1 Q1024.0 77.0 1032.0 79.0 Q1040.0 80.9 1048.0 82.6 Q1056.0 84.2 1064.0 86.6 Q1072.0 89.0 1080.0 90.2 Q1088.0 91.3 1096.0 92.4 Q1104.0 93.4 1112.0 91.9 Q1120.0 90.4 1128.0 90.4 Q1136.0 90.4 1144.0 89.0 Q1152.0 87.6 1160.0 86.0 Q1168.0 84.4 1176.0 82.7 Q1184.0 80.9 1192.0 80.7 Q1200.0 80.5 1208.0 78.2 Q1216.0 75.9 1224.0 76.3 Q1232.0 76.8 1240.0 77.9 Q1248.0 79.1 1256.0 77.9 Q1264.0 76.8 1272.0 74.8 Q1280.0 72.9 1288.0 72.8 Q1296.0 72.6 1304.0 70.7 Q1312.0 68.8 1320.0 68.5 Q1328.0 68.1 1336.0 66.6 Q1344.0 65.1 1352.0 64.9 Q1360.0 64.7 1368.0 65.4 Q1376.0 66.0 1384.0 65.0 Q1392.0 64.0 1400.0 63.7 Q1408.0 63.3 1416.0 63.0 Q1424.0 62.6 1432.0 59.2 L1440 55.8 L1440 120 Z"/><circle cx="13.5" cy="94.6" r="1.3"/><circle cx="1128.6" cy="106.5" r="1.6"/><circle cx="139.8" cy="110.8" r="2.0"/><circle cx="299.4" cy="71.6" r="1.0"/><circle cx="242.9" cy="92.9" r="1.3"/><circle cx="58.9" cy="106.0" r="1.5"/><circle cx="1436.6" cy="72.1" r="2.2"/><circle cx="1114.3" cy="110.9" r="3.4"/><circle cx="688.0" cy="70.5" r="1.9"/><circle cx="53.1" cy="104.0" r="1.5"/><circle cx="1280.6" cy="102.2" r="2.1"/><circle cx="45.6" cy="102.7" r="1.5"/><circle cx="299.6" cy="76.4" r="3.1"/><circle cx="204.1" cy="87.9" r="3.2"/><circle cx="814.1" cy="101.4" r="1.9"/><circle cx="1297.4" cy="96.9" r="2.9"/><circle cx="1072.4" cy="108.9" r="1.1"/><circle cx="303.7" cy="94.4" r="3.1"/><circle cx="1331.4" cy="83.5" r="2.5"/><circle cx="1151.3" cy="114.4" r="2.9"/><circle cx="760.4" cy="85.2" r="2.6"/><circle cx="386.4" cy="77.0" r="3.3"/><circle cx="107.1" cy="110.9" r="3.3"/><circle cx="962.4" cy="75.8" r="3.1"/><circle cx="183.8" cy="115.7" r="2.6"/><circle cx="87.1" cy="88.4" r="2.5"/></svg></div>
     </section>
 
-    <section class="band band--paper">
+    <section class="band">
       <div class="wrap split">
-        <div class="split__side">
-          <p class="eyebrow" data-reveal>Where we are</p>
-        </div>
+        <div class="split__side"><p class="eyebrow" data-anim>Where we are</p></div>
         <div class="prose">
-          <h2 data-reveal>We're at the beginning, and we'd rather say so.</h2>
-          <p data-reveal>
-            There's no client list on this site and no metrics, because there is nothing yet to
-            count. What there is: the technical skill set, time set aside for a small number of
-            first collaborations, and an intention to publish what comes out of them.
-          </p>
-          <p data-reveal>
-            If that's too early for you, that's a fair call. If it isn't — if you have data
-            sitting unanalysed and no one to look at it — this is a good moment to talk, because
-            you'll get our full attention.
-          </p>
-          <p data-reveal><a class="btn btn--solid" href="/vanyax/collaborate/">Read what a collaboration involves <span class="btn__arrow">→</span></a></p>
+          <h2 data-reveal-heading>We're at the beginning, and we'd rather say so.</h2>
+          <p data-anim>There's no client list on this site and no metrics, because there is nothing yet to count. What there is: the technical skill set, time set aside for a small number of first collaborations, and an intention to publish what comes out of them.</p>
+          <p data-anim>If that's too early for you, that's a fair call. If it isn't — if you have data sitting unanalysed and no one to look at it — this is a good moment to talk, because you'll get our full attention.</p>
+          <p data-anim><a class="btn btn--solid" href="/vanyax/collaborate/">Read what a collaboration involves <span class="btn__arrow">→</span></a></p>
         </div>
       </div>
     </section>
 
     <section class="band" id="contact">
       <div class="wrap contact">
-        <p class="eyebrow" data-reveal>Get in touch</p>
-        <h2 data-reveal>Tell us what you're measuring.</h2>
-        <p class="lede" data-reveal>
-          Leave an address and we'll write back — or email
-          <a class="mailto" href="mailto:hello@vanyax.org">hello@vanyax.org</a> directly.
-        </p>
-        <div data-reveal><form class="capture" id="capture" novalidate>
+        <p class="eyebrow" data-anim>Get in touch</p>
+        <h2 data-reveal-heading>Tell us what you're measuring.</h2>
+        <p class="lede" data-anim>Leave an address and we'll write back — or email <a class="mailto" href="mailto:hello@vanyax.org">hello@vanyax.org</a> directly.</p>
+        <div data-anim><form class="capture" id="capture" novalidate>
             <div class="capture__field">
               <input class="capture__input" type="email" id="email" name="email" inputmode="email"
                      autocomplete="email" placeholder="you@organisation.org" aria-label="Email address" required />
@@ -181,6 +177,7 @@
           </form></div>
       </div>
     </section>
+
   </main>
 
   <footer class="site-foot">
@@ -188,10 +185,11 @@
       <div class="site-foot__grid">
         <div>
           <p class="site-foot__etym"><b>van</b> — the forest.<br /><b>yax</b> — the guardian spirits of it.</p>
-          <p class="small muted" style="margin-top:0.9rem;max-width:34ch">Data science and machine learning for biodiversity and ecosystems. Built with the people doing the fieldwork.</p>
+          <p class="small muted" style="margin-top:1rem;max-width:34ch">Data science and machine learning for biodiversity and ecosystems. Built with the people doing the fieldwork.</p>
         </div>
         <div>
           <h4>Pages</h4>
+          <a href="/vanyax/explore/">Explorer</a>
           <a href="/vanyax/collaborate/">Collaborate</a>
           <a href="/vanyax/open-source/">Open source</a>
           <a href="/vanyax/projects/">Projects</a>
@@ -199,7 +197,7 @@
         </div>
         <div>
           <h4>Elsewhere</h4>
-          <!-- TODO: replace these with your real accounts -->
+          <!-- TODO: replace with your real accounts -->
           <a href="#">GitHub</a>
           <a href="#">LinkedIn</a>
           <a href="mailto:hello@vanyax.org">hello@vanyax.org</a>
@@ -207,7 +205,7 @@
       </div>
       <div class="site-foot__bottom">
         <span>© 2026 vanyax</span>
-        <span>No trackers on this site.</span>
+        <span>No trackers on this site</span>
       </div>
     </div>
   </footer>
