@@ -83,11 +83,20 @@ over the hero rather than a drawing of one.
   layer, each naming the data that layer produces. The altitude readout and sky
   colour are driven by scroll position, and altitude is interpolated in log
   space — linear would sit at "700 km" for most of the section and then drop
-  through everything at the end. Without motion it degrades to a plain list.
-- **Header** — three separate rounded capsules (mark, nav, action) rather than
-  one bar. The nav scrolls inside its own capsule, so a long menu never wraps or
-  squeezes the mark. The `van · yax` etymology appears only on About, the page
-  that explains it.
+  through everything at the end. Behind the panels a canvas draws the column
+  being fallen through: the layers as one tall gradient translated by progress,
+  a lit seam where each gives way to the next, and motes that stretch into
+  streaks the faster you scroll. Panels lift and brighten as they reach the
+  middle of the frame. Vertical motion under the horizontal motion, so it reads
+  as a descent rather than a carousel. Without motion it degrades to a plain
+  list.
+- **Header** — Yummygum's arrangement: the mark sits bare on the page, the links
+  are centred, and one filled pill carries the action. The links keep a capsule
+  because the page underneath is dark and photographic and they need a surface
+  to stay legible on, but its padding is equal on all four sides so the active
+  pill nests concentrically inside the capsule's curve instead of fighting it.
+  Below 1020px the nav returns to the flow and scrolls. The `van · yax`
+  etymology appears only on About, the page that explains it.
 - **Motion** — Lenis for scroll and GSAP for everything tied to it, the pairing
   Polpis uses. Headlines split into words and reveal from a mask; anything on
   the first screen animates on load, anything below waits for the scroll;

@@ -316,6 +316,88 @@ function lerpAlt(a, b, t) {
   return gsap.utils.interpolate(a, b, t);
 }
 
+/* The column being fallen through: a tall vertical gradient of the layers,
+   translated by scroll progress, with motes that streak upward as you descend.
+   It runs behind the panels, so the section reads as a descent rather than as
+   a carousel — vertical motion under the horizontal motion. */
+function descentLayers(canvas, state) {
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const BANDS = [
+    ['#050a12', '#08131f'],   // orbit
+    ['#08131f', '#0b2230'],   // air
+    ['#0b2230', '#0d2a1e'],   // canopy
+    ['#0d2a1e', '#0b1c13'],   // trail
+    ['#0b1c13', '#120f0a'],   // floor
+    ['#120f0a', '#1a1109'],   // soil
+  ];
+  let w = 0, h = 0, dpr = 1, column = null, colH = 0, motes = [];
+
+  function bake() {
+    dpr = Math.min(devicePixelRatio || 1, 2);
+    w = canvas.clientWidth; h = canvas.clientHeight;
+    if (!w || !h) return;
+    canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    colH = Math.round(h * 2.4);
+    column = document.createElement('canvas');
+    column.width = Math.round(w * dpr); column.height = Math.round(colH * dpr);
+    const c = column.getContext('2d');
+    c.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    const band = colH / BANDS.length;
+    BANDS.forEach(([from, to], i) => {
+      const g = c.createLinearGradient(0, i * band, 0, (i + 1) * band);
+      g.addColorStop(0, from); g.addColorStop(1, to);
+      c.fillStyle = g;
+      c.fillRect(0, i * band, w, band + 1);
+      if (i) {
+        // a lit seam where one layer gives way to the next
+        c.fillStyle = 'rgba(53, 216, 155, 0.16)';
+        c.fillRect(0, i * band, w, 1);
+      }
+    });
+
+    motes = Array.from({ length: 90 }, () => ({
+      x: Math.random() * w, y: Math.random() * h,
+      r: 0.6 + Math.random() * 1.7, v: 0.15 + Math.random() * 0.5,
+    }));
+  }
+
+  let last = 0;
+  function frame() {
+    if (!column || !w) return;
+    const p = state.progress;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+    ctx.drawImage(column, 0, -p * (colH - h), w, colH);
+
+    // scroll speed turns drifting motes into streaks
+    const speed = Math.min(26, Math.abs(p - last) * 4200);
+    last = p;
+    const tint = p < 0.45 ? '201, 242, 77' : '159, 245, 201';
+    for (const m of motes) {
+      m.y += m.v + speed * 0.5;
+      if (m.y > h + 8) { m.y = -8; m.x = Math.random() * w; }
+      ctx.beginPath();
+      if (speed > 2) {
+        ctx.strokeStyle = `rgba(${tint}, 0.3)`;
+        ctx.lineWidth = m.r * 0.9;
+        ctx.moveTo(m.x, m.y); ctx.lineTo(m.x, m.y - speed * 1.4); ctx.stroke();
+      } else {
+        ctx.fillStyle = `rgba(${tint}, 0.34)`;
+        ctx.arc(m.x, m.y, m.r, 0, Math.PI * 2); ctx.fill();
+      }
+    }
+  }
+
+  bake();
+  gsap.ticker.add(frame);
+  let rt;
+  addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(bake, 200); });
+}
+
 export function strata() {
   const section = document.querySelector('.strata');
   if (!section) return;
@@ -328,6 +410,24 @@ export function strata() {
   const panels = [...section.querySelectorAll('.strata__panel')];
 
   if (reduced || !panels.length) { section.classList.add('is-static'); return; }
+
+  const shared = { progress: 0 };
+  descentLayers(section.querySelector('.strata__layers'), shared);
+
+  // each panel lifts and brightens as it reaches the middle of the frame
+  const setters = panels.map((el) => ({
+    y: gsap.quickSetter(el, 'y', 'px'),
+    o: gsap.quickSetter(el, 'opacity'),
+  }));
+  function settle() {
+    const mid = innerWidth / 2;
+    panels.forEach((el, i) => {
+      const r = el.getBoundingClientRect();
+      const d = Math.min(1, Math.abs((r.left + r.width / 2) - mid) / (innerWidth * 0.72));
+      setters[i].y(d * 34);
+      setters[i].o(1 - d * 0.68);
+    });
+  }
 
   const distance = () => Math.max(0, rail.scrollWidth - innerWidth + 40);
 
@@ -343,6 +443,8 @@ export function strata() {
       invalidateOnRefresh: true,
       onUpdate: (self) => {
         const p = self.progress;
+        shared.progress = p;
+        settle();
         const span = (ALT.length - 1) * p;
         const i = Math.min(ALT.length - 2, Math.floor(span));
         const t = span - i;
