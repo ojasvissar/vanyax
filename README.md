@@ -104,14 +104,6 @@ over the hero rather than a drawing of one.
   going down and returns coming up. Every animated element starts visible in the
   markup and is hidden by JS on the first frame, so a blocked script leaves a
   readable page. `prefers-reduced-motion` turns all of it off.
-- **Atmosphere** — a scroll-progress hairline on the frame; a soft light that
-  follows the pointer and warms to the acid over anything clickable; mono labels
-  that decode into place the way an instrument readout settles; page transitions,
-  because six separate documents otherwise flash white between them; and one live
-  figure on the home page — GBIF's total record count, fetched on load and
-  counted up. It is the only number on the site not written by hand, and it moves
-  between visits. All of it stops under `prefers-reduced-motion`, and links still
-  work if the script never runs.
 - **Graphics** — generated, and captioned as illustrative:
   [tools/gen_map.py](tools/gen_map.py) (survey map),
   [tools/gen_section.py](tools/gen_section.py) (forest cross-section, numbered
