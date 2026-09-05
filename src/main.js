@@ -1,22 +1,22 @@
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import occurrenceSvg from './assets/occurrence.svg?raw';
+import fieldMap from './assets/field-map.svg?raw';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* ── Hero plot ────────────────────────────────
+/* ── Hero map ─────────────────────────────────
    Inlined rather than <img> so the records can be
-   drawn in one by one — the plot fills the way a
-   survey does.                                     */
-function plot() {
-  const host = document.getElementById('plot');
+   drawn in one by one — the map fills the way a
+   survey does — and so it inherits the palette.    */
+function heroMap() {
+  const host = document.getElementById('map');
   if (!host) return;
-  host.innerHTML = occurrenceSvg;
+  host.innerHTML = fieldMap;
   if (reduceMotion) return;
 
-  const dots = host.querySelectorAll('.plot__points circle');
+  const dots = host.querySelectorAll('.map__records circle');
   gsap.from(dots, {
     opacity: 0,
     scale: 0.4,
@@ -26,11 +26,12 @@ function plot() {
     stagger: { each: 0.0035, from: 'random' },
     delay: 0.25,
   });
-  gsap.from(host.querySelectorAll('.plot__transect, .plot__tick, .plot__ring'), {
+  gsap.from(host.querySelectorAll('.map__transect, .map__cap, .map__pill, .map__ring, .map__leader, .map__label'), {
     opacity: 0,
     duration: 0.9,
     ease: 'power2.out',
-    delay: 1.1,
+    stagger: 0.06,
+    delay: 0.9,
   });
 }
 
@@ -143,6 +144,6 @@ function capture() {
 }
 
 /* ── boot ────────────────────────────────────── */
-plot();
+heroMap();
 reveals();
 capture();

@@ -37,9 +37,15 @@
   --rule-ink:   rgba(236, 234, 223, 0.14);
   --rule-paper: rgba(19, 26, 22, 0.16);
 
-  --serif: "Newsreader", Georgia, serif;
-  --sans:  "Inter", system-ui, -apple-system, sans-serif;
-  --mono:  "DM Mono", ui-monospace, monospace;
+  /* Display is a grotesque with real character — set big and tight, it
+     carries a page the way the reference sites do, where a neutral UI
+     face would read as a template. Mono is the instrument voice for
+     labels and numbers. The serif survives in italic only, for the
+     naturalist-record notes: the name, a figure caption's emphasis. */
+  --display: "Bricolage Grotesque", "Inter", system-ui, sans-serif;
+  --sans:    "Inter", system-ui, -apple-system, sans-serif;
+  --mono:    "JetBrains Mono", ui-monospace, monospace;
+  --serif:   "Newsreader", Georgia, serif;
 
   --pad:  clamp(1.15rem, 4vw, 3rem);
   --wrap: 1180px;
@@ -67,23 +73,26 @@ svg, img { display: block; max-width: 100%; }
 .wrap { width: min(var(--wrap), 100%); margin-inline: auto; padding-inline: var(--pad); }
 
 /* ── TYPE ────────────────────────────────────────────── */
-h1, h2, h3, h4 { font-family: var(--serif); font-weight: 400; letter-spacing: -0.018em; line-height: 1.06; }
-h1 { font-size: clamp(2.5rem, 5.6vw, 4.6rem); }
-h2 { font-size: clamp(1.9rem, 3.6vw, 3rem); }
-h3 { font-size: clamp(1.25rem, 2vw, 1.6rem); line-height: 1.2; }
+h1, h2, h3, h4 { font-family: var(--display); font-weight: 600; letter-spacing: -0.03em; line-height: 1.02; }
+h1 { font-size: clamp(2.9rem, 7vw, 6rem); font-weight: 700; letter-spacing: -0.038em; line-height: 0.96; }
+h2 { font-size: clamp(2.1rem, 4.4vw, 3.6rem); }
+h3 { font-size: clamp(1.28rem, 2.1vw, 1.65rem); line-height: 1.16; letter-spacing: -0.022em; }
 h4 { font-size: 1.05rem; }
 em { font-style: italic; }
+/* the one place the old naturalist serif still speaks */
+h1 em, h2 em, .serif-em { font-family: var(--serif); font-weight: 400; font-style: italic; letter-spacing: -0.01em; }
 
 .eyebrow {
   font-family: var(--mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.2em;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--moss-lt);
 }
 .band--paper .eyebrow { color: var(--moss); }
 
-.lede { font-size: clamp(1.08rem, 1.7vw, 1.32rem); line-height: 1.55; color: var(--on-ink-2); max-width: 52ch; }
+.lede { font-size: clamp(1.1rem, 1.75vw, 1.38rem); line-height: 1.5; letter-spacing: -0.012em; color: var(--on-ink-2); max-width: 52ch; }
 .band--paper .lede { color: var(--on-paper-2); }
 .muted { color: var(--on-ink-2); }
 .band--paper .muted { color: var(--on-paper-2); }
@@ -93,8 +102,8 @@ em { font-style: italic; }
 /* ── BUTTONS ─────────────────────────────────────────── */
 .btn {
   display: inline-flex; align-items: center; gap: 0.5rem;
-  font-family: var(--sans); font-size: 0.92rem; font-weight: 500;
-  padding: 0.7rem 1.15rem;
+  font-family: var(--sans); font-size: 0.94rem; font-weight: 600; letter-spacing: -0.012em;
+  padding: 0.78rem 1.25rem;
   border: 1px solid transparent;
   transition: background 0.25s var(--ease), color 0.25s var(--ease),
               border-color 0.25s var(--ease), transform 0.25s var(--ease);
@@ -122,9 +131,9 @@ em { font-style: italic; }
   display: flex; align-items: center; gap: clamp(1rem, 3vw, 2.4rem);
   min-height: 62px;
 }
-.wordmark { display: flex; align-items: baseline; gap: 0.5rem; font-family: var(--serif); font-size: 1.3rem; letter-spacing: -0.01em; }
-.wordmark span { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.16em; color: var(--on-ink-3); text-transform: uppercase; }
-.site-nav { display: flex; gap: clamp(0.9rem, 2vw, 1.7rem); margin-left: auto; font-size: 0.92rem; }
+.wordmark { display: flex; align-items: baseline; gap: 0.5rem; font-family: var(--display); font-weight: 700; font-size: 1.32rem; letter-spacing: -0.035em; }
+.wordmark span { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.16em; color: var(--on-ink-3); text-transform: uppercase; }
+.site-nav { display: flex; gap: clamp(0.9rem, 2vw, 1.7rem); margin-left: auto; font-size: 0.92rem; font-weight: 500; letter-spacing: -0.01em; }
 .site-nav a { color: var(--on-ink-2); padding: 0.2rem 0; border-bottom: 1px solid transparent; transition: color 0.2s var(--ease), border-color 0.2s var(--ease); }
 .site-nav a:hover { color: var(--on-ink); }
 .site-nav a[aria-current="page"] { color: var(--on-ink); border-bottom-color: var(--moss-lt); }
@@ -136,30 +145,47 @@ em { font-style: italic; }
 .band--first { border-top: 0; }
 
 /* ── HERO ────────────────────────────────────────────── */
-.hero { position: relative; overflow: hidden; padding-block: clamp(3rem, 9vh, 6rem) clamp(2rem, 5vh, 4rem); }
+.hero {
+  position: relative; overflow: hidden;
+  min-height: min(88vh, 860px);
+  display: flex; align-items: center;
+  padding-block: clamp(3rem, 9vh, 6rem) clamp(4rem, 10vh, 7rem);
+  /* light coming from where the map is, the way dawn arrives over a valley */
+  background:
+    radial-gradient(90% 70% at 72% 34%, rgba(52, 122, 104, 0.30), transparent 62%),
+    radial-gradient(60% 50% at 8% 92%, rgba(127, 168, 196, 0.12), transparent 70%),
+    var(--ink);
+}
+.hero > .wrap { position: relative; z-index: 2; width: min(var(--wrap), 100%); }
 .hero__in { position: relative; z-index: 2; display: grid; gap: 1.5rem; max-width: 46ch; }
 .hero h1 { max-width: 19ch; }
 .hero__actions { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 0.4rem; }
 
-.hero__plot {
+.hero__map {
   position: absolute; z-index: 1;
-  right: -6%; top: 50%; transform: translateY(-50%);
-  width: min(62%, 860px);
-  opacity: 0.9;
+  right: -4%; top: 50%; transform: translateY(-50%);
+  width: min(58%, 800px);
   pointer-events: none;
-  -webkit-mask-image: radial-gradient(72% 72% at 62% 50%, #000 55%, transparent 100%);
-          mask-image: radial-gradient(72% 72% at 62% 50%, #000 55%, transparent 100%);
+  /* the chart bleeds off the plate rather than sitting in a frame */
+  -webkit-mask-image: linear-gradient(100deg, transparent 2%, #000 22%);
+          mask-image: linear-gradient(100deg, transparent 2%, #000 22%);
 }
-.plot__grid line { stroke: var(--rule-ink); stroke-width: 1; }
-.plot__region { fill: rgba(131, 184, 152, 0.045); stroke: rgba(236, 234, 223, 0.22); stroke-width: 1.2; stroke-dasharray: 5 5; }
-.plot__transect { fill: none; stroke: rgba(236, 234, 223, 0.4); stroke-width: 1.2; stroke-dasharray: 7 6; }
-.plot__tick { stroke: rgba(236, 234, 223, 0.4); stroke-width: 1.2; }
-.plot__ring { fill: none; stroke: var(--sand); stroke-width: 1.2; }
+.map__sea circle { fill: var(--moss-lt); }
+.map__land { fill: rgba(131, 184, 152, 0.10); stroke: rgba(236, 234, 223, 0.38); stroke-width: 1.4; }
+.map__contour { fill: none; stroke: rgba(236, 234, 223, 0.19); stroke-width: 1; stroke-dasharray: 2 6; }
+.map__transect { fill: none; stroke: rgba(236, 234, 223, 0.5); stroke-width: 1.3; stroke-dasharray: 8 7; }
+.map__cap { fill: none; stroke: rgba(236, 234, 223, 0.6); stroke-width: 1.4; }
+.map__ring { fill: none; stroke: var(--sand); stroke-width: 1.3; }
+.map__leader { fill: none; stroke: rgba(236, 234, 223, 0.32); stroke-width: 1; }
+.map__pill rect { fill: var(--ink); stroke: rgba(236, 234, 223, 0.34); stroke-width: 1; }
+.map__label { font-family: var(--mono); font-size: 13px; letter-spacing: 0.08em; fill: var(--on-ink); opacity: 0.75; }
 
 /* the caption that keeps the graphic honest */
 .hero__note {
-  position: relative; z-index: 2;
-  margin-top: clamp(2rem, 6vh, 4rem);
+  position: absolute; z-index: 2; right: var(--pad); bottom: clamp(3.6rem, 9vh, 6rem);
+  max-width: 40ch; text-align: right;
+  background: rgba(14, 20, 17, 0.55); backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px);
+  padding: 0.42rem 0.7rem;
   font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.12em;
   color: var(--on-ink-3); text-transform: uppercase;
 }
@@ -175,7 +201,7 @@ em { font-style: italic; }
 .card { background: var(--ink); padding: clamp(1.3rem, 2.4vw, 1.9rem); display: grid; gap: 0.7rem; align-content: start; }
 .band--paper .card { background: var(--paper); }
 .card .tag { justify-self: start; }
-.card__need { font-family: var(--mono); font-size: 0.74rem; letter-spacing: 0.01em; color: var(--on-ink-3); }
+.card__need { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0; line-height: 1.5; color: var(--on-ink-3); }
 .band--paper .card__need { color: var(--on-paper-3); }
 .card__label { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--on-ink-3); }
 .band--paper .card__label { color: var(--on-paper-3); }
@@ -195,7 +221,7 @@ em { font-style: italic; }
 .band--paper .steps li:last-child { border-bottom-color: var(--rule-paper); }
 .steps li::before {
   content: counter(step, decimal-leading-zero);
-  font-family: var(--mono); font-size: 0.8rem; color: var(--moss-lt); padding-top: 0.35rem;
+  font-family: var(--mono); font-size: 0.82rem; font-weight: 500; color: var(--moss-lt); padding-top: 0.3rem;
 }
 .band--paper .steps li::before { color: var(--moss); }
 .steps h3 { margin-bottom: 0.35rem; }
@@ -277,7 +303,7 @@ em { font-style: italic; }
 .site-foot h4 { font-family: var(--mono); font-size: 0.66rem; font-weight: 400; letter-spacing: 0.16em; text-transform: uppercase; color: var(--on-ink-3); margin-bottom: 0.7rem; }
 .site-foot a { color: var(--on-ink-2); display: block; padding: 0.18rem 0; transition: color 0.2s var(--ease); }
 .site-foot a:hover { color: var(--on-ink); }
-.site-foot__etym { font-family: var(--serif); font-size: 1.15rem; line-height: 1.45; }
+.site-foot__etym { font-family: var(--serif); font-size: 1.22rem; line-height: 1.45; }
 .site-foot__etym b { font-weight: 400; font-style: italic; color: var(--moss-lt); }
 .site-foot__bottom {
   display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
@@ -307,3 +333,158 @@ em { font-style: italic; }
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
   [data-reveal] { opacity: 1 !important; transform: none !important; }
 }
+
+/* ════════════════════════════════════════════════════════
+   SURFACE — texture, washes, torn edges
+
+   Flat colour reads as a template. Everything here exists to
+   make the page feel printed on something: a grain over the
+   whole surface, pale washes bleeding in from the margins of
+   the paper bands, and ragged edges between bands instead of
+   ruled lines — no boundary in this subject is straight.
+   ════════════════════════════════════════════════════════ */
+
+body::after {
+  content: "";
+  position: fixed; inset: 0; z-index: 200;
+  pointer-events: none;
+  opacity: 0.055;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* washes — pigment that ran to the edge of the sheet */
+.band { position: relative; overflow: hidden; }
+.band--paper::before {
+  content: "";
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(40% 30% at -6% 14%, rgba(127, 168, 196, 0.15), transparent 72%),
+    radial-gradient(34% 26% at 106% 86%, rgba(70, 129, 93, 0.11), transparent 74%);
+}
+.band > .wrap { position: relative; z-index: 1; }
+
+/* torn edge between bands */
+.bleed { position: relative; z-index: 3; line-height: 0; margin-bottom: -1px; }
+.bleed svg { display: block; width: 100%; height: clamp(46px, 6vw, 96px); }
+.bleed--paper svg { fill: var(--paper); }
+.bleed--ink svg { fill: var(--ink); }
+.bleed + .band { border-top: 0; }
+.hero .bleed { position: absolute; left: 0; right: 0; bottom: -1px; }
+
+/* ── FIGURE ──────────────────────────────────────────────
+   A plate with its caption and legend, set like a figure in a
+   report: number, one line saying what it shows, then the keys. */
+.figure { display: grid; gap: 1.4rem; }
+.figure__plate {
+  border: 1px solid var(--rule-paper);
+  background: var(--paper-2);
+  overflow: hidden;
+}
+.figure__plate img { width: 100%; display: block; }
+.figure__cap { display: grid; gap: 0.8rem; }
+.figure__cap p { max-width: 62ch; color: var(--on-paper-2); }
+.legend {
+  list-style: none; display: grid; gap: 0.35rem 1.6rem;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  font-family: var(--mono); font-size: 0.74rem; letter-spacing: 0.02em;
+  color: var(--on-paper-2);
+}
+.legend li { display: grid; grid-template-columns: 2.1rem 1fr; }
+.legend b { font-weight: 400; color: var(--moss); }
+
+/* ── SCROLL CUE ──────────────────────────────────────────
+   The hero is tall enough to hide the fold, so it says so. */
+.cue {
+  position: absolute; z-index: 2; right: var(--pad); bottom: clamp(1.6rem, 4vh, 2.6rem);
+  display: grid; justify-items: center; gap: 0.6rem;
+  font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--on-ink-3);
+}
+.cue__line { width: 1px; height: 46px; background: linear-gradient(var(--moss-lt), transparent); }
+.cue__line::after {
+  content: ""; display: block; width: 1px; height: 14px; background: var(--moss-lt);
+  animation: cue 2.4s var(--ease) infinite;
+}
+@keyframes cue { 0% { transform: translateY(0); opacity: 0 } 30% { opacity: 1 } 100% { transform: translateY(32px); opacity: 0 } }
+
+@media (max-width: 900px) {
+  .hero { min-height: 0; display: block; }
+  .hero__map { position: relative; right: auto; top: auto; transform: none; width: 112%; margin: 2.4rem 0 0 -6%;
+    -webkit-mask-image: none; mask-image: none; }
+  .hero__note { position: static; margin-top: 1.4rem; }
+  .cue { display: none; }
+  .hero .bleed { position: relative; bottom: auto; margin-top: 2rem; }
+}
+
+/* first band on the inner pages gets the same light as the hero,
+   so a page never opens as a flat rectangle */
+.band--lit {
+  background:
+    radial-gradient(70% 70% at 78% 10%, rgba(52, 122, 104, 0.22), transparent 64%),
+    radial-gradient(50% 50% at 0% 100%, rgba(127, 168, 196, 0.10), transparent 70%),
+    var(--ink);
+  padding-block: clamp(3.5rem, 11vh, 7rem) clamp(4rem, 9vh, 6rem);
+}
+.bleed--ink { background: var(--paper); }
+.split__full { grid-column: 1 / -1; margin-top: clamp(2rem, 5vh, 3.2rem); }
+.band > .wrap > .figure, .band .split__full .figure { margin-top: clamp(2.5rem, 6vh, 4.5rem); }
+
+/* ════════════════════════════════════════════════════════
+   PHOTOGRAPHY
+
+   The subject is a real place, so the site opens on one. Every
+   photograph gets the same treatment — darkened, desaturated,
+   and tinted toward the moss green — so a page of stock frames
+   still reads as one publication rather than a mood board. Text
+   never sits on an untreated photo: the scrim is part of the
+   component, not a hope.
+   ════════════════════════════════════════════════════════ */
+
+.hero__bg { position: absolute; inset: 0; z-index: 0; background: var(--ink); }
+.hero__bg img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: saturate(0.68) contrast(1.04) brightness(0.78);
+}
+.hero__bg::after {
+  content: ""; position: absolute; inset: 0;
+  background:
+    linear-gradient(100deg, rgba(14, 20, 17, 0.97) 4%, rgba(14, 20, 17, 0.78) 34%, rgba(14, 20, 17, 0.22) 74%),
+    linear-gradient(to bottom, rgba(14, 20, 17, 0.66) 0%, transparent 24%, rgba(14, 20, 17, 0.5) 100%),
+    radial-gradient(70% 60% at 74% 40%, rgba(52, 122, 104, 0.34), transparent 70%);
+}
+.hero { background: var(--ink); }
+.hero__map { mix-blend-mode: screen; opacity: 0.92; }
+
+/* shorter opening for the inner pages — enough to set the place,
+   not so much that it delays the reading */
+.hero--sub .hero__bg img { filter: saturate(0.68) contrast(1.04) brightness(0.9); }
+.hero--sub { min-height: min(56vh, 540px); padding-block: clamp(3.5rem, 10vh, 6rem) clamp(4rem, 9vh, 6rem); }
+.hero--sub .sec-head { margin-bottom: 0; }
+.hero--sub h1 { font-size: clamp(2.4rem, 5.2vw, 4.4rem); }
+.hero--sub .hero__bg::after {
+  background:
+    linear-gradient(100deg, rgba(14, 20, 17, 0.96) 4%, rgba(14, 20, 17, 0.78) 42%, rgba(14, 20, 17, 0.34) 100%),
+    linear-gradient(to bottom, rgba(14, 20, 17, 0.66) 0%, transparent 32%, rgba(14, 20, 17, 0.58) 100%);
+}
+
+/* card photographs — same grade, so the grid holds together */
+.card__img { margin: calc(-1 * clamp(1.3rem, 2.4vw, 1.9rem)) calc(-1 * clamp(1.3rem, 2.4vw, 1.9rem)) 0.4rem; overflow: hidden; }
+.card__img img {
+  width: 100%; aspect-ratio: 16 / 10; object-fit: cover; display: block;
+  filter: saturate(0.7) contrast(1.04) brightness(0.94);
+  transition: transform 0.7s var(--ease);
+}
+.card:hover .card__img img { transform: scale(1.03); }
+
+/* a full-bleed plate between bands: photograph, one line over it */
+.plate { position: relative; overflow: hidden; border-top: 1px solid var(--rule-ink); }
+.plate img { width: 100%; height: clamp(260px, 42vh, 460px); object-fit: cover; filter: saturate(0.6) brightness(0.5); }
+.plate::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(100deg, rgba(14, 20, 17, 0.9) 6%, rgba(14, 20, 17, 0.35) 60%, rgba(14, 20, 17, 0.7) 100%);
+}
+.plate__in { position: absolute; inset: 0; z-index: 2; display: flex; align-items: flex-end; }
+.plate__in .wrap { width: min(var(--wrap), 100%); padding-bottom: clamp(1.6rem, 4vh, 2.6rem); }
+.plate__quote { font-family: var(--display); font-weight: 600; font-size: clamp(1.35rem, 2.6vw, 2.1rem); letter-spacing: -0.03em; line-height: 1.12; max-width: 26ch; }
+.plate__cred { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--on-ink-3); margin-top: 0.7rem; }

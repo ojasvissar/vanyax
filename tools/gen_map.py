@@ -90,15 +90,18 @@ for x, y in ((352, 700), (760, 240)):
 a('<g class="map__pill"><rect x="404" y="546" rx="11" width="86" height="23"/>'
   '<text class="map__label" x="447" y="562" text-anchor="middle">4.2 km</text></g>')
 
-# ── stations, called out to the left ───────────────────────────
-for (sx, sy), lx, ly, label in (
-        ((430, 330), 176, 300, "STATION 01"),
-        ((500, 660), 176, 690, "RECORDER 04"),
-        ((700, 640), 176, 838, "PLOT 12")):
-    a(f'<path class="map__leader" d="M{sx} {sy} L{lx+36} {sy} L{lx+16} {ly}"/>')
+# ── stations: short elbow, label set beside it.
+#    Long leader lines out to the margin get clipped when the map
+#    bleeds off the page, so the callouts stay next to their point.
+for (sx, sy), dx, dy, label in (
+        ((430, 330), 34, -46, "STATION 01"),
+        ((500, 660), 34, 44, "RECORDER 04"),
+        ((700, 640), 34, -52, "PLOT 12")):
+    ex, ey = sx + dx, sy + dy
+    a(f'<path class="map__leader" d="M{sx} {sy} L{ex} {ey} L{ex+46} {ey}"/>')
     a(f'<circle class="map__ring" cx="{sx}" cy="{sy}" r="14"/>')
     a(f'<circle cx="{sx}" cy="{sy}" r="4.5" fill="#D9B65A"/>')
-    a(f'<text class="map__label" x="{lx}" y="{ly+4}" text-anchor="end">{label}</text>')
+    a(f'<text class="map__label" x="{ex+56}" y="{ey+4.5}">{label}</text>')
 
 a('</svg>')
 svg = "".join(o)
