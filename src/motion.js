@@ -294,6 +294,67 @@ export function heroCanvas(canvas) {
   });
 }
 
+/* ══════════════════════════════════════════════════════════
+   The descent: pin, drive sideways, and report altitude.
+   ══════════════════════════════════════════════════════════ */
+const ALT = [700000, 120, 25, 1.5, 0, -0.3];        // metres, one per panel
+const SKY = ['#050a12', '#071620', '#0a2019', '#0a1712', '#0a120e', '#140f09'];
+
+function formatAlt(m) {
+  if (m >= 1000) return `${Math.round(m / 1000).toLocaleString('en-GB')} km`;
+  if (m >= 10) return `${Math.round(m)} m`;
+  if (m > 0.05) return `${m.toFixed(1)} m`;
+  if (m > -0.005) return '0 m';
+  return `${Math.round(m * 100)} cm`;
+}
+
+/* Altitude spans five orders of magnitude, so the big part of the fall is
+   interpolated in log space — otherwise the readout sits at "700 km" for
+   most of the section and then drops through everything at the end. */
+function lerpAlt(a, b, t) {
+  if (a > 0 && b > 0) return Math.exp(gsap.utils.interpolate(Math.log(a), Math.log(b), t));
+  return gsap.utils.interpolate(a, b, t);
+}
+
+export function strata() {
+  const section = document.querySelector('.strata');
+  if (!section) return;
+  const sticky = section.querySelector('.strata__sticky');
+  const rail = section.querySelector('.strata__rail');
+  const sky = section.querySelector('.strata__sky');
+  const value = section.querySelector('[data-alt]');
+  const label = section.querySelector('[data-layer-name]');
+  const bar = section.querySelector('.strata__bar i');
+  const panels = [...section.querySelectorAll('.strata__panel')];
+
+  if (reduced || !panels.length) { section.classList.add('is-static'); return; }
+
+  const distance = () => Math.max(0, rail.scrollWidth - innerWidth + 40);
+
+  gsap.to(rail, {
+    x: () => -distance(),
+    ease: 'none',
+    scrollTrigger: {
+      trigger: section,
+      start: 'top top',
+      end: () => `+=${distance() + innerHeight * 0.5}`,
+      pin: sticky,
+      scrub: 0.6,
+      invalidateOnRefresh: true,
+      onUpdate: (self) => {
+        const p = self.progress;
+        const span = (ALT.length - 1) * p;
+        const i = Math.min(ALT.length - 2, Math.floor(span));
+        const t = span - i;
+        if (value) value.textContent = formatAlt(lerpAlt(ALT[i], ALT[i + 1], t));
+        if (label) label.textContent = panels[Math.round(span)]?.dataset.layer ?? '';
+        if (bar) bar.style.width = `${p * 100}%`;
+        if (sky) sky.style.background = gsap.utils.interpolate(SKY[i], SKY[i + 1], t);
+      },
+    },
+  });
+}
+
 /* ── page intro: a single wipe, then hand over to scroll ──── */
 export function intro() {
   const veil = document.querySelector('.intro');
@@ -314,16 +375,22 @@ export function boot() {
   magnetic();
   counters();
   marquee();
+  strata();
   document.querySelectorAll('[data-reveal-heading]').forEach((el) => revealHeading(el, { trigger: true }));
 
-  // Landing on /#contact: the browser jumps, but Lenis still believes it is at
-  // zero and ScrollTrigger measured against that, so the section arrives blank.
-  // Put Lenis where the hash points, then re-measure.
-  const target = location.hash && document.querySelector(location.hash);
-  if (target && lenis) lenis.scrollTo(target, { immediate: true, offset: -70 });
-
   const refresh = () => ScrollTrigger.refresh();
+
+  // Deep links: the browser has already jumped by the time this runs, so the
+  // job is only to re-measure — pinning inserts a spacer that changes the
+  // document height, and anything measured before that is wrong. Scrolling
+  // again here just fights the jump that already happened.
   requestAnimationFrame(refresh);
-  addEventListener('load', refresh);
   document.fonts?.ready.then(refresh);
+  addEventListener('load', () => {
+    refresh();
+    // ScrollTrigger.refresh() restores the scroll position it had before
+    // measuring, so the re-seat has to come last or it is immediately undone.
+    const target = location.hash && document.querySelector(location.hash);
+    if (target) requestAnimationFrame(() => target.scrollIntoView());
+  });
 }

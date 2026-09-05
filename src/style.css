@@ -41,6 +41,11 @@
   --line-2: rgba(232, 242, 236, 0.22);
   --line-bone: rgba(10, 23, 18, 0.13);
 
+  /* Four voices, each with one job. The logotype is a different face from
+     everything else on the page — the Wealthsimple trick: a refined serif
+     wordmark over a clean sans interface, so the name reads as a mark
+     rather than as a line of UI text. */
+  --logo:    "Instrument Serif", Georgia, serif;
   --display: "Geist", system-ui, -apple-system, sans-serif;
   --sans:    "Geist", system-ui, -apple-system, sans-serif;
   --mono:    "Geist Mono", ui-monospace, SFMono-Regular, monospace;
@@ -75,9 +80,9 @@ body {
   background: var(--void);
   color: var(--text);
   font-family: var(--sans);
-  font-size: 16.5px;
+  font-size: 16px;
   font-weight: 400;
-  line-height: 1.6;
+  line-height: 1.62;
   letter-spacing: -0.011em;
   -webkit-font-smoothing: antialiased;
   overflow-x: clip;
@@ -113,20 +118,20 @@ body::after {
    Geist, light and huge for display; the mono carries every label,
    status and number, tracked wide. */
 h1, h2, h3, h4 { font-family: var(--display); font-weight: 500; letter-spacing: -0.032em; line-height: 1.02; }
-h1 { font-size: clamp(2.9rem, 7.4vw, 6.6rem); font-weight: 400; letter-spacing: -0.042em; line-height: 0.94; }
-h2 { font-size: clamp(2rem, 4.6vw, 3.9rem); font-weight: 400; letter-spacing: -0.038em; line-height: 0.98; }
-h3 { font-size: clamp(1.2rem, 1.9vw, 1.5rem); font-weight: 500; letter-spacing: -0.024em; line-height: 1.16; }
+h1 { font-size: clamp(2.6rem, 6.6vw, 5.8rem); font-weight: 400; letter-spacing: -0.042em; line-height: 0.95; }
+h2 { font-size: clamp(1.85rem, 4vw, 3.2rem); font-weight: 400; letter-spacing: -0.036em; line-height: 1.0; }
+h3 { font-size: clamp(1.12rem, 1.7vw, 1.38rem); font-weight: 500; letter-spacing: -0.022em; line-height: 1.2; }
 h4 { font-size: 1rem; font-weight: 500; }
 
 .eyebrow, .mono {
   font-family: var(--mono); font-weight: 400;
-  font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase;
+  font-size: 0.66rem; letter-spacing: 0.16em; text-transform: uppercase;
 }
 .eyebrow { color: var(--bio-3); }
 .band--bone .eyebrow, .band--paper .eyebrow { color: #0f7d61; }
 
 .lede {
-  font-size: clamp(1.02rem, 1.4vw, 1.2rem); line-height: 1.5;
+  font-size: clamp(1rem, 1.25vw, 1.14rem); line-height: 1.55;
   color: var(--text-2); max-width: 46ch; letter-spacing: -0.014em;
 }
 .band--bone .lede, .band--paper .lede { color: var(--on-bone-2); }
@@ -154,41 +159,60 @@ h4 { font-size: 1rem; font-weight: 500; }
 .btn__arrow { transition: transform 0.35s var(--ease); }
 .btn:hover .btn__arrow { transform: translateX(4px); }
 
-/* ── header ──────────────────────────────────────────────── */
+/* ── header ──────────────────────────────────────────────────
+   Three separate rounded capsules rather than one bar: mark, nav,
+   action. The nav scrolls inside its own capsule, so a long menu
+   never wraps or squeezes the mark. */
 .site-head {
-  position: fixed; top: var(--gutter); left: var(--gutter); right: var(--gutter); z-index: 100;
-  border-bottom: 1px solid var(--line);
-  border-radius: var(--r-lg) var(--r-lg) 0 0;
-  background: rgba(6, 16, 12, 0.72);
-  -webkit-backdrop-filter: blur(14px) saturate(1.2);
-  backdrop-filter: blur(14px) saturate(1.2);
-  transition: transform 0.5s var(--ease), background 0.4s var(--ease);
+  position: fixed; z-index: 100;
+  top: calc(var(--gutter) + 10px); left: calc(var(--gutter) + 10px); right: calc(var(--gutter) + 10px);
+  transition: transform 0.55s var(--ease), opacity 0.4s var(--ease);
 }
-.site-head.is-hidden { transform: translateY(calc(-100% - var(--gutter))); }
+.site-head.is-hidden { transform: translateY(calc(-100% - var(--gutter) - 22px)); opacity: 0; }
 .site-head__in {
-  display: flex; align-items: center; gap: clamp(0.8rem, 2vw, 2rem);
-  min-height: 58px; padding-inline: clamp(0.9rem, 2.4vw, 1.6rem);
+  display: flex; align-items: center; gap: 10px;
   width: min(var(--wrap), 100%); margin-inline: auto;
 }
-.wordmark {
-  display: flex; align-items: baseline; gap: 0.5rem;
-  font-family: var(--display); font-weight: 500; font-size: 1.12rem; letter-spacing: -0.04em;
+
+.capsule {
+  background: rgba(10, 23, 18, 0.62);
+  border: 1px solid var(--line);
+  border-radius: var(--pill);
+  -webkit-backdrop-filter: blur(16px) saturate(1.3);
+  backdrop-filter: blur(16px) saturate(1.3);
 }
-.wordmark span { font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.18em; color: var(--text-3); text-transform: uppercase; }
-.site-nav { display: flex; align-items: center; gap: clamp(0.7rem, 1.8vw, 1.5rem); margin-left: auto; }
-.site-nav a {
-  font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.13em; text-transform: uppercase;
-  color: var(--text-2); padding: 0.4rem 0; position: relative;
+
+.wordmark {
+  display: inline-flex; align-items: baseline; gap: 0.45rem;
+  padding: 0.44rem 1.05rem 0.5rem;
+  font-family: var(--logo); font-weight: 400; font-size: 1.42rem;
+  letter-spacing: -0.008em; line-height: 1; white-space: nowrap;
   transition: color 0.3s var(--ease);
 }
-.site-nav a::after {
-  content: ""; position: absolute; left: 0; right: 100%; bottom: 0; height: 1px;
-  background: var(--acid); transition: right 0.4s var(--ease);
+.wordmark:hover { color: var(--bio-4); }
+.wordmark span {
+  font-family: var(--mono); font-size: 0.54rem; letter-spacing: 0.2em;
+  color: var(--text-3); text-transform: uppercase; transform: translateY(-1px);
 }
-.site-nav a:hover { color: var(--text); }
-.site-nav a:hover::after, .site-nav a[aria-current="page"]::after { right: 0; }
-.site-nav a[aria-current="page"] { color: var(--text); }
-.site-head .btn { padding: 0.5rem 0.95rem; font-size: 0.82rem; margin-left: 0.4rem; }
+
+.site-nav {
+  display: flex; min-width: 0; margin-left: auto;
+  padding: 0.3rem 0.4rem;
+  overflow-x: auto; overscroll-behavior-x: contain;
+  scrollbar-width: none; -ms-overflow-style: none;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 14px, #000 calc(100% - 14px), transparent 100%);
+          mask-image: linear-gradient(90deg, transparent 0, #000 14px, #000 calc(100% - 14px), transparent 100%);
+}
+.site-nav::-webkit-scrollbar { display: none; }
+.site-nav a {
+  position: relative; flex: 0 0 auto;
+  font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-2); padding: 0.42rem 0.72rem; border-radius: var(--pill);
+  transition: color 0.3s var(--ease), background 0.3s var(--ease);
+}
+.site-nav a:hover { color: var(--text); background: rgba(232, 242, 236, 0.06); }
+.site-nav a[aria-current="page"] { color: var(--acid-ink); background: var(--acid); }
+.site-head .btn { flex: 0 0 auto; padding: 0.55rem 1rem; font-size: 0.82rem; }
 
 /* ── bands ───────────────────────────────────────────────── */
 .band { position: relative; padding-block: clamp(4rem, 11vh, 8rem); }
@@ -197,7 +221,7 @@ h4 { font-size: 1rem; font-weight: 500; }
   border-radius: var(--r-lg); margin-inline: var(--gutter);
 }
 .band--tight { padding-block: clamp(2.4rem, 6vh, 4rem); }
-.band--first { padding-top: calc(58px + clamp(3rem, 8vh, 6rem)); }
+.band--first { padding-top: calc(76px + clamp(3rem, 8vh, 6rem)); }
 
 /* ── hero ────────────────────────────────────────────────────
    Polpis composition: the phenomenon fills the frame, the headline
@@ -391,10 +415,13 @@ h4 { font-size: 1rem; font-weight: 500; }
   .hero h1 { max-width: 100%; }
   .site-foot__grid { grid-template-columns: 1fr 1fr; }
 }
+@media (max-width: 760px) {
+  .site-head .btn .btn__label { display: none; }
+  .site-head .btn { padding: 0.55rem 0.8rem; }
+}
 @media (max-width: 620px) {
-  .site-nav { gap: 0.7rem; overflow-x: auto; scrollbar-width: none; }
-  .site-nav::-webkit-scrollbar { display: none; }
-  .site-head .btn { display: none; }
+  .wordmark { font-size: 1.26rem; padding-inline: 0.85rem; }
+  .wordmark span { display: none; }
   .site-foot__grid { grid-template-columns: 1fr; }
   .steps li { grid-template-columns: 2.2rem 1fr; gap: 0.9rem; }
 }
@@ -437,7 +464,7 @@ h4 { font-size: 1rem; font-weight: 500; }
 .hero--sub {
   position: relative; display: flex; align-items: flex-end;
   min-height: min(64vh, 640px);
-  padding-block: calc(58px + clamp(2.5rem, 7vh, 5rem)) clamp(2.5rem, 7vh, 4.5rem);
+  padding-block: calc(76px + clamp(2.5rem, 7vh, 5rem)) clamp(2.5rem, 7vh, 4.5rem);
   border-radius: var(--r-lg); overflow: hidden; isolation: isolate;
   margin-inline: var(--gutter);
 }
@@ -452,3 +479,68 @@ h4 { font-size: 1rem; font-weight: 500; }
 .hero--sub .wrap { position: relative; z-index: 2; }
 .hero--sub .sec-head { margin-bottom: 0; max-width: 62ch; }
 .hero--sub h1 { font-size: clamp(2.4rem, 5.6vw, 4.8rem); }
+
+/* ════════════════════════════════════════════════════════════
+   THE DESCENT
+
+   Polpis pins a section and drives you sideways while you drill
+   deeper into the earth. The same mechanic here goes the other
+   way through the thing we actually measure: down from orbit to
+   the soil, one panel per layer, each naming the data that layer
+   produces and what it costs to read. The sky colour and the
+   altitude readout are driven by scroll position, so the section
+   is a descent rather than a carousel.
+   ════════════════════════════════════════════════════════════ */
+.strata { position: relative; background: var(--void); padding-inline: var(--gutter); }
+.strata__sticky {
+  position: relative; height: 100svh; overflow: hidden;
+  border-radius: var(--r-lg);
+}
+.strata__sky { position: absolute; inset: 0; z-index: 0; background: #050a12; transition: none; }
+.strata__sky::after {
+  content: ""; position: absolute; inset: 0;
+  background: radial-gradient(120% 70% at 50% 108%, rgba(6, 16, 12, 0.85), transparent 62%);
+}
+.strata__rail {
+  position: absolute; inset: 0; z-index: 2;
+  display: flex; align-items: center; gap: clamp(2.5rem, 7vw, 8rem);
+  padding-inline: clamp(1.4rem, 9vw, 11rem);
+  will-change: transform;
+}
+.strata__panel { flex: 0 0 min(28rem, 76vw); display: grid; gap: 0.85rem; align-content: center; }
+.strata__alt {
+  font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--bio-3);
+  display: flex; align-items: center; gap: 0.6rem;
+}
+.strata__alt::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, var(--line-2), transparent); }
+.strata__panel h3 { font-size: clamp(1.6rem, 2.8vw, 2.4rem); font-weight: 400; letter-spacing: -0.035em; line-height: 1.05; }
+.strata__panel p { color: var(--text-2); font-size: 0.98rem; max-width: 34ch; }
+.strata__panel .tag { justify-self: start; margin-top: 0.3rem; }
+
+.strata__edge { position: absolute; top: 0; bottom: 0; width: clamp(2rem, 9vw, 9rem); z-index: 3; pointer-events: none; }
+.strata__edge.is-left { left: 0; background: linear-gradient(90deg, rgba(6, 16, 12, 0.85), transparent); }
+.strata__edge.is-right { right: 0; background: linear-gradient(270deg, rgba(6, 16, 12, 0.85), transparent); }
+
+/* the instrument readout: altitude, and how far down the section you are */
+.strata__hud {
+  position: absolute; z-index: 4; left: 0; right: 0; bottom: 0;
+  padding: clamp(1rem, 3vw, 2rem) clamp(1.4rem, 5vw, 3.4rem);
+  display: flex; align-items: flex-end; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap;
+}
+.strata__read { display: grid; gap: 0.3rem; }
+.strata__read span { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-3); }
+.strata__read b { font-family: var(--display); font-weight: 400; font-size: clamp(2rem, 4.4vw, 3.4rem); letter-spacing: -0.04em; line-height: 1; font-variant-numeric: tabular-nums; }
+.strata__bar { flex: 1 1 12rem; max-width: 26rem; height: 2px; background: var(--line); border-radius: 2px; overflow: hidden; }
+.strata__bar i { display: block; height: 100%; width: 0%; background: var(--acid); }
+.strata__label { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-3); }
+
+/* without the pin, it is simply a list — no motion required to read it */
+.strata.is-static .strata__sticky { height: auto; padding-block: clamp(3rem, 8vh, 5rem); }
+.strata.is-static .strata__rail { position: static; flex-direction: column; align-items: flex-start; gap: 2.6rem; }
+.strata.is-static .strata__panel { flex: none; }
+.strata.is-static .strata__hud, .strata.is-static .strata__edge { display: none; }
+@media (max-width: 620px) {
+  .strata__panel h3 { font-size: 1.5rem; }
+  .strata__read b { font-size: 1.8rem; }
+}

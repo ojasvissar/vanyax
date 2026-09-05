@@ -71,9 +71,23 @@ over the hero rather than a drawing of one.
 - **Colour** — a green-black ground, one acid (`#c9f24d`) reserved for anything
   you can click, and a bio-green ramp (`#0b3b33 → #9ff5c9`) for the living band
   and for data. One light surface, "bone", for the sections that need to breathe.
-- **Type** — Geist for everything read, Geist Mono for everything the machine
-  produced: labels, statuses, counts, the hero note. Solidroad uses Geist Mono
-  for the same job.
+- **Type** — four voices, each with one job. The logotype is Instrument Serif,
+  a different face from everything else on the page: the Wealthsimple trick of a
+  refined serif wordmark over a clean sans interface, so the name reads as a
+  mark rather than as a line of UI text. Geist for everything read, Geist Mono
+  for everything the machine produced — labels, statuses, counts, the hero note.
+  Solidroad uses Geist Mono for the same job.
+- **The descent** — Polpis pins a section and drives you sideways while drilling
+  into the earth. The same mechanic here goes the other way through what we
+  actually measure: orbit → air → canopy → trail → floor → soil, one panel per
+  layer, each naming the data that layer produces. The altitude readout and sky
+  colour are driven by scroll position, and altitude is interpolated in log
+  space — linear would sit at "700 km" for most of the section and then drop
+  through everything at the end. Without motion it degrades to a plain list.
+- **Header** — three separate rounded capsules (mark, nav, action) rather than
+  one bar. The nav scrolls inside its own capsule, so a long menu never wraps or
+  squeezes the mark. The `van · yax` etymology appears only on About, the page
+  that explains it.
 - **Motion** — Lenis for scroll and GSAP for everything tied to it, the pairing
   Polpis uses. Headlines split into words and reveal from a mask; anything on
   the first screen animates on load, anything below waits for the scroll;
