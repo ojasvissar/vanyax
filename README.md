@@ -126,9 +126,8 @@ over the hero rather than a drawing of one.
   markup and is hidden by JS on the first frame, so a blocked script leaves a
   readable page. `prefers-reduced-motion` turns all of it off.
 - **Graphics** — generated, and captioned as illustrative:
-  [tools/gen_map.py](tools/gen_map.py) (survey map),
   [tools/gen_section.py](tools/gen_section.py) (forest cross-section, numbered
-  where data is collected). Regenerate with `python3 tools/gen_*.py`.
+  where data is collected). Regenerate with `python3 tools/gen_section.py`.
 
 ## Photographs
 
@@ -140,7 +139,7 @@ larger crops:
 
 | File | Unsplash photo ID |
 | --- | --- |
-| `canopy-aerial.jpg`, `card-aerial.jpg` | `1476231682828-37e571bc172f` |
+| `card-aerial.jpg` | `1476231682828-37e571bc172f` |
 | `forest-mist.jpg`, `card-mist.jpg` | `1448375240586-882707db888b` |
 | `ridges.jpg` | `1500534314209-a25ddb2bd429` |
 | `conifers-fog.jpg` | `1418065460487-3e41a6c84dc5` |
