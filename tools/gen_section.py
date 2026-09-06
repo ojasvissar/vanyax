@@ -177,5 +177,5 @@ a(f'<rect width="{W}" height="{H}" fill="url(#grain)" opacity="0.5"/>')
 a('</svg>')
 
 svg = "".join(o)
-open("src/assets/cross-section.svg", "w").write(svg)
+open("src/assets/generated/cross-section.svg", "w").write(svg)
 print("cross-section", round(len(svg)/1024, 1), "KB")

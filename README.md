@@ -52,7 +52,7 @@ public APIs from the browser, so it deploys to GitHub Pages unchanged.
 
 Adding a preset species: find its key with
 `api.gbif.org/v1/species/match?name=Genus+species` and add it to `PRESETS` in
-[src/explore.js](src/explore.js).
+[src/scripts/explore.js](src/scripts/explore.js).
 
 ## Two interactive pieces
 
@@ -173,4 +173,4 @@ Pushing to `main` deploys to GitHub Pages via `.github/workflows/deploy.yml`.
 - Fill in the GitHub and LinkedIn links in the footer.
 - Replace the placeholder bio on `about/` (marked with a `TODO` comment).
 - Wire the email form: set `GOOGLE_FORM.formId` and `GOOGLE_FORM.emailEntry` in
-  [src/main.js](src/main.js). Until then it confirms locally without sending.
+  [src/scripts/main.js](src/scripts/main.js). Until then it confirms locally without sending.
