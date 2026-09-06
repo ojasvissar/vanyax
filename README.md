@@ -9,14 +9,14 @@ Live: [ojasvissar.github.io/vanyax](https://ojasvissar.github.io/vanyax/)
 
 ## Pages
 
-| Page | What it says |
-| --- | --- |
-| `index.html` | What vanyax does: analysis for people with data, models for people with a question, open publication, own projects |
-| `collaborate/` | What to send, what happens, and how data is handled |
-| `open-source/` | What will be published and on what terms — honest that nothing is out yet |
-| `projects/` | Own work with real statuses (building / exploring / planned) and what each one needs |
-| `about/` | The name, why the practice exists, how it works, who runs it |
-| `explore/` | **The species explorer** — a working tool, not a description of one |
+| Page | Source | What it says |
+| --- | --- | --- |
+| `/` | `src/index.html` | What vanyax does: analysis for people with data, models for people with a question, open publication, own projects |
+| `/collaborate/` | `src/collaborate/index.html` | What to send, what happens, and how data is handled |
+| `/open-source/` | `src/open-source/index.html` | What will be published and on what terms — honest that nothing is out yet |
+| `/projects/` | `src/projects/index.html` | Own work with real statuses (building / exploring / planned) and what each one needs |
+| `/about/` | `src/about/index.html` | The name, why the practice exists, how it works, who runs it |
+| `/explore/` | `src/explore/index.html` | **The species explorer** — a working tool, not a description of one |
 
 Nothing on the site claims work that hasn't happened. Keep it that way: add
 case studies and numbers when they exist, not before.
@@ -152,9 +152,24 @@ gets noticed. Unsplash, Pexels and Wikimedia Commons are all safe sources.
 
 ## Stack
 
-- [Vite](https://vitejs.dev/) — multi-page build (`vite.config.js` lists each entry)
+- [Vite](https://vitejs.dev/) — multi-page build, rooted at `src/` (`vite.config.js` lists each entry)
 - [GSAP](https://gsap.com/) + ScrollTrigger — reveals and the plot draw-in
 - Newsreader / Inter / DM Mono via Google Fonts
+
+## Layout
+
+```
+src/
+  index.html  about/  collaborate/  explore/  open-source/  projects/
+  scripts/    main.js, motion.js, survey.js, explore.js
+  styles/     style.css, explore.css
+  assets/     photos/ (Unsplash), generated/ (tool output), screenshots/
+tools/        gen_section.py
+```
+
+`src/` is the Vite root, so a page's path inside it is its URL: the file
+`src/about/index.html` is served at `/about/`. Moving a page directory moves
+the live URL with it.
 
 ## Develop
 
